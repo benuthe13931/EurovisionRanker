@@ -42,8 +42,10 @@ async function rpc<T>(name: string, args: Record<string, unknown>) {
   if (error) {
     const rawError = [error.code, error.message, error.details].filter(Boolean).join(" | ");
     const missingFunction =
+      error.code === "42883" ||
       error.code === "PGRST202" ||
       error.message.includes("Could not find the function") ||
+      error.message.includes("function") ||
       error.message.includes("schema cache");
 
     if (missingFunction) {

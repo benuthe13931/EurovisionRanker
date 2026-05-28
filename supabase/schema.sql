@@ -62,6 +62,18 @@ BEGIN
 END;
 $$;
 
+DROP FUNCTION IF EXISTS public.ranker_setup_status();
+DROP FUNCTION IF EXISTS public.signup_profile(text, text, text);
+DROP FUNCTION IF EXISTS public.login_profile(text, text);
+DROP FUNCTION IF EXISTS public.get_ranking(uuid, text);
+DROP FUNCTION IF EXISTS public.save_ranking(uuid, text, text[]);
+DROP FUNCTION IF EXISTS public.clear_ranking(uuid, text);
+DROP FUNCTION IF EXISTS public.get_favorites(uuid);
+DROP FUNCTION IF EXISTS public.save_favorites(uuid, text[]);
+DROP FUNCTION IF EXISTS public.get_comparison(text, uuid);
+DROP FUNCTION IF EXISTS public.save_comparison(text, uuid, jsonb);
+DROP FUNCTION IF EXISTS public.clear_comparison(text, uuid);
+
 DROP TRIGGER IF EXISTS profiles_touch_updated_at ON public.profiles;
 CREATE TRIGGER profiles_touch_updated_at
 BEFORE UPDATE ON public.profiles
@@ -148,8 +160,6 @@ BEGIN
 END;
 $$;
 
-DROP FUNCTION IF EXISTS public.signup_profile(text, text, text);
-
 -- RPC called by the frontend:
 -- supabase.rpc("signup_profile", { p_name, p_username, p_password })
 -- Supabase/PostgREST may display this as public.signup_profile(p_name, p_password, p_username).
@@ -202,8 +212,6 @@ BEGIN
   );
 END;
 $$;
-
-DROP FUNCTION IF EXISTS public.login_profile(text, text);
 
 CREATE OR REPLACE FUNCTION public.login_profile(
   p_password text,
@@ -424,4 +432,4 @@ GRANT EXECUTE ON FUNCTION public.save_comparison(text, uuid, jsonb) TO anon, aut
 GRANT EXECUTE ON FUNCTION public.clear_comparison(text, uuid) TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.ranker_setup_status() TO anon, authenticated;
 
-NOTIFY pgrst, 'reload schema';
+SELECT pg_notify('pgrst', 'reload schema');
