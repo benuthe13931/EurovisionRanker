@@ -10,7 +10,7 @@
       "countryCode": "SI",
       "artist": "Klemen",
       "title": "How Much Time Do We Have Left",
-      "audioPreviewUrl": "/assets/audio/2025/slovenia.mp3",
+      "previewVideoUrl": "/assets/video/2025/slovenia.mp4",
       "flagEmoji": "🇸🇮",
       "imageUrl": "/assets/images/2025/2025-slovenia.jpg.webp",
       "flagImageUrl": "/assets/flags/slovenia.png.webp"
@@ -21,7 +21,7 @@
       "countryCode": "AL",
       "artist": "Shkodra Elektronike",
       "title": "Zjerm",
-      "audioPreviewUrl": "/assets/audio/2025/albania.mp3",
+      "previewVideoUrl": "/assets/video/2025/albania.mp4",
       "flagEmoji": "🇦🇱",
       "imageUrl": "/assets/images/2025/2025-albania.jpg.webp",
       "flagImageUrl": "/assets/flags/albania.png.webp"
@@ -32,7 +32,7 @@
       "countryCode": "MT",
       "artist": "Miriana Conte",
       "title": "Serving",
-      "audioPreviewUrl": "/assets/audio/2025/malta.mp3",
+      "previewVideoUrl": "/assets/video/2025/malta.mp4",
       "flagEmoji": "🇲🇹",
       "imageUrl": "/assets/images/2025/2025-malta.jpg.webp",
       "flagImageUrl": "/assets/flags/malta.png.webp"
@@ -43,7 +43,7 @@
       "countryCode": "LU",
       "artist": "Laura Thorn",
       "title": "La poupée monte le son",
-      "audioPreviewUrl": "/assets/audio/2025/luxembourg.mp3",
+      "previewVideoUrl": "/assets/video/2025/luxembourg.mp4",
       "flagEmoji": "🇱🇺",
       "imageUrl": "/assets/images/2025/2025-luxembourg.jpg.webp",
       "flagImageUrl": "/assets/flags/luxembourg.png.webp"
@@ -54,7 +54,7 @@
       "countryCode": "IL",
       "artist": "Yuval Raphael",
       "title": "New Day Will Rise",
-      "audioPreviewUrl": "/assets/audio/2025/israel.mp3",
+      "previewVideoUrl": "/assets/video/2025/israel.mp4",
       "flagEmoji": "🇮🇱",
       "imageUrl": "/assets/images/2025/2025-israel.jpg.webp",
       "flagImageUrl": "/assets/flags/israel.png.webp"
@@ -65,7 +65,7 @@
       "countryCode": "NL",
       "artist": "Claude",
       "title": "C'est la vie",
-      "audioPreviewUrl": "/assets/audio/2025/netherlands.mp3",
+      "previewVideoUrl": "/assets/video/2025/netherlands.mp4",
       "flagEmoji": "🇳🇱",
       "imageUrl": "/assets/images/2025/2025-netherlands.jpg.webp",
       "flagImageUrl": "/assets/flags/netherlands.png.webp"
@@ -76,7 +76,7 @@
       "countryCode": "AT",
       "artist": "JJ",
       "title": "Wasted Love",
-      "audioPreviewUrl": "/assets/audio/2025/austria.mp3",
+      "previewVideoUrl": "/assets/video/2025/austria.mp4",
       "flagEmoji": "🇦🇹",
       "imageUrl": "/assets/images/2025/2025-austria.jpg.webp",
       "flagImageUrl": "/assets/flags/austria.png.webp"
@@ -87,7 +87,7 @@
       "countryCode": "SM",
       "artist": "Gabry Ponte",
       "title": "Tutta l'Italia",
-      "audioPreviewUrl": "/assets/audio/2025/san-marino.mp3",
+      "previewVideoUrl": "/assets/video/2025/san-marino.mp4",
       "flagEmoji": "🇸🇲",
       "imageUrl": "/assets/images/2025/2025-san-marino.jpg.webp",
       "flagImageUrl": "/assets/flags/san-marino.png.webp"
@@ -98,7 +98,7 @@
       "countryCode": "DE",
       "artist": "Abor & Tynna",
       "title": "Baller",
-      "audioPreviewUrl": "/assets/audio/2025/germany.mp3",
+      "previewVideoUrl": "/assets/video/2025/germany.mp4",
       "flagEmoji": "🇩🇪",
       "imageUrl": "/assets/images/2025/2025-germany.jpg.webp",
       "flagImageUrl": "/assets/flags/germany.png.webp"
@@ -109,7 +109,7 @@
       "countryCode": "DK",
       "artist": "Sissal",
       "title": "Hallucination",
-      "audioPreviewUrl": "/assets/audio/2025/denmark.mp3",
+      "previewVideoUrl": "/assets/video/2025/denmark.mp4",
       "flagEmoji": "🇩🇰",
       "imageUrl": "/assets/images/2025/2025-denmark.jpg.webp",
       "flagImageUrl": "/assets/flags/denmark.png.webp"
@@ -120,7 +120,7 @@
       "countryCode": "ES",
       "artist": "Melody",
       "title": "Esa diva",
-      "audioPreviewUrl": "/assets/audio/2025/spain.mp3",
+      "previewVideoUrl": "/assets/video/2025/spain.mp4",
       "flagEmoji": "🇪🇸",
       "imageUrl": "/assets/images/2025/2025-spain.jpg.webp",
       "flagImageUrl": "/assets/flags/spain.png.webp"
@@ -131,7 +131,7 @@
       "countryCode": "FI",
       "artist": "Erika Vikman",
       "title": "Ich komme",
-      "audioPreviewUrl": "/assets/audio/2025/finland.mp3",
+      "previewVideoUrl": "/assets/video/2025/finland.mp4",
       "flagEmoji": "🇫🇮",
       "imageUrl": "/assets/images/2025/2025-finland.jpg.webp",
       "flagImageUrl": "/assets/flags/finland.png.webp"
@@ -142,7 +142,7 @@
       "countryCode": "LV",
       "artist": "Tautumeitas",
       "title": "Bur man laimi",
-      "audioPreviewUrl": "/assets/audio/2025/latvia.mp3",
+      "previewVideoUrl": "/assets/video/2025/latvia.mp4",
       "flagEmoji": "🇱🇻",
       "imageUrl": "/assets/images/2025/2025-latvia.jpg.webp",
       "flagImageUrl": "/assets/flags/latvia.png.webp"
@@ -153,7 +153,7 @@
       "countryCode": "RS",
       "artist": "Princ",
       "title": "Mila",
-      "audioPreviewUrl": "/assets/audio/2025/serbia.mp3",
+      "previewVideoUrl": "/assets/video/2025/serbia.mp4",
       "flagEmoji": "🇷🇸",
       "imageUrl": "/assets/images/2025/2025-serbia.jpg.webp",
       "flagImageUrl": "/assets/flags/serbia.png.webp"
@@ -164,7 +164,7 @@
       "countryCode": "AM",
       "artist": "Parg",
       "title": "Survivor",
-      "audioPreviewUrl": "/assets/audio/2025/armenia.mp3",
+      "previewVideoUrl": "/assets/video/2025/armenia.mp4",
       "flagEmoji": "🇦🇲",
       "imageUrl": "/assets/images/2025/2025-armenia.jpg.webp",
       "flagImageUrl": "/assets/flags/armenia.png.webp"
@@ -175,7 +175,7 @@
       "countryCode": "GR",
       "artist": "Klavdia",
       "title": "Asteromata",
-      "audioPreviewUrl": "/assets/audio/2025/greece.mp3",
+      "previewVideoUrl": "/assets/video/2025/greece.mp4",
       "flagEmoji": "🇬🇷",
       "imageUrl": "/assets/images/2025/2025-greece.jpg.webp",
       "flagImageUrl": "/assets/flags/greece.png.webp"
@@ -186,7 +186,7 @@
       "countryCode": "NO",
       "artist": "Kyle Alessandro",
       "title": "Lighter",
-      "audioPreviewUrl": "/assets/audio/2025/norway.mp3",
+      "previewVideoUrl": "/assets/video/2025/norway.mp4",
       "flagEmoji": "🇳🇴",
       "imageUrl": "/assets/images/2025/2025-norway.jpg.webp",
       "flagImageUrl": "/assets/flags/norway.png.webp"
@@ -197,7 +197,7 @@
       "countryCode": "CH",
       "artist": "Zoë Më",
       "title": "Voyage",
-      "audioPreviewUrl": "/assets/audio/2025/switzerland.mp3",
+      "previewVideoUrl": "/assets/video/2025/switzerland.mp4",
       "flagEmoji": "🇨🇭",
       "imageUrl": "/assets/images/2025/2025-switzerland.jpg.webp",
       "flagImageUrl": "/assets/flags/switzerland.png.webp"
@@ -208,7 +208,7 @@
       "countryCode": "FR",
       "artist": "Louane",
       "title": "Maman",
-      "audioPreviewUrl": "/assets/audio/2025/france.mp3",
+      "previewVideoUrl": "/assets/video/2025/france.mp4",
       "flagEmoji": "🇫🇷",
       "imageUrl": "/assets/images/2025/2025-france.jpg.webp",
       "flagImageUrl": "/assets/flags/france.png.webp"
@@ -219,7 +219,7 @@
       "countryCode": "ME",
       "artist": "Nina Žižić",
       "title": "Dobrodošli",
-      "audioPreviewUrl": "/assets/audio/2025/montenegro.mp3",
+      "previewVideoUrl": "/assets/video/2025/montenegro.mp4",
       "flagEmoji": "🇲🇪",
       "imageUrl": "/assets/images/2025/2025-montenegro.jpg.webp",
       "flagImageUrl": "/assets/flags/montenegro.png.webp"
@@ -230,7 +230,7 @@
       "countryCode": "IS",
       "artist": "Væb",
       "title": "Róa",
-      "audioPreviewUrl": "/assets/audio/2025/iceland.mp3",
+      "previewVideoUrl": "/assets/video/2025/iceland.mp4",
       "flagEmoji": "🇮🇸",
       "imageUrl": "/assets/images/2025/2025-iceland.jpg.webp",
       "flagImageUrl": "/assets/flags/iceland.png.webp"
@@ -241,7 +241,7 @@
       "countryCode": "AZ",
       "artist": "Mamagama",
       "title": "Run with U",
-      "audioPreviewUrl": "/assets/audio/2025/azerbaijan.mp3",
+      "previewVideoUrl": "/assets/video/2025/azerbaijan.mp4",
       "flagEmoji": "🇦🇿",
       "imageUrl": "/assets/images/2025/2025-azerbaijan.jpg.webp",
       "flagImageUrl": "/assets/flags/azerbaijan.png.webp"
@@ -252,7 +252,7 @@
       "countryCode": "SE",
       "artist": "KAJ",
       "title": "Bara bada bastu",
-      "audioPreviewUrl": "/assets/audio/2025/sweden.mp3",
+      "previewVideoUrl": "/assets/video/2025/sweden.mp4",
       "flagEmoji": "🇸🇪",
       "imageUrl": "/assets/images/2025/2025-sweden.jpg.webp",
       "flagImageUrl": "/assets/flags/sweden.png.webp"
@@ -263,7 +263,7 @@
       "countryCode": "IE",
       "artist": "Emmy",
       "title": "Laika Party",
-      "audioPreviewUrl": "/assets/audio/2025/ireland.mp3",
+      "previewVideoUrl": "/assets/video/2025/ireland.mp4",
       "flagEmoji": "🇮🇪",
       "imageUrl": "/assets/images/2025/2025-ireland.jpg.webp",
       "flagImageUrl": "/assets/flags/ireland.png.webp"
@@ -274,7 +274,7 @@
       "countryCode": "GE",
       "artist": "Mariam Shengelia",
       "title": "Freedom",
-      "audioPreviewUrl": "/assets/audio/2025/georgia.mp3",
+      "previewVideoUrl": "/assets/video/2025/georgia.mp4",
       "flagEmoji": "🇬🇪",
       "imageUrl": "/assets/images/2025/2025-georgia.jpg.webp",
       "flagImageUrl": "/assets/flags/georgia.png.webp"
@@ -285,7 +285,7 @@
       "countryCode": "HR",
       "artist": "Marko Bošnjak",
       "title": "Poison Cake",
-      "audioPreviewUrl": "/assets/audio/2025/croatia.mp3",
+      "previewVideoUrl": "/assets/video/2025/croatia.mp4",
       "flagEmoji": "🇭🇷",
       "imageUrl": "/assets/images/2025/2025-croatia.jpg.webp",
       "flagImageUrl": "/assets/flags/croatia.png.webp"
@@ -296,7 +296,7 @@
       "countryCode": "PL",
       "artist": "Justyna Steczkowska",
       "title": "Gaja",
-      "audioPreviewUrl": "/assets/audio/2025/poland.mp3",
+      "previewVideoUrl": "/assets/video/2025/poland.mp4",
       "flagEmoji": "🇵🇱",
       "imageUrl": "/assets/images/2025/2025-poland.jpg.webp",
       "flagImageUrl": "/assets/flags/poland.png.webp"
@@ -307,7 +307,7 @@
       "countryCode": "CY",
       "artist": "Theo Evan",
       "title": "Shh",
-      "audioPreviewUrl": "/assets/audio/2025/cyprus.mp3",
+      "previewVideoUrl": "/assets/video/2025/cyprus.mp4",
       "flagEmoji": "🇨🇾",
       "imageUrl": "/assets/images/2025/2025-cyprus.jpg.webp",
       "flagImageUrl": "/assets/flags/cyprus.png.webp"
@@ -318,7 +318,7 @@
       "countryCode": "GB",
       "artist": "Remember Monday",
       "title": "What the Hell Just Happened?",
-      "audioPreviewUrl": "/assets/audio/2025/united-kingdom.mp3",
+      "previewVideoUrl": "/assets/video/2025/united-kingdom.mp4",
       "flagEmoji": "🇬🇧",
       "imageUrl": "/assets/images/2025/2025-united-kingdom.jpg.webp",
       "flagImageUrl": "/assets/flags/united-kingdom.png.webp"
@@ -329,7 +329,7 @@
       "countryCode": "UA",
       "artist": "Ziferblat",
       "title": "Bird of Pray",
-      "audioPreviewUrl": "/assets/audio/2025/ukraine.mp3",
+      "previewVideoUrl": "/assets/video/2025/ukraine.mp4",
       "flagEmoji": "🇺🇦",
       "imageUrl": "/assets/images/2025/2025-ukraine.jpg.webp",
       "flagImageUrl": "/assets/flags/ukraine.png.webp"
@@ -340,7 +340,7 @@
       "countryCode": "CZ",
       "artist": "Adonxs",
       "title": "Kiss Kiss Goodbye",
-      "audioPreviewUrl": "/assets/audio/2025/czechia.mp3",
+      "previewVideoUrl": "/assets/video/2025/czechia.mp4",
       "flagEmoji": "🇨🇿",
       "imageUrl": "/assets/images/2025/2025-czechia.jpg.webp",
       "flagImageUrl": "/assets/flags/czechia.png.webp"
@@ -351,7 +351,7 @@
       "countryCode": "AU",
       "artist": "Go-Jo",
       "title": "Milkshake Man",
-      "audioPreviewUrl": "/assets/audio/2025/australia.mp3",
+      "previewVideoUrl": "/assets/video/2025/australia.mp4",
       "flagEmoji": "🇦🇺",
       "imageUrl": "/assets/images/2025/2025-australia.jpg.webp",
       "flagImageUrl": "/assets/flags/australia.png.webp"
@@ -362,7 +362,7 @@
       "countryCode": "BE",
       "artist": "Red Sebastian",
       "title": "Strobe Lights",
-      "audioPreviewUrl": "/assets/audio/2025/belgium.mp3",
+      "previewVideoUrl": "/assets/video/2025/belgium.mp4",
       "flagEmoji": "🇧🇪",
       "imageUrl": "/assets/images/2025/2025-belgium.jpg.webp",
       "flagImageUrl": "/assets/flags/belgium.png.webp"
@@ -373,7 +373,7 @@
       "countryCode": "EE",
       "artist": "Tommy Cash",
       "title": "Espresso Macchiato",
-      "audioPreviewUrl": "/assets/audio/2025/estonia.mp3",
+      "previewVideoUrl": "/assets/video/2025/estonia.mp4",
       "flagEmoji": "🇪🇪",
       "imageUrl": "/assets/images/2025/2025-estonia.jpg.webp",
       "flagImageUrl": "/assets/flags/estonia.png.webp"
@@ -384,7 +384,7 @@
       "countryCode": "IT",
       "artist": "Lucio Corsi",
       "title": "Volevo essere un duro",
-      "audioPreviewUrl": "/assets/audio/2025/italy.mp3",
+      "previewVideoUrl": "/assets/video/2025/italy.mp4",
       "flagEmoji": "🇮🇹",
       "imageUrl": "/assets/images/2025/2025-italy.jpg.webp",
       "flagImageUrl": "/assets/flags/italy.png.webp"
@@ -395,7 +395,7 @@
       "countryCode": "PT",
       "artist": "Napa",
       "title": "Deslocado",
-      "audioPreviewUrl": "/assets/audio/2025/portugal.mp3",
+      "previewVideoUrl": "/assets/video/2025/portugal.mp4",
       "flagEmoji": "🇵🇹",
       "imageUrl": "/assets/images/2025/2025-portugal.jpg.webp",
       "flagImageUrl": "/assets/flags/portugal.png.webp"
@@ -406,7 +406,7 @@
       "countryCode": "LT",
       "artist": "Katarsis",
       "title": "Tavo akys",
-      "audioPreviewUrl": "/assets/audio/2025/lithuania.mp3",
+      "previewVideoUrl": "/assets/video/2025/lithuania.mp4",
       "flagEmoji": "🇱🇹",
       "imageUrl": "/assets/images/2025/2025-lithuania.jpg.webp",
       "flagImageUrl": "/assets/flags/lithuania.png.webp"

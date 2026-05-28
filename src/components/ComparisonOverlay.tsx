@@ -12,6 +12,8 @@ import {
   saveRanking,
 } from "../utils/storage";
 import AudioButton from "./AudioButton";
+import { useAudio } from "./AudioProvider";
+import VideoPreview from "./VideoPreview";
 
 type ComparisonOverlayProps = {
   songs: Song[];
@@ -45,6 +47,9 @@ function OverlayCard({
   song: Song;
   onPick: () => void;
 }) {
+  const { activeSongId, activePreviewMode, setStatusForSong, stopAudio } = useAudio();
+  const isActiveInline = activeSongId === song.id && activePreviewMode === "inline";
+
   return (
     <section
       className="overlayCompareCard"
@@ -62,9 +67,35 @@ function OverlayCard({
         <FlagBadge song={song} />
         <span className="choiceBadge">{badge}</span>
       </div>
-      <div className="compareMedia">
-        <img src={song.imageUrl} alt="" loading="lazy" />
-        <div className="compareMediaShade" />
+      <div
+        className={`compareMedia ${isActiveInline ? "activePreview" : ""}`}
+        onClick={(event) => {
+          if (isActiveInline) event.stopPropagation();
+        }}
+        onPointerDown={(event) => {
+          if (isActiveInline) event.stopPropagation();
+        }}
+      >
+        {isActiveInline && song.previewVideoUrl ? (
+          <>
+            <VideoPreview
+              url={song.previewVideoUrl}
+              title={`${song.artist} - ${song.title}`}
+              onReady={() => setStatusForSong(song.id, "playing")}
+              onEnded={() => stopAudio()}
+              onError={() => {
+                setStatusForSong(song.id, "error");
+                stopAudio();
+              }}
+            />
+            <div className="compareMediaShade" />
+          </>
+        ) : (
+          <>
+            <img src={song.imageUrl} alt="" loading="lazy" />
+            <div className="compareMediaShade" />
+          </>
+        )}
       </div>
       <div className="compareCardBody">
         <div>
@@ -73,7 +104,7 @@ function OverlayCard({
           <span>{song.country}</span>
         </div>
         <div className="compareIconRow" onClick={(event) => event.stopPropagation()}>
-          <AudioButton songId={song.id} url={song.audioPreviewUrl} />
+          <AudioButton songId={song.id} url={song.previewVideoUrl ?? ""} mode="inline" />
         </div>
         <button
           className="pickButton"
@@ -97,6 +128,7 @@ export default function ComparisonOverlay({
   onClose,
   onRankingUpdate,
 }: ComparisonOverlayProps) {
+  const { stopAudio } = useAudio();
   const comparisonKey = `${rankingKey}:comparison`;
   const [state, setState] = useState<ComparisonState>(() =>
     createComparisonState(comparisonKey, songs, "smart"),
@@ -186,6 +218,8 @@ export default function ComparisonOverlay({
 
   function chooseWinner(winnerId: string) {
     if (!currentPair) return;
+
+    stopAudio();
 
     const [a, b] = currentPair;
     const loserId = winnerId === a ? b : a;
