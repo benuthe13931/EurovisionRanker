@@ -34,8 +34,34 @@ function comparisonStorageKey(key: string) {
 }
 
 async function rpc<T>(name: string, args: Record<string, unknown>) {
+  if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
+    throw new Error("Supabase is not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in Vercel.");
+  }
+
   const { data, error } = await supabase.rpc(name, args);
-  if (error) throw new Error(error.message);
+  if (error) {
+    const missingFunction =
+      error.code === "PGRST202" ||
+      error.message.includes("Could not find the function") ||
+      error.message.includes("schema cache");
+
+    if (missingFunction) {
+      throw new Error(
+        `Supabase setup is missing RPC function "${name}". Run supabase/schema.sql in the Supabase SQL Editor, then redeploy or retry after the schema cache refreshes.`,
+      );
+    }
+
+    const missingTable =
+      error.code === "42P01" ||
+      error.message.includes("relation") ||
+      error.message.includes("does not exist");
+
+    if (missingTable) {
+      throw new Error("Supabase setup is missing tables. Run supabase/schema.sql in the Supabase SQL Editor.");
+    }
+
+    throw new Error(error.message);
+  }
   return data as T;
 }
 

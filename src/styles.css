@@ -354,6 +354,26 @@ a {
   font-weight: 750;
 }
 
+.dataError,
+.overlayError {
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 143, 190, 0.32);
+  border-radius: 8px;
+  color: #ffd5e9;
+  background: rgba(116, 13, 61, 0.34);
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.dataError {
+  margin: -4px 0 12px;
+}
+
+.overlayError {
+  grid-column: 1 / -1;
+}
+
 .rankingList {
   display: grid;
   gap: 8px;

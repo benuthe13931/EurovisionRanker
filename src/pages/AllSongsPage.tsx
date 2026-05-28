@@ -34,6 +34,7 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
   const initialSongs = useMemo(() => sourceSongs, [sourceSongs]);
   const [songs, setSongs] = useState(initialSongs);
   const [savedNotice, setSavedNotice] = useState("");
+  const [dataError, setDataError] = useState("");
   const [comparisonOpen, setComparisonOpen] = useState(false);
 
   useEffect(() => setSongs(initialSongs), [initialSongs]);
@@ -42,9 +43,15 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
     let active = true;
 
     async function loadSavedState() {
-      const savedFavorites = await loadFavorites();
-      if (!active) return;
-      setFavorites(savedFavorites);
+      try {
+        const savedFavorites = await loadFavorites();
+        if (!active) return;
+        setFavorites(savedFavorites);
+        setDataError("");
+      } catch (error) {
+        if (!active) return;
+        setDataError(error instanceof Error ? error.message : "Could not load favorites.");
+      }
     }
 
     void loadSavedState();
@@ -57,9 +64,15 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
     let active = true;
 
     async function loadSavedRanking() {
-      const savedRanking = await loadRanking(rankingKey);
-      if (!active) return;
-      setSongs(orderSongs(sourceSongs, savedRanking?.songIds));
+      try {
+        const savedRanking = await loadRanking(rankingKey);
+        if (!active) return;
+        setSongs(orderSongs(sourceSongs, savedRanking?.songIds));
+        setDataError("");
+      } catch (error) {
+        if (!active) return;
+        setDataError(error instanceof Error ? error.message : "Could not load saved ranking.");
+      }
     }
 
     void loadSavedRanking();
@@ -73,20 +86,32 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
     if (next.has(songId)) next.delete(songId);
     else next.add(songId);
     setFavorites(next);
-    void saveFavorites(next);
+    void saveFavorites(next).catch((error: unknown) => {
+      setDataError(error instanceof Error ? error.message : "Could not save favorite.");
+    });
   }
 
   async function handleSave() {
-    await saveRanking(rankingKey, songs.map((song) => song.id));
-    setSavedNotice("Saved");
-    window.setTimeout(() => setSavedNotice(""), 1800);
+    try {
+      await saveRanking(rankingKey, songs.map((song) => song.id));
+      setDataError("");
+      setSavedNotice("Saved");
+      window.setTimeout(() => setSavedNotice(""), 1800);
+    } catch (error) {
+      setDataError(error instanceof Error ? error.message : "Could not save ranking.");
+    }
   }
 
   async function handleReset() {
-    await clearRanking(rankingKey);
-    setSongs(sourceSongs);
-    setSavedNotice("Reset");
-    window.setTimeout(() => setSavedNotice(""), 1800);
+    try {
+      await clearRanking(rankingKey);
+      setSongs(sourceSongs);
+      setDataError("");
+      setSavedNotice("Reset");
+      window.setTimeout(() => setSavedNotice(""), 1800);
+    } catch (error) {
+      setDataError(error instanceof Error ? error.message : "Could not reset ranking.");
+    }
   }
 
   return (
@@ -122,6 +147,7 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
             {savedNotice ? <span className="savedNotice">{savedNotice}</span> : null}
           </div>
         </div>
+        {dataError ? <div className="dataError">{dataError}</div> : null}
 
         {songs.length ? (
           <RankingList
