@@ -34,3 +34,9 @@ Optional smoke test in SQL Editor after setup:
 ```sql
 select public.ranker_setup_status();
 ```
+
+For a fuller check, paste and run `supabase/diagnostics.sql`. The `signup_profile` row should show these argument names:
+
+```text
+{p_name,p_password,p_username}
+```
