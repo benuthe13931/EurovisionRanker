@@ -1,0 +1,40 @@
+export type Song = {
+  id: string;
+  country: string;
+  countryCode: string;
+  artist: string;
+  title: string;
+  audioPreviewUrl: string;
+  flagEmoji: string;
+  flagImageUrl?: string;
+  imageUrl: string;
+  year?: number;
+};
+
+export type YearData = {
+  year: number;
+  hostCity: string;
+  country: string;
+  backgroundImage: string;
+  songs: Song[];
+};
+
+export type RankingState = {
+  key: string;
+  songIds: string[];
+  updatedAt: string;
+};
+
+export type ComparisonMode = "smart" | "full";
+
+export type ComparisonState = {
+  key: string;
+  mode: ComparisonMode;
+  ratings: Record<string, number>;
+  comparedPairs: string[];
+  completed: number;
+  targetComparisons: number;
+  fullPairs?: [string, string][];
+  currentPair?: [string, string];
+  updatedAt: string;
+};

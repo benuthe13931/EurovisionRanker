@@ -1,0 +1,1492 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap");
+
+:root {
+  color-scheme: dark;
+  font-family: Inter, system-ui, sans-serif;
+  background: #07070d;
+  color: #f7f2ff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.navShell {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(8, 8, 14, 0.82);
+  backdrop-filter: blur(18px);
+}
+
+.navInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1180px;
+  min-height: 64px;
+  margin: 0 auto;
+  padding: 0 24px;
+  gap: 20px;
+}
+
+.brand,
+.navLinks,
+.navLinks a,
+.navBadge,
+.navAction {
+  display: flex;
+  align-items: center;
+}
+
+.brand {
+  gap: 10px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.brandMark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff43d1, #35d6ff);
+  box-shadow: 0 0 24px rgba(222, 51, 255, 0.45);
+}
+
+.navLinks {
+  gap: 6px;
+}
+
+.navLinks a,
+.navBadge,
+.navAction {
+  gap: 7px;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 8px;
+  color: rgba(252, 249, 255, 0.966);
+  font-size: 0.86rem;
+  font-weight: 450;
+}
+
+.navLinks a.active,
+.navLinks a:hover,
+.navAction:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.navAction {
+  border: 0;
+  background: transparent;
+}
+
+.navBadge {
+  color: #6ee9ff;
+}
+
+.authOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.authScrim {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(3, 4, 10, 0.68);
+  backdrop-filter: blur(10px);
+}
+
+.authDialog {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 14px;
+  width: min(420px, 100%);
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  background: rgba(9, 9, 16, 0.94);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48);
+}
+
+.authDialog h2 {
+  margin: 6px 0 0;
+  font-size: 1.55rem;
+}
+
+.authDialog label {
+  display: grid;
+  gap: 7px;
+  color: rgba(247, 242, 255, 0.72);
+  font-size: 0.84rem;
+  font-weight: 750;
+}
+
+.authDialog input {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+  outline: none;
+}
+
+.authDialog input:focus {
+  border-color: rgba(117, 240, 255, 0.58);
+  box-shadow: 0 0 0 3px rgba(117, 240, 255, 0.1);
+}
+
+.authHint,
+.authError {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.authHint {
+  color: rgba(247, 242, 255, 0.56);
+}
+
+.authHint.warning,
+.authError {
+  color: #ff98cf;
+}
+
+.passwordChecklist {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px 10px;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.passwordChecklist span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.passwordChecklist .met {
+  color: #71f0a2;
+}
+
+.passwordChecklist .missing {
+  color: #ff8fbe;
+}
+
+.authActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.authSwitch {
+  justify-self: center;
+  border: 0;
+  color: #75f0ff;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.pageShell {
+  position: relative;
+  min-height: calc(100vh - 65px);
+  padding: 52px 20px 80px;
+  isolation: isolate;
+}
+
+.pageShell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(90deg, rgba(12, 3, 16, 0.94), rgba(9, 9, 16, 0.7) 48%, rgba(3, 11, 14, 0.96)),
+    var(--bg-image, url("https://esc-ratings.eu/assets/hero-bg.webp")) center / cover no-repeat;
+  filter: saturate(1.2);
+}
+
+.pageShell::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 28% 8%, rgba(255, 48, 195, 0.2), transparent 31%),
+    radial-gradient(circle at 76% 4%, rgba(38, 221, 255, 0.17), transparent 30%),
+    rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(4px);
+}
+
+.contentColumn {
+  width: min(1160px, 100%);
+  margin: 0 auto;
+}
+
+.pageHeader {
+  margin-bottom: 26px;
+}
+
+.compactHeader {
+  margin-bottom: 18px;
+}
+
+.eyebrow,
+.countLine {
+  display: inline-block;
+  color: rgba(247, 242, 255, 0.58);
+  font-size: 0.88rem;
+  font-weight: 450;
+}
+
+.pageHeader h1 {
+  margin: 18px 0 10px;
+  font-size: clamp(2.05rem, 4vw, 2.9rem);
+  line-height: 1.08;
+  font-weight: 850;
+  letter-spacing: 0;
+}
+
+.pageHeader p {
+  max-width: 980px;
+  margin: 0 0 22px;
+  color: rgba(247, 242, 255, 0.68);
+  font-size: 1.02rem;
+  line-height: 1.62;
+}
+
+.backButton,
+.primaryButton,
+.secondaryButton,
+.iconButton,
+.segmented button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  cursor: pointer;
+}
+
+.backButton {
+  gap: 7px;
+  padding: 0;
+  background: transparent;
+  color: rgba(247, 242, 255, 0.62);
+  font-weight: 750;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 16px;
+}
+
+.toolbarActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.primaryButton,
+.secondaryButton {
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* .primaryButton {
+  color: white;
+  background: linear-gradient(135deg, #dc34d5, #28cbe6);
+  box-shadow: 0 12px 38px rgba(181, 39, 233, 0.24);
+} */
+.primaryButton,
+.secondaryButton {
+  color: rgba(253, 253, 253, 0.973);
+  border: 1px solid rgba(19, 8, 8, 0.068);
+  background: rgba(8, 8, 14, 0.62);
+}
+
+.savedNotice {
+  color: #75f0ff;
+  font-size: 0.9rem;
+  font-weight: 750;
+}
+
+.rankingList {
+  display: grid;
+  gap: 8px;
+}
+
+.songRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 36px 48px 52px minmax(0, 1fr) auto;
+  align-items: center;
+  min-height: 82px;
+  padding: 12px 18px 12px 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 9px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)),
+    rgba(10, 10, 17, 0.72);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(20px);
+}
+
+.songRow::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 1;
+  width: 4px;
+  background: linear-gradient(
+    180deg,
+    rgba(217, 51, 200, 0.95) 0%,
+    rgba(61, 214, 255, 0.9) 50%,
+    rgba(217, 51, 200, 0.95) 100%
+  );
+  box-shadow:
+    0 0 14px rgba(217, 51, 200, 0.4),
+    0 0 18px rgba(61, 214, 255, 0.16);
+  pointer-events: none;
+}
+
+.songRow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  opacity: 0;
+  transition: opacity 160ms ease;
+  pointer-events: none;
+}
+
+.songRow:hover::after,
+.songRow.dragging::after {
+  opacity: 1;
+}
+
+.songRow.dragging {
+  z-index: 10;
+  border-color: rgba(102, 229, 255, 0.48);
+  box-shadow: 0 20px 50px rgba(39, 205, 255, 0.2);
+}
+
+.songRow.ranked-1 {
+  border-color: rgba(255, 214, 79, 0.64);
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.26),
+    0 0 24px rgba(241, 173, 22, 0.18);
+}
+
+.songRow.ranked-2 {
+  border-color: rgba(190, 202, 224, 0.64);
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.26),
+    0 0 24px rgba(167, 177, 198, 0.18);
+}
+
+.songRow.ranked-3 {
+  border-color: rgba(205, 117, 46, 0.68);
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.26),
+    0 0 24px rgba(185, 101, 32, 0.2);
+}
+
+.songRow > :not(.songRowBackdrop) {
+  position: relative;
+  z-index: 2;
+}
+
+.songRowBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.songRowBackdrop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.38;
+  transform: scale(1);
+  transition:
+    opacity 500ms ease,
+    transform 500ms ease;
+}
+
+.songRow:hover .songRowBackdrop img {
+  opacity: 0.6;
+  transform: scale(1.05);
+}
+
+.songRowBackdrop div {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(10, 10, 17, 0.96) 0%,
+    rgba(10, 10, 17, 0.78) 45%,
+    rgba(10, 10, 17, 0.28) 100%
+  );
+  transition: background 300ms ease;
+}
+
+.songRow:hover .songRowBackdrop div {
+  background: linear-gradient(
+    90deg,
+    rgba(10, 10, 17, 0.96) 0%,
+    rgba(10, 10, 17, 0.58) 48%,
+    rgba(10, 10, 17, 0.18) 100%
+  );
+}
+
+.dragHandle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 58px;
+  border: 0;
+  background: transparent;
+  color: rgba(217, 51, 200, 0.88);
+  cursor: grab;
+}
+
+.dragHandle::before {
+  content: "";
+  position: absolute;
+  inset: -14px -8px -14px -10px;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    rgba(217, 51, 200, 0.34) 0%,
+    rgba(217, 51, 200, 0.22) 48%,
+    rgba(217, 51, 200, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.dragHandle:hover {
+  color: #ff43d1;
+}
+
+.rankPill {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  color: #0c0c12;
+  background: #2b2e38;
+  font-weight: 900;
+}
+
+.rank-default {
+  color: rgba(247, 242, 255, 0.86);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.rank-1 {
+  background: linear-gradient(135deg, #ffe66b, #f1ad16);
+}
+
+.rank-2 {
+  background: linear-gradient(135deg, #f0f4ff, #a7b1c6);
+}
+
+.rank-3 {
+  background: linear-gradient(135deg, #ffbc73, #b96520);
+}
+
+.flagBadge {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 1.72rem;
+}
+
+.fallbackFlagBadge {
+  border: 2px solid rgba(255, 255, 255, 0.84);
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.32);
+}
+
+.customFlagBadge {
+  overflow: visible;
+  background: transparent;
+}
+
+.flagBadge img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.fallbackFlagBadge img {
+  object-fit: cover;
+}
+
+.flagBadge span {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.songMeta {
+  min-width: 0;
+  padding: 5px 0 0 12px;
+}
+
+.songMeta h3 {
+  margin: 0 0 5px;
+  overflow: hidden;
+  color: #fff;
+  font-size: 1.04rem;
+  line-height: 1.2;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.songMeta p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 0;
+  color: rgba(247, 242, 255, 0.58);
+  font-size: 0.84rem;
+  font-weight: 450;
+}
+
+.songMeta strong:not(.metaFlag) {
+  color: rgba(247, 242, 255, 0.74);
+}
+
+.metaFlag {
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.rowActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.iconButton {
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  color: rgba(247, 242, 255, 0.72);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.iconButton:hover,
+.iconButton.active {
+  color: #fff;
+  background: rgba(53, 214, 255, 0.18);
+}
+
+.heartButton.active {
+  color: #ff6acb;
+  background: rgba(255, 106, 203, 0.14);
+}
+
+.spin {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.homeGrid {
+  display: grid;
+  gap: 18px;
+}
+
+.featurePanel,
+.yearCard,
+.emptyState,
+.resultsPanel,
+.comparisonTopbar {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(10, 10, 18, 0.64);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(18px);
+}
+
+.featurePanel,
+.yearCard {
+  display: block;
+  padding: 22px;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease;
+}
+
+.featurePanel:hover,
+.yearCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(92, 227, 255, 0.42);
+}
+
+.featurePanel span,
+.yearCard span {
+  color: #75f0ff;
+  font-size: 0.83rem;
+  font-weight: 850;
+}
+
+.featurePanel h2,
+.yearCard h2 {
+  margin: 10px 0 6px;
+  font-size: 1.8rem;
+}
+
+.featurePanel p,
+.yearCard p {
+  margin: 0;
+  color: rgba(247, 242, 255, 0.62);
+}
+
+.allSongsPanel {
+  background:
+    linear-gradient(135deg, rgba(220, 52, 213, 0.22), rgba(40, 203, 230, 0.12)),
+    rgba(10, 10, 18, 0.66);
+}
+
+.yearGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.comparisonTopbar {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  margin-bottom: 18px;
+}
+
+.progressText {
+  color: #fff;
+  font-weight: 850;
+}
+
+.progressTrack {
+  height: 8px;
+  margin-top: 9px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.progressTrack span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #ff43d1, #35d6ff);
+}
+
+.segmented {
+  display: flex;
+  padding: 4px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.segmented button {
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 6px;
+  color: rgba(247, 242, 255, 0.7);
+  background: transparent;
+  font-weight: 800;
+}
+
+.segmented button.selected {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.comparisonGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.comparisonCard {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  background: rgba(10, 10, 18, 0.7);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(18px);
+}
+
+.comparisonImage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 210px;
+  background:
+    linear-gradient(135deg, rgba(255, 67, 209, 0.38), rgba(53, 214, 255, 0.28)),
+    #12131d;
+  background-size: cover;
+  background-position: center;
+}
+
+.comparisonImage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.comparisonImage span {
+  position: relative;
+  z-index: 1;
+  font-size: 4rem;
+}
+
+.comparisonBody {
+  padding: 20px;
+}
+
+.comparisonBody h2 {
+  margin: 8px 0 8px;
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  line-height: 1.08;
+}
+
+.comparisonBody p {
+  margin: 0;
+  color: rgba(247, 242, 255, 0.68);
+}
+
+.countryLine {
+  color: #75f0ff !important;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.comparisonActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.resultsPanel,
+.emptyState {
+  padding: 24px;
+}
+
+.resultsPanel h2 {
+  margin: 0 0 8px;
+}
+
+.resultsPanel p {
+  color: rgba(247, 242, 255, 0.67);
+}
+
+.resultsList {
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  margin: 18px 0;
+  list-style: none;
+}
+
+.resultsList li {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.resultsList em {
+  color: #75f0ff;
+  font-style: normal;
+  font-weight: 850;
+}
+
+.comparisonOpen {
+  overflow: hidden;
+}
+
+.comparisonOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  color: #fff;
+}
+
+.overlayBackdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 5, 10, 0.54);
+  backdrop-filter: blur(12px) brightness(0.45);
+}
+
+.comparisonLayer {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  padding: 12px 14px 14px;
+  background:
+    radial-gradient(circle at 30% 5%, rgba(232, 38, 189, 0.28), transparent 28%),
+    radial-gradient(circle at 82% 4%, rgba(32, 209, 226, 0.22), transparent 25%);
+}
+
+.overlayHeader {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: minmax(320px, 0.8fr) minmax(320px, 1.9fr) minmax(220px, auto);
+  align-items: center;
+  gap: 18px;
+  min-height: 66px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(6, 6, 12, 0.9);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.35),
+    0 0 30px rgba(233, 40, 185, 0.08);
+  backdrop-filter: blur(18px);
+}
+
+.overlayTitle h1 {
+  margin: 0 0 5px;
+  font-size: 1.35rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.overlayTitle p {
+  margin: 0;
+  color: rgba(247, 242, 255, 0.58);
+  font-size: 0.82rem;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.overlayProgress {
+  justify-self: stretch;
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+}
+
+.overlayProgress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #e928b9, #27d4e9);
+  box-shadow: 0 0 22px rgba(233, 40, 185, 0.54);
+}
+
+.overlayHeaderActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  color: rgba(247, 242, 255, 0.68);
+  font-size: 0.86rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.overlayProgressText {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.overlayReset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  color: rgba(247, 242, 255, 0.82);
+  background: rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+  font-weight: 850;
+}
+
+.overlayReset:hover {
+  color: #fff;
+  border-color: rgba(233, 40, 185, 0.36);
+  background: rgba(233, 40, 185, 0.14);
+}
+
+.overlayClose {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 8px;
+  color: rgba(247, 242, 255, 0.78);
+  background: transparent;
+  cursor: pointer;
+}
+
+.overlayClose:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.overlayMain {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 250px;
+  min-height: 0;
+  gap: 18px;
+  padding-top: 18px;
+}
+
+.compareStage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 54px minmax(0, 1fr);
+  min-height: 0;
+  gap: 20px;
+}
+
+.versusDivider {
+  position: relative;
+  display: grid;
+  place-items: center;
+  color: rgba(247, 242, 255, 0.34);
+  font-size: 1.55rem;
+  font-weight: 900;
+}
+
+.versusDivider::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.22), transparent);
+}
+
+.versusDivider span {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  background: rgba(7, 7, 12, 0.72);
+}
+
+.overlayCompareCard {
+  position: relative;
+  display: grid;
+  grid-template-rows: minmax(260px, 1fr) auto;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  background: rgba(9, 9, 15, 0.75);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.44);
+  cursor: pointer;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.overlayCompareCard:hover {
+  border-color: rgba(233, 40, 185, 0.42);
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.44),
+    0 0 34px rgba(233, 40, 185, 0.12);
+}
+
+.overlayCompareCard:focus-visible {
+  outline: 2px solid #e928b9;
+  outline-offset: 4px;
+}
+
+.overlayCompareCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(233, 40, 185, 0.08);
+  pointer-events: none;
+}
+
+.compareCardTop {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  right: 18px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.compareFlag {
+  display: grid;
+  place-items: center;
+  height: 42px;
+  min-width: 42px;
+}
+
+.compareFlag img {
+  display: block;
+  width: auto;
+  height: 42px;
+  object-fit: contain;
+}
+
+.choiceBadge {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  color: white;
+  background: rgba(233, 40, 185, 0.76);
+  box-shadow: 0 0 22px rgba(233, 40, 185, 0.35);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.overlayCompareCard:nth-child(3) .choiceBadge {
+  background: rgba(24, 173, 194, 0.82);
+  box-shadow: 0 0 22px rgba(24, 173, 194, 0.35);
+}
+
+.compareMedia {
+  position: relative;
+  min-height: 0;
+  margin: 76px 22px 0;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #11121a;
+}
+
+.compareMedia img {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  object-fit: cover;
+  opacity: 0.62;
+}
+
+.compareMediaShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 8, 14, 0.1), rgba(8, 8, 14, 0.68)),
+    rgba(233, 40, 185, 0.08);
+}
+
+.compareCardBody {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 16px;
+  padding: 22px;
+}
+
+.compareCardBody h2 {
+  margin: 0 0 6px;
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  line-height: 1.08;
+}
+
+.compareCardBody p,
+.compareCardBody span {
+  display: block;
+  margin: 0;
+  color: rgba(247, 242, 255, 0.62);
+  font-weight: 700;
+}
+
+.compareCardBody span {
+  margin-top: 4px;
+  font-size: 0.9rem;
+}
+
+.compareIconRow {
+  display: flex;
+  gap: 8px;
+}
+
+.compareIconRow,
+.compareIconRow *,
+.pickButton {
+  position: relative;
+  z-index: 4;
+}
+
+.pickButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  color: white;
+  background: #e928b9;
+  box-shadow: 0 18px 50px rgba(233, 40, 185, 0.27);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.pickButton:hover {
+  background: #ff35cc;
+}
+
+.currentRankingPanel {
+  min-height: 0;
+  overflow: hidden;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(2, 7, 9, 0.5);
+}
+
+.rankingPanelHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px 14px 10px;
+}
+
+.rankingPanelHeader h2 {
+  margin: 0 0 4px;
+  font-size: 0.92rem;
+}
+
+.rankingPanelHeader p {
+  margin: 0;
+  color: rgba(247, 242, 255, 0.54);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.liveRankingList {
+  display: grid;
+  max-height: calc(100vh - 112px);
+  margin: 0;
+  padding: 0 0 18px;
+  overflow: auto;
+  list-style: none;
+}
+
+.liveRankingList li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 26px 30px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 7px 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  will-change: transform;
+  transition:
+    background-color 180ms ease,
+    border-left-color 180ms ease;
+}
+
+.liveRankingList li.comparing {
+  border-left: 3px solid #e928b9;
+  background: rgba(233, 40, 185, 0.12);
+}
+
+.liveRank {
+  color: rgba(247, 242, 255, 0.78);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-align: right;
+}
+
+.liveRankingList .compareFlag {
+  height: 24px;
+  min-width: 24px;
+}
+
+.liveRankingList .compareFlag img {
+  height: 24px;
+}
+
+.liveRankingList strong {
+  display: block;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.78rem;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.liveRankingList p {
+  margin: 2px 0 0;
+  overflow: hidden;
+  color: rgba(247, 242, 255, 0.48);
+  font-size: 0.68rem;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rankingDrawerButton,
+.mobileOnly {
+  display: none;
+}
+
+.comparisonComplete {
+  grid-column: 1 / -1;
+  align-self: center;
+  justify-self: center;
+  width: min(560px, 100%);
+  padding: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  background: rgba(9, 9, 15, 0.8);
+  text-align: center;
+}
+
+.comparisonComplete h2 {
+  margin: 0 0 8px;
+}
+
+.comparisonComplete p {
+  margin: 0 0 22px;
+  color: rgba(247, 242, 255, 0.62);
+}
+
+@media (max-width: 760px) {
+  .navInner {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 14px 16px;
+  }
+
+  .navLinks {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .passwordChecklist {
+    grid-template-columns: 1fr;
+  }
+
+  .pageShell {
+    padding: 34px 14px 64px;
+  }
+
+  .songRow {
+    grid-template-columns: 26px 38px 42px minmax(0, 1fr);
+    gap: 2px;
+    min-height: 88px;
+    padding-right: 10px;
+  }
+
+  .rowActions {
+    grid-column: 4;
+    margin-top: 8px;
+  }
+
+  .songMeta h3 {
+    white-space: normal;
+  }
+
+  .comparisonTopbar,
+  .comparisonGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .comparisonLayer {
+    overflow: auto;
+    padding: 12px;
+  }
+
+  .overlayHeader {
+    grid-template-columns: 1fr auto;
+  }
+
+  .overlayProgress {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+
+  .overlayHeaderActions span {
+    display: inline;
+    font-size: 0.76rem;
+  }
+
+  .overlayReset {
+    min-width: 34px;
+    padding: 0;
+  }
+
+  .overlayReset svg {
+    margin: 0;
+  }
+
+  .overlayReset {
+    font-size: 0;
+  }
+
+  .overlayMain {
+    grid-template-columns: 1fr;
+    overflow: visible;
+  }
+
+  .compareStage {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .versusDivider {
+    min-height: 28px;
+  }
+
+  .versusDivider::before {
+    left: 0;
+    right: 0;
+    top: 50%;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+
+  .versusDivider span {
+    width: 48px;
+    height: 28px;
+    font-size: 1rem;
+  }
+
+  .overlayCompareCard {
+    min-height: 560px;
+  }
+
+  .compareMedia {
+    margin: 70px 14px 0;
+  }
+
+  .compareCardBody {
+    padding: 16px 14px;
+  }
+
+  .rankingDrawerButton {
+    display: inline-flex;
+    justify-self: end;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    margin-top: 10px;
+    padding: 0 12px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 8px;
+    color: #fff;
+    background: rgba(10, 10, 18, 0.7);
+    font-weight: 850;
+  }
+
+  .currentRankingPanel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    width: min(320px, 88vw);
+    transform: translateX(105%);
+    transition: transform 220ms ease;
+    border-left: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(5, 7, 12, 0.96);
+  }
+
+  .currentRankingPanel.open {
+    transform: translateX(0);
+  }
+
+  .mobileOnly {
+    display: inline-grid;
+  }
+
+  .segmented {
+    width: 100%;
+  }
+
+  .segmented button {
+    flex: 1;
+  }
+}
