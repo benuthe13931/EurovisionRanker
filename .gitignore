@@ -1,5 +1,6 @@
 node_modules/
-dist/
+dist/index-BP3EmaBN.js
+dist/index-C0dMPFKF.css
 data/*.db
 data/*.db-*
 .env
