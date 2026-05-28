@@ -40,6 +40,7 @@ async function rpc<T>(name: string, args: Record<string, unknown>) {
 
   const { data, error } = await supabase.rpc(name, args);
   if (error) {
+    const rawError = [error.code, error.message, error.details].filter(Boolean).join(" | ");
     const missingFunction =
       error.code === "PGRST202" ||
       error.message.includes("Could not find the function") ||
@@ -47,7 +48,7 @@ async function rpc<T>(name: string, args: Record<string, unknown>) {
 
     if (missingFunction) {
       throw new Error(
-        `Supabase setup is missing RPC function "${name}". Run supabase/schema.sql in the Supabase SQL Editor, then redeploy or retry after the schema cache refreshes.`,
+        `Supabase setup is missing RPC function "${name}". Run the latest supabase/schema.sql in the Supabase SQL Editor, then retry after the schema cache refreshes. Supabase said: ${rawError}`,
       );
     }
 
@@ -57,10 +58,10 @@ async function rpc<T>(name: string, args: Record<string, unknown>) {
       error.message.includes("does not exist");
 
     if (missingTable) {
-      throw new Error("Supabase setup is missing tables. Run supabase/schema.sql in the Supabase SQL Editor.");
+      throw new Error(`Supabase setup is missing tables. Run the latest supabase/schema.sql in the Supabase SQL Editor. Supabase said: ${rawError}`);
     }
 
-    throw new Error(error.message);
+    throw new Error(rawError || error.message);
   }
   return data as T;
 }
