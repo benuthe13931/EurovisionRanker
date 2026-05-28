@@ -2,7 +2,7 @@
   "year": 2025,
   "hostCity": "Basel",
   "country": "Switzerland",
-  "backgroundImage": "https://esc-ratings.eu/assets/hero-bg.webp",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
   "songs": [
     {
       "id": "2025-slovenia",
@@ -12,8 +12,8 @@
       "title": "How Much Time Do We Have Left",
       "audioPreviewUrl": "/assets/audio/2025/slovenia.mp3",
       "flagEmoji": "🇸🇮",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Klemen_How-Much-Time-Do-We-Have-Left.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/slovenia.png.webp"
+      "imageUrl": "/assets/images/2025/2025-slovenia.jpg.webp",
+      "flagImageUrl": "/assets/flags/slovenia.png.webp"
     },
     {
       "id": "2025-albania",
@@ -23,8 +23,8 @@
       "title": "Zjerm",
       "audioPreviewUrl": "/assets/audio/2025/albania.mp3",
       "flagEmoji": "🇦🇱",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Shkodra-Elektronike_Zjerm.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/albania.png.webp"
+      "imageUrl": "/assets/images/2025/2025-albania.jpg.webp",
+      "flagImageUrl": "/assets/flags/albania.png.webp"
     },
     {
       "id": "2025-malta",
@@ -34,8 +34,8 @@
       "title": "Serving",
       "audioPreviewUrl": "/assets/audio/2025/malta.mp3",
       "flagEmoji": "🇲🇹",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Miriana-Conte_Kant.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/malta.png.webp"
+      "imageUrl": "/assets/images/2025/2025-malta.jpg.webp",
+      "flagImageUrl": "/assets/flags/malta.png.webp"
     },
     {
       "id": "2025-luxembourg",
@@ -45,8 +45,8 @@
       "title": "La poupée monte le son",
       "audioPreviewUrl": "/assets/audio/2025/luxembourg.mp3",
       "flagEmoji": "🇱🇺",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Laura-Thorn_La-poupee-monte-le-son.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/luxembourg.png.webp"
+      "imageUrl": "/assets/images/2025/2025-luxembourg.jpg.webp",
+      "flagImageUrl": "/assets/flags/luxembourg.png.webp"
     },
     {
       "id": "2025-israel",
@@ -56,8 +56,8 @@
       "title": "New Day Will Rise",
       "audioPreviewUrl": "/assets/audio/2025/israel.mp3",
       "flagEmoji": "🇮🇱",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Yuval-Raphael_New-Day-Will-Rise.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/israel.png.webp"
+      "imageUrl": "/assets/images/2025/2025-israel.jpg.webp",
+      "flagImageUrl": "/assets/flags/israel.png.webp"
     },
     {
       "id": "2025-netherlands",
@@ -67,8 +67,8 @@
       "title": "C'est la vie",
       "audioPreviewUrl": "/assets/audio/2025/netherlands.mp3",
       "flagEmoji": "🇳🇱",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/10/Claude_C8217est-La-Vie.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/netherlands.png.webp"
+      "imageUrl": "/assets/images/2025/2025-netherlands.jpg.webp",
+      "flagImageUrl": "/assets/flags/netherlands.png.webp"
     },
     {
       "id": "2025-austria",
@@ -78,8 +78,8 @@
       "title": "Wasted Love",
       "audioPreviewUrl": "/assets/audio/2025/austria.mp3",
       "flagEmoji": "🇦🇹",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/JJ_Wasted-Love.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/austria.png.webp"
+      "imageUrl": "/assets/images/2025/2025-austria.jpg.webp",
+      "flagImageUrl": "/assets/flags/austria.png.webp"
     },
     {
       "id": "2025-san-marino",
@@ -89,8 +89,8 @@
       "title": "Tutta l'Italia",
       "audioPreviewUrl": "/assets/audio/2025/san-marino.mp3",
       "flagEmoji": "🇸🇲",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2025/03/Gabry-Ponte_Tutta-L8217Italia-8211-Sanremo-2025.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/sanmarino.png.webp"
+      "imageUrl": "/assets/images/2025/2025-san-marino.jpg.webp",
+      "flagImageUrl": "/assets/flags/san-marino.png.webp"
     },
     {
       "id": "2025-germany",
@@ -100,8 +100,8 @@
       "title": "Baller",
       "audioPreviewUrl": "/assets/audio/2025/germany.mp3",
       "flagEmoji": "🇩🇪",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Abor-Tynna_Baller.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/germany.png.webp"
+      "imageUrl": "/assets/images/2025/2025-germany.jpg.webp",
+      "flagImageUrl": "/assets/flags/germany.png.webp"
     },
     {
       "id": "2025-denmark",
@@ -111,8 +111,8 @@
       "title": "Hallucination",
       "audioPreviewUrl": "/assets/audio/2025/denmark.mp3",
       "flagEmoji": "🇩🇰",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Sissal_Hallucination.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/denmark.png.webp"
+      "imageUrl": "/assets/images/2025/2025-denmark.jpg.webp",
+      "flagImageUrl": "/assets/flags/denmark.png.webp"
     },
     {
       "id": "2025-spain",
@@ -122,8 +122,8 @@
       "title": "Esa diva",
       "audioPreviewUrl": "/assets/audio/2025/spain.mp3",
       "flagEmoji": "🇪🇸",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Melody_Esa-Diva.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/spain.png.webp"
+      "imageUrl": "/assets/images/2025/2025-spain.jpg.webp",
+      "flagImageUrl": "/assets/flags/spain.png.webp"
     },
     {
       "id": "2025-finland",
@@ -133,8 +133,8 @@
       "title": "Ich komme",
       "audioPreviewUrl": "/assets/audio/2025/finland.mp3",
       "flagEmoji": "🇫🇮",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Erika-Vikman_ICH-KOMME.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/finland.png.webp"
+      "imageUrl": "/assets/images/2025/2025-finland.jpg.webp",
+      "flagImageUrl": "/assets/flags/finland.png.webp"
     },
     {
       "id": "2025-latvia",
@@ -144,8 +144,8 @@
       "title": "Bur man laimi",
       "audioPreviewUrl": "/assets/audio/2025/latvia.mp3",
       "flagEmoji": "🇱🇻",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Tautumeitas_Bur-man-laimi.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/latvia.png.webp"
+      "imageUrl": "/assets/images/2025/2025-latvia.jpg.webp",
+      "flagImageUrl": "/assets/flags/latvia.png.webp"
     },
     {
       "id": "2025-serbia",
@@ -155,8 +155,8 @@
       "title": "Mila",
       "audioPreviewUrl": "/assets/audio/2025/serbia.mp3",
       "flagEmoji": "🇷🇸",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Princ_Mila.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/serbia.png.webp"
+      "imageUrl": "/assets/images/2025/2025-serbia.jpg.webp",
+      "flagImageUrl": "/assets/flags/serbia.png.webp"
     },
     {
       "id": "2025-armenia",
@@ -166,8 +166,8 @@
       "title": "Survivor",
       "audioPreviewUrl": "/assets/audio/2025/armenia.mp3",
       "flagEmoji": "🇦🇲",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/12/PARG_SURVIVOR.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/armenia.png.webp"
+      "imageUrl": "/assets/images/2025/2025-armenia.jpg.webp",
+      "flagImageUrl": "/assets/flags/armenia.png.webp"
     },
     {
       "id": "2025-greece",
@@ -177,8 +177,8 @@
       "title": "Asteromata",
       "audioPreviewUrl": "/assets/audio/2025/greece.mp3",
       "flagEmoji": "🇬🇷",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Klavdia_Asteromata.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/greece.png.webp"
+      "imageUrl": "/assets/images/2025/2025-greece.jpg.webp",
+      "flagImageUrl": "/assets/flags/greece.png.webp"
     },
     {
       "id": "2025-norway",
@@ -188,8 +188,8 @@
       "title": "Lighter",
       "audioPreviewUrl": "/assets/audio/2025/norway.mp3",
       "flagEmoji": "🇳🇴",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Kyle-Alessandro_Lighter.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/norway.png.webp"
+      "imageUrl": "/assets/images/2025/2025-norway.jpg.webp",
+      "flagImageUrl": "/assets/flags/norway.png.webp"
     },
     {
       "id": "2025-switzerland",
@@ -199,8 +199,8 @@
       "title": "Voyage",
       "audioPreviewUrl": "/assets/audio/2025/switzerland.mp3",
       "flagEmoji": "🇨🇭",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Zoe-Me_Voyage.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/switzerland.png.webp"
+      "imageUrl": "/assets/images/2025/2025-switzerland.jpg.webp",
+      "flagImageUrl": "/assets/flags/switzerland.png.webp"
     },
     {
       "id": "2025-france",
@@ -210,8 +210,8 @@
       "title": "Maman",
       "audioPreviewUrl": "/assets/audio/2025/france.mp3",
       "flagEmoji": "🇫🇷",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Louane_maman.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/france.png.webp"
+      "imageUrl": "/assets/images/2025/2025-france.jpg.webp",
+      "flagImageUrl": "/assets/flags/france.png.webp"
     },
     {
       "id": "2025-montenegro",
@@ -221,8 +221,8 @@
       "title": "Dobrodošli",
       "audioPreviewUrl": "/assets/audio/2025/montenegro.mp3",
       "flagEmoji": "🇲🇪",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Nina-Zizic_Dobrodosli.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/montenegro.png.webp"
+      "imageUrl": "/assets/images/2025/2025-montenegro.jpg.webp",
+      "flagImageUrl": "/assets/flags/montenegro.png.webp"
     },
     {
       "id": "2025-iceland",
@@ -232,8 +232,8 @@
       "title": "Róa",
       "audioPreviewUrl": "/assets/audio/2025/iceland.mp3",
       "flagEmoji": "🇮🇸",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/VAEB_ROA.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/iceland.png.webp"
+      "imageUrl": "/assets/images/2025/2025-iceland.jpg.webp",
+      "flagImageUrl": "/assets/flags/iceland.png.webp"
     },
     {
       "id": "2025-azerbaijan",
@@ -243,8 +243,8 @@
       "title": "Run with U",
       "audioPreviewUrl": "/assets/audio/2025/azerbaijan.mp3",
       "flagEmoji": "🇦🇿",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Mamagama_Run-With-U.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/azerbaijan.png.webp"
+      "imageUrl": "/assets/images/2025/2025-azerbaijan.jpg.webp",
+      "flagImageUrl": "/assets/flags/azerbaijan.png.webp"
     },
     {
       "id": "2025-sweden",
@@ -254,8 +254,8 @@
       "title": "Bara bada bastu",
       "audioPreviewUrl": "/assets/audio/2025/sweden.mp3",
       "flagEmoji": "🇸🇪",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2025/03/KAJ_Bara-Bada-Bastu.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/sweden.png.webp"
+      "imageUrl": "/assets/images/2025/2025-sweden.jpg.webp",
+      "flagImageUrl": "/assets/flags/sweden.png.webp"
     },
     {
       "id": "2025-ireland",
@@ -265,8 +265,8 @@
       "title": "Laika Party",
       "audioPreviewUrl": "/assets/audio/2025/ireland.mp3",
       "flagEmoji": "🇮🇪",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/EMMY_Laika-Party.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/ireland.png.webp"
+      "imageUrl": "/assets/images/2025/2025-ireland.jpg.webp",
+      "flagImageUrl": "/assets/flags/ireland.png.webp"
     },
     {
       "id": "2025-georgia",
@@ -276,8 +276,8 @@
       "title": "Freedom",
       "audioPreviewUrl": "/assets/audio/2025/georgia.mp3",
       "flagEmoji": "🇬🇪",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Mariam-Shengelia_Freedom-8211-Eurovision-2025-8211-Georgia.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/georgia.png.webp"
+      "imageUrl": "/assets/images/2025/2025-georgia.jpg.webp",
+      "flagImageUrl": "/assets/flags/georgia.png.webp"
     },
     {
       "id": "2025-croatia",
@@ -287,8 +287,8 @@
       "title": "Poison Cake",
       "audioPreviewUrl": "/assets/audio/2025/croatia.mp3",
       "flagEmoji": "🇭🇷",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Marko-Bosnjak_Poison-Cake.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/croatia.png.webp"
+      "imageUrl": "/assets/images/2025/2025-croatia.jpg.webp",
+      "flagImageUrl": "/assets/flags/croatia.png.webp"
     },
     {
       "id": "2025-poland",
@@ -298,8 +298,8 @@
       "title": "Gaja",
       "audioPreviewUrl": "/assets/audio/2025/poland.mp3",
       "flagEmoji": "🇵🇱",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/11/Justyna-Steczkowska_GAJA-8211-Eurovision-Edit.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/poland.png.webp"
+      "imageUrl": "/assets/images/2025/2025-poland.jpg.webp",
+      "flagImageUrl": "/assets/flags/poland.png.webp"
     },
     {
       "id": "2025-cyprus",
@@ -309,8 +309,8 @@
       "title": "Shh",
       "audioPreviewUrl": "/assets/audio/2025/cyprus.mp3",
       "flagEmoji": "🇨🇾",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Theo-Evan_Shh.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/cyprus.png.webp"
+      "imageUrl": "/assets/images/2025/2025-cyprus.jpg.webp",
+      "flagImageUrl": "/assets/flags/cyprus.png.webp"
     },
     {
       "id": "2025-united-kingdom",
@@ -320,8 +320,8 @@
       "title": "What the Hell Just Happened?",
       "audioPreviewUrl": "/assets/audio/2025/united-kingdom.mp3",
       "flagEmoji": "🇬🇧",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Remember-Monday_What-The-Hell-Just-Happened.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/unitedkingdom.png.webp"
+      "imageUrl": "/assets/images/2025/2025-united-kingdom.jpg.webp",
+      "flagImageUrl": "/assets/flags/united-kingdom.png.webp"
     },
     {
       "id": "2025-ukraine",
@@ -331,8 +331,8 @@
       "title": "Bird of Pray",
       "audioPreviewUrl": "/assets/audio/2025/ukraine.mp3",
       "flagEmoji": "🇺🇦",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Ziferblat_Bird-of-Pray.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/ukraine.png.webp"
+      "imageUrl": "/assets/images/2025/2025-ukraine.jpg.webp",
+      "flagImageUrl": "/assets/flags/ukraine.png.webp"
     },
     {
       "id": "2025-czechia",
@@ -342,8 +342,8 @@
       "title": "Kiss Kiss Goodbye",
       "audioPreviewUrl": "/assets/audio/2025/czechia.mp3",
       "flagEmoji": "🇨🇿",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/ADONXS_Kiss-Kiss-Goodbye.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/czechia.png.webp"
+      "imageUrl": "/assets/images/2025/2025-czechia.jpg.webp",
+      "flagImageUrl": "/assets/flags/czechia.png.webp"
     },
     {
       "id": "2025-australia",
@@ -353,8 +353,8 @@
       "title": "Milkshake Man",
       "audioPreviewUrl": "/assets/audio/2025/australia.mp3",
       "flagEmoji": "🇦🇺",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/10/Go-Jo_Milkshake-Man.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/australia.png.webp"
+      "imageUrl": "/assets/images/2025/2025-australia.jpg.webp",
+      "flagImageUrl": "/assets/flags/australia.png.webp"
     },
     {
       "id": "2025-belgium",
@@ -364,8 +364,8 @@
       "title": "Strobe Lights",
       "audioPreviewUrl": "/assets/audio/2025/belgium.mp3",
       "flagEmoji": "🇧🇪",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Red-Sebastian_Strobe-Lights.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/belgium.png.webp"
+      "imageUrl": "/assets/images/2025/2025-belgium.jpg.webp",
+      "flagImageUrl": "/assets/flags/belgium.png.webp"
     },
     {
       "id": "2025-estonia",
@@ -375,8 +375,8 @@
       "title": "Espresso Macchiato",
       "audioPreviewUrl": "/assets/audio/2025/estonia.mp3",
       "flagEmoji": "🇪🇪",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Tommy-Cash_Espresso-Macchiato.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/estonia.png.webp"
+      "imageUrl": "/assets/images/2025/2025-estonia.jpg.webp",
+      "flagImageUrl": "/assets/flags/estonia.png.webp"
     },
     {
       "id": "2025-italy",
@@ -386,8 +386,8 @@
       "title": "Volevo essere un duro",
       "audioPreviewUrl": "/assets/audio/2025/italy.mp3",
       "flagEmoji": "🇮🇹",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Lucio-Corsi_Volevo-essere-un-duro.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/italy.png.webp"
+      "imageUrl": "/assets/images/2025/2025-italy.jpg.webp",
+      "flagImageUrl": "/assets/flags/italy.png.webp"
     },
     {
       "id": "2025-portugal",
@@ -397,8 +397,8 @@
       "title": "Deslocado",
       "audioPreviewUrl": "/assets/audio/2025/portugal.mp3",
       "flagEmoji": "🇵🇹",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2025/03/NAPA_Deslocado.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/portugal.png.webp"
+      "imageUrl": "/assets/images/2025/2025-portugal.jpg.webp",
+      "flagImageUrl": "/assets/flags/portugal.png.webp"
     },
     {
       "id": "2025-lithuania",
@@ -408,8 +408,8 @@
       "title": "Tavo akys",
       "audioPreviewUrl": "/assets/audio/2025/lithuania.mp3",
       "flagEmoji": "🇱🇹",
-      "imageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/Katarsis_Tavo-akys.jpg.webp",
-      "flagImageUrl": "https://api.esc-ratings.eu/wp-content/uploads/2024/09/lithuania.png.webp"
+      "imageUrl": "/assets/images/2025/2025-lithuania.jpg.webp",
+      "flagImageUrl": "/assets/flags/lithuania.png.webp"
     }
   ]
 }
