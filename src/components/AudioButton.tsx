@@ -4,20 +4,23 @@ import { useAudio } from "./AudioProvider";
 type AudioButtonProps = {
   songId: string;
   url: string;
+  mode?: "inline" | "modal";
 };
 
-export default function AudioButton({ songId, url }: AudioButtonProps) {
+export default function AudioButton({ songId, url, mode = "modal" }: AudioButtonProps) {
   const { activeSongId, statusBySong, toggleAudio } = useAudio();
   const status = statusBySong[songId] ?? "idle";
   const isActive = activeSongId === songId;
+  const hasPreview = Boolean(url);
 
   return (
     <button
       className={`iconButton ${isActive ? "active" : ""}`}
       type="button"
-      onClick={() => toggleAudio(songId, url)}
-      title={status === "error" ? "Audio preview unavailable" : "Play audio preview"}
-      aria-label={status === "playing" ? "Pause audio preview" : "Play audio preview"}
+      disabled={!hasPreview}
+      onClick={() => toggleAudio(songId, url, mode)}
+      title={!hasPreview || status === "error" ? "Preview unavailable" : "Play preview"}
+      aria-label={status === "playing" ? "Stop preview" : "Play preview"}
     >
       {status === "loading" && isActive ? <Loader2 className="spin" size={17} /> : null}
       {status === "error" ? <AlertCircle size={17} /> : null}

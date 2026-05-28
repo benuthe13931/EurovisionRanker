@@ -4,7 +4,8 @@ export type Song = {
   countryCode: string;
   artist: string;
   title: string;
-  audioPreviewUrl: string;
+  // URL or ID for a preview video. YouTube links/IDs render as embeds; local MP4s still work.
+  previewVideoUrl?: string;
   flagEmoji: string;
   flagImageUrl?: string;
   imageUrl: string;

@@ -84,7 +84,7 @@ export default function SongRow({
         </p>
       </div>
       <div className="rowActions">
-        <AudioButton songId={song.id} url={song.audioPreviewUrl} />
+        <AudioButton songId={song.id} url={song.previewVideoUrl ?? ""} mode="modal" />
         <button
           className={`iconButton heartButton ${favorite ? "active" : ""}`}
           type="button"
