@@ -1,20 +1,16 @@
 # Supabase Setup
 
-## GitHub Actions Deployment
+## Supabase GitHub Integration
 
-This repo includes Supabase CLI migrations in `supabase/migrations` and a deployment workflow at `.github/workflows/deploy-supabase.yml`.
+This repo keeps database migrations in `supabase/migrations`.
 
-Add these repository secrets in GitHub before relying on the workflow:
+Supabase's GitHub Integration is expected to apply migrations from the production branch. Keep schema changes in new timestamped files under `supabase/migrations/`; do not edit applied migration files after they have run in Supabase.
 
-- `SUPABASE_ACCESS_TOKEN`
-- `SUPABASE_DB_PASSWORD`
-- `SUPABASE_PROJECT_ID`
+No custom GitHub Action or Supabase secrets are required in this repo for database deployment.
 
-The workflow runs `supabase db push` on pushes to `main` when Supabase files change. Do not commit secret values.
+## Manual Fallback
 
-## Manual Setup
-
-Open your Supabase project, go to **SQL Editor**, create a new query, paste the full contents of `supabase/schema.sql`, and run it.
+If the Supabase GitHub Integration is unavailable, open your Supabase project, go to **SQL Editor**, create a new query, paste the full contents of `supabase/schema.sql`, and run it.
 
 That one file creates the required extension, tables, indexes, `updated_at` triggers, RLS policies, and every RPC function the app calls:
 
