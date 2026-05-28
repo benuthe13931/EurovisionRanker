@@ -148,6 +148,8 @@ BEGIN
 END;
 $$;
 
+DROP FUNCTION IF EXISTS public.signup_profile(text, text, text);
+
 -- RPC called by the frontend:
 -- supabase.rpc("signup_profile", { p_name, p_username, p_password })
 -- Supabase/PostgREST may display this as public.signup_profile(p_name, p_password, p_username).
@@ -200,6 +202,8 @@ BEGIN
   );
 END;
 $$;
+
+DROP FUNCTION IF EXISTS public.login_profile(text, text);
 
 CREATE OR REPLACE FUNCTION public.login_profile(
   p_password text,
@@ -390,6 +394,22 @@ AS $$
     AND comparison_key = p_comparison_key;
 $$;
 
+CREATE OR REPLACE FUNCTION public.ranker_setup_status()
+RETURNS jsonb
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT jsonb_build_object(
+    'ok', true,
+    'profilesTable', to_regclass('public.profiles') IS NOT NULL,
+    'rankingsTable', to_regclass('public.rankings') IS NOT NULL,
+    'favoritesTable', to_regclass('public.favorites') IS NOT NULL,
+    'comparisonsTable', to_regclass('public.comparisons') IS NOT NULL,
+    'checkedAt', now()::text
+  );
+$$;
+
 GRANT USAGE ON SCHEMA public TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.validate_ranker_password(text) TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.signup_profile(text, text, text) TO anon, authenticated;
@@ -402,5 +422,6 @@ GRANT EXECUTE ON FUNCTION public.save_favorites(uuid, text[]) TO anon, authentic
 GRANT EXECUTE ON FUNCTION public.get_comparison(text, uuid) TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.save_comparison(text, uuid, jsonb) TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.clear_comparison(text, uuid) TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.ranker_setup_status() TO anon, authenticated;
 
 NOTIFY pgrst, 'reload schema';
