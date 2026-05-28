@@ -33,14 +33,22 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
   const [state, setState] = useState<ComparisonState>(() =>
     createComparisonState(comparisonKey, songs, "smart"),
   );
+  const [dataError, setDataError] = useState("");
 
   useEffect(() => {
     let active = true;
 
     async function loadSavedComparison() {
-      const saved = await loadComparison(comparisonKey);
-      const next = saved && saved.mode === mode ? saved : createComparisonState(comparisonKey, songs, mode);
-      if (active) setState(next);
+      try {
+        const saved = await loadComparison(comparisonKey);
+        const next = saved && saved.mode === mode ? saved : createComparisonState(comparisonKey, songs, mode);
+        if (active) {
+          setState(next);
+          setDataError("");
+        }
+      } catch (error) {
+        if (active) setDataError(error instanceof Error ? error.message : "Could not load comparison state.");
+      }
     }
 
     void loadSavedComparison();
@@ -88,26 +96,35 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
       updatedAt: new Date().toISOString(),
     };
     setState(next);
-    void saveComparison(next);
+    void saveComparison(next).catch((error: unknown) => {
+      setDataError(error instanceof Error ? error.message : "Could not save comparison state.");
+    });
   }
 
   function switchMode(nextMode: ComparisonMode) {
     setMode(nextMode);
     const next = createComparisonState(comparisonKey, songs, nextMode);
     setState(next);
-    void saveComparison(next);
+    void saveComparison(next).catch((error: unknown) => {
+      setDataError(error instanceof Error ? error.message : "Could not save comparison state.");
+    });
   }
 
   function resetComparison() {
-    void clearComparison(comparisonKey);
+    void clearComparison(comparisonKey).catch((error: unknown) => {
+      setDataError(error instanceof Error ? error.message : "Could not reset comparison state.");
+    });
     const next = createComparisonState(comparisonKey, songs, mode);
     setState(next);
   }
 
   function applyRanking() {
-    void saveRanking(rankingKey, sortedSongs.map((song) => song.id));
-    void clearComparison(comparisonKey);
-    navigate(allSongsMode ? "/all-songs" : `/year/${year}`);
+    void saveRanking(rankingKey, sortedSongs.map((song) => song.id))
+      .then(() => clearComparison(comparisonKey))
+      .then(() => navigate(allSongsMode ? "/all-songs" : `/year/${year}`))
+      .catch((error: unknown) => {
+        setDataError(error instanceof Error ? error.message : "Could not apply ranking.");
+      });
   }
 
   return (
@@ -160,6 +177,7 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
             <RotateCcw size={16} /> Reset
           </button>
         </div>
+        {dataError ? <div className="dataError">{dataError}</div> : null}
 
         {!isComplete && pairSongs[0] && pairSongs[1] ? (
           <div className="comparisonGrid">

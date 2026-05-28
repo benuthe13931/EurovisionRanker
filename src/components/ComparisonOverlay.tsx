@@ -102,6 +102,7 @@ export default function ComparisonOverlay({
     createComparisonState(comparisonKey, songs, "smart"),
   );
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [dataError, setDataError] = useState("");
   const rankingItemRefs = useRef(new Map<string, HTMLLIElement>());
   const previousRankingPositions = useRef(new Map<string, number>());
 
@@ -109,9 +110,15 @@ export default function ComparisonOverlay({
     let active = true;
 
     async function loadSavedComparison() {
-      const saved = await loadComparison(comparisonKey);
-      if (!active) return;
-      setState(saved ?? createComparisonState(comparisonKey, songs, "smart"));
+      try {
+        const saved = await loadComparison(comparisonKey);
+        if (!active) return;
+        setState(saved ?? createComparisonState(comparisonKey, songs, "smart"));
+        setDataError("");
+      } catch (error) {
+        if (!active) return;
+        setDataError(error instanceof Error ? error.message : "Could not load comparison state.");
+      }
     }
 
     void loadSavedComparison();
@@ -201,15 +208,23 @@ export default function ComparisonOverlay({
     const nextRanking = sortByRating(songs, next.ratings);
 
     setState(next);
-    void saveComparison(next);
-    void saveRanking(rankingKey, nextRanking.map((song) => song.id));
+    void saveComparison(next).catch((error: unknown) => {
+      setDataError(error instanceof Error ? error.message : "Could not save comparison state.");
+    });
+    void saveRanking(rankingKey, nextRanking.map((song) => song.id)).catch((error: unknown) => {
+      setDataError(error instanceof Error ? error.message : "Could not save ranking.");
+    });
     onRankingUpdate(nextRanking);
   }
 
   function resetComparisonAndRanking() {
     const next = createComparisonState(comparisonKey, resetSongs, "smart");
-    void clearComparison(comparisonKey);
-    void clearRanking(rankingKey);
+    void clearComparison(comparisonKey).catch((error: unknown) => {
+      setDataError(error instanceof Error ? error.message : "Could not clear comparison state.");
+    });
+    void clearRanking(rankingKey).catch((error: unknown) => {
+      setDataError(error instanceof Error ? error.message : "Could not clear ranking.");
+    });
     previousRankingPositions.current.clear();
     setState(next);
     onRankingUpdate(resetSongs);
@@ -246,6 +261,7 @@ export default function ComparisonOverlay({
               <X size={18} />
             </button>
           </div>
+          {dataError ? <div className="overlayError">{dataError}</div> : null}
         </header>
 
         <button className="rankingDrawerButton" type="button" onClick={() => setSidebarOpen(true)}>

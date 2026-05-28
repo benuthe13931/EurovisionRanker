@@ -28,6 +28,7 @@ export default function YearPage() {
   const rankingKey = `year:${year}`;
   const [favorites, setFavorites] = useState<Set<string>>(() => new Set());
   const [savedNotice, setSavedNotice] = useState("");
+  const [dataError, setDataError] = useState("");
   const [comparisonOpen, setComparisonOpen] = useState(false);
 
   const initialSongs = useMemo(() => yearData?.songs ?? [], [yearData]);
@@ -40,14 +41,20 @@ export default function YearPage() {
 
     async function loadSavedState() {
       if (!yearData) return;
-      const [savedRanking, savedFavorites] = await Promise.all([
-        loadRanking(rankingKey),
-        loadFavorites(),
-      ]);
+      try {
+        const [savedRanking, savedFavorites] = await Promise.all([
+          loadRanking(rankingKey),
+          loadFavorites(),
+        ]);
 
-      if (!active) return;
-      setSongs(orderSongs(yearData.songs, savedRanking?.songIds));
-      setFavorites(savedFavorites);
+        if (!active) return;
+        setSongs(orderSongs(yearData.songs, savedRanking?.songIds));
+        setFavorites(savedFavorites);
+        setDataError("");
+      } catch (error) {
+        if (!active) return;
+        setDataError(error instanceof Error ? error.message : "Could not load saved ranking.");
+      }
     }
 
     void loadSavedState();
@@ -74,20 +81,32 @@ export default function YearPage() {
     if (next.has(songId)) next.delete(songId);
     else next.add(songId);
     setFavorites(next);
-    void saveFavorites(next);
+    void saveFavorites(next).catch((error: unknown) => {
+      setDataError(error instanceof Error ? error.message : "Could not save favorite.");
+    });
   }
 
   async function handleSave() {
-    await saveRanking(rankingKey, songs.map((song) => song.id));
-    setSavedNotice("Saved");
-    window.setTimeout(() => setSavedNotice(""), 1800);
+    try {
+      await saveRanking(rankingKey, songs.map((song) => song.id));
+      setDataError("");
+      setSavedNotice("Saved");
+      window.setTimeout(() => setSavedNotice(""), 1800);
+    } catch (error) {
+      setDataError(error instanceof Error ? error.message : "Could not save ranking.");
+    }
   }
 
   async function handleReset() {
-    await clearRanking(rankingKey);
-    setSongs(currentYearData.songs);
-    setSavedNotice("Reset");
-    window.setTimeout(() => setSavedNotice(""), 1800);
+    try {
+      await clearRanking(rankingKey);
+      setSongs(currentYearData.songs);
+      setDataError("");
+      setSavedNotice("Reset");
+      window.setTimeout(() => setSavedNotice(""), 1800);
+    } catch (error) {
+      setDataError(error instanceof Error ? error.message : "Could not reset ranking.");
+    }
   }
 
   return (
@@ -122,6 +141,7 @@ export default function YearPage() {
             {savedNotice ? <span className="savedNotice">{savedNotice}</span> : null}
           </div>
         </div>
+        {dataError ? <div className="dataError">{dataError}</div> : null}
 
         <RankingList
           songs={songs}
