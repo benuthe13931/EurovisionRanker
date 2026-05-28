@@ -1,7 +1,8 @@
 -- Eurovision Ranker Supabase setup
 -- Paste this whole file into Supabase SQL Editor and run it.
 
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE SCHEMA IF NOT EXISTS extensions;
+CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA extensions;
 
 CREATE TABLE IF NOT EXISTS public.profiles (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -202,7 +203,7 @@ BEGIN
   END IF;
 
   INSERT INTO public.profiles (username, name, password_hash)
-  VALUES (clean_username, clean_name, crypt(p_password, gen_salt('bf')))
+  VALUES (clean_username, clean_name, extensions.crypt(p_password, extensions.gen_salt('bf')))
   RETURNING * INTO created_profile;
 
   RETURN jsonb_build_object(
@@ -233,7 +234,7 @@ BEGIN
   IF profile.id IS NULL THEN
     RAISE EXCEPTION 'Profile not found.';
   END IF;
-  IF profile.password_hash <> crypt(p_password, profile.password_hash) THEN
+  IF profile.password_hash <> extensions.crypt(p_password, profile.password_hash) THEN
     RAISE EXCEPTION 'Incorrect password.';
   END IF;
 

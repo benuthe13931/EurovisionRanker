@@ -29,6 +29,8 @@ Then redeploy the Vercel app. If Supabase still says a function is missing, wait
 
 If you previously ran an older version of the schema, run this full file again. It explicitly drops and recreates the text-only auth RPCs so Postgres does not keep stale argument names in the PostgREST schema cache.
 
+The password RPCs call `extensions.crypt` and `extensions.gen_salt`, which is where Supabase normally exposes `pgcrypto`.
+
 Optional smoke test in SQL Editor after setup:
 
 ```sql
