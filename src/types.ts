@@ -28,16 +28,19 @@ export type RankingState = {
   updatedAt: string;
 };
 
-export type ComparisonMode = "smart" | "full";
+export type ComparisonMode = "smart";
 
 export type ComparisonState = {
   key: string;
   mode: ComparisonMode;
-  ratings: Record<string, number>;
-  comparedPairs: string[];
+  sortedIds: string[];
+  pendingIds: string[];
+  activeId?: string;
+  low: number;
+  high: number;
+  compareAgainstId?: string;
   completed: number;
   targetComparisons: number;
-  fullPairs?: [string, string][];
   currentPair?: [string, string];
   updatedAt: string;
 };

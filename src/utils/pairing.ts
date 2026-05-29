@@ -1,173 +1,164 @@
 import type { ComparisonMode, ComparisonState, Song } from "../types";
-import { initialRatings } from "./elo";
 
-export function pairKey(a: string, b: string) {
-  return [a, b].sort().join("__");
-}
+function estimatedInsertionComparisons(songCount: number) {
+  let total = 0;
 
-function smartExplorationCount(songCount: number) {
-  return Math.ceil(songCount * Math.log2(Math.max(songCount, 2)) * 1.15);
-}
-
-function smartFinalistCount(songCount: number) {
-  return Math.min(songCount, Math.max(3, Math.min(8, Math.ceil(Math.sqrt(songCount)) + 2)));
-}
-
-function smartBubbleCount(songCount: number) {
-  return Math.min(songCount, Math.max(smartFinalistCount(songCount), 12));
-}
-
-function smartTieBreakerEstimate(songCount: number) {
-  const finalistCount = smartFinalistCount(songCount);
-  const bubbleCount = smartBubbleCount(songCount);
-  const finalistPairs = (finalistCount * (finalistCount - 1)) / 2;
-  let bubblePairs = 0;
-
-  for (let i = 0; i < bubbleCount; i += 1) {
-    bubblePairs += Math.min(3, bubbleCount - i - 1);
+  for (let sortedLength = 1; sortedLength < songCount; sortedLength += 1) {
+    total += Math.ceil(Math.log2(sortedLength + 1));
   }
 
-  return finalistPairs + bubblePairs;
+  return total;
+}
+
+function idsForSongs(songs: Song[]) {
+  return songs.map((song) => song.id);
+}
+
+function sanitizeIds(ids: string[] | undefined, validIds: Set<string>, seen = new Set<string>()) {
+  return (ids ?? []).filter((id) => {
+    if (!validIds.has(id) || seen.has(id)) return false;
+    seen.add(id);
+    return true;
+  });
+}
+
+function nextInsertionState(state: ComparisonState): ComparisonState {
+  const activeId = state.pendingIds[0];
+
+  if (!activeId) {
+    return {
+      ...state,
+      activeId: undefined,
+      compareAgainstId: undefined,
+      currentPair: undefined,
+      low: state.sortedIds.length,
+      high: state.sortedIds.length,
+    };
+  }
+
+  const low = Math.max(0, Math.min(state.low, state.sortedIds.length));
+  const high = Math.max(low, Math.min(state.high ?? state.sortedIds.length, state.sortedIds.length));
+  const mid = Math.floor((low + high) / 2);
+  const compareAgainstId = state.sortedIds[mid];
+
+  return {
+    ...state,
+    activeId,
+    low,
+    high,
+    compareAgainstId,
+    currentPair: compareAgainstId ? [activeId, compareAgainstId] : undefined,
+  };
 }
 
 export function targetComparisonCount(songCount: number) {
-  const fullPairCount = (songCount * (songCount - 1)) / 2;
-  return Math.min(fullPairCount, smartExplorationCount(songCount) + smartTieBreakerEstimate(songCount));
-}
-
-export function allUniquePairs(songIds: string[]) {
-  const pairs: [string, string][] = [];
-  for (let i = 0; i < songIds.length; i += 1) {
-    for (let j = i + 1; j < songIds.length; j += 1) {
-      pairs.push([songIds[i], songIds[j]]);
-    }
-  }
-  return pairs;
+  return estimatedInsertionComparisons(songCount);
 }
 
 export function createComparisonState(
   key: string,
   songs: Song[],
-  mode: ComparisonMode,
+  mode: ComparisonMode = "smart",
 ): ComparisonState {
-  const songIds = songs.map((song) => song.id);
-  const fullPairs = mode === "full" ? allUniquePairs(songIds) : undefined;
-  const targetComparisons =
-    mode === "full" ? allUniquePairs(songIds).length : targetComparisonCount(songIds.length);
+  const songIds = idsForSongs(songs);
+  const sortedIds = songIds.slice(0, 1);
+  const pendingIds = songIds.slice(1);
 
-  return {
+  return nextInsertionState({
     key,
     mode,
-    ratings: initialRatings(songIds),
-    comparedPairs: [],
+    sortedIds,
+    pendingIds,
+    low: 0,
+    high: sortedIds.length,
     completed: 0,
-    targetComparisons,
-    fullPairs,
+    targetComparisons: targetComparisonCount(songIds.length),
     updatedAt: new Date().toISOString(),
-  };
-}
-
-function sortedSongIdsByRating(songs: Song[], ratings: Record<string, number>) {
-  return [...songs]
-    .sort((a, b) => {
-      const ratingDiff = (ratings[b.id] ?? 1500) - (ratings[a.id] ?? 1500);
-      return ratingDiff || a.id.localeCompare(b.id);
-    })
-    .map((song) => song.id);
-}
-
-export function missingRequiredSmartPairs(state: ComparisonState, songs: Song[]) {
-  if (state.mode !== "smart" || state.completed < smartExplorationCount(songs.length)) {
-    return [];
-  }
-
-  const compared = new Set(state.comparedPairs);
-  const sortedIds = sortedSongIdsByRating(songs, state.ratings);
-  const finalistIds = sortedIds.slice(0, smartFinalistCount(sortedIds.length));
-  const bubbleIds = sortedIds.slice(0, smartBubbleCount(sortedIds.length));
-  const requiredKeys = new Set<string>();
-  const requiredPairs: [string, string][] = [];
-
-  function addPair(a: string, b: string) {
-    const key = pairKey(a, b);
-    if (requiredKeys.has(key) || compared.has(key)) return;
-    requiredKeys.add(key);
-    requiredPairs.push([a, b]);
-  }
-
-  for (let i = 0; i < finalistIds.length; i += 1) {
-    for (let j = i + 1; j < finalistIds.length; j += 1) {
-      addPair(finalistIds[i], finalistIds[j]);
-    }
-  }
-
-  for (let i = 0; i < bubbleIds.length; i += 1) {
-    for (let j = i + 1; j < Math.min(bubbleIds.length, i + 4); j += 1) {
-      addPair(bubbleIds[i], bubbleIds[j]);
-    }
-  }
-
-  return requiredPairs.sort((a, b) => {
-    const aGap = Math.abs((state.ratings[a[0]] ?? 1500) - (state.ratings[a[1]] ?? 1500));
-    const bGap = Math.abs((state.ratings[b[0]] ?? 1500) - (state.ratings[b[1]] ?? 1500));
-    return aGap - bGap;
   });
 }
 
-export function comparisonIsComplete(state: ComparisonState, songs: Song[]) {
-  if (state.mode === "full") {
-    return state.completed >= state.targetComparisons || !pickNextPair(state, songs);
-  }
+export function normalizeComparisonState(
+  state: ComparisonState | null | undefined,
+  key: string,
+  songs: Song[],
+  mode: ComparisonMode = "smart",
+) {
+  const freshState = createComparisonState(key, songs, mode);
+  if (!state?.sortedIds || !state.pendingIds) return freshState;
 
-  return (
-    state.completed >= state.targetComparisons &&
-    missingRequiredSmartPairs(state, songs).length === 0
-  );
-}
+  const validIds = new Set(idsForSongs(songs));
+  const seen = new Set<string>();
+  const sortedIds = sanitizeIds(state.sortedIds, validIds, seen);
+  const pendingIds = sanitizeIds(state.pendingIds, validIds, seen);
 
-export function pickNextPair(state: ComparisonState, songs: Song[]) {
-  const compared = new Set(state.comparedPairs);
-  const songIds = songs.map((song) => song.id);
+  if (!sortedIds.length) return freshState;
 
-  if (state.mode === "full") {
-    return state.fullPairs?.find(([a, b]) => !compared.has(pairKey(a, b)));
-  }
-
-  const requiredSmartPair = missingRequiredSmartPairs(state, songs)[0];
-  if (requiredSmartPair) return requiredSmartPair;
-
-  const counts = Object.fromEntries(songIds.map((id) => [id, 0]));
-  state.comparedPairs.forEach((key) => {
-    const [a, b] = key.split("__");
-    if (a in counts) counts[a] += 1;
-    if (b in counts) counts[b] += 1;
+  idsForSongs(songs).forEach((id) => {
+    if (!seen.has(id)) pendingIds.push(id);
   });
 
-  const minCount = Math.min(...Object.values(counts));
-  const underCompared = songIds.filter((id) => counts[id] <= minCount + 1);
-  const pool = underCompared.length >= 2 ? underCompared : songIds;
+  return nextInsertionState({
+    ...freshState,
+    sortedIds,
+    pendingIds,
+    low: state.activeId === pendingIds[0] ? state.low : 0,
+    high: state.activeId === pendingIds[0] ? state.high : sortedIds.length,
+    completed: state.completed ?? 0,
+    updatedAt: state.updatedAt ?? freshState.updatedAt,
+  });
+}
 
-  let bestPair: [string, string] | undefined;
-  let bestScore = Number.POSITIVE_INFINITY;
+export function comparisonIsComplete(state: ComparisonState) {
+  return state.pendingIds.length === 0 && !state.activeId;
+}
 
-  for (let i = 0; i < pool.length; i += 1) {
-    for (let j = i + 1; j < pool.length; j += 1) {
-      const a = pool[i];
-      const b = pool[j];
-      if (compared.has(pairKey(a, b))) continue;
+export function rankedIdsForState(state: ComparisonState) {
+  const pendingIds = state.pendingIds.filter((id) => !state.sortedIds.includes(id));
+  return [...state.sortedIds, ...pendingIds];
+}
 
-      const eloGap = Math.abs((state.ratings[a] ?? 1500) - (state.ratings[b] ?? 1500));
-      const countPenalty = (counts[a] + counts[b]) * 8;
-      const jitter = Math.random() * 3;
-      const score = eloGap + countPenalty + jitter;
+export function songsForComparisonState(state: ComparisonState, songs: Song[]) {
+  const byId = new Map(songs.map((song) => [song.id, song]));
+  return rankedIdsForState(state).flatMap((id) => {
+    const song = byId.get(id);
+    return song ? [song] : [];
+  });
+}
 
-      if (score < bestScore) {
-        bestScore = score;
-        bestPair = [a, b];
-      }
-    }
+export function chooseInsertionWinner(state: ComparisonState, winnerId: string) {
+  const activeId = state.activeId;
+  const compareAgainstId = state.compareAgainstId;
+  if (!activeId || !compareAgainstId) return nextInsertionState(state);
+  if (winnerId !== activeId && winnerId !== compareAgainstId) return nextInsertionState(state);
+
+  const mid = Math.floor((state.low + state.high) / 2);
+  let low = state.low;
+  let high = state.high;
+
+  if (winnerId === activeId) {
+    high = mid;
+  } else {
+    low = mid + 1;
   }
 
-  if (bestPair) return bestPair;
-  return allUniquePairs(songIds).find(([a, b]) => !compared.has(pairKey(a, b)));
+  let sortedIds = state.sortedIds;
+  let pendingIds = state.pendingIds;
+
+  if (low >= high) {
+    sortedIds = [...state.sortedIds];
+    sortedIds.splice(low, 0, activeId);
+    pendingIds = state.pendingIds.filter((id) => id !== activeId);
+    low = 0;
+    high = sortedIds.length;
+  }
+
+  return nextInsertionState({
+    ...state,
+    sortedIds,
+    pendingIds,
+    low,
+    high,
+    completed: state.completed + 1,
+    updatedAt: new Date().toISOString(),
+  });
 }

@@ -3,14 +3,13 @@ import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ComparisonCard from "../components/ComparisonCard";
 import { allSongs, allSongsBackground, songsByYear } from "../data/years";
-import type { ComparisonMode, ComparisonState, Song } from "../types";
-import { updateElo } from "../utils/elo";
+import type { ComparisonState } from "../types";
 import {
+  chooseInsertionWinner,
   comparisonIsComplete,
   createComparisonState,
-  pairKey,
-  pickNextPair,
-  targetComparisonCount,
+  normalizeComparisonState,
+  songsForComparisonState,
 } from "../utils/pairing";
 import {
   clearComparison,
@@ -23,10 +22,6 @@ type ComparisonPageProps = {
   allSongsMode?: boolean;
 };
 
-function sortByRating(songs: Song[], ratings: Record<string, number>) {
-  return [...songs].sort((a, b) => (ratings[b.id] ?? 1500) - (ratings[a.id] ?? 1500));
-}
-
 export default function ComparisonPage({ allSongsMode = false }: ComparisonPageProps) {
   const { year = "" } = useParams();
   const navigate = useNavigate();
@@ -35,7 +30,6 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
   const rankingKey = allSongsMode ? "all" : `year:${year}`;
   const comparisonKey = `${rankingKey}:comparison`;
   const backgroundImage = allSongsMode ? allSongsBackground : yearData?.backgroundImage;
-  const [mode, setMode] = useState<ComparisonMode>("smart");
   const [state, setState] = useState<ComparisonState>(() =>
     createComparisonState(comparisonKey, songs, "smart"),
   );
@@ -47,11 +41,7 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
     async function loadSavedComparison() {
       try {
         const saved = await loadComparison(comparisonKey);
-        const next = saved && saved.mode === mode ? saved : createComparisonState(comparisonKey, songs, mode);
-        if (next.mode === "smart") {
-          next.targetComparisons = targetComparisonCount(songs.length);
-          next.completed = next.comparedPairs.length;
-        }
+        const next = normalizeComparisonState(saved, comparisonKey, songs, "smart");
         if (active) {
           setState(next);
           setDataError("");
@@ -65,14 +55,14 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
     return () => {
       active = false;
     };
-  }, [comparisonKey, mode, songs]);
+  }, [comparisonKey, songs]);
 
-  const currentPair = useMemo(() => pickNextPair(state, songs), [state, songs]);
+  const currentPair = state.currentPair;
   const pairSongs = currentPair
     ? [songs.find((song) => song.id === currentPair[0]), songs.find((song) => song.id === currentPair[1])]
     : [];
-  const isComplete = comparisonIsComplete(state, songs) || !currentPair;
-  const sortedSongs = sortByRating(songs, state.ratings);
+  const isComplete = comparisonIsComplete(state);
+  const sortedSongs = useMemo(() => songsForComparisonState(state, songs), [state, songs]);
 
   if (!allSongsMode && !yearData) {
     return (
@@ -87,33 +77,7 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
 
   function chooseWinner(winnerId: string) {
     if (!currentPair) return;
-    const [a, b] = currentPair;
-    const loserId = winnerId === a ? b : a;
-    const result = updateElo(
-      state.ratings[winnerId] ?? 1500,
-      state.ratings[loserId] ?? 1500,
-      1,
-    );
-    const next: ComparisonState = {
-      ...state,
-      ratings: {
-        ...state.ratings,
-        [winnerId]: result.ratingA,
-        [loserId]: result.ratingB,
-      },
-      comparedPairs: [...state.comparedPairs, pairKey(a, b)],
-      completed: state.completed + 1,
-      updatedAt: new Date().toISOString(),
-    };
-    setState(next);
-    void saveComparison(next).catch((error: unknown) => {
-      setDataError(error instanceof Error ? error.message : "Could not save comparison state.");
-    });
-  }
-
-  function switchMode(nextMode: ComparisonMode) {
-    setMode(nextMode);
-    const next = createComparisonState(comparisonKey, songs, nextMode);
+    const next = chooseInsertionWinner(state, winnerId);
     setState(next);
     void saveComparison(next).catch((error: unknown) => {
       setDataError(error instanceof Error ? error.message : "Could not save comparison state.");
@@ -124,8 +88,7 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
     void clearComparison(comparisonKey).catch((error: unknown) => {
       setDataError(error instanceof Error ? error.message : "Could not reset comparison state.");
     });
-    const next = createComparisonState(comparisonKey, songs, mode);
-    setState(next);
+    setState(createComparisonState(comparisonKey, songs, "smart"));
   }
 
   function applyRanking() {
@@ -149,39 +112,23 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
           </button>
           <h1>{allSongsMode ? "All Songs Comparison" : `Eurovision ${year} Comparison`}</h1>
           <p>
-            Choose the entry you prefer. Smart mode uses Elo plus head-to-head checks among the
-            top contenders instead of asking for every possible pair.
+            Choose the entry you prefer. Each song is inserted into your current ranking with a
+            deterministic binary search.
           </p>
         </div>
 
         <div className="comparisonTopbar">
           <div>
             <span className="progressText">
-              {Math.min(state.completed, state.targetComparisons)} / {state.targetComparisons} comparisons
+              {state.completed} / ~{state.targetComparisons} comparisons
             </span>
             <div className="progressTrack">
               <span
                 style={{
-                  width: `${Math.min(100, (state.completed / state.targetComparisons) * 100)}%`,
+                  width: `${Math.min(100, (state.completed / Math.max(state.targetComparisons, 1)) * 100)}%`,
                 }}
               />
             </div>
-          </div>
-          <div className="segmented">
-            <button
-              className={mode === "smart" ? "selected" : ""}
-              type="button"
-              onClick={() => switchMode("smart")}
-            >
-              Smart
-            </button>
-            <button
-              className={mode === "full" ? "selected" : ""}
-              type="button"
-              onClick={() => switchMode("full")}
-            >
-              Full pairwise
-            </button>
           </div>
           <button className="secondaryButton" type="button" onClick={resetComparison}>
             <RotateCcw size={16} /> Reset
@@ -197,13 +144,12 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
         ) : (
           <div className="resultsPanel">
             <h2>Comparison ranking ready</h2>
-            <p>Apply this Elo estimate to your ranking list, or reset to start over.</p>
+            <p>Apply this exact insertion ranking to your list, or reset to start over.</p>
             <ol className="resultsList">
               {sortedSongs.map((song) => (
                 <li key={song.id}>
                   <span>{song.flagEmoji}</span>
                   <strong>{song.title}</strong>
-                  <em>{Math.round(state.ratings[song.id] ?? 1500)}</em>
                 </li>
               ))}
             </ol>

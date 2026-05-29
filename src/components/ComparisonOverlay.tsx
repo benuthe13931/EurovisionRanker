@@ -2,13 +2,12 @@ import { RotateCcw, X } from "lucide-react";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import type { ComparisonState, Song } from "../types";
-import { updateElo } from "../utils/elo";
 import {
+  chooseInsertionWinner,
   comparisonIsComplete,
   createComparisonState,
-  pairKey,
-  pickNextPair,
-  targetComparisonCount,
+  normalizeComparisonState,
+  songsForComparisonState,
 } from "../utils/pairing";
 import {
   clearComparison,
@@ -30,52 +29,8 @@ type ComparisonOverlayProps = {
   onRankingUpdate: (songs: Song[]) => void;
 };
 
-function sortByRating(songs: Song[], ratings: Record<string, number>) {
-  return [...songs].sort((a, b) => (ratings[b.id] ?? 1500) - (ratings[a.id] ?? 1500));
-}
-
-function normalizeComparisonState(state: ComparisonState, songs: Song[]): ComparisonState {
-  const songIds = new Set(songs.map((song) => song.id));
-  const comparedPairs: string[] = [];
-  const seen = new Set<string>();
-
-  state.comparedPairs.forEach((key) => {
-    const [a, b] = key.split("__");
-    if (!a || !b || a === b || !songIds.has(a) || !songIds.has(b)) return;
-
-    const normalizedKey = pairKey(a, b);
-    if (seen.has(normalizedKey)) return;
-
-    seen.add(normalizedKey);
-    comparedPairs.push(normalizedKey);
-  });
-
-  const currentPair =
-    state.currentPair &&
-    songIds.has(state.currentPair[0]) &&
-    songIds.has(state.currentPair[1]) &&
-    !seen.has(pairKey(state.currentPair[0], state.currentPair[1]))
-      ? state.currentPair
-      : undefined;
-
-  return {
-    ...state,
-    comparedPairs,
-    completed: comparedPairs.length,
-    targetComparisons:
-      state.mode === "smart" ? targetComparisonCount(songs.length) : state.targetComparisons,
-    currentPair,
-  };
-}
-
 function withCurrentPair(state: ComparisonState, songs: Song[]): ComparisonState {
-  const normalizedState = normalizeComparisonState(state, songs);
-  if (normalizedState.currentPair) {
-    return normalizedState;
-  }
-
-  const currentPair = pickNextPair(normalizedState, songs);
-  return currentPair ? { ...normalizedState, currentPair } : normalizedState;
+  return normalizeComparisonState(state, state.key, songs, "smart");
 }
 
 function FlagBadge({ song }: { song: Song }) {
@@ -192,8 +147,7 @@ export default function ComparisonOverlay({
   const rankingItemRefs = useRef(new Map<string, HTMLLIElement>());
   const previousRankingPositions = useRef(new Map<string, number>());
   const hasLocalComparisonChange = useRef(false);
-  const choosingPairKey = useRef<string | null>(null);
-  const comparedPairKeys = useRef(new Set(state.comparedPairs));
+  const choosing = useRef(false);
 
   useEffect(() => {
     let active = true;
@@ -203,8 +157,7 @@ export default function ComparisonOverlay({
         const saved = await loadComparison(comparisonKey);
         if (!active) return;
         if (hasLocalComparisonChange.current) return;
-        const next = withCurrentPair(saved ?? createComparisonState(comparisonKey, songs, "smart"), songs);
-        comparedPairKeys.current = new Set(next.comparedPairs);
+        const next = normalizeComparisonState(saved, comparisonKey, songs, "smart");
         setState(next);
         setDataError("");
       } catch (error) {
@@ -226,9 +179,9 @@ export default function ComparisonOverlay({
         songs.find((song) => song.id === currentPair[1]),
       ]
     : [];
-  const sortedSongs = useMemo(() => sortByRating(songs, state.ratings), [songs, state.ratings]);
+  const sortedSongs = useMemo(() => songsForComparisonState(state, songs), [songs, state]);
   const progress = Math.min(state.completed, state.targetComparisons);
-  const progressPercent = Math.min(100, (progress / state.targetComparisons) * 100);
+  const progressPercent = Math.min(100, (progress / Math.max(state.targetComparisons, 1)) * 100);
 
   useEffect(() => {
     document.body.classList.add("comparisonOpen");
@@ -283,57 +236,29 @@ export default function ComparisonOverlay({
     const submission: {
       nextRanking?: Song[];
       nextState?: ComparisonState;
-      submittedPairKey?: string;
     } = {};
 
     setState((previousState) => {
-      const normalizedState = withCurrentPair(previousState, songs);
+      const normalizedState = normalizeComparisonState(previousState, comparisonKey, songs, "smart");
       const pair = normalizedState.currentPair;
       if (!pair) return normalizedState;
 
       const [a, b] = pair;
       if (winnerId !== a && winnerId !== b) return normalizedState;
+      if (choosing.current) return normalizedState;
 
-      const currentPairKey = pairKey(a, b);
-      if (choosingPairKey.current === currentPairKey || comparedPairKeys.current.has(currentPairKey)) {
-        return normalizedState;
-      }
-
-      choosingPairKey.current = currentPairKey;
-      comparedPairKeys.current.add(currentPairKey);
-      submission.submittedPairKey = currentPairKey;
-
-      const loserId = winnerId === a ? b : a;
-      const result = updateElo(
-        normalizedState.ratings[winnerId] ?? 1500,
-        normalizedState.ratings[loserId] ?? 1500,
-        1,
-      );
-      const next: ComparisonState = {
-        ...normalizedState,
-        ratings: {
-          ...normalizedState.ratings,
-          [winnerId]: result.ratingA,
-          [loserId]: result.ratingB,
-        },
-        comparedPairs: [...normalizedState.comparedPairs, currentPairKey],
-        completed: normalizedState.completed + 1,
-        currentPair: undefined,
-        updatedAt: new Date().toISOString(),
-      };
-      next.currentPair = pickNextPair(next, songs);
+      choosing.current = true;
+      const next = chooseInsertionWinner(normalizedState, winnerId);
       submission.nextState = next;
-      submission.nextRanking = sortByRating(songs, next.ratings);
+      submission.nextRanking = songsForComparisonState(next, songs);
 
       return next;
     });
 
-    if (!submission.nextState || !submission.nextRanking || !submission.submittedPairKey) return;
+    if (!submission.nextState || !submission.nextRanking) return;
 
     window.setTimeout(() => {
-      if (choosingPairKey.current === submission.submittedPairKey) {
-        choosingPairKey.current = null;
-      }
+      choosing.current = false;
     }, 250);
     void saveComparison(submission.nextState).catch((error: unknown) => {
       setDataError(error instanceof Error ? error.message : "Could not save comparison state.");
@@ -347,8 +272,7 @@ export default function ComparisonOverlay({
   function resetComparisonAndRanking() {
     hasLocalComparisonChange.current = true;
     const next = createComparisonState(comparisonKey, resetSongs, "smart");
-    next.currentPair = pickNextPair(next, resetSongs);
-    comparedPairKeys.current = new Set();
+    choosing.current = false;
     void clearComparison(comparisonKey).catch((error: unknown) => {
       setDataError(error instanceof Error ? error.message : "Could not clear comparison state.");
     });
@@ -360,7 +284,7 @@ export default function ComparisonOverlay({
     onRankingUpdate(resetSongs);
   }
 
-  const isComplete = !currentPair || comparisonIsComplete(state, songs);
+  const isComplete = comparisonIsComplete(state);
   const highlightedIds = new Set(currentPair ?? []);
 
   function closeComparison() {
@@ -430,7 +354,7 @@ export default function ComparisonOverlay({
             ) : (
               <section className="comparisonComplete">
                 <h2>Comparison ranking complete</h2>
-                <p>Your drag-and-drop list has been updated with the latest Elo order.</p>
+                <p>Your drag-and-drop list has been updated with the exact comparison order.</p>
                 <button className="pickButton" type="button" onClick={closeComparison}>
                   Back to ranking
                 </button>

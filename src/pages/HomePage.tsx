@@ -14,7 +14,7 @@ export default function HomePage() {
           <h1>Eurovision Ranker</h1>
           <p>
             Rank songs by contest year, keep favorites, or build a giant all-songs ranking with
-            drag-and-drop and Elo comparisons.
+            drag-and-drop and comparison sorting.
           </p>
         </div>
 
