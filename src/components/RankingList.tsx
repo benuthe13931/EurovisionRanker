@@ -21,7 +21,7 @@ type RankingListProps = {
   onReorder: (songs: Song[]) => void;
   favorites: Set<string>;
   onToggleFavorite: (songId: string) => void;
-  showYear?: boolean;
+  metaMode?: "country" | "countryYear" | "year";
 };
 
 export default function RankingList({
@@ -29,7 +29,7 @@ export default function RankingList({
   onReorder,
   favorites,
   onToggleFavorite,
-  showYear,
+  metaMode = "country",
 }: RankingListProps) {
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 7 } }),
@@ -56,7 +56,7 @@ export default function RankingList({
               rank={index + 1}
               favorite={favorites.has(song.id)}
               onToggleFavorite={onToggleFavorite}
-              showYear={showYear}
+              metaMode={metaMode}
             />
           ))}
         </div>

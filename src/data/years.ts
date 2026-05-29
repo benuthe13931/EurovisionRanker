@@ -15,6 +15,50 @@ export const allSongs: Song[] = years.flatMap((year) =>
   year.songs.map((song) => ({ ...song, year: year.year })),
 );
 
+export type CountryData = {
+  slug: string;
+  country: string;
+  countryCode: string;
+  flagEmoji: string;
+  flagImageUrl?: string;
+  backgroundImage: string;
+  songs: Song[];
+};
+
+export function countrySlug(country: string) {
+  return country
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+const countriesByCode = new Map<string, CountryData>();
+
+allSongs.forEach((song) => {
+  const existing = countriesByCode.get(song.countryCode);
+
+  if (existing) {
+    existing.songs.push(song);
+    return;
+  }
+
+  countriesByCode.set(song.countryCode, {
+    slug: countrySlug(song.country),
+    country: song.country,
+    countryCode: song.countryCode,
+    flagEmoji: song.flagEmoji,
+    flagImageUrl: song.flagImageUrl,
+    backgroundImage: song.imageUrl,
+    songs: [song],
+  });
+});
+
+export const countries: CountryData[] = Array.from(countriesByCode.values()).sort((a, b) =>
+  a.country.localeCompare(b.country),
+);
+
+export const countriesBySlug = new Map(countries.map((country) => [country.slug, country]));
+
 export const allSongsBackground =
   years[0]?.backgroundImage ?? "https://esc-ratings.eu/assets/hero-bg.webp";
 
