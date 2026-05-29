@@ -1,6 +1,7 @@
 import type { Song } from "../types";
 import AudioButton from "./AudioButton";
 import { useAudio } from "./AudioProvider";
+import VideoPreview from "./VideoPreview";
 
 type ComparisonCardProps = {
   song: Song;
@@ -8,36 +9,32 @@ type ComparisonCardProps = {
 };
 
 export default function ComparisonCard({ song, onChoose }: ComparisonCardProps) {
+  const { activeSongId, activePreviewMode, setStatusForSong, stopAudio } = useAudio();
+  const isActiveInline = activeSongId === song.id && activePreviewMode === "inline";
+
   return (
     <section className="comparisonCard">
-      {(() => {
-        const { activeSongId, activePreviewMode, setStatusForSong, stopAudio } = useAudio();
-        const isActiveInline = activeSongId === song.id && activePreviewMode === "inline";
-        return (
-          <div
-            className="comparisonImage"
-            style={isActiveInline ? undefined : { backgroundImage: `url(${song.imageUrl})` }}
-          >
-            {isActiveInline && song.previewVideoUrl ? (
-              <video
-                className="comparisonVideo"
-                src={song.previewVideoUrl}
-                controls
-                autoPlay
-                playsInline
-                onCanPlay={() => setStatusForSong(song.id, "playing")}
-                onEnded={() => stopAudio()}
-                onError={() => {
-                  setStatusForSong(song.id, "error");
-                  stopAudio();
-                }}
-              />
-            ) : (
-              <span>{song.flagEmoji}</span>
-            )}
-          </div>
-        );
-      })()}
+      <div
+        className="comparisonImage"
+        style={isActiveInline ? undefined : { backgroundImage: `url(${song.imageUrl})` }}
+      >
+        {isActiveInline && song.previewVideoUrl ? (
+          <VideoPreview
+            className="comparisonVideo"
+            url={song.previewVideoUrl}
+            startSeconds={song.compareStartSeconds}
+            title={`${song.artist} - ${song.title}`}
+            onReady={() => setStatusForSong(song.id, "playing")}
+            onEnded={() => stopAudio()}
+            onError={() => {
+              setStatusForSong(song.id, "error");
+              stopAudio();
+            }}
+          />
+        ) : (
+          <span>{song.flagEmoji}</span>
+        )}
+      </div>
       <div className="comparisonBody">
         <p className="countryLine">
           <strong>{song.countryCode}</strong> {song.country}

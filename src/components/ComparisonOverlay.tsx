@@ -80,6 +80,7 @@ function OverlayCard({
           <>
             <VideoPreview
               url={song.previewVideoUrl}
+              startSeconds={song.compareStartSeconds}
               title={`${song.artist} - ${song.title}`}
               onReady={() => setStatusForSong(song.id, "playing")}
               onEnded={() => stopAudio()}

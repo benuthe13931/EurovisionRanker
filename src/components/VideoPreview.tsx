@@ -5,6 +5,7 @@ type VideoPreviewProps = {
   onEnded?: () => void;
   onError?: () => void;
   onReady?: () => void;
+  startSeconds?: number;
   title: string;
   url: string;
 };
@@ -14,10 +15,11 @@ export default function VideoPreview({
   onEnded,
   onError,
   onReady,
+  startSeconds,
   title,
   url,
 }: VideoPreviewProps) {
-  const youtubeEmbedUrl = getYouTubeEmbedUrl(url);
+  const youtubeEmbedUrl = getYouTubeEmbedUrl(url, startSeconds);
 
   if (youtubeEmbedUrl) {
     return (
@@ -40,6 +42,11 @@ export default function VideoPreview({
       controls
       autoPlay
       playsInline
+      onLoadedMetadata={(event) => {
+        if (typeof startSeconds === "number" && Number.isFinite(startSeconds) && startSeconds > 0) {
+          event.currentTarget.currentTime = startSeconds;
+        }
+      }}
       onCanPlay={onReady}
       onEnded={onEnded}
       onError={onError}
