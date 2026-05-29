@@ -3,7 +3,13 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import type { ComparisonState, Song } from "../types";
 import { updateElo } from "../utils/elo";
-import { createComparisonState, pairKey, pickNextPair } from "../utils/pairing";
+import {
+  comparisonIsComplete,
+  createComparisonState,
+  pairKey,
+  pickNextPair,
+  targetComparisonCount,
+} from "../utils/pairing";
 import {
   clearComparison,
   clearRanking,
@@ -55,7 +61,9 @@ function normalizeComparisonState(state: ComparisonState, songs: Song[]): Compar
   return {
     ...state,
     comparedPairs,
-    completed: Math.min(comparedPairs.length, state.targetComparisons),
+    completed: comparedPairs.length,
+    targetComparisons:
+      state.mode === "smart" ? targetComparisonCount(songs.length) : state.targetComparisons,
     currentPair,
   };
 }
@@ -352,7 +360,7 @@ export default function ComparisonOverlay({
     onRankingUpdate(resetSongs);
   }
 
-  const isComplete = !currentPair || progress >= state.targetComparisons;
+  const isComplete = !currentPair || comparisonIsComplete(state, songs);
   const highlightedIds = new Set(currentPair ?? []);
 
   function closeComparison() {

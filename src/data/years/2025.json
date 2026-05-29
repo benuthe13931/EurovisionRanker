@@ -102,7 +102,7 @@
     },
     {
       "id": "2025-czechia",
-      "compareStartSeconds": 156,
+      "compareStartSeconds": 107,
       "country": "Czechia",
       "countryCode": "CZ",
       "artist": "Adonxs",
@@ -330,7 +330,7 @@
     },
     {
       "id": "2025-poland",
-      "compareStartSeconds": 100,
+      "compareStartSeconds": 158,
       "country": "Poland",
       "countryCode": "PL",
       "artist": "Justyna Steczkowska",
@@ -390,7 +390,7 @@
     },
     {
       "id": "2025-spain",
-      "compareStartSeconds": 187,
+      "compareStartSeconds": 122,
       "country": "Spain",
       "countryCode": "ES",
       "artist": "Melody",
