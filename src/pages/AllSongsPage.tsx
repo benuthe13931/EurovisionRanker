@@ -1,5 +1,5 @@
 import { RotateCcw, Save, Scale } from "lucide-react";
-import { type CSSProperties, useEffect, useMemo, useState } from "react";
+import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
 import ComparisonOverlay from "../components/ComparisonOverlay";
 import RankingList from "../components/RankingList";
 import { allSongs, allSongsBackground } from "../data/years";
@@ -36,6 +36,7 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
   const [savedNotice, setSavedNotice] = useState("");
   const [dataError, setDataError] = useState("");
   const [comparisonOpen, setComparisonOpen] = useState(false);
+  const hasLocalRankingChange = useRef(false);
 
   useEffect(() => setSongs(initialSongs), [initialSongs]);
 
@@ -66,7 +67,7 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
     async function loadSavedRanking() {
       try {
         const savedRanking = await loadRanking(rankingKey);
-        if (!active) return;
+        if (!active || hasLocalRankingChange.current) return;
         setSongs(orderSongs(sourceSongs, savedRanking?.songIds));
         setDataError("");
       } catch (error) {
@@ -93,6 +94,7 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
 
   async function handleSave() {
     try {
+      hasLocalRankingChange.current = true;
       await saveRanking(rankingKey, songs.map((song) => song.id));
       setDataError("");
       setSavedNotice("Saved");
@@ -105,6 +107,7 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
   async function handleReset() {
     try {
       await clearRanking(rankingKey);
+      hasLocalRankingChange.current = true;
       setSongs(sourceSongs);
       setDataError("");
       setSavedNotice("Reset");
@@ -152,7 +155,10 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
         {songs.length ? (
           <RankingList
             songs={songs}
-            onReorder={setSongs}
+            onReorder={(nextSongs) => {
+              hasLocalRankingChange.current = true;
+              setSongs(nextSongs);
+            }}
             favorites={favorites}
             onToggleFavorite={toggleFavorite}
             showYear
@@ -167,7 +173,10 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
           resetSongs={sourceSongs}
           rankingKey={rankingKey}
           onClose={() => setComparisonOpen(false)}
-          onRankingUpdate={setSongs}
+          onRankingUpdate={(nextSongs) => {
+            hasLocalRankingChange.current = true;
+            setSongs(nextSongs);
+          }}
         />
       ) : null}
     </main>
