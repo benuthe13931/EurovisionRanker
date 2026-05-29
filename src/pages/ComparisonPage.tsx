@@ -5,7 +5,13 @@ import ComparisonCard from "../components/ComparisonCard";
 import { allSongs, allSongsBackground, songsByYear } from "../data/years";
 import type { ComparisonMode, ComparisonState, Song } from "../types";
 import { updateElo } from "../utils/elo";
-import { createComparisonState, pairKey, pickNextPair } from "../utils/pairing";
+import {
+  comparisonIsComplete,
+  createComparisonState,
+  pairKey,
+  pickNextPair,
+  targetComparisonCount,
+} from "../utils/pairing";
 import {
   clearComparison,
   loadComparison,
@@ -42,6 +48,10 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
       try {
         const saved = await loadComparison(comparisonKey);
         const next = saved && saved.mode === mode ? saved : createComparisonState(comparisonKey, songs, mode);
+        if (next.mode === "smart") {
+          next.targetComparisons = targetComparisonCount(songs.length);
+          next.completed = next.comparedPairs.length;
+        }
         if (active) {
           setState(next);
           setDataError("");
@@ -61,7 +71,7 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
   const pairSongs = currentPair
     ? [songs.find((song) => song.id === currentPair[0]), songs.find((song) => song.id === currentPair[1])]
     : [];
-  const isComplete = state.completed >= state.targetComparisons || !currentPair;
+  const isComplete = comparisonIsComplete(state, songs) || !currentPair;
   const sortedSongs = sortByRating(songs, state.ratings);
 
   if (!allSongsMode && !yearData) {
@@ -139,8 +149,8 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
           </button>
           <h1>{allSongsMode ? "All Songs Comparison" : `Eurovision ${year} Comparison`}</h1>
           <p>
-            Choose the entry you prefer. Smart mode estimates a ranking with Elo instead of asking
-            for every possible pair.
+            Choose the entry you prefer. Smart mode uses Elo plus head-to-head checks among the
+            top contenders instead of asking for every possible pair.
           </p>
         </div>
 
