@@ -230,43 +230,32 @@ export default function ComparisonOverlay({
   }, [sortedSongs]);
 
   function chooseWinner(winnerId: string) {
+    if (choosing.current) return;
     hasLocalComparisonChange.current = true;
     stopAudio();
 
-    const submission: {
-      nextRanking?: Song[];
-      nextState?: ComparisonState;
-    } = {};
+    const normalizedState = normalizeComparisonState(state, comparisonKey, songs, "smart");
+    const pair = normalizedState.currentPair;
+    if (!pair) return;
 
-    setState((previousState) => {
-      const normalizedState = normalizeComparisonState(previousState, comparisonKey, songs, "smart");
-      const pair = normalizedState.currentPair;
-      if (!pair) return normalizedState;
+    const [a, b] = pair;
+    if (winnerId !== a && winnerId !== b) return;
 
-      const [a, b] = pair;
-      if (winnerId !== a && winnerId !== b) return normalizedState;
-      if (choosing.current) return normalizedState;
-
-      choosing.current = true;
-      const next = chooseInsertionWinner(normalizedState, winnerId);
-      submission.nextState = next;
-      submission.nextRanking = songsForComparisonState(next, songs);
-
-      return next;
-    });
-
-    if (!submission.nextState || !submission.nextRanking) return;
+    choosing.current = true;
+    const nextState = chooseInsertionWinner(normalizedState, winnerId);
+    const nextRanking = songsForComparisonState(nextState, songs);
+    setState(nextState);
 
     window.setTimeout(() => {
       choosing.current = false;
     }, 250);
-    void saveComparison(submission.nextState).catch((error: unknown) => {
+    void saveComparison(nextState).catch((error: unknown) => {
       setDataError(error instanceof Error ? error.message : "Could not save comparison state.");
     });
-    void saveRanking(rankingKey, submission.nextRanking.map((song) => song.id)).catch((error: unknown) => {
+    void saveRanking(rankingKey, nextRanking.map((song) => song.id)).catch((error: unknown) => {
       setDataError(error instanceof Error ? error.message : "Could not save ranking.");
     });
-    onRankingUpdate(submission.nextRanking);
+    onRankingUpdate(nextRanking);
   }
 
   function resetComparisonAndRanking() {

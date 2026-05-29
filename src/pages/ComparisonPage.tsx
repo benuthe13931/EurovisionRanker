@@ -120,7 +120,7 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
         <div className="comparisonTopbar">
           <div>
             <span className="progressText">
-              {state.completed} / ~{state.targetComparisons} comparisons
+              {Math.min(state.completed, state.targetComparisons)} / ~{state.targetComparisons} comparisons
             </span>
             <div className="progressTrack">
               <span
