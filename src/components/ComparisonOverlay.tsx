@@ -225,7 +225,7 @@ export default function ComparisonOverlay({
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") closeComparison();
       if (event.key === "ArrowLeft" && pairSongs[0]) chooseWinner(pairSongs[0].id);
       if (event.key === "ArrowRight" && pairSongs[1]) chooseWinner(pairSongs[1].id);
     }
@@ -351,6 +351,15 @@ export default function ComparisonOverlay({
   const isComplete = !currentPair || progress >= state.targetComparisons;
   const highlightedIds = new Set(currentPair ?? []);
 
+  function closeComparison() {
+    stopAudio();
+    onRankingUpdate(sortedSongs);
+    void saveRanking(rankingKey, sortedSongs.map((song) => song.id)).catch((error: unknown) => {
+      setDataError(error instanceof Error ? error.message : "Could not save ranking.");
+    });
+    onClose();
+  }
+
   return createPortal(
     <div className="comparisonOverlay" role="dialog" aria-modal="true">
       <div className="overlayBackdrop" />
@@ -375,7 +384,7 @@ export default function ComparisonOverlay({
             >
               <RotateCcw size={15} /> Reset
             </button>
-            <button className="overlayClose" type="button" onClick={onClose} aria-label="Close comparison">
+            <button className="overlayClose" type="button" onClick={closeComparison} aria-label="Close comparison">
               <X size={18} />
             </button>
           </div>
@@ -400,7 +409,7 @@ export default function ComparisonOverlay({
               <section className="comparisonComplete">
                 <h2>Comparison ranking complete</h2>
                 <p>Your drag-and-drop list has been updated with the latest Elo order.</p>
-                <button className="pickButton" type="button" onClick={onClose}>
+                <button className="pickButton" type="button" onClick={closeComparison}>
                   Back to ranking
                 </button>
               </section>
