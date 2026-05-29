@@ -6,6 +6,7 @@
   "songs": [
     {
       "id": "2025-albania",
+      "compareStartSeconds": 146,
       "country": "Albania",
       "countryCode": "AL",
       "artist": "Shkodra Elektronike",
@@ -17,6 +18,7 @@
     },
     {
       "id": "2025-armenia",
+      "compareStartSeconds": 142,
       "country": "Armenia",
       "countryCode": "AM",
       "artist": "Parg",
@@ -28,17 +30,19 @@
     },
     {
       "id": "2025-australia",
+      "compareStartSeconds": 151,
       "country": "Australia",
       "countryCode": "AU",
       "artist": "Go-Jo",
       "title": "Milkshake Man",
-      "previewVideoUrl": "https://www.youtube.com/watch?v=_08I6mjHSLA",
+      "previewVideoUrl": "https://www.youtube.com/watch?v=EJ0RdIU_G8g",
       "flagEmoji": "🇦🇺",
       "imageUrl": "/assets/images/2025/2025-australia.jpg.webp",
       "flagImageUrl": "/assets/flags/australia.png.webp"
     },
     {
       "id": "2025-austria",
+      "compareStartSeconds": 101,
       "country": "Austria",
       "countryCode": "AT",
       "artist": "JJ",
@@ -50,17 +54,19 @@
     },
     {
       "id": "2025-azerbaijan",
+      "compareStartSeconds": 148,
       "country": "Azerbaijan",
       "countryCode": "AZ",
       "artist": "Mamagama",
       "title": "Run with U",
-      "previewVideoUrl": "https://www.youtube.com/watch?v=upbiPJ9uA70",
+      "previewVideoUrl": "https://www.youtube.com/watch?v=wk1CUjaRKyo",
       "flagEmoji": "🇦🇿",
       "imageUrl": "/assets/images/2025/2025-azerbaijan.jpg.webp",
       "flagImageUrl": "/assets/flags/azerbaijan.png.webp"
     },
     {
       "id": "2025-belgium",
+      "compareStartSeconds": 132,
       "country": "Belgium",
       "countryCode": "BE",
       "artist": "Red Sebastian",
@@ -72,39 +78,43 @@
     },
     {
       "id": "2025-croatia",
+      "compareStartSeconds": 119,
       "country": "Croatia",
       "countryCode": "HR",
       "artist": "Marko Bošnjak",
       "title": "Poison Cake",
-      "previewVideoUrl": "https://www.youtube.com/watch?v=ie_v6qGCc5w",
+      "previewVideoUrl": "https://www.youtube.com/watch?v=jzK4D_gfRjQ",
       "flagEmoji": "🇭🇷",
       "imageUrl": "/assets/images/2025/2025-croatia.jpg.webp",
       "flagImageUrl": "/assets/flags/croatia.png.webp"
     },
     {
       "id": "2025-cyprus",
+      "compareStartSeconds": 185,
       "country": "Cyprus",
       "countryCode": "CY",
       "artist": "Theo Evan",
       "title": "Shh",
-      "previewVideoUrl": "https://www.youtube.com/watch?v=rbfQqWyqgJw",
+      "previewVideoUrl": "https://www.youtube.com/watch?v=egPAiAuC57k",
       "flagEmoji": "🇨🇾",
       "imageUrl": "/assets/images/2025/2025-cyprus.jpg.webp",
       "flagImageUrl": "/assets/flags/cyprus.png.webp"
     },
     {
       "id": "2025-czechia",
+      "compareStartSeconds": 156,
       "country": "Czechia",
       "countryCode": "CZ",
       "artist": "Adonxs",
       "title": "Kiss Kiss Goodbye",
-      "previewVideoUrl": "https://www.youtube.com/watch?v=Hm8CIICKAJU",
+      "previewVideoUrl": "https://www.youtube.com/watch?v=hdxna1DC7yo",
       "flagEmoji": "🇨🇿",
       "imageUrl": "/assets/images/2025/2025-czechia.jpg.webp",
       "flagImageUrl": "/assets/flags/czechia.png.webp"
     },
     {
       "id": "2025-denmark",
+      "compareStartSeconds": 160,
       "country": "Denmark",
       "countryCode": "DK",
       "artist": "Sissal",
@@ -116,6 +126,7 @@
     },
     {
       "id": "2025-estonia",
+      "compareStartSeconds": 153,
       "country": "Estonia",
       "countryCode": "EE",
       "artist": "Tommy Cash",
@@ -127,6 +138,7 @@
     },
     {
       "id": "2025-finland",
+      "compareStartSeconds": 170,
       "country": "Finland",
       "countryCode": "FI",
       "artist": "Erika Vikman",
@@ -138,6 +150,7 @@
     },
     {
       "id": "2025-france",
+      "compareStartSeconds": 145,
       "country": "France",
       "countryCode": "FR",
       "artist": "Louane",
@@ -149,17 +162,19 @@
     },
     {
       "id": "2025-georgia",
+      "compareStartSeconds": 136,
       "country": "Georgia",
       "countryCode": "GE",
       "artist": "Mariam Shengelia",
       "title": "Freedom",
-      "previewVideoUrl": "https://www.youtube.com/watch?v=c3wu0dUNd4c",
+      "previewVideoUrl": "https://www.youtube.com/watch?v=jphJoo-CNtU",
       "flagEmoji": "🇬🇪",
       "imageUrl": "/assets/images/2025/2025-georgia.jpg.webp",
       "flagImageUrl": "/assets/flags/georgia.png.webp"
     },
     {
       "id": "2025-germany",
+      "compareStartSeconds": 140,
       "country": "Germany",
       "countryCode": "DE",
       "artist": "Abor & Tynna",
@@ -171,6 +186,7 @@
     },
     {
       "id": "2025-greece",
+      "compareStartSeconds": 148,
       "country": "Greece",
       "countryCode": "GR",
       "artist": "Klavdia",
@@ -182,6 +198,7 @@
     },
     {
       "id": "2025-iceland",
+      "compareStartSeconds": 117,
       "country": "Iceland",
       "countryCode": "IS",
       "artist": "Væb",
@@ -193,17 +210,19 @@
     },
     {
       "id": "2025-ireland",
+      "compareStartSeconds": 139,
       "country": "Ireland",
       "countryCode": "IE",
       "artist": "Emmy",
       "title": "Laika Party",
-      "previewVideoUrl": "https://www.youtube.com/watch?v=cZnusVb7yjs",
+      "previewVideoUrl": "https://www.youtube.com/watch?v=3MB628Kanzo",
       "flagEmoji": "🇮🇪",
       "imageUrl": "/assets/images/2025/2025-ireland.jpg.webp",
       "flagImageUrl": "/assets/flags/ireland.png.webp"
     },
     {
       "id": "2025-israel",
+      "compareStartSeconds": 110,
       "country": "Israel",
       "countryCode": "IL",
       "artist": "Yuval Raphael",
@@ -215,6 +234,7 @@
     },
     {
       "id": "2025-italy",
+      "compareStartSeconds": 150,
       "country": "Italy",
       "countryCode": "IT",
       "artist": "Lucio Corsi",
@@ -226,6 +246,7 @@
     },
         {
       "id": "2025-latvia",
+      "compareStartSeconds": 79,
       "country": "Latvia",
       "countryCode": "LV",
       "artist": "Tautumeitas",
@@ -237,6 +258,7 @@
     },
     {
       "id": "2025-lithuania",
+      "compareStartSeconds": 85,
       "country": "Lithuania",
       "countryCode": "LT",
       "artist": "Katarsis",
@@ -248,6 +270,7 @@
     },
     {
       "id": "2025-luxembourg",
+      "compareStartSeconds": 156,
       "country": "Luxembourg",
       "countryCode": "LU",
       "artist": "Laura Thorn",
@@ -259,6 +282,7 @@
     },
     {
       "id": "2025-malta",
+      "compareStartSeconds": 154,
       "country": "Malta",
       "countryCode": "MT",
       "artist": "Miriana Conte",
@@ -270,6 +294,7 @@
     },
     {
       "id": "2025-montenegro",
+      "compareStartSeconds": 98,
       "country": "Montenegro",
       "countryCode": "ME",
       "artist": "Nina Žižić",
@@ -281,6 +306,7 @@
     },
     {
       "id": "2025-netherlands",
+      "compareStartSeconds": 110,
       "country": "Netherlands",
       "countryCode": "NL",
       "artist": "Claude",
@@ -292,6 +318,7 @@
     },
     {
       "id": "2025-norway",
+      "compareStartSeconds": 148,
       "country": "Norway",
       "countryCode": "NO",
       "artist": "Kyle Alessandro",
@@ -303,6 +330,7 @@
     },
     {
       "id": "2025-poland",
+      "compareStartSeconds": 100,
       "country": "Poland",
       "countryCode": "PL",
       "artist": "Justyna Steczkowska",
@@ -314,6 +342,7 @@
     },
     {
       "id": "2025-portugal",
+      "compareStartSeconds": 150,
       "country": "Portugal",
       "countryCode": "PT",
       "artist": "Napa",
@@ -325,6 +354,7 @@
     },
     {
       "id": "2025-san-marino",
+      "compareStartSeconds": 138,
       "country": "San Marino",
       "countryCode": "SM",
       "artist": "Gabry Ponte",
@@ -336,17 +366,19 @@
     },
     {
       "id": "2025-serbia",
+      "compareStartSeconds": 130,
       "country": "Serbia",
       "countryCode": "RS",
       "artist": "Princ",
       "title": "Mila",
-      "previewVideoUrl": "https://www.youtube.com/watch?v=18BCbtvDcag",
+      "previewVideoUrl": "https://www.youtube.com/watch?v=WlCoZ0UOXoY",
       "flagEmoji": "🇷🇸",
       "imageUrl": "/assets/images/2025/2025-serbia.jpg.webp",
       "flagImageUrl": "/assets/flags/serbia.png.webp"
     },
     {
       "id": "2025-slovenia",
+      "compareStartSeconds": 95,
       "country": "Slovenia",
       "countryCode": "SI",
       "artist": "Klemen",
@@ -358,6 +390,7 @@
     },
     {
       "id": "2025-spain",
+      "compareStartSeconds": 187,
       "country": "Spain",
       "countryCode": "ES",
       "artist": "Melody",
@@ -369,6 +402,7 @@
     },
     {
       "id": "2025-sweden",
+      "compareStartSeconds": 110,
       "country": "Sweden",
       "countryCode": "SE",
       "artist": "KAJ",
@@ -380,6 +414,7 @@
     },
     {
       "id": "2025-switzerland",
+      "compareStartSeconds": 102,
       "country": "Switzerland",
       "countryCode": "CH",
       "artist": "Zoë Më",
@@ -391,6 +426,7 @@
     },
     {
       "id": "2025-ukraine",
+      "compareStartSeconds": 147,
       "country": "Ukraine",
       "countryCode": "UA",
       "artist": "Ziferblat",
@@ -402,6 +438,7 @@
     },
     {
       "id": "2025-united-kingdom",
+      "compareStartSeconds": 151,
       "country": "United Kingdom",
       "countryCode": "GB",
       "artist": "Remember Monday",

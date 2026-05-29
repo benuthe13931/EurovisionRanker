@@ -6,6 +6,8 @@ export type Song = {
   title: string;
   // URL or ID for a preview video. YouTube links/IDs render as embeds; local MP4s still work.
   previewVideoUrl?: string;
+  // Optional start time, in seconds, used only by comparison previews.
+  compareStartSeconds?: number;
   flagEmoji: string;
   flagImageUrl?: string;
   imageUrl: string;

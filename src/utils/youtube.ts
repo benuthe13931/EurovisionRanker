@@ -28,7 +28,7 @@ export function getYouTubeVideoId(urlOrId: string) {
   return null;
 }
 
-export function getYouTubeEmbedUrl(urlOrId: string) {
+export function getYouTubeEmbedUrl(urlOrId: string, startSeconds?: number) {
   const videoId = getYouTubeVideoId(urlOrId);
   if (!videoId) return null;
 
@@ -41,6 +41,10 @@ export function getYouTubeEmbedUrl(urlOrId: string) {
 
   if (typeof window !== "undefined") {
     params.set("origin", window.location.origin);
+  }
+
+  if (typeof startSeconds === "number" && Number.isFinite(startSeconds) && startSeconds > 0) {
+    params.set("start", `${Math.floor(startSeconds)}`);
   }
 
   return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
