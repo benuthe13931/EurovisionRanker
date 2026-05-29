@@ -89,7 +89,6 @@ function OverlayCard({
                 stopAudio();
               }}
             />
-            <div className="compareMediaShade" />
           </>
         ) : (
           <>
@@ -104,9 +103,11 @@ function OverlayCard({
           <p>{song.artist}</p>
           <span>{song.country}</span>
         </div>
-        <div className="compareIconRow" onClick={(event) => event.stopPropagation()}>
-          <AudioButton songId={song.id} url={song.previewVideoUrl ?? ""} mode="inline" />
-        </div>
+        {!isActiveInline ? (
+          <div className="compareIconRow" onClick={(event) => event.stopPropagation()}>
+            <AudioButton songId={song.id} url={song.previewVideoUrl ?? ""} mode="inline" />
+          </div>
+        ) : null}
         <button
           className="pickButton"
           type="button"
@@ -160,7 +161,7 @@ export default function ComparisonOverlay({
     };
   }, [comparisonKey, songs]);
 
-  const currentPair = useMemo(() => pickNextPair(state, songs), [state, songs]);
+  const currentPair = useMemo(() => state.currentPair ?? pickNextPair(state, songs), [state, songs]);
   const pairSongs = currentPair
     ? [
         songs.find((song) => song.id === currentPair[0]),
@@ -240,6 +241,7 @@ export default function ComparisonOverlay({
       completed: state.completed + 1,
       updatedAt: new Date().toISOString(),
     };
+    next.currentPair = pickNextPair(next, songs);
     const nextRanking = sortByRating(songs, next.ratings);
 
     setState(next);
@@ -254,6 +256,7 @@ export default function ComparisonOverlay({
 
   function resetComparisonAndRanking() {
     const next = createComparisonState(comparisonKey, resetSongs, "smart");
+    next.currentPair = pickNextPair(next, resetSongs);
     void clearComparison(comparisonKey).catch((error: unknown) => {
       setDataError(error instanceof Error ? error.message : "Could not clear comparison state.");
     });
