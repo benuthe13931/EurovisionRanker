@@ -2,6 +2,7 @@ import {
   AlertCircle,
   CalendarDays,
   CheckCircle2,
+  Flag,
   Heart,
   Home,
   ListMusic,
@@ -92,6 +93,9 @@ export default function NavBar() {
           </NavLink>
           <NavLink to="/all-songs">
             <ListMusic size={16} /> All Songs
+          </NavLink>
+          <NavLink to="/countries">
+            <Flag size={16} /> Countries
           </NavLink>
           <NavLink to="/favorites">
             <Heart size={16} /> Favorites

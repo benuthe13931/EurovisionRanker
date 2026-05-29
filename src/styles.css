@@ -728,6 +728,13 @@ a {
     rgba(10, 10, 18, 0.66);
 }
 
+.countryPanel,
+.countryCard {
+  background:
+    linear-gradient(135deg, rgba(117, 240, 255, 0.16), rgba(255, 230, 107, 0.1)),
+    rgba(10, 10, 18, 0.66);
+}
+
 .yearGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

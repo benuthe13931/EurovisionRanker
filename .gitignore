@@ -1,6 +1,5 @@
 node_modules/
-dist/index-BP3EmaBN.js
-dist/index-C0dMPFKF.css
+dist/
 data/*.db
 data/*.db-*
 .env
@@ -8,5 +7,3 @@ data/*.db-*
 ComparisonPageOverlayExample.png
 CurrentIncorrectView.png
 RankingPageScreenshot.png
-dist/assets/index-BP3EmaBN.js
-dist/assets/index-C0dMPFKF.css

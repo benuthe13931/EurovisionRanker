@@ -19,6 +19,7 @@ type ComparisonOverlayProps = {
   songs: Song[];
   resetSongs: Song[];
   rankingKey: string;
+  metaMode?: "country" | "year";
   onClose: () => void;
   onRankingUpdate: (songs: Song[]) => void;
 };
@@ -83,10 +84,12 @@ function FlagBadge({ song }: { song: Song }) {
 function OverlayCard({
   badge,
   song,
+  metaMode,
   onPick,
 }: {
   badge: "A" | "B";
   song: Song;
+  metaMode: "country" | "year";
   onPick: () => void;
 }) {
   const { activeSongId, activePreviewMode, setStatusForSong, stopAudio } = useAudio();
@@ -143,7 +146,7 @@ function OverlayCard({
         <div>
           <h2>{song.title}</h2>
           <p>{song.artist}</p>
-          <span>{song.country}</span>
+          <span>{metaMode === "year" && song.year ? song.year : song.country}</span>
         </div>
         <div className="compareIconRow" onClick={(event) => event.stopPropagation()}>
           <AudioButton songId={song.id} url={song.previewVideoUrl ?? ""} mode="inline" />
@@ -167,6 +170,7 @@ export default function ComparisonOverlay({
   songs,
   resetSongs,
   rankingKey,
+  metaMode = "country",
   onClose,
   onRankingUpdate,
 }: ComparisonOverlayProps) {
@@ -399,11 +403,21 @@ export default function ComparisonOverlay({
           <div className="compareStage">
             {!isComplete && pairSongs[0] && pairSongs[1] ? (
               <>
-                <OverlayCard badge="A" song={pairSongs[0]} onPick={() => chooseWinner(pairSongs[0]!.id)} />
+                <OverlayCard
+                  badge="A"
+                  song={pairSongs[0]}
+                  metaMode={metaMode}
+                  onPick={() => chooseWinner(pairSongs[0]!.id)}
+                />
                 <div className="versusDivider">
                   <span>VS</span>
                 </div>
-                <OverlayCard badge="B" song={pairSongs[1]} onPick={() => chooseWinner(pairSongs[1]!.id)} />
+                <OverlayCard
+                  badge="B"
+                  song={pairSongs[1]}
+                  metaMode={metaMode}
+                  onPick={() => chooseWinner(pairSongs[1]!.id)}
+                />
               </>
             ) : (
               <section className="comparisonComplete">

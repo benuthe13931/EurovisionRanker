@@ -1,8 +1,9 @@
-import { RotateCcw, Save, Scale } from "lucide-react";
+import { ArrowLeft, RotateCcw, Save, Scale } from "lucide-react";
 import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ComparisonOverlay from "../components/ComparisonOverlay";
 import RankingList from "../components/RankingList";
-import { allSongs, allSongsBackground } from "../data/years";
+import { countriesBySlug } from "../data/years";
 import type { Song } from "../types";
 import {
   clearRanking,
@@ -12,10 +13,6 @@ import {
   saveRanking,
 } from "../utils/storage";
 
-type AllSongsPageProps = {
-  favoritesOnly?: boolean;
-};
-
 function orderSongs(songs: Song[], savedIds?: string[]) {
   if (!savedIds?.length) return songs;
   const byId = new Map(songs.map((song) => [song.id, song]));
@@ -24,19 +21,19 @@ function orderSongs(songs: Song[], savedIds?: string[]) {
   return [...ordered, ...missing];
 }
 
-export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProps) {
-  const rankingKey = favoritesOnly ? "favorites" : "all";
+export default function CountryPage() {
+  const { countrySlug = "" } = useParams();
+  const navigate = useNavigate();
+  const countryData = countriesBySlug.get(countrySlug);
+  const rankingKey = `country:${countrySlug}`;
   const [favorites, setFavorites] = useState<Set<string>>(() => new Set());
-  const sourceSongs = useMemo(
-    () => (favoritesOnly ? allSongs.filter((song) => favorites.has(song.id)) : allSongs),
-    [favorites, favoritesOnly],
-  );
-  const initialSongs = useMemo(() => sourceSongs, [sourceSongs]);
-  const [songs, setSongs] = useState(initialSongs);
   const [savedNotice, setSavedNotice] = useState("");
   const [dataError, setDataError] = useState("");
   const [comparisonOpen, setComparisonOpen] = useState(false);
   const hasLocalRankingChange = useRef(false);
+
+  const initialSongs = useMemo(() => countryData?.songs ?? [], [countryData]);
+  const [songs, setSongs] = useState(initialSongs);
 
   useEffect(() => setSongs(initialSongs), [initialSongs]);
 
@@ -44,31 +41,16 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
     let active = true;
 
     async function loadSavedState() {
+      if (!countryData) return;
       try {
-        const savedFavorites = await loadFavorites();
-        if (!active) return;
-        setFavorites(savedFavorites);
-        setDataError("");
-      } catch (error) {
-        if (!active) return;
-        setDataError(error instanceof Error ? error.message : "Could not load favorites.");
-      }
-    }
+        const [savedRanking, savedFavorites] = await Promise.all([
+          loadRanking(rankingKey),
+          loadFavorites(),
+        ]);
 
-    void loadSavedState();
-    return () => {
-      active = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    let active = true;
-
-    async function loadSavedRanking() {
-      try {
-        const savedRanking = await loadRanking(rankingKey);
         if (!active || hasLocalRankingChange.current) return;
-        setSongs(orderSongs(sourceSongs, savedRanking?.songIds));
+        setSongs(orderSongs(countryData.songs, savedRanking?.songIds));
+        setFavorites(savedFavorites);
         setDataError("");
       } catch (error) {
         if (!active) return;
@@ -76,11 +58,24 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
       }
     }
 
-    void loadSavedRanking();
+    void loadSavedState();
     return () => {
       active = false;
     };
-  }, [rankingKey, sourceSongs]);
+  }, [countryData, rankingKey]);
+
+  if (!countryData) {
+    return (
+      <main className="pageShell">
+        <section className="contentColumn pageHeader">
+          <h1>Country not found</h1>
+          <Link to="/countries">Back to countries</Link>
+        </section>
+      </main>
+    );
+  }
+
+  const currentCountryData = countryData;
 
   function toggleFavorite(songId: string) {
     const next = new Set(favorites);
@@ -108,7 +103,7 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
     try {
       await clearRanking(rankingKey);
       hasLocalRankingChange.current = true;
-      setSongs(sourceSongs);
+      setSongs(currentCountryData.songs);
       setDataError("");
       setSavedNotice("Reset");
       window.setTimeout(() => setSavedNotice(""), 1800);
@@ -120,27 +115,29 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
   return (
     <main
       className="pageShell"
-      style={{ "--bg-image": `url(${allSongsBackground})` } as CSSProperties}
+      style={{ "--bg-image": `url(${currentCountryData.backgroundImage})` } as CSSProperties}
     >
       <section className="contentColumn">
         <div className="pageHeader">
-          <p className="eyebrow">{favoritesOnly ? "Saved favorites" : "Combined leaderboard"}</p>
-          <h1>{favoritesOnly ? "Favorite Songs" : "All Songs Ranking"}</h1>
+          <button className="backButton" type="button" onClick={() => navigate(-1)}>
+            <ArrowLeft size={16} /> Back
+          </button>
+          <p className="eyebrow">
+            {currentCountryData.flagEmoji} {currentCountryData.countryCode}
+          </p>
+          <h1>{currentCountryData.country} Ranking</h1>
           <p>
-            {favoritesOnly
-              ? "Your favorited entries in one compact ranking list."
-              : "Every song from every JSON year file appears here automatically."}
+            Rank every {currentCountryData.country} entry across all loaded years. The row detail shows
+            the contest year since this leaderboard is already country-specific.
           </p>
         </div>
 
         <div className="toolbar">
           <span className="countLine">{songs.length} songs to rank</span>
           <div className="toolbarActions">
-            {!favoritesOnly ? (
-              <button className="primaryButton" type="button" onClick={() => setComparisonOpen(true)}>
-                <Scale size={17} /> Rank by Comparison
-              </button>
-            ) : null}
+            <button className="primaryButton" type="button" onClick={() => setComparisonOpen(true)}>
+              <Scale size={17} /> Rank by Comparison
+            </button>
             <button className="secondaryButton" type="button" onClick={handleReset}>
               <RotateCcw size={17} /> Reset Ranking
             </button>
@@ -152,26 +149,23 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
         </div>
         {dataError ? <div className="dataError">{dataError}</div> : null}
 
-        {songs.length ? (
-          <RankingList
-            songs={songs}
-            onReorder={(nextSongs) => {
-              hasLocalRankingChange.current = true;
-              setSongs(nextSongs);
-            }}
-            favorites={favorites}
-            onToggleFavorite={toggleFavorite}
-            metaMode="countryYear"
-          />
-        ) : (
-          <div className="emptyState">No favorite songs yet.</div>
-        )}
+        <RankingList
+          songs={songs}
+          onReorder={(nextSongs) => {
+            hasLocalRankingChange.current = true;
+            setSongs(nextSongs);
+          }}
+          favorites={favorites}
+          onToggleFavorite={toggleFavorite}
+          metaMode="year"
+        />
       </section>
       {comparisonOpen ? (
         <ComparisonOverlay
           songs={songs}
-          resetSongs={sourceSongs}
+          resetSongs={currentCountryData.songs}
           rankingKey={rankingKey}
+          metaMode="year"
           onClose={() => setComparisonOpen(false)}
           onRankingUpdate={(nextSongs) => {
             hasLocalRankingChange.current = true;

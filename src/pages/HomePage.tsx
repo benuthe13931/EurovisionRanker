@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import { allSongs, years } from "../data/years";
+import { allSongs, countries, years } from "../data/years";
 
 export default function HomePage() {
   return (
@@ -22,6 +22,12 @@ export default function HomePage() {
           <span>{allSongs.length} songs</span>
           <h2>All Songs Ranking</h2>
           <p>Combine every JSON year file into one local leaderboard.</p>
+        </Link>
+
+        <Link className="featurePanel countryPanel" to="/countries">
+          <span>{countries.length} countries</span>
+          <h2>Country Rankings</h2>
+          <p>Build a separate leaderboard for each country across all loaded years.</p>
         </Link>
 
         <div className="yearGrid">

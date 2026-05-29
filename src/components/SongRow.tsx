@@ -10,7 +10,7 @@ type SongRowProps = {
   rank: number;
   favorite: boolean;
   onToggleFavorite: (songId: string) => void;
-  showYear?: boolean;
+  metaMode?: "country" | "countryYear" | "year";
 };
 
 export default function SongRow({
@@ -18,7 +18,7 @@ export default function SongRow({
   rank,
   favorite,
   onToggleFavorite,
-  showYear,
+  metaMode = "country",
 }: SongRowProps) {
   const [flagFailed, setFlagFailed] = useState(false);
   const [backgroundFailed, setBackgroundFailed] = useState(false);
@@ -73,9 +73,19 @@ export default function SongRow({
         <h3>{song.title}</h3>
         <p>
           {song.artist}
-          <span>/</span>
-          <strong className="metaFlag">{song.flagEmoji}</strong> {song.country}
-          {showYear && song.year ? (
+          {metaMode === "year" && song.year ? (
+            <>
+              <span>/</span>
+              {song.year}
+            </>
+          ) : null}
+          {metaMode !== "year" ? (
+            <>
+              <span>/</span>
+              <strong className="metaFlag">{song.flagEmoji}</strong> {song.country}
+            </>
+          ) : null}
+          {metaMode === "countryYear" && song.year ? (
             <>
               <span>/</span>
               {song.year}
