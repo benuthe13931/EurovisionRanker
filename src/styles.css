@@ -1389,20 +1389,59 @@ a {
   }
 
   .songRow {
-    grid-template-columns: 36px 38px 42px minmax(0, 1fr);
+    grid-template-columns: 34px 34px 36px minmax(0, 1fr);
     gap: 2px;
-    min-height: 88px;
-    padding-right: 10px;
+    min-height: 78px;
+    padding: 9px 10px 9px 8px;
   }
 
   .dragHandle {
-    width: 36px;
-    height: 64px;
+    width: 34px;
+    height: 56px;
+  }
+
+  .rankPill {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+  }
+
+  .flagBadge {
+    width: 34px;
+    height: 34px;
+    font-size: 1.35rem;
+  }
+
+  .flagBadge span {
+    font-size: 1.05rem;
+  }
+
+  .songMeta {
+    padding-left: 8px;
+  }
+
+  .songMeta h3 {
+    margin-bottom: 3px;
+    font-size: 0.92rem;
+    line-height: 1.18;
+  }
+
+  .songMeta p {
+    gap: 5px;
+    font-size: 0.76rem;
+    line-height: 1.25;
   }
 
   .rowActions {
     grid-column: 4;
-    margin-top: 8px;
+    margin-top: 6px;
+    gap: 6px;
+  }
+
+  .iconButton {
+    width: 32px;
+    height: 32px;
   }
 
   .songMeta h3 {
