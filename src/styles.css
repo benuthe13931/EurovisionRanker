@@ -517,6 +517,10 @@ a {
   background: transparent;
   color: rgba(217, 51, 200, 0.88);
   cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .dragHandle::before {
@@ -1385,10 +1389,15 @@ a {
   }
 
   .songRow {
-    grid-template-columns: 26px 38px 42px minmax(0, 1fr);
+    grid-template-columns: 36px 38px 42px minmax(0, 1fr);
     gap: 2px;
     min-height: 88px;
     padding-right: 10px;
+  }
+
+  .dragHandle {
+    width: 36px;
+    height: 64px;
   }
 
   .rowActions {
