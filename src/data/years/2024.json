@@ -14,7 +14,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=aQG22XJIdWw",
       "flagEmoji": "🇦🇱",
       "flagImageUrl": "/assets/flags/albania.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-albania.png.webp"
     },
     {
       "id": "2024-armenia",
@@ -26,7 +26,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=hAYXDoZzAyE",
       "flagEmoji": "🇦🇲",
       "flagImageUrl": "/assets/flags/armenia.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-armenia.png.webp"
     },
     {
       "id": "2024-australia",
@@ -38,7 +38,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=Wzpp6996QdI",
       "flagEmoji": "🇦🇺",
       "flagImageUrl": "/assets/flags/australia.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-australia.jpg.webp"
     },
     {
       "id": "2024-austria",
@@ -50,7 +50,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=VZ6SlZnk_EI",
       "flagEmoji": "🇦🇹",
       "flagImageUrl": "/assets/flags/austria.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-austria.jpg.webp"
     },
     {
       "id": "2024-azerbaijan",
@@ -62,7 +62,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=QhN9r8TH2Hw",
       "flagEmoji": "🇦🇿",
       "flagImageUrl": "/assets/flags/azerbaijan.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-azerbaijan.jpg.webp"
     },
     {
       "id": "2024-belgium",
@@ -74,7 +74,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=hNIemQwCaM4",
       "flagEmoji": "🇧🇪",
       "flagImageUrl": "/assets/flags/belgium.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-belgium.jpg.webp"
     },
     {
       "id": "2024-croatia",
@@ -86,7 +86,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=YIBjarAiAVc",
       "flagEmoji": "🇭🇷",
       "flagImageUrl": "/assets/flags/croatia.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-croatia.jpg.webp"
     },
     {
       "id": "2024-cyprus",
@@ -98,7 +98,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=c4wMioZXbMk",
       "flagEmoji": "🇨🇾",
       "flagImageUrl": "/assets/flags/cyprus.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-cyprus.jpg.webp"
     },
     {
       "id": "2024-czechia",
@@ -110,7 +110,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=RiItbHRF1BY",
       "flagEmoji": "🇨🇿",
       "flagImageUrl": "/assets/flags/czechia.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-czechia.jpg.webp"
     },
     {
       "id": "2024-denmark",
@@ -122,7 +122,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=4f_phiGot7w",
       "flagEmoji": "🇩🇰",
       "flagImageUrl": "/assets/flags/denmark.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-denmark.jpg.webp"
     },
     {
       "id": "2024-estonia",
@@ -134,7 +134,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=RSMMU2wX0Bk",
       "flagEmoji": "🇪🇪",
       "flagImageUrl": "/assets/flags/estonia.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-estonia.jpg.webp"
     },
     {
       "id": "2024-finland",
@@ -146,7 +146,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=7nidDtyS0Wo",
       "flagEmoji": "🇫🇮",
       "flagImageUrl": "/assets/flags/finland.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-finland.jpg.webp"
     },
     {
       "id": "2024-france",
@@ -158,11 +158,11 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=-XyLecY2JyE",
       "flagEmoji": "🇫🇷",
       "flagImageUrl": "/assets/flags/france.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-france.jpg.webp"
     },
     {
       "id": "2024-georgia",
-      "compareStartSeconds": 112,
+      "compareStartSeconds": 142,
       "country": "Georgia",
       "countryCode": "GE",
       "artist": "Nutsa Buzaladze",
@@ -170,7 +170,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=He4PGhm7jOw",
       "flagEmoji": "🇬🇪",
       "flagImageUrl": "/assets/flags/georgia.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-georgia.jpg.webp"
     },
     {
       "id": "2024-germany",
@@ -182,7 +182,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=kVOHTxFOhak",
       "flagEmoji": "🇩🇪",
       "flagImageUrl": "/assets/flags/germany.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-germany.jpg.webp"
     },
     {
       "id": "2024-greece",
@@ -194,7 +194,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=ENb4LCeq9Lc",
       "flagEmoji": "🇬🇷",
       "flagImageUrl": "/assets/flags/greece.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-greece.jpg.webp"
     },
     {
       "id": "2024-iceland",
@@ -206,7 +206,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=VChBgcycVl8",
       "flagEmoji": "🇮🇸",
       "flagImageUrl": "/assets/flags/iceland.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-iceland.jpg.webp"
     },
     {
       "id": "2024-ireland",
@@ -218,7 +218,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=UMq8ofCstMQ",
       "flagEmoji": "🇮🇪",
       "flagImageUrl": "/assets/flags/ireland.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-ireland.jpg.webp"
     },
     {
       "id": "2024-israel",
@@ -230,7 +230,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=K60BWlEhtAA",
       "flagEmoji": "🇮🇱",
       "flagImageUrl": "/assets/flags/israel.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-israel.jpg.webp"
     },
     {
       "id": "2024-italy",
@@ -242,7 +242,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=zp1FXHjkjpQ",
       "flagEmoji": "🇮🇹",
       "flagImageUrl": "/assets/flags/italy.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-italy.jpg.webp"
     },
     {
       "id": "2024-latvia",
@@ -254,7 +254,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=kgIwQkMwURY",
       "flagEmoji": "🇱🇻",
       "flagImageUrl": "/assets/flags/latvia.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-latvia.jpg.webp"
     },
     {
       "id": "2024-lithuania",
@@ -266,7 +266,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=N8YuQzJLR_k",
       "flagEmoji": "🇱🇹",
       "flagImageUrl": "/assets/flags/lithuania.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-lithuania.jpg.webp"
     },
     {
       "id": "2024-luxembourg",
@@ -278,7 +278,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=TCWH3Nq5y9A",
       "flagEmoji": "🇱🇺",
       "flagImageUrl": "/assets/flags/luxembourg.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-luxembourg.jpg.webp"
     },
     {
       "id": "2024-malta",
@@ -290,7 +290,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=uG-JHeia13c",
       "flagEmoji": "🇲🇹",
       "flagImageUrl": "/assets/flags/malta.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-malta.jpg.webp"
     },
     {
       "id": "2024-moldova",
@@ -302,7 +302,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=evIoGkZXj2s",
       "flagEmoji": "🇲🇩",
       "flagImageUrl": "/assets/flags/moldova.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-moldova.jpg.webp"
     },
     {
       "id": "2024-netherlands",
@@ -314,7 +314,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=IiHFnmI8pxg",
       "flagEmoji": "🇳🇱",
       "flagImageUrl": "/assets/flags/netherlands.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-netherlands.jpg.webp"
     },
     {
       "id": "2024-norway",
@@ -326,7 +326,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=YBbL8ORqNVU",
       "flagEmoji": "🇳🇴",
       "flagImageUrl": "/assets/flags/norway.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-norway.jpg.webp"
     },
     {
       "id": "2024-poland",
@@ -338,7 +338,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=ESKG8Uo1YaU",
       "flagEmoji": "🇵🇱",
       "flagImageUrl": "/assets/flags/poland.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-poland.jpg.webp"
     },
     {
       "id": "2024-portugal",
@@ -350,7 +350,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=OZn4-H6JvKU",
       "flagEmoji": "🇵🇹",
       "flagImageUrl": "/assets/flags/portugal.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-portugal.jpg.webp"
     },
     {
       "id": "2024-san-marino",
@@ -362,7 +362,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=IqyJvkGmAjo",
       "flagEmoji": "🇸🇲",
       "flagImageUrl": "/assets/flags/san-marino.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-san-marino.jpg.webp"
     },
     {
       "id": "2024-serbia",
@@ -374,7 +374,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=4hUg64uIY_4",
       "flagEmoji": "🇷🇸",
       "flagImageUrl": "/assets/flags/serbia.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-serbia.jpg.webp"
     },
     {
       "id": "2024-slovenia",
@@ -386,7 +386,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=l86DxpRnz5M",
       "flagEmoji": "🇸🇮",
       "flagImageUrl": "/assets/flags/slovenia.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-slovenia.jpg.webp"
     },
     {
       "id": "2024-spain",
@@ -398,7 +398,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=FOMoQoHG5aU",
       "flagEmoji": "🇪🇸",
       "flagImageUrl": "/assets/flags/spain.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-spain.jpg.webp"
     },
     {
       "id": "2024-sweden",
@@ -410,7 +410,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=DcZpzObYzxs",
       "flagEmoji": "🇸🇪",
       "flagImageUrl": "/assets/flags/sweden.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-sweden.jpg.webp"
     },
     {
       "id": "2024-switzerland",
@@ -422,7 +422,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=CO_qJf-nW0k",
       "flagEmoji": "🇨🇭",
       "flagImageUrl": "/assets/flags/switzerland.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-switzerland.jpg.webp"
     },
     {
       "id": "2024-ukraine",
@@ -434,7 +434,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=d4N82wPpdg8",
       "flagEmoji": "🇺🇦",
       "flagImageUrl": "/assets/flags/ukraine.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-ukraine.jpg.webp"
     },
     {
       "id": "2024-united-kingdom",
@@ -446,7 +446,7 @@
       "previewVideoUrl": "https://www.youtube.com/watch?v=q0_FdJqyQW0",
       "flagEmoji": "🇬🇧",
       "flagImageUrl": "/assets/flags/united-kingdom.png.webp",
-      "imageUrl": ""
+      "imageUrl": "/assets/images/2024/2024-united-kingdom.jpg.webp"
     }
   ]
 }
