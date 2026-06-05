@@ -30,6 +30,12 @@ export default function HomePage() {
           <p>Build a separate leaderboard for each country across all loaded years.</p>
         </Link>
 
+        <Link className="featurePanel triviaPanel" to="/trivia">
+          <span>audio quiz</span>
+          <h2>Trivia</h2>
+          <p>Test song, country, and year recognition from the preview clips.</p>
+        </Link>
+
         <div className="yearGrid">
           {years.map((year) => (
             <Link className="yearCard" to={`/year/${year.year}`} key={year.year}>
