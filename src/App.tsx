@@ -5,6 +5,7 @@ import AllSongsPage from "./pages/AllSongsPage";
 import CountriesPage from "./pages/CountriesPage";
 import CountryPage from "./pages/CountryPage";
 import HomePage from "./pages/HomePage";
+import TriviaPage from "./pages/TriviaPage";
 import YearPage from "./pages/YearPage";
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/country/:countrySlug" element={<CountryPage />} />
         <Route path="/all-songs" element={<AllSongsPage />} />
         <Route path="/favorites" element={<AllSongsPage favoritesOnly />} />
+        <Route path="/trivia" element={<TriviaPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AudioProvider>

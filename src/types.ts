@@ -4,8 +4,15 @@ export type Song = {
   countryCode: string;
   artist: string;
   title: string;
+  acceptedArtistAnswers?: string[];
+  acceptedCountryAnswers?: string[];
+  acceptedTitleAnswers?: string[];
   // URL or ID for a preview video. YouTube links/IDs render as embeds; local MP4s still work.
   previewVideoUrl?: string;
+  // Prefer this for trivia/listening games. Falls back to previewVideoUrl while data is being migrated to MP3s.
+  audioPreviewUrl?: string;
+  previewPosterUrl?: string;
+  previewType?: "audio" | "video" | "youtube" | "unknown";
   // Optional start time, in seconds, used only by comparison previews.
   compareStartSeconds?: number;
   flagEmoji: string;

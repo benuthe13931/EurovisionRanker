@@ -8,6 +8,7 @@ import {
   ListMusic,
   LogIn,
   LogOut,
+  Sparkles,
   Trophy,
   User,
 } from "lucide-react";
@@ -99,6 +100,9 @@ export default function NavBar() {
           </NavLink>
           <NavLink to="/favorites">
             <Heart size={16} /> Favorites
+          </NavLink>
+          <NavLink to="/trivia" onClick={() => window.dispatchEvent(new Event("trivia:setup"))}>
+            <Sparkles size={16} /> Trivia
           </NavLink>
           {activeProfile ? (
             <>

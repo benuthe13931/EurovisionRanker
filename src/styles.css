@@ -739,10 +739,844 @@ a {
     rgba(10, 10, 18, 0.66);
 }
 
+.triviaPanel {
+  background:
+    linear-gradient(135deg, rgba(113, 240, 162, 0.16), rgba(255, 67, 209, 0.12)),
+    rgba(10, 10, 18, 0.66);
+}
+
 .yearGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 14px;
+}
+
+.triviaShell {
+  display: grid;
+  gap: 18px;
+}
+
+.triviaSetupPanel,
+.quizQuestionCard,
+.activeQuizHeader,
+.triviaResultsPanel {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: rgba(10, 10, 18, 0.68);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(18px);
+}
+
+.triviaSetupPanel {
+  display: grid;
+  gap: 22px;
+  padding: 22px;
+}
+
+.setupSection {
+  display: grid;
+  gap: 12px;
+}
+
+.setupSectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.setupSectionHeader > span {
+  display: grid;
+  place-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 999px;
+  color: #071016;
+  background: #75f0ff;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.setupSectionHeader h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.scopeCards,
+.answerFormatGrid,
+.quizLengthGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.scopeCards {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.answerFormatGrid,
+.quizLengthGrid {
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+
+.scopeCards button,
+.answerFormatGrid button,
+.quizLengthGrid button {
+  display: grid;
+  gap: 7px;
+  min-height: 94px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: rgba(247, 242, 255, 0.9);
+  background: rgba(255, 255, 255, 0.06);
+  text-align: left;
+  cursor: pointer;
+}
+
+.scopeCards button:hover,
+.answerFormatGrid button:hover,
+.quizLengthGrid button:hover {
+  border-color: rgba(117, 240, 255, 0.38);
+  background: rgba(117, 240, 255, 0.09);
+}
+
+.scopeCards button.selected,
+.answerFormatGrid button.selected,
+.quizLengthGrid button.selected {
+  border-color: rgba(117, 240, 255, 0.62);
+  background:
+    linear-gradient(135deg, rgba(117, 240, 255, 0.16), rgba(255, 67, 209, 0.1)),
+    rgba(255, 255, 255, 0.06);
+}
+
+.scopeCards strong,
+.answerFormatGrid strong,
+.quizLengthGrid strong {
+  color: #fff;
+}
+
+.scopeCards span,
+.answerFormatGrid span,
+.quizLengthGrid span,
+.setupHint,
+.datasetSummary span {
+  color: rgba(247, 242, 255, 0.62);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.styledDropdown {
+  position: relative;
+  z-index: 6;
+  display: grid;
+  gap: 8px;
+}
+
+.dropdownLabel {
+  color: rgba(247, 242, 255, 0.68);
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.dropdownButton,
+.dropdownOptions button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+}
+
+.dropdownButton {
+  padding: 0 13px;
+}
+
+.dropdownButton span,
+.dropdownOptions button span {
+  display: grid;
+  min-width: 0;
+  text-align: left;
+}
+
+.dropdownButton em,
+.dropdownOptions em {
+  color: rgba(247, 242, 255, 0.56);
+  font-size: 0.78rem;
+  font-style: normal;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  background: rgba(8, 8, 14, 0.98);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.42);
+}
+
+.dropdownSearch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.dropdownSearch input {
+  width: 100%;
+  border: 0;
+  color: #fff;
+  background: transparent;
+  outline: none;
+}
+
+.dropdownOptions {
+  display: grid;
+  gap: 6px;
+  max-height: 280px;
+  overflow: auto;
+}
+
+.dropdownOptions button {
+  padding: 9px 10px;
+}
+
+.dropdownOptions button:hover,
+.dropdownOptions button.selected {
+  border-color: rgba(117, 240, 255, 0.34);
+  background: rgba(117, 240, 255, 0.12);
+}
+
+.datasetSummary {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.triviaSetupFooter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  padding-top: 4px;
+}
+
+.triviaSetupFooter span {
+  color: rgba(247, 242, 255, 0.68);
+  font-weight: 800;
+}
+
+.activeQuizHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px;
+}
+
+.activeQuizHeader h2 {
+  margin: 6px 0 4px;
+}
+
+.activeQuizHeader span {
+  color: rgba(247, 242, 255, 0.62);
+  font-size: 0.88rem;
+  font-weight: 750;
+}
+
+.activeQuizActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.scorePill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 12px;
+  border-radius: 8px;
+  color: #75f0ff !important;
+  background: rgba(117, 240, 255, 0.1);
+}
+
+.quizQuestionCard {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.7fr) minmax(300px, 1.3fr);
+  gap: 18px;
+  padding: 18px;
+}
+
+.questionIntro h2 {
+  margin: 8px 0 0;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.typedAnswerForm,
+.choiceFilters,
+.multipleChoiceGrid,
+.answerFeedback {
+  grid-column: 1 / -1;
+}
+
+.choiceFilters {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, 1fr)) auto;
+  align-items: end;
+  gap: 12px;
+}
+
+.choiceFilters > span {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: rgba(247, 242, 255, 0.62);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.multipleChoiceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+  max-height: 420px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.multipleChoiceGrid.database {
+  max-height: 480px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.multipleChoiceGrid button {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-height: 72px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  color: rgba(247, 242, 255, 0.9);
+  background: rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+  text-align: left;
+}
+
+.multipleChoiceGrid button.correct {
+  color: #07100d;
+  background: #71f0a2;
+}
+
+.choiceFlag {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  overflow: visible;
+  background: transparent;
+  font-size: 1.72rem;
+}
+
+.choiceFlag img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.choiceFlag span {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.choiceText {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.choiceText strong {
+  overflow: hidden;
+  font-size: 1.02rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.choiceText span {
+  color: rgba(247, 242, 255, 0.58);
+  font-size: 0.82rem;
+  line-height: 1.25;
+}
+
+.multipleChoiceGrid button.correct .choiceText span {
+  color: rgba(7, 16, 13, 0.72);
+}
+
+.multipleChoiceGrid button.correct .choiceFlag {
+  background: rgba(7, 16, 13, 0.12);
+}
+
+.choiceGroups {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 10px;
+  max-height: 460px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.choiceGroups section {
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.choiceGroups section.containsCorrect {
+  border-color: rgba(113, 240, 162, 0.34);
+}
+
+.choiceGroupHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 46px;
+  padding: 0 12px;
+  border: 0;
+  color: #fff;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.choiceGroupHeader span {
+  color: rgba(247, 242, 255, 0.58);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.typedAnswerForm {
+  display: grid;
+  gap: 12px;
+}
+
+.typedInstructions {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.typedInstructions p {
+  margin: 0;
+  color: rgba(247, 242, 255, 0.64);
+  font-size: 0.84rem;
+}
+
+.typedFieldGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.typedFieldGrid label {
+  display: grid;
+  gap: 7px;
+  color: rgba(247, 242, 255, 0.72);
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.typedFieldGrid input {
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+  outline: none;
+}
+
+.typedFieldGrid input:focus {
+  border-color: rgba(117, 240, 255, 0.58);
+  box-shadow: 0 0 0 3px rgba(117, 240, 255, 0.1);
+}
+
+.answerFeedback {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.answerFeedback.correct {
+  border: 1px solid rgba(113, 240, 162, 0.44);
+}
+
+.answerFeedback.wrong {
+  border: 1px solid rgba(255, 143, 190, 0.44);
+}
+
+.feedbackIcon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  color: #08100c;
+  background: #71f0a2;
+  animation: feedbackPop 220ms ease;
+}
+
+.answerFeedback.wrong .feedbackIcon {
+  color: #190711;
+  background: #ff8fbe;
+}
+
+@keyframes feedbackPop {
+  from {
+    transform: scale(0.82);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+.answerFeedback strong,
+.answerFeedback span {
+  display: block;
+}
+
+.answerFeedback span {
+  color: rgba(247, 242, 255, 0.66);
+  font-size: 0.88rem;
+}
+
+.triviaResultsPanel {
+  display: grid;
+  gap: 18px;
+  padding: 22px;
+}
+
+.resultsHero h2 {
+  margin: 8px 0 4px;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+}
+
+.resultsHero span {
+  color: #75f0ff;
+  font-weight: 900;
+}
+
+.resultsActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.missedQuestions {
+  display: grid;
+  gap: 10px;
+}
+
+.missedQuestions h3 {
+  margin: 0;
+}
+
+.missedQuestions ul {
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.missedQuestions li {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.missedQuestions span,
+.missedQuestions em,
+.missedQuestions p {
+  color: rgba(247, 242, 255, 0.62);
+  font-style: normal;
+}
+
+.triviaSetup,
+.triviaPlay {
+  display: grid;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(10, 10, 18, 0.66);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(18px);
+}
+
+.triviaSetup {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  align-items: end;
+}
+
+.triviaControl,
+.triviaSelect {
+  display: grid;
+  gap: 9px;
+}
+
+.triviaControl > span,
+.triviaSelect {
+  color: rgba(247, 242, 255, 0.68);
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.triviaSelect select,
+.triviaHardAnswer input {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+  outline: none;
+}
+
+.triviaSelect select:focus,
+.triviaHardAnswer input:focus {
+  border-color: rgba(117, 240, 255, 0.58);
+  box-shadow: 0 0 0 3px rgba(117, 240, 255, 0.1);
+}
+
+.triviaStartRow,
+.triviaScore,
+.triviaResult {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.triviaStartRow span,
+.triviaScore span {
+  color: rgba(247, 242, 255, 0.68);
+  font-weight: 800;
+}
+
+.triviaPrompt {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(280px, 1.2fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.triviaPrompt h2 {
+  margin: 8px 0 0;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.triviaPlayer {
+  min-height: 190px;
+}
+
+.quiz-media {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  min-height: 190px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.quiz-media--empty {
+  place-items: center;
+  align-content: center;
+  color: rgba(247, 242, 255, 0.68);
+  text-align: center;
+}
+
+.quiz-media__audio {
+  align-self: center;
+  width: 100%;
+}
+
+.quiz-media__videoShell {
+  position: relative;
+  min-height: 170px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #05050a;
+}
+
+.quiz-media__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 170px;
+  object-fit: cover;
+  transition:
+    filter 180ms ease,
+    transform 180ms ease;
+}
+
+.quiz-media--obscured .quiz-media__video {
+  filter: blur(18px) brightness(0.25);
+  transform: scale(1.04);
+}
+
+.quiz-media__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.65);
+  text-align: center;
+}
+
+.quiz-media__overlay strong {
+  font-size: 1.05rem;
+}
+
+.quiz-media__overlay span,
+.quiz-media__fallback-note,
+.quiz-media__controls {
+  color: rgba(247, 242, 255, 0.68);
+  font-size: 0.86rem;
+}
+
+.quiz-media__fallback-note {
+  max-width: 420px;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.quiz-media__controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.triviaChoices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.triviaChoices button,
+.characterChips button {
+  min-height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  color: rgba(247, 242, 255, 0.9);
+  background: rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.triviaChoices button:hover:not(:disabled),
+.characterChips button:hover {
+  border-color: rgba(117, 240, 255, 0.45);
+  background: rgba(117, 240, 255, 0.12);
+}
+
+.triviaChoices button.correct {
+  color: #08100c;
+  background: #71f0a2;
+}
+
+.triviaHardAnswer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+}
+
+.characterChips {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.characterChips button {
+  min-width: 38px;
+  padding: 0 10px;
+}
+
+.triviaResult {
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.triviaResult.correct {
+  border: 1px solid rgba(113, 240, 162, 0.38);
+}
+
+.triviaResult.wrong {
+  border: 1px solid rgba(255, 143, 190, 0.38);
+}
+
+.triviaResult > svg {
+  color: #75f0ff;
+}
+
+.triviaResult div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.triviaResult strong {
+  color: #fff;
+}
+
+.triviaResult span {
+  color: rgba(247, 242, 255, 0.68);
+}
+
+.triviaResult small {
+  color: rgba(247, 242, 255, 0.54);
+  font-size: 0.78rem;
+  font-weight: 700;
 }
 
 .comparisonTopbar {
@@ -1449,7 +2283,62 @@ a {
   }
 
   .comparisonTopbar,
-  .comparisonGrid {
+  .comparisonGrid,
+  .triviaPrompt,
+  .triviaHardAnswer {
+    grid-template-columns: 1fr;
+  }
+
+  .triviaSetup,
+  .triviaPlay {
+    padding: 14px;
+  }
+
+  .triviaSetupPanel,
+  .quizQuestionCard,
+  .triviaResultsPanel {
+    padding: 14px;
+  }
+
+  .scopeCards,
+  .answerFormatGrid,
+  .quizLengthGrid,
+  .quizQuestionCard,
+  .choiceFilters,
+  .activeQuizHeader,
+  .answerFeedback {
+    grid-template-columns: 1fr;
+  }
+
+  .choiceFilters > span {
+    justify-content: flex-start;
+    min-height: 0;
+  }
+
+  .activeQuizHeader {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .activeQuizActions {
+    justify-content: flex-start;
+  }
+
+  .answerFeedback {
+    justify-items: start;
+  }
+
+  .triviaPlayer {
+    min-height: 160px;
+  }
+
+  .quiz-media,
+  .quiz-media__video,
+  .quiz-media__videoShell {
+    min-height: 145px;
+  }
+
+  .triviaChoices {
     grid-template-columns: 1fr;
   }
 
