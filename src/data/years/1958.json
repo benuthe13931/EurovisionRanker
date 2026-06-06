@@ -101,16 +101,16 @@
       "imageUrl": "/assets/images/1958/1958-netherlands.jpg"
     },
     {
-      "id": "1958-united-kingdom",
+      "id": "1958-sweden",
       "compareStartSeconds": 0,
-      "country": "United Kingdom",
-      "countryCode": "GB",
+      "country": "Sweden",
+      "countryCode": "SE",
       "artist": "Alice Babs",
       "title": "Lilla stjärna",
       "previewVideoUrl": "",
-      "flagEmoji": "🇬🇧",
-      "flagImageUrl": "/assets/flags/united-kingdom.png.webp",
-      "imageUrl": "/assets/images/1958/1958-united-kingdom.jpg"
+      "flagEmoji": "🇸🇪",
+      "flagImageUrl": "/assets/flags/sweden.png.webp",
+      "imageUrl": "/assets/images/1958/1958-sweden.jpg"
     },
     {
       "id": "1958-switzerland",
