@@ -1,0 +1,128 @@
+{
+  "year": 1958,
+  "hostCity": "Hilversum",
+  "country": "Netherlands",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "id": "1958-austria",
+      "compareStartSeconds": 0,
+      "country": "Austria",
+      "countryCode": "AT",
+      "artist": "Liane Augustin",
+      "title": "Die ganze Welt braucht Liebe",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇦🇹",
+      "flagImageUrl": "/assets/flags/austria.png.webp",
+      "imageUrl": "/assets/images/1958/1958-austria.jpg"
+    },
+    {
+      "id": "1958-belgium",
+      "compareStartSeconds": 0,
+      "country": "Belgium",
+      "countryCode": "BE",
+      "artist": "Fud Leclerc",
+      "title": "Ma petite chatte",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇧🇪",
+      "flagImageUrl": "/assets/flags/belgium.png.webp",
+      "imageUrl": "/assets/images/1958/1958-belgium.jpg"
+    },
+    {
+      "id": "1958-denmark",
+      "compareStartSeconds": 0,
+      "country": "Denmark",
+      "countryCode": "DK",
+      "artist": "Raquel Rastenni",
+      "title": "Jeg rev et blad ud af min dagbog",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇩🇰",
+      "flagImageUrl": "/assets/flags/denmark.png.webp",
+      "imageUrl": "/assets/images/1958/1958-denmark.jpg"
+    },
+    {
+      "id": "1958-france",
+      "compareStartSeconds": 0,
+      "country": "France",
+      "countryCode": "FR",
+      "artist": "André Claveau",
+      "title": "Dors mon amour",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇫🇷",
+      "flagImageUrl": "/assets/flags/france.png.webp",
+      "imageUrl": "/assets/images/1958/1958-france.jpg"
+    },
+    {
+      "id": "1958-germany",
+      "compareStartSeconds": 0,
+      "country": "Germany",
+      "countryCode": "DE",
+      "artist": "Margot Hielscher",
+      "title": "Für zwei Groschen Musik",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇩🇪",
+      "flagImageUrl": "/assets/flags/germany.png.webp",
+      "imageUrl": "/assets/images/1958/1958-germany.jpg"
+    },
+    {
+      "id": "1958-italy",
+      "compareStartSeconds": 0,
+      "country": "Italy",
+      "countryCode": "IT",
+      "artist": "Domenico Modugno",
+      "title": "Nel blu, dipinto di blu",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇮🇹",
+      "flagImageUrl": "/assets/flags/italy.png.webp",
+      "imageUrl": "/assets/images/1958/1958-italy.jpg"
+    },
+    {
+      "id": "1958-luxembourg",
+      "compareStartSeconds": 0,
+      "country": "Luxembourg",
+      "countryCode": "LU",
+      "artist": "Solange Berry",
+      "title": "Un grand amour",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇱🇺",
+      "flagImageUrl": "/assets/flags/luxembourg.png.webp",
+      "imageUrl": "/assets/images/1958/1958-luxembourg.jpg"
+    },
+    {
+      "id": "1958-netherlands",
+      "compareStartSeconds": 0,
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "artist": "Corry Brokken",
+      "title": "Heel de wereld",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇳🇱",
+      "flagImageUrl": "/assets/flags/netherlands.png.webp",
+      "imageUrl": "/assets/images/1958/1958-netherlands.jpg"
+    },
+    {
+      "id": "1958-united-kingdom",
+      "compareStartSeconds": 0,
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "artist": "Alice Babs",
+      "title": "Lilla stjärna",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇬🇧",
+      "flagImageUrl": "/assets/flags/united-kingdom.png.webp",
+      "imageUrl": "/assets/images/1958/1958-united-kingdom.jpg"
+    },
+    {
+      "id": "1958-switzerland",
+      "compareStartSeconds": 0,
+      "country": "Switzerland",
+      "countryCode": "CH",
+      "artist": "Lys Assia",
+      "title": "Giorgio",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇨🇭",
+      "flagImageUrl": "/assets/flags/switzerland.png.webp",
+      "imageUrl": "/assets/images/1958/1958-switzerland.jpg"
+    }
+  ]
+}
