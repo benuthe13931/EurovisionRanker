@@ -1,0 +1,140 @@
+{
+  "year": 1959,
+  "hostCity": "Cannes",
+  "country": "France",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "id": "1959-austria",
+      "compareStartSeconds": 0,
+      "country": "Austria",
+      "countryCode": "AT",
+      "artist": "Ferry Graf",
+      "title": "Der K. und K. Kalypso aus Wien",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇦🇹",
+      "imageUrl": "/assets/images/1959/1959-austria.jpg.webp",
+      "flagImageUrl": "/assets/flags/austria.png.webp"
+    },
+    {
+      "id": "1959-belgium",
+      "compareStartSeconds": 0,
+      "country": "Belgium",
+      "countryCode": "BE",
+      "artist": "Bob Benny",
+      "title": "Hou toch van mij",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇧🇪",
+      "imageUrl": "/assets/images/1959/1959-belgium.jpg.webp",
+      "flagImageUrl": "/assets/flags/belgium.png.webp"
+    },
+    {
+      "id": "1959-denmark",
+      "compareStartSeconds": 0,
+      "country": "Denmark",
+      "countryCode": "DK",
+      "artist": "Birthe Wilke",
+      "title": "Uh, jeg ville ønske, jeg var dig",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇩🇰",
+      "imageUrl": "/assets/images/1959/1959-denmark.jpg.webp",
+      "flagImageUrl": "/assets/flags/denmark.png.webp"
+    },
+    {
+      "id": "1959-france",
+      "compareStartSeconds": 0,
+      "country": "France",
+      "countryCode": "FR",
+      "artist": "Jean Philippe",
+      "title": "Oui oui oui oui",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇫🇷",
+      "imageUrl": "/assets/images/1959/1959-france.jpg.webp",
+      "flagImageUrl": "/assets/flags/france.png.webp"
+    },
+    {
+      "id": "1959-germany",
+      "compareStartSeconds": 0,
+      "country": "Germany",
+      "countryCode": "DE",
+      "artist": "Alice and Ellen Kessler",
+      "title": "Heut' woll'n wir tanzen geh'n",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇩🇪",
+      "imageUrl": "/assets/images/1959/1959-germany.jpg.webp",
+      "flagImageUrl": "/assets/flags/germany.png.webp"
+    },
+    {
+      "id": "1959-italy",
+      "compareStartSeconds": 0,
+      "country": "Italy",
+      "countryCode": "IT",
+      "artist": "Domenico Modugno",
+      "title": "Piove",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇮🇹",
+      "imageUrl": "/assets/images/1959/1959-italy.jpg.webp",
+      "flagImageUrl": "/assets/flags/italy.png.webp"
+    },
+    {
+      "id": "1959-monaco",
+      "compareStartSeconds": 0,
+      "country": "Monaco",
+      "countryCode": "MC",
+      "artist": "Jacques Pills",
+      "title": "Mon ami Pierrot",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇲🇨",
+      "imageUrl": "/assets/images/1959/1959-monaco.jpg.webp",
+      "flagImageUrl": "/assets/flags/monaco.png.webp"
+    },
+    {
+      "id": "1959-netherlands",
+      "compareStartSeconds": 0,
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "artist": "Teddy Scholten",
+      "title": "Een beetje",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇳🇱",
+      "imageUrl": "/assets/images/1959/1959-netherlands.jpg.webp",
+      "flagImageUrl": "/assets/flags/netherlands.png.webp"
+    },
+    {
+      "id": "1959-sweden",
+      "compareStartSeconds": 0,
+      "country": "Sweden",
+      "countryCode": "SE",
+      "artist": "Brita Borg",
+      "title": "Augustin",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇸🇪",
+      "imageUrl": "/assets/images/1959/1959-sweden.jpg.webp",
+      "flagImageUrl": "/assets/flags/sweden.png.webp"
+    },
+    {
+      "id": "1959-switzerland",
+      "compareStartSeconds": 0,
+      "country": "Switzerland",
+      "countryCode": "CH",
+      "artist": "Christa Williams",
+      "title": "Irgendwoher",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇨🇭",
+      "imageUrl": "/assets/images/1959/1959-switzerland.jpg.webp",
+      "flagImageUrl": "/assets/flags/switzerland.png.webp"
+    },
+    {
+      "id": "1959-united-kingdom",
+      "compareStartSeconds": 0,
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "artist": "Pearl Carr & Teddy Johnson",
+      "title": "Sing Little Birdie",
+      "previewVideoUrl": "",
+      "flagEmoji": "🇬🇧",
+      "imageUrl": "/assets/images/1959/1959-united-kingdom.jpg.webp",
+      "flagImageUrl": "/assets/flags/united-kingdom.png.webp"
+    }
+  ]
+}
