@@ -129,7 +129,7 @@
       "compareStartSeconds": 0,
       "country": "Israel",
       "countryCode": "IL",
-      "artist": "Gili and Galit",
+      "artist": "Gili & Galit",
       "title": "Derekh Hamelekh",
       "previewVideoUrl": "",
       "flagEmoji": "🇮🇱",
@@ -141,7 +141,7 @@
       "compareStartSeconds": 0,
       "country": "Italy",
       "countryCode": "IT",
-      "artist": "Anna Oxa and Fausto Leali",
+      "artist": "Anna Oxa & Fausto Leali",
       "title": "Avrei voluto",
       "previewVideoUrl": "",
       "flagEmoji": "🇮🇹",
@@ -264,7 +264,7 @@
       "artist": "Riva",
       "title": "Rock Me",
       "previewVideoUrl": "",
-      "flagEmoji": "",
+      "flagEmoji": "🇾🇺",
       "imageUrl": "/assets/images/1989/1989-yugoslavia.jpg.webp",
       "flagImageUrl": "/assets/flags/yugoslavia.png"
     }
