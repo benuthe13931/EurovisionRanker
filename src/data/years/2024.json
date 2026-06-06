@@ -162,7 +162,7 @@
     },
     {
       "id": "2024-georgia",
-      "compareStartSeconds": 142,
+      "compareStartSeconds": 151,
       "country": "Georgia",
       "countryCode": "GE",
       "artist": "Nutsa Buzaladze",
@@ -186,7 +186,7 @@
     },
     {
       "id": "2024-greece",
-      "compareStartSeconds": 112,
+      "compareStartSeconds": 161,
       "country": "Greece",
       "countryCode": "GR",
       "artist": "Marina Satti",
@@ -390,7 +390,7 @@
     },
     {
       "id": "2024-spain",
-      "compareStartSeconds": 111,
+      "compareStartSeconds": 171,
       "country": "Spain",
       "countryCode": "ES",
       "artist": "Nebulossa",

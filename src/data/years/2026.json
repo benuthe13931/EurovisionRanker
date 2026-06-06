@@ -6,6 +6,7 @@
   "songs": [
     {
       "id": "2026-albania",
+      "compareStartSeconds": 139,
       "country": "Albania",
       "countryCode": "AL",
       "artist": "Alis",
@@ -17,6 +18,7 @@
     },
     {
       "id": "2026-armenia",
+      "compareStartSeconds": 148,
       "country": "Armenia",
       "countryCode": "AM",
       "artist": "Simón",
@@ -28,6 +30,7 @@
     },
     {
       "id": "2026-australia",
+      "compareStartSeconds": 158,
       "country": "Australia",
       "countryCode": "AU",
       "artist": "Delta Goodrem",
@@ -39,6 +42,7 @@
     },
     {
       "id": "2026-austria",
+      "compareStartSeconds": 140,
       "country": "Austria",
       "countryCode": "AT",
       "artist": "Cosmó",
@@ -50,6 +54,7 @@
     },
     {
       "id": "2026-azerbaijan",
+      "compareStartSeconds": 139,
       "country": "Azerbaijan",
       "countryCode": "AZ",
       "artist": "Jiva",
@@ -61,6 +66,7 @@
     },
     {
       "id": "2026-belgium",
+      "compareStartSeconds": 157,
       "country": "Belgium",
       "countryCode": "BE",
       "artist": "Essyla",
@@ -72,6 +78,7 @@
     },
     {
       "id": "2026-bulgaria",
+      "compareStartSeconds": 169,
       "country": "Bulgaria",
       "countryCode": "BG",
       "artist": "Dara",
@@ -83,6 +90,7 @@
     },
     {
       "id": "2026-croatia",
+      "compareStartSeconds": 155,
       "country": "Croatia",
       "countryCode": "HR",
       "artist": "Lelek",
@@ -94,6 +102,7 @@
     },
     {
       "id": "2026-cyprus",
+      "compareStartSeconds": 139,
       "country": "Cyprus",
       "countryCode": "CY",
       "artist": "Antigoni",
@@ -105,6 +114,7 @@
     },
     {
       "id": "2026-czechia",
+      "compareStartSeconds": 165,
       "country": "Czechia",
       "countryCode": "CZ",
       "artist": "Daniel Zizka",
@@ -116,6 +126,7 @@
     },
     {
       "id": "2026-denmark",
+      "compareStartSeconds": 146,
       "country": "Denmark",
       "countryCode": "DK",
       "artist": "Søren Torpegaard Lund",
@@ -127,6 +138,7 @@
     },
     {
       "id": "2026-estonia",
+      "compareStartSeconds": 156,
       "country": "Estonia",
       "countryCode": "EE",
       "artist": "Vanilla Ninja",
@@ -138,6 +150,7 @@
     },
     {
       "id": "2026-finland",
+      "compareStartSeconds": 139,
       "country": "Finland",
       "countryCode": "FI",
       "artist": "Linda Lampenius and Pete Parkkonen",
@@ -149,6 +162,7 @@
     },
     {
       "id": "2026-france",
+      "compareStartSeconds": 152,
       "country": "France",
       "countryCode": "FR",
       "artist": "Monroe",
@@ -160,6 +174,7 @@
     },
     {
       "id": "2026-georgia",
+      "compareStartSeconds": 162,
       "country": "Georgia",
       "countryCode": "GE",
       "artist": "Bzikebi",
@@ -171,6 +186,7 @@
     },
     {
       "id": "2026-germany",
+      "compareStartSeconds": 154,
       "country": "Germany",
       "countryCode": "DE",
       "artist": "Sarah Engels",
@@ -182,6 +198,7 @@
     },
     {
       "id": "2026-greece",
+      "compareStartSeconds": 176,
       "country": "Greece",
       "countryCode": "GR",
       "artist": "Akylas",
@@ -193,6 +210,7 @@
     },
     {
       "id": "2026-israel",
+      "compareStartSeconds": 164,
       "country": "Israel",
       "countryCode": "IL",
       "artist": "Noam Bettan",
@@ -204,6 +222,7 @@
     },
     {
       "id": "2026-italy",
+      "compareStartSeconds": 137,
       "country": "Italy",
       "countryCode": "IT",
       "artist": "Sal Da Vinci",
@@ -215,6 +234,7 @@
     },
     {
       "id": "2026-latvia",
+      "compareStartSeconds": 120,
       "country": "Latvia",
       "countryCode": "LV",
       "artist": "Atvara",
@@ -226,6 +246,7 @@
     },
     {
       "id": "2026-lithuania",
+      "compareStartSeconds": 155,
       "country": "Lithuania",
       "countryCode": "LT",
       "artist": "Lion Ceccah",
@@ -237,6 +258,7 @@
     },
     {
       "id": "2026-luxembourg",
+      "compareStartSeconds": 141,
       "country": "Luxembourg",
       "countryCode": "LU",
       "artist": "Eva Marija",
@@ -248,6 +270,7 @@
     },
     {
       "id": "2026-malta",
+      "compareStartSeconds": 155,
       "country": "Malta",
       "countryCode": "MT",
       "artist": "Aidan",
@@ -259,6 +282,7 @@
     },
     {
       "id": "2026-moldova",
+      "compareStartSeconds": 156,
       "country": "Moldova",
       "countryCode": "MD",
       "artist": "Satoshi",
@@ -270,6 +294,7 @@
     },
     {
       "id": "2026-montenegro",
+      "compareStartSeconds": 147,
       "country": "Montenegro",
       "countryCode": "ME",
       "artist": "Tamara Živković",
@@ -281,6 +306,7 @@
     },
     {
       "id": "2026-norway",
+      "compareStartSeconds": 154,
       "country": "Norway",
       "countryCode": "NO",
       "artist": "Jonas Lovv",
@@ -292,6 +318,7 @@
     },
     {
       "id": "2026-poland",
+      "compareStartSeconds": 160,
       "country": "Poland",
       "countryCode": "PL",
       "artist": "Alicja",
@@ -303,6 +330,7 @@
     },
     {
       "id": "2026-portugal",
+      "compareStartSeconds": 155,
       "country": "Portugal",
       "countryCode": "PT",
       "artist": "Bandidos do Cante",
@@ -314,6 +342,7 @@
     },
     {
       "id": "2026-romania",
+      "compareStartSeconds": 161,
       "country": "Romania",
       "countryCode": "RO",
       "artist": "Alexandra Căpitănescu",
@@ -325,6 +354,7 @@
     },
     {
       "id": "2026-san-marino",
+      "compareStartSeconds": 155,
       "country": "San Marino",
       "countryCode": "SM",
       "artist": "Senhit",
@@ -336,6 +366,7 @@
     },
     {
       "id": "2026-serbia",
+      "compareStartSeconds": 135,
       "country": "Serbia",
       "countryCode": "RS",
       "artist": "Lavina",
@@ -347,6 +378,7 @@
     },
     {
       "id": "2026-sweden",
+      "compareStartSeconds": 170,
       "country": "Sweden",
       "countryCode": "SE",
       "artist": "Felicia",
@@ -358,6 +390,7 @@
     },
     {
       "id": "2026-switzerland",
+      "compareStartSeconds": 137,
       "country": "Switzerland",
       "countryCode": "CH",
       "artist": "Veronica Fusaro",
@@ -369,6 +402,7 @@
     },
     {
       "id": "2026-ukraine",
+      "compareStartSeconds": 152,
       "country": "Ukraine",
       "countryCode": "UA",
       "artist": "Leléka",
@@ -380,6 +414,7 @@
     },
     {
       "id": "2026-united-kingdom",
+      "compareStartSeconds": 172,
       "country": "United Kingdom",
       "countryCode": "GB",
       "artist": "Look Mum No Computer",
