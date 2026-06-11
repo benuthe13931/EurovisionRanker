@@ -2,6 +2,7 @@ export type CountryConfig = {
   country: string;
   countryCode: string;
   slug: string;
+  aliases?: string[];
   emojiAssetName?: string;
   flagAssetName?: string;
 };
@@ -15,7 +16,12 @@ export const countryConfigs = [
   { country: "Azerbaijan", countryCode: "AZ", slug: "azerbaijan" },
   { country: "Belarus", countryCode: "BY", slug: "belarus" },
   { country: "Belgium", countryCode: "BE", slug: "belgium" },
-  { country: "Bosnia and Herzegovina", countryCode: "BA", slug: "bosnia-and-herzegovina" },
+  {
+    country: "Bosnia and Herzegovina",
+    countryCode: "BA",
+    slug: "bosnia-and-herzegovina",
+    aliases: ["Bosnia & Herzegovina"],
+  },
   { country: "Bulgaria", countryCode: "BG", slug: "bulgaria" },
   { country: "Croatia", countryCode: "HR", slug: "croatia" },
   { country: "Cyprus", countryCode: "CY", slug: "cyprus" },
@@ -53,6 +59,7 @@ export const countryConfigs = [
     country: "Serbia and Montenegro",
     countryCode: "CS",
     slug: "serbia-and-montenegro",
+    aliases: ["Serbia & Montenegro"],
   },
   { country: "Slovakia", countryCode: "SK", slug: "slovakia" },
   { country: "Slovenia", countryCode: "SI", slug: "slovenia" },
@@ -86,7 +93,12 @@ export function countryFlagImageUrl(country: CountryConfig) {
   return `/assets/flags/${country.flagAssetName ?? `${country.slug}.png.webp`}`;
 }
 
-export const countriesByName = new Map(countryConfigs.map((country) => [country.country, country]));
+export const countriesByName = new Map(
+  countryConfigs.flatMap((country) => [
+    [country.country, country] as const,
+    ...(country.aliases?.map((alias) => [alias, country] as const) ?? []),
+  ]),
+);
 export const countriesByCode = new Map(countryConfigs.map((country) => [country.countryCode, country]));
 export const countriesBySlug = new Map(countryConfigs.map((country) => [country.slug, country]));
 
