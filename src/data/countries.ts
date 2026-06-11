@@ -5,6 +5,17 @@ export type CountryConfig = {
   aliases?: string[];
   emojiAssetName?: string;
   flagAssetName?: string;
+  historicalAssets?: {
+    fromYear: number;
+    toYear: number;
+    emojiAssetName?: string;
+    flagAssetName?: string;
+  }[];
+  historicalNames?: {
+    fromYear: number;
+    toYear: number;
+    country: string;
+  }[];
 };
 
 export const countryConfigs = [
@@ -21,6 +32,14 @@ export const countryConfigs = [
     countryCode: "BA",
     slug: "bosnia-and-herzegovina",
     aliases: ["Bosnia and Herzegovina"],
+    historicalAssets: [
+      {
+        fromYear: 1993,
+        toYear: 1997,
+        emojiAssetName: "old-bosnia-and-herzegovina-flag-emoji.png",
+        flagAssetName: "old-bosnia-and-herzegovina.png",
+      },
+    ],
   },
   { country: "Bulgaria", countryCode: "BG", slug: "bulgaria" },
   { country: "Croatia", countryCode: "HR", slug: "croatia" },
@@ -31,7 +50,6 @@ export const countryConfigs = [
   { country: "Estonia", countryCode: "EE", slug: "estonia" },
   { country: "Finland", countryCode: "FI", slug: "finland" },
   { country: "France", countryCode: "FR", slug: "france" },
-  { country: "FYR Macedonia", countryCode: "MK", slug: "north-macedonia" },
   { country: "Georgia", countryCode: "GE", slug: "georgia" },
   { country: "Germany", countryCode: "DE", slug: "germany" },
   { country: "Greece", countryCode: "GR", slug: "greece" },
@@ -49,7 +67,21 @@ export const countryConfigs = [
   { country: "Montenegro", countryCode: "ME", slug: "montenegro" },
   { country: "Morocco", countryCode: "MA", slug: "morocco" },
   { country: "Netherlands", countryCode: "NL", slug: "netherlands" },
-  { country: "North Macedonia", countryCode: "MK", slug: "north-macedonia" },
+  {
+    country: "North Macedonia",
+    countryCode: "MK",
+    slug: "north-macedonia",
+    aliases: ["FYR Macedonia", "FYR-Macedonia", "Macedonia"],
+    historicalNames: [{ fromYear: 1993, toYear: 2018, country: "FYR Macedonia" }],
+    historicalAssets: [
+      {
+        fromYear: 1993,
+        toYear: 1995,
+        emojiAssetName: "fyr-macedonia.png",
+        flagAssetName: "fyr-macedonia.png",
+      },
+    ],
+  },
   { country: "Norway", countryCode: "NO", slug: "norway" },
   { country: "Poland", countryCode: "PL", slug: "poland" },
   { country: "Portugal", countryCode: "PT", slug: "portugal" },
@@ -93,6 +125,31 @@ export function countryEmojiUrl(country: CountryConfig) {
 
 export function countryFlagImageUrl(country: CountryConfig) {
   return `/assets/flags/${country.flagAssetName ?? `${country.slug}.png.webp`}`;
+}
+
+function historicalAssetsForYear(country: CountryConfig, year: number) {
+  return country.historicalAssets?.find(
+    (assets) => year >= assets.fromYear && year <= assets.toYear,
+  );
+}
+
+export function countryDisplayNameForYear(country: CountryConfig, year: number) {
+  return (
+    country.historicalNames?.find((name) => year >= name.fromYear && year <= name.toYear)?.country ??
+    country.country
+  );
+}
+
+export function countryEmojiUrlForYear(country: CountryConfig, year: number) {
+  const assets = historicalAssetsForYear(country, year);
+  return `/assets/emojis/${
+    assets?.emojiAssetName ?? country.emojiAssetName ?? `${country.slug}-flag-emoji.png`
+  }`;
+}
+
+export function countryFlagImageUrlForYear(country: CountryConfig, year: number) {
+  const assets = historicalAssetsForYear(country, year);
+  return `/assets/flags/${assets?.flagAssetName ?? country.flagAssetName ?? `${country.slug}.png.webp`}`;
 }
 
 export const countriesByName = new Map(

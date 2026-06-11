@@ -1,7 +1,8 @@
 import type { Song, YearData, YearDataInput, YearSongInput } from "../types";
 import {
-  countryEmojiUrl,
-  countryFlagImageUrl,
+  countryDisplayNameForYear,
+  countryEmojiUrlForYear,
+  countryFlagImageUrlForYear,
   countrySlug,
   getCountryConfig,
 } from "./countries";
@@ -37,14 +38,14 @@ function normalizeSong(song: YearSongInput, year: number, seenIds: Set<string>):
   return {
     ...song,
     id,
-    country: country?.country ?? song.country,
+    country: country ? countryDisplayNameForYear(country, year) : song.country,
     countryCode: country?.countryCode ?? song.countryCode ?? "",
     flagEmoji: song.flagEmoji?.startsWith("/assets/emojis/")
       ? song.flagEmoji
       : country
-        ? countryEmojiUrl(country)
+        ? countryEmojiUrlForYear(country, year)
         : (song.flagEmoji ?? ""),
-    flagImageUrl: song.flagImageUrl ?? (country ? countryFlagImageUrl(country) : undefined),
+    flagImageUrl: song.flagImageUrl ?? (country ? countryFlagImageUrlForYear(country, year) : undefined),
     imageUrl: song.imageUrl ?? defaultImageUrl(year, id),
     year,
   };
