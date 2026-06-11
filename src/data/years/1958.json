@@ -7,52 +7,72 @@
     {
       "country": "Austria",
       "artist": "Liane Augustin",
-      "title": "Die ganze Welt braucht Liebe"
+      "title": "Die ganze Welt braucht Liebe",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Belgium",
       "artist": "Fud Leclerc",
-      "title": "Ma petite chatte"
+      "title": "Ma petite chatte",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Denmark",
       "artist": "Raquel Rastenni",
-      "title": "Jeg rev et blad ud af min dagbog"
+      "title": "Jeg rev et blad ud af min dagbog",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "France",
       "artist": "André Claveau",
-      "title": "Dors mon amour"
+      "title": "Dors mon amour",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Germany",
       "artist": "Margot Hielscher",
-      "title": "Für zwei Groschen Musik"
+      "title": "Für zwei Groschen Musik",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Italy",
       "artist": "Domenico Modugno",
-      "title": "Nel blu, dipinto di blu"
+      "title": "Nel blu, dipinto di blu",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Luxembourg",
       "artist": "Solange Berry",
-      "title": "Un grand amour"
+      "title": "Un grand amour",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Netherlands",
       "artist": "Corry Brokken",
-      "title": "Heel de wereld"
+      "title": "Heel de wereld",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Sweden",
       "artist": "Alice Babs",
-      "title": "Lilla stjärna"
+      "title": "Lilla stjärna",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Switzerland",
       "artist": "Lys Assia",
-      "title": "Giorgio"
+      "title": "Giorgio",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     }
   ]
 }

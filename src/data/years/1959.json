@@ -7,57 +7,79 @@
     {
       "country": "Austria",
       "artist": "Ferry Graf",
-      "title": "Der K. und K. Kalypso aus Wien"
+      "title": "Der K. und K. Kalypso aus Wien",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Belgium",
       "artist": "Bob Benny",
-      "title": "Hou toch van mij"
+      "title": "Hou toch van mij",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Denmark",
       "artist": "Birthe Wilke",
-      "title": "Uh, jeg ville ønske, jeg var dig"
+      "title": "Uh, jeg ville ønske, jeg var dig",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "France",
       "artist": "Jean Philippe",
-      "title": "Oui, oui, oui, oui"
+      "title": "Oui, oui, oui, oui",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Germany",
       "artist": "Alice & Ellen Kessler",
-      "title": "Heut' woll'n wir tanzen geh'n"
+      "title": "Heut' woll'n wir tanzen geh'n",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Italy",
       "artist": "Domenico Modugno",
-      "title": "Piove"
+      "title": "Piove",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Monaco",
       "artist": "Jacques Pills",
-      "title": "Mon ami Pierrot"
+      "title": "Mon ami Pierrot",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Netherlands",
       "artist": "Teddy Scholten",
-      "title": "Een beetje"
+      "title": "Een beetje",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Sweden",
       "artist": "Brita Borg",
-      "title": "Augustin"
+      "title": "Augustin",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Switzerland",
       "artist": "Christa Williams",
-      "title": "Irgendwoher"
+      "title": "Irgendwoher",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "United Kingdom",
       "artist": "Pearl Carr & Teddy Johnson",
-      "title": "Sing Little Birdie"
+      "title": "Sing Little Birdie",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     }
   ]
 }
