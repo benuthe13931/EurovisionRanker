@@ -11,8 +11,15 @@ const modules = import.meta.glob("./years/*.json", {
   import: "default",
 });
 
-function defaultImageUrl(year: number, countrySlugValue: string) {
-  return `/assets/images/${year}/${year}-${countrySlugValue}.jpg.webp`;
+const imageExtensionByYear = new Map<number, string>([
+  [1956, "jpg"],
+  [1957, "jpg"],
+  [1958, "jpg"],
+]);
+
+function defaultImageUrl(year: number, songId: string) {
+  const extension = imageExtensionByYear.get(year) ?? "jpg.webp";
+  return `/assets/images/${year}/${songId}.${extension}`;
 }
 
 function normalizeSong(song: YearSongInput, year: number, seenIds: Set<string>): Song {
@@ -38,7 +45,7 @@ function normalizeSong(song: YearSongInput, year: number, seenIds: Set<string>):
         ? countryEmojiUrl(country)
         : (song.flagEmoji ?? ""),
     flagImageUrl: song.flagImageUrl ?? (country ? countryFlagImageUrl(country) : undefined),
-    imageUrl: song.imageUrl ?? defaultImageUrl(year, slug),
+    imageUrl: song.imageUrl ?? defaultImageUrl(year, id),
     year,
   };
 }

@@ -5,124 +5,74 @@
   "backgroundImage": "/assets/backgrounds/hero-bg.webp",
   "songs": [
     {
-      "id": "1957-austria",
-      "compareStartSeconds": 103,
       "country": "Austria",
-      "countryCode": "AT",
       "artist": "Bob Martin",
       "title": "Wohin, Kleines Pony?",
       "previewVideoUrl": "https://www.youtube.com/watch?v=sDpRw_7w2J0",
-      "flagEmoji": "🇦🇹",
-      "flagImageUrl": "/assets/flags/austria.png.webp",
-      "imageUrl": "/assets/images/1957/1957-austria.jpg"
+      "compareStartSeconds": 103
     },
     {
-      "id": "1957-belgium",
-      "compareStartSeconds": 73,
       "country": "Belgium",
-      "countryCode": "BE",
       "artist": "Bobbejaan Schoepen",
       "title": "Straatdeuntje",
       "previewVideoUrl": "https://www.youtube.com/watch?v=cNryRPcRGi8",
-      "flagEmoji": "🇧🇪",
-      "flagImageUrl": "/assets/flags/belgium.png.webp",
-      "imageUrl": "/assets/images/1957/1957-belgium.jpg"
+      "compareStartSeconds": 73
     },
     {
-      "id": "1957-denmark",
-      "compareStartSeconds": 53,
       "country": "Denmark",
-      "countryCode": "DK",
       "artist": "Birthe Wilke & Gustav Winckler",
       "title": "Skibet Skal Sejle I Nat",
       "previewVideoUrl": "https://www.youtube.com/watch?v=1ITBDl33WFc",
-      "flagEmoji": "🇩🇰",
-      "flagImageUrl": "/assets/flags/denmark.png.webp",
-      "imageUrl": "/assets/images/1957/1957-denmark.jpg"
+      "compareStartSeconds": 53
     },
     {
-      "id": "1957-france",
-      "compareStartSeconds": 96,
       "country": "France",
-      "countryCode": "FR",
       "artist": "Paule Desjardins",
       "title": "La Belle Amour",
       "previewVideoUrl": "https://www.youtube.com/watch?v=VVk2GMFNoPU",
-      "flagEmoji": "🇫🇷",
-      "flagImageUrl": "/assets/flags/france.png.webp",
-      "imageUrl": "/assets/images/1957/1957-france.jpg"
+      "compareStartSeconds": 96
     },
     {
-      "id": "1957-germany",
-      "compareStartSeconds": 146,
       "country": "Germany",
-      "countryCode": "DE",
       "artist": "Margot Hielscher",
       "title": "Telefon, Telefon",
       "previewVideoUrl": "https://www.youtube.com/watch?v=nKU5QAGt7Cw",
-      "flagEmoji": "🇩🇪",
-      "flagImageUrl": "/assets/flags/germany.png.webp",
-      "imageUrl": "/assets/images/1957/1957-germany.jpg"
+      "compareStartSeconds": 146
     },
     {
-      "id": "1957-italy",
-      "compareStartSeconds": 100,
       "country": "Italy",
-      "countryCode": "IT",
       "artist": "Nunzio Gallo",
       "title": "Corde della mia chitarra",
       "previewVideoUrl": "https://www.youtube.com/watch?v=NWxdz_njjA0",
-      "flagEmoji": "🇮🇹",
-      "flagImageUrl": "/assets/flags/italy.png.webp",
-      "imageUrl": "/assets/images/1957/1957-italy.jpg"
+      "compareStartSeconds": 100
     },
     {
-      "id": "1957-luxembourg",
-      "compareStartSeconds": 64,
       "country": "Luxembourg",
-      "countryCode": "LU",
       "artist": "Danièle Dupré",
       "title": "Tant de peine",
       "previewVideoUrl": "https://www.youtube.com/watch?v=zWvF5I2uDVo",
-      "flagEmoji": "🇱🇺",
-      "flagImageUrl": "/assets/flags/luxembourg.png.webp",
-      "imageUrl": "/assets/images/1957/1957-luxembourg.jpg"
+      "compareStartSeconds": 64
     },
     {
-      "id": "1957-netherlands",
-      "compareStartSeconds": 146,
       "country": "Netherlands",
-      "countryCode": "NL",
       "artist": "Corry Brokken",
       "title": "Net als toen",
       "previewVideoUrl": "https://www.youtube.com/watch?v=kVzEuReuXgc",
-      "flagEmoji": "🇳🇱",
-      "flagImageUrl": "/assets/flags/netherlands.png.webp",
-      "imageUrl": "/assets/images/1957/1957-netherlands.jpg"
+      "compareStartSeconds": 146
     },
     {
-      "id": "1957-switzerland",
-      "compareStartSeconds": 140,
       "country": "Switzerland",
-      "countryCode": "CH",
       "artist": "Lys Assia",
       "title": "L'Enfant que j'étais",
       "previewVideoUrl": "https://www.youtube.com/watch?v=SiSnxD1tbVk",
-      "flagEmoji": "🇨🇭",
-      "flagImageUrl": "/assets/flags/switzerland.png.webp",
-      "imageUrl": "/assets/images/1957/1957-switzerland.jpg"
+      "compareStartSeconds": 140
     },
     {
-      "id": "1957-united-kingdom",
-      "compareStartSeconds": 78,
       "country": "United Kingdom",
-      "countryCode": "GB",
       "artist": "Patricia Bredin",
       "title": "All",
       "previewVideoUrl": "https://www.youtube.com/watch?v=4irsVGPcK8U",
-      "flagEmoji": "🇬🇧",
-      "flagImageUrl": "/assets/flags/united-kingdom.png.webp",
-      "imageUrl": "/assets/images/1957/1957-united-kingdom.jpg"
+      "compareStartSeconds": 78
     }
   ]
 }

@@ -5,280 +5,119 @@
   "backgroundImage": "/assets/backgrounds/hero-bg.webp",
   "songs": [
     {
-      "id": "1990-austria",
-      "compareStartSeconds": 0,
       "country": "Austria",
-      "countryCode": "AT",
       "artist": "Simone",
-      "title": "Keine Mauern mehr",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇦🇹",
-      "imageUrl": "/assets/images/1990/1990-austria.jpg.webp",
-      "flagImageUrl": "/assets/flags/austria.png.webp"
+      "title": "Keine Mauern mehr"
     },
     {
-      "id": "1990-belgium",
-      "compareStartSeconds": 0,
       "country": "Belgium",
-      "countryCode": "BE",
       "artist": "Philippe Lafontaine",
-      "title": "Macédomienne",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇧🇪",
-      "imageUrl": "/assets/images/1990/1990-belgium.jpg.webp",
-      "flagImageUrl": "/assets/flags/belgium.png.webp"
+      "title": "Macédomienne"
     },
     {
-      "id": "1990-cyprus",
-      "compareStartSeconds": 0,
       "country": "Cyprus",
-      "countryCode": "CY",
       "artist": "Anastasiou",
-      "title": "Milas poli",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇨🇾",
-      "imageUrl": "/assets/images/1990/1990-cyprus.jpg.webp",
-      "flagImageUrl": "/assets/flags/cyprus.png.webp"
+      "title": "Milas poli"
     },
     {
-      "id": "1990-denmark",
-      "compareStartSeconds": 0,
       "country": "Denmark",
-      "countryCode": "DK",
       "artist": "Lonnie Devantier",
-      "title": "Hallo Hallo",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇩🇰",
-      "imageUrl": "/assets/images/1990/1990-denmark.jpg.webp",
-      "flagImageUrl": "/assets/flags/denmark.png.webp"
+      "title": "Hallo Hallo"
     },
     {
-      "id": "1990-finland",
-      "compareStartSeconds": 0,
       "country": "Finland",
-      "countryCode": "FI",
       "artist": "Beat",
-      "title": "Fri?",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇫🇮",
-      "imageUrl": "/assets/images/1990/1990-finland.jpg.webp",
-      "flagImageUrl": "/assets/flags/finland.png.webp"
+      "title": "Fri?"
     },
     {
-      "id": "1990-france",
-      "compareStartSeconds": 0,
       "country": "France",
-      "countryCode": "FR",
       "artist": "Joëlle Ursull",
-      "title": "White & Black Blues",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇫🇷",
-      "imageUrl": "/assets/images/1990/1990-france.jpg.webp",
-      "flagImageUrl": "/assets/flags/france.png.webp"
+      "title": "White & Black Blues"
     },
     {
-      "id": "1990-germany",
-      "compareStartSeconds": 0,
       "country": "Germany",
-      "countryCode": "DE",
       "artist": "Chris Kempers & Daniel Kovac",
-      "title": "Frei zu leben",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇩🇪",
-      "imageUrl": "/assets/images/1990/1990-germany.jpg.webp",
-      "flagImageUrl": "/assets/flags/germany.png.webp"
+      "title": "Frei zu leben"
     },
     {
-      "id": "1990-greece",
-      "compareStartSeconds": 0,
       "country": "Greece",
-      "countryCode": "GR",
       "artist": "Christos Callow",
-      "title": "Horis skopo",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇬🇷",
-      "imageUrl": "/assets/images/1990/1990-greece.jpg.webp",
-      "flagImageUrl": "/assets/flags/greece.png.webp"
+      "title": "Horis skopo"
     },
     {
-      "id": "1990-iceland",
-      "compareStartSeconds": 0,
       "country": "Iceland",
-      "countryCode": "IS",
       "artist": "Stjórnin",
-      "title": "Eitt lag enn",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇮🇸",
-      "imageUrl": "/assets/images/1990/1990-iceland.jpg.webp",
-      "flagImageUrl": "/assets/flags/iceland.png.webp"
+      "title": "Eitt lag enn"
     },
     {
-      "id": "1990-ireland",
-      "compareStartSeconds": 0,
       "country": "Ireland",
-      "countryCode": "IE",
       "artist": "Liam Reilly",
-      "title": "Somewhere in Europe",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇮🇪",
-      "imageUrl": "/assets/images/1990/1990-ireland.jpg.webp",
-      "flagImageUrl": "/assets/flags/ireland.png.webp"
+      "title": "Somewhere in Europe"
     },
     {
-      "id": "1990-israel",
-      "compareStartSeconds": 0,
       "country": "Israel",
-      "countryCode": "IL",
       "artist": "Rita",
-      "title": "Shara Barkhovot",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇮🇱",
-      "imageUrl": "/assets/images/1990/1990-israel.jpg.webp",
-      "flagImageUrl": "/assets/flags/israel.png.webp"
+      "title": "Shara Barkhovot"
     },
     {
-      "id": "1990-italy",
-      "compareStartSeconds": 0,
       "country": "Italy",
-      "countryCode": "IT",
       "artist": "Toto Cutugno",
-      "title": "Insieme: 1992",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇮🇹",
-      "imageUrl": "/assets/images/1990/1990-italy.jpg.webp",
-      "flagImageUrl": "/assets/flags/italy.png.webp"
+      "title": "Insieme: 1992"
     },
     {
-      "id": "1990-latvia",
-      "compareStartSeconds": 0,
       "country": "Latvia",
-      "countryCode": "LV",
       "artist": "",
-      "title": "",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇱🇻",
-      "imageUrl": "/assets/images/1990/1990-latvia.jpg.webp",
-      "flagImageUrl": "/assets/flags/latvia.png.webp"
+      "title": ""
     },
     {
-      "id": "1990-luxembourg",
-      "compareStartSeconds": 0,
       "country": "Luxembourg",
-      "countryCode": "LU",
       "artist": "Céline Carzo",
-      "title": "Quand je te rêve",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇱🇺",
-      "imageUrl": "/assets/images/1990/1990-luxembourg.jpg.webp",
-      "flagImageUrl": "/assets/flags/luxembourg.png.webp"
+      "title": "Quand je te rêve"
     },
     {
-      "id": "1990-netherlands",
-      "compareStartSeconds": 0,
       "country": "Netherlands",
-      "countryCode": "NL",
       "artist": "Maywood",
-      "title": "Ik wil alles met je delen",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇳🇱",
-      "imageUrl": "/assets/images/1990/1990-netherlands.jpg.webp",
-      "flagImageUrl": "/assets/flags/netherlands.png.webp"
+      "title": "Ik wil alles met je delen"
     },
     {
-      "id": "1990-norway",
-      "compareStartSeconds": 0,
       "country": "Norway",
-      "countryCode": "NO",
       "artist": "Ketil Stokkan",
-      "title": "Brandenburger Tor",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇳🇴",
-      "imageUrl": "/assets/images/1990/1990-norway.jpg.webp",
-      "flagImageUrl": "/assets/flags/norway.png.webp"
+      "title": "Brandenburger Tor"
     },
     {
-      "id": "1990-portugal",
-      "compareStartSeconds": 0,
       "country": "Portugal",
-      "countryCode": "PT",
       "artist": "Nucha",
-      "title": "Há sempre alguém",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇵🇹",
-      "imageUrl": "/assets/images/1990/1990-portugal.jpg.webp",
-      "flagImageUrl": "/assets/flags/portugal.png.webp"
+      "title": "Há sempre alguém"
     },
     {
-      "id": "1990-spain",
-      "compareStartSeconds": 0,
       "country": "Spain",
-      "countryCode": "ES",
       "artist": "Azúcar Moreno",
-      "title": "Bandido",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇪🇸",
-      "imageUrl": "/assets/images/1990/1990-spain.jpg.webp",
-      "flagImageUrl": "/assets/flags/spain.png.webp"
+      "title": "Bandido"
     },
     {
-      "id": "1990-sweden",
-      "compareStartSeconds": 0,
       "country": "Sweden",
-      "countryCode": "SE",
       "artist": "Edin-Ådahl",
-      "title": "Som en vind",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇸🇪",
-      "imageUrl": "/assets/images/1990/1990-sweden.jpg.webp",
-      "flagImageUrl": "/assets/flags/sweden.png.webp"
+      "title": "Som en vind"
     },
     {
-      "id": "1990-switzerland",
-      "compareStartSeconds": 0,
       "country": "Switzerland",
-      "countryCode": "CH",
       "artist": "Egon Egemann",
-      "title": "Musik klingt in die Welt hinaus",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇨🇭",
-      "imageUrl": "/assets/images/1990/1990-switzerland.jpg.webp",
-      "flagImageUrl": "/assets/flags/switzerland.png.webp"
+      "title": "Musik klingt in die Welt hinaus"
     },
     {
-      "id": "1990-turkey",
-      "compareStartSeconds": 0,
       "country": "Turkey",
-      "countryCode": "TR",
       "artist": "Kayahan",
-      "title": "Gözlerinin Hapsindeyim",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇹🇷",
-      "imageUrl": "/assets/images/1990/1990-turkey.jpg.webp",
-      "flagImageUrl": "/assets/flags/turkey.png"
+      "title": "Gözlerinin Hapsindeyim"
     },
     {
-      "id": "1990-united-kingdom",
-      "compareStartSeconds": 0,
       "country": "United Kingdom",
-      "countryCode": "GB",
       "artist": "Emma",
-      "title": "Give a Little Love Back to the World",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇬🇧",
-      "imageUrl": "/assets/images/1990/1990-united-kingdom.jpg.webp",
-      "flagImageUrl": "/assets/flags/united-kingdom.png.webp"
+      "title": "Give a Little Love Back to the World"
     },
     {
-      "id": "1990-yugoslavia",
-      "compareStartSeconds": 0,
       "country": "Yugoslavia",
-      "countryCode": "YU",
       "artist": "Tajči",
-      "title": "Hajde da ludujemo",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇾🇺",
-      "imageUrl": "/assets/images/1990/1990-yugoslavia.jpg.webp",
-      "flagImageUrl": "/assets/flags/yugoslavia.png"
+      "title": "Hajde da ludujemo"
     }
   ]
 }

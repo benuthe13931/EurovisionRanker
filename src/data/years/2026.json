@@ -5,424 +5,250 @@
   "backgroundImage": "/assets/backgrounds/hero-bg.webp",
   "songs": [
     {
-      "id": "2026-albania",
-      "compareStartSeconds": 139,
       "country": "Albania",
-      "countryCode": "AL",
       "artist": "Alis",
       "title": "Nân",
       "previewVideoUrl": "https://www.youtube.com/watch?v=doGkDemPcFE",
-      "flagEmoji": "🇦🇱",
-      "imageUrl": "/assets/images/2026/2026-albania.jpg.webp",
-      "flagImageUrl": "/assets/flags/albania.png.webp"
+      "compareStartSeconds": 139
     },
     {
-      "id": "2026-armenia",
-      "compareStartSeconds": 148,
       "country": "Armenia",
-      "countryCode": "AM",
       "artist": "Simón",
       "title": "Paloma Rumba",
       "previewVideoUrl": "https://www.youtube.com/watch?v=Pw8UJGEDF-4",
-      "flagEmoji": "🇦🇲",
-      "imageUrl": "/assets/images/2026/2026-armenia.webp",
-      "flagImageUrl": "/assets/flags/armenia.png.webp"
+      "compareStartSeconds": 148,
+      "imageUrl": "/assets/images/2026/2026-armenia.webp"
     },
     {
-      "id": "2026-australia",
-      "compareStartSeconds": 158,
       "country": "Australia",
-      "countryCode": "AU",
       "artist": "Delta Goodrem",
       "title": "Eclipse",
       "previewVideoUrl": "https://www.youtube.com/watch?v=QMm2aqdsrOU",
-      "flagEmoji": "🇦🇺",
-      "imageUrl": "/assets/images/2026/2026-australia.jpg.webp",
-      "flagImageUrl": "/assets/flags/australia.png.webp"
+      "compareStartSeconds": 158
     },
     {
-      "id": "2026-austria",
-      "compareStartSeconds": 140,
       "country": "Austria",
-      "countryCode": "AT",
       "artist": "Cosmó",
       "title": "Tanzschein",
       "previewVideoUrl": "https://www.youtube.com/watch?v=54QfFpYXFH4",
-      "flagEmoji": "🇦🇹",
-      "imageUrl": "/assets/images/2026/2026-austria.jpg.webp",
-      "flagImageUrl": "/assets/flags/austria.png.webp"
+      "compareStartSeconds": 140
     },
     {
-      "id": "2026-azerbaijan",
-      "compareStartSeconds": 139,
       "country": "Azerbaijan",
-      "countryCode": "AZ",
       "artist": "Jiva",
       "title": "Just Go",
       "previewVideoUrl": "https://www.youtube.com/watch?v=LQDvYwYIT54",
-      "flagEmoji": "🇦🇿",
-      "imageUrl": "/assets/images/2026/2026-azerbaijan.jpg.webp",
-      "flagImageUrl": "/assets/flags/azerbaijan.png.webp"
+      "compareStartSeconds": 139
     },
     {
-      "id": "2026-belgium",
-      "compareStartSeconds": 157,
       "country": "Belgium",
-      "countryCode": "BE",
       "artist": "Essyla",
       "title": "Dancing on the Ice",
       "previewVideoUrl": "https://www.youtube.com/watch?v=idypOezpL_w",
-      "flagEmoji": "🇧🇪",
-      "imageUrl": "/assets/images/2026/2026-belgium.jpg.webp",
-      "flagImageUrl": "/assets/flags/belgium.png.webp"
+      "compareStartSeconds": 157
     },
     {
-      "id": "2026-bulgaria",
-      "compareStartSeconds": 169,
       "country": "Bulgaria",
-      "countryCode": "BG",
       "artist": "Dara",
       "title": "Bangaranga",
       "previewVideoUrl": "https://www.youtube.com/watch?v=EltgrumKJfk",
-      "flagEmoji": "🇧🇬",
-      "imageUrl": "/assets/images/2026/2026-bulgaria.jpg.webp",
-      "flagImageUrl": "/assets/flags/bulgaria.png.webp"
+      "compareStartSeconds": 169
     },
     {
-      "id": "2026-croatia",
-      "compareStartSeconds": 155,
       "country": "Croatia",
-      "countryCode": "HR",
       "artist": "Lelek",
       "title": "Andromeda",
       "previewVideoUrl": "https://www.youtube.com/watch?v=7J05a7u3NGs",
-      "flagEmoji": "🇭🇷",
-      "imageUrl": "/assets/images/2026/2026-croatia.jpg.webp",
-      "flagImageUrl": "/assets/flags/croatia.png.webp"
+      "compareStartSeconds": 155
     },
     {
-      "id": "2026-cyprus",
-      "compareStartSeconds": 139,
       "country": "Cyprus",
-      "countryCode": "CY",
       "artist": "Antigoni",
       "title": "Jalla",
       "previewVideoUrl": "https://www.youtube.com/watch?v=7i-k5QR6A6I",
-      "flagEmoji": "🇨🇾",
-      "imageUrl": "/assets/images/2026/2026-cyprus.jpg.webp",
-      "flagImageUrl": "/assets/flags/cyprus.png.webp"
+      "compareStartSeconds": 139
     },
     {
-      "id": "2026-czechia",
-      "compareStartSeconds": 165,
       "country": "Czechia",
-      "countryCode": "CZ",
       "artist": "Daniel Zizka",
       "title": "Crossroads",
       "previewVideoUrl": "https://www.youtube.com/watch?v=XC_OUHdMOr0",
-      "flagEmoji": "🇨🇿",
-      "imageUrl": "/assets/images/2026/2026-czechia.jpg.webp",
-      "flagImageUrl": "/assets/flags/czechia.png.webp"
+      "compareStartSeconds": 165
     },
     {
-      "id": "2026-denmark",
-      "compareStartSeconds": 146,
       "country": "Denmark",
-      "countryCode": "DK",
       "artist": "Søren Torpegaard Lund",
       "title": "Før Vi Går Hjem",
       "previewVideoUrl": "https://www.youtube.com/watch?v=5lBWuEZ2qyo",
-      "flagEmoji": "🇩🇰",
-      "imageUrl": "/assets/images/2026/2026-denmark.jpg.webp",
-      "flagImageUrl": "/assets/flags/denmark.png.webp"
+      "compareStartSeconds": 146
     },
     {
-      "id": "2026-estonia",
-      "compareStartSeconds": 156,
       "country": "Estonia",
-      "countryCode": "EE",
       "artist": "Vanilla Ninja",
       "title": "Too Epic to Be True",
       "previewVideoUrl": "https://www.youtube.com/watch?v=FfvawqmkXnA",
-      "flagEmoji": "🇪🇪",
-      "imageUrl": "/assets/images/2026/2026-estonia.jpg.webp",
-      "flagImageUrl": "/assets/flags/estonia.png.webp"
+      "compareStartSeconds": 156
     },
     {
-      "id": "2026-finland",
-      "compareStartSeconds": 139,
       "country": "Finland",
-      "countryCode": "FI",
       "artist": "Linda Lampenius and Pete Parkkonen",
       "title": "Liekinheitin",
       "previewVideoUrl": "https://www.youtube.com/watch?v=CmPkrjTtrwE",
-      "flagEmoji": "🇫🇮",
-      "imageUrl": "/assets/images/2026/2026-finland.jpg.webp",
-      "flagImageUrl": "/assets/flags/finland.png.webp"
+      "compareStartSeconds": 139
     },
     {
-      "id": "2026-france",
-      "compareStartSeconds": 152,
       "country": "France",
-      "countryCode": "FR",
       "artist": "Monroe",
       "title": "Regarde!",
       "previewVideoUrl": "https://www.youtube.com/watch?v=L0jwLyIJaQQ",
-      "flagEmoji": "🇫🇷",
-      "imageUrl": "/assets/images/2026/2026-france.jpg.webp",
-      "flagImageUrl": "/assets/flags/france.png.webp"
+      "compareStartSeconds": 152
     },
     {
-      "id": "2026-georgia",
-      "compareStartSeconds": 162,
       "country": "Georgia",
-      "countryCode": "GE",
       "artist": "Bzikebi",
       "title": "On Replay",
       "previewVideoUrl": "https://www.youtube.com/watch?v=6LzvIh9FQ0Q",
-      "flagEmoji": "🇬🇪",
-      "imageUrl": "/assets/images/2026/2026-georgia.jpg.webp",
-      "flagImageUrl": "/assets/flags/georgia.png.webp"
+      "compareStartSeconds": 162
     },
     {
-      "id": "2026-germany",
-      "compareStartSeconds": 154,
       "country": "Germany",
-      "countryCode": "DE",
       "artist": "Sarah Engels",
       "title": "Fire",
       "previewVideoUrl": "https://www.youtube.com/watch?v=KnKVUztvN3M",
-      "flagEmoji": "🇩🇪",
-      "imageUrl": "/assets/images/2026/2026-germany.jpg.webp",
-      "flagImageUrl": "/assets/flags/germany.png.webp"
+      "compareStartSeconds": 154
     },
     {
-      "id": "2026-greece",
-      "compareStartSeconds": 176,
       "country": "Greece",
-      "countryCode": "GR",
       "artist": "Akylas",
       "title": "Ferto",
       "previewVideoUrl": "https://www.youtube.com/watch?v=Rfd-6uAG4Rc",
-      "flagEmoji": "🇬🇷",
-      "imageUrl": "/assets/images/2026/2026-greece.jpg.webp",
-      "flagImageUrl": "/assets/flags/greece.png.webp"
+      "compareStartSeconds": 176
     },
     {
-      "id": "2026-israel",
-      "compareStartSeconds": 164,
       "country": "Israel",
-      "countryCode": "IL",
       "artist": "Noam Bettan",
       "title": "Michelle",
       "previewVideoUrl": "https://www.youtube.com/watch?v=E2aL4xRzNXI",
-      "flagEmoji": "🇮🇱",
-      "imageUrl": "/assets/images/2026/2026-israel.jpg.webp",
-      "flagImageUrl": "/assets/flags/israel.png.webp"
+      "compareStartSeconds": 164
     },
     {
-      "id": "2026-italy",
-      "compareStartSeconds": 137,
       "country": "Italy",
-      "countryCode": "IT",
       "artist": "Sal Da Vinci",
       "title": "Per sempre sì",
       "previewVideoUrl": "https://www.youtube.com/watch?v=rNpFNJLhSfA",
-      "flagEmoji": "🇮🇹",
-      "imageUrl": "/assets/images/2026/2026-italy.jpg.webp",
-      "flagImageUrl": "/assets/flags/italy.png.webp"
+      "compareStartSeconds": 137
     },
     {
-      "id": "2026-latvia",
-      "compareStartSeconds": 120,
       "country": "Latvia",
-      "countryCode": "LV",
       "artist": "Atvara",
       "title": "Ēnā",
       "previewVideoUrl": "https://www.youtube.com/watch?v=m8QhLXwxGpg",
-      "flagEmoji": "🇱🇻",
-      "imageUrl": "/assets/images/2026/2026-latvia.jpg.webp",
-      "flagImageUrl": "/assets/flags/latvia.png.webp"
+      "compareStartSeconds": 120
     },
     {
-      "id": "2026-lithuania",
-      "compareStartSeconds": 155,
       "country": "Lithuania",
-      "countryCode": "LT",
       "artist": "Lion Ceccah",
       "title": "Sólo quiero más",
       "previewVideoUrl": "https://www.youtube.com/watch?v=RYmEt4mm_oU",
-      "flagEmoji": "🇱🇹",
-      "imageUrl": "/assets/images/2026/2026-lithuania.jpg.webp",
-      "flagImageUrl": "/assets/flags/lithuania.png.webp"
+      "compareStartSeconds": 155
     },
     {
-      "id": "2026-luxembourg",
-      "compareStartSeconds": 141,
       "country": "Luxembourg",
-      "countryCode": "LU",
       "artist": "Eva Marija",
       "title": "Mother Nature",
       "previewVideoUrl": "https://www.youtube.com/watch?v=-oTfj9ysTJ0",
-      "flagEmoji": "🇱🇺",
-      "imageUrl": "/assets/images/2026/2026-luxembourg.jpg.webp",
-      "flagImageUrl": "/assets/flags/luxembourg.png.webp"
+      "compareStartSeconds": 141
     },
     {
-      "id": "2026-malta",
-      "compareStartSeconds": 155,
       "country": "Malta",
-      "countryCode": "MT",
       "artist": "Aidan",
       "title": "Bella",
       "previewVideoUrl": "https://www.youtube.com/watch?v=03FaNB7J0A4",
-      "flagEmoji": "🇲🇹",
-      "imageUrl": "/assets/images/2026/2026-malta.jpg.webp",
-      "flagImageUrl": "/assets/flags/malta.png.webp"
+      "compareStartSeconds": 155
     },
     {
-      "id": "2026-moldova",
-      "compareStartSeconds": 156,
       "country": "Moldova",
-      "countryCode": "MD",
       "artist": "Satoshi",
       "title": "Viva, Moldova!",
       "previewVideoUrl": "https://www.youtube.com/watch?v=CKV15yxAsIQ",
-      "flagEmoji": "🇲🇩",
-      "imageUrl": "/assets/images/2026/2026-moldova.jpg.webp",
-      "flagImageUrl": "/assets/flags/moldova.png.webp"
+      "compareStartSeconds": 156
     },
     {
-      "id": "2026-montenegro",
-      "compareStartSeconds": 147,
       "country": "Montenegro",
-      "countryCode": "ME",
       "artist": "Tamara Živković",
       "title": "Nova zora",
       "previewVideoUrl": "https://www.youtube.com/watch?v=_Xo12vfHqtk",
-      "flagEmoji": "🇲🇪",
-      "imageUrl": "/assets/images/2026/2026-montenegro.jpg.webp",
-      "flagImageUrl": "/assets/flags/montenegro.png.webp"
+      "compareStartSeconds": 147
     },
     {
-      "id": "2026-norway",
-      "compareStartSeconds": 154,
       "country": "Norway",
-      "countryCode": "NO",
       "artist": "Jonas Lovv",
       "title": "Ya Ya Ya",
       "previewVideoUrl": "https://www.youtube.com/watch?v=e7GWq-GeeD0",
-      "flagEmoji": "🇳🇴",
-      "imageUrl": "/assets/images/2026/2026-norway.jpg.webp",
-      "flagImageUrl": "/assets/flags/norway.png.webp"
+      "compareStartSeconds": 154
     },
     {
-      "id": "2026-poland",
-      "compareStartSeconds": 160,
       "country": "Poland",
-      "countryCode": "PL",
       "artist": "Alicja",
       "title": "Pray",
       "previewVideoUrl": "https://www.youtube.com/watch?v=NRTkNIyT_S0",
-      "flagEmoji": "🇵🇱",
-      "imageUrl": "/assets/images/2026/2026-poland.jpg.webp",
-      "flagImageUrl": "/assets/flags/poland.png.webp"
+      "compareStartSeconds": 160
     },
     {
-      "id": "2026-portugal",
-      "compareStartSeconds": 155,
       "country": "Portugal",
-      "countryCode": "PT",
       "artist": "Bandidos do Cante",
       "title": "Rosa",
       "previewVideoUrl": "https://www.youtube.com/watch?v=kWXyEWtB7KM",
-      "flagEmoji": "🇵🇹",
-      "imageUrl": "/assets/images/2026/2026-portugal.jpg.webp",
-      "flagImageUrl": "/assets/flags/portugal.png.webp"
+      "compareStartSeconds": 155
     },
     {
-      "id": "2026-romania",
-      "compareStartSeconds": 161,
       "country": "Romania",
-      "countryCode": "RO",
       "artist": "Alexandra Căpitănescu",
       "title": "Choke Me",
       "previewVideoUrl": "https://www.youtube.com/watch?v=TpMQ6dhcvvE",
-      "flagEmoji": "🇷🇴",
-      "imageUrl": "/assets/images/2026/2026-romania.jpg.webp",
-      "flagImageUrl": "/assets/flags/romania.png.webp"
+      "compareStartSeconds": 161
     },
     {
-      "id": "2026-san-marino",
-      "compareStartSeconds": 155,
       "country": "San Marino",
-      "countryCode": "SM",
       "artist": "Senhit",
       "title": "Superstar",
       "previewVideoUrl": "https://www.youtube.com/watch?v=VhwoT8ah9R8",
-      "flagEmoji": "🇸🇲",
-      "imageUrl": "/assets/images/2026/2026-san-marino.jpg.webp",
-      "flagImageUrl": "/assets/flags/san-marino.png.webp"
+      "compareStartSeconds": 155
     },
     {
-      "id": "2026-serbia",
-      "compareStartSeconds": 135,
       "country": "Serbia",
-      "countryCode": "RS",
       "artist": "Lavina",
       "title": "Kraj mene",
       "previewVideoUrl": "https://www.youtube.com/watch?v=0Nuwjfp06Xc",
-      "flagEmoji": "🇷🇸",
-      "imageUrl": "/assets/images/2026/2026-serbia.jpg.webp",
-      "flagImageUrl": "/assets/flags/serbia.png.webp"
+      "compareStartSeconds": 135
     },
     {
-      "id": "2026-sweden",
-      "compareStartSeconds": 170,
       "country": "Sweden",
-      "countryCode": "SE",
       "artist": "Felicia",
       "title": "My System",
       "previewVideoUrl": "https://www.youtube.com/watch?v=6pmj0jbFKGU",
-      "flagEmoji": "🇸🇪",
-      "imageUrl": "/assets/images/2026/2026-sweden.jpg.webp",
-      "flagImageUrl": "/assets/flags/sweden.png.webp"
+      "compareStartSeconds": 170
     },
     {
-      "id": "2026-switzerland",
-      "compareStartSeconds": 137,
       "country": "Switzerland",
-      "countryCode": "CH",
       "artist": "Veronica Fusaro",
       "title": "Alice",
       "previewVideoUrl": "https://www.youtube.com/watch?v=ujoHtVkrx54",
-      "flagEmoji": "🇨🇭",
-      "imageUrl": "/assets/images/2026/2026-switzerland.jpg.webp",
-      "flagImageUrl": "/assets/flags/switzerland.png.webp"
+      "compareStartSeconds": 137
     },
     {
-      "id": "2026-ukraine",
-      "compareStartSeconds": 152,
       "country": "Ukraine",
-      "countryCode": "UA",
       "artist": "Leléka",
       "title": "Ridnym",
       "previewVideoUrl": "https://www.youtube.com/watch?v=JYHhcKhzE-o",
-      "flagEmoji": "🇺🇦",
-      "imageUrl": "/assets/images/2026/2026-ukraine.jpg.webp",
-      "flagImageUrl": "/assets/flags/ukraine.png.webp"
+      "compareStartSeconds": 152
     },
     {
-      "id": "2026-united-kingdom",
-      "compareStartSeconds": 172,
       "country": "United Kingdom",
-      "countryCode": "GB",
       "artist": "Look Mum No Computer",
       "title": "Eins, Zwei, Drei",
       "previewVideoUrl": "https://www.youtube.com/watch?v=I0tqgGVQkew",
-      "flagEmoji": "🇬🇧",
-      "imageUrl": "/assets/images/2026/2026-united-kingdom.jpg.webp",
-      "flagImageUrl": "/assets/flags/united-kingdom.png.webp"
+      "compareStartSeconds": 172
     }
   ]
 }
