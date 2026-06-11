@@ -1,12 +1,58 @@
-import type { Song, YearData } from "../types";
+import type { Song, YearData, YearDataInput, YearSongInput } from "../types";
+import {
+  countryEmojiUrl,
+  countryFlagImageUrl,
+  countrySlug,
+  getCountryConfig,
+} from "./countries";
 
 const modules = import.meta.glob("./years/*.json", {
   eager: true,
   import: "default",
 });
 
+function defaultImageUrl(year: number, countrySlugValue: string) {
+  return `/assets/images/${year}/${year}-${countrySlugValue}.jpg.webp`;
+}
+
+function normalizeSong(song: YearSongInput, year: number, seenIds: Set<string>): Song {
+  const country = getCountryConfig(song.country, song.countryCode);
+  const slug = country?.slug ?? countrySlug(song.country);
+  let id = song.id ?? `${year}-${slug}`;
+
+  if (seenIds.has(id)) {
+    let suffix = 2;
+    while (seenIds.has(`${id}-${suffix}`)) suffix += 1;
+    id = `${id}-${suffix}`;
+  }
+  seenIds.add(id);
+
+  return {
+    ...song,
+    id,
+    country: country?.country ?? song.country,
+    countryCode: country?.countryCode ?? song.countryCode ?? "",
+    flagEmoji: song.flagEmoji?.startsWith("/assets/emojis/")
+      ? song.flagEmoji
+      : country
+        ? countryEmojiUrl(country)
+        : (song.flagEmoji ?? ""),
+    flagImageUrl: song.flagImageUrl ?? (country ? countryFlagImageUrl(country) : undefined),
+    imageUrl: song.imageUrl ?? defaultImageUrl(year, slug),
+    year,
+  };
+}
+
+function normalizeYearData(yearData: YearDataInput): YearData {
+  const seenIds = new Set<string>();
+  return {
+    ...yearData,
+    songs: yearData.songs.map((song) => normalizeSong(song, yearData.year, seenIds)),
+  };
+}
+
 export const years: YearData[] = Object.values(modules)
-  .map((yearData) => yearData as YearData)
+  .map((yearData) => normalizeYearData(yearData as YearDataInput))
   .sort((a, b) => b.year - a.year);
 
 export const songsByYear = new Map(years.map((year) => [String(year.year), year]));
@@ -24,13 +70,6 @@ export type CountryData = {
   backgroundImage: string;
   songs: Song[];
 };
-
-export function countrySlug(country: string) {
-  return country
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-}
 
 const countriesByCode = new Map<string, CountryData>();
 

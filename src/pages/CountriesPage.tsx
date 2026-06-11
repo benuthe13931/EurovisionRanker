@@ -1,5 +1,6 @@
 import { type CSSProperties } from "react";
 import { Link } from "react-router-dom";
+import FlagEmoji from "../components/FlagEmoji";
 import { allSongsBackground, countries } from "../data/years";
 
 export default function CountriesPage() {
@@ -19,7 +20,8 @@ export default function CountriesPage() {
           {countries.map((country) => (
             <Link className="yearCard countryCard" to={`/country/${country.slug}`} key={country.slug}>
               <span>
-                {country.flagEmoji} {country.countryCode}
+                <FlagEmoji alt="" code={country.countryCode} src={country.flagEmoji} />{" "}
+                {country.countryCode}
               </span>
               <h2>{country.country}</h2>
               <p>{country.songs.length} songs to rank</p>

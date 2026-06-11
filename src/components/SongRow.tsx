@@ -4,6 +4,7 @@ import { GripVertical, Heart } from "lucide-react";
 import { useState } from "react";
 import type { Song } from "../types";
 import AudioButton from "./AudioButton";
+import FlagEmoji from "./FlagEmoji";
 
 type SongRowProps = {
   song: Song;
@@ -66,7 +67,7 @@ export default function SongRow({
             onError={() => setFlagFailed(true)}
           />
         ) : (
-          <span>{song.flagEmoji || song.countryCode}</span>
+          <span>{song.countryCode}</span>
         )}
       </span>
       <div className="songMeta">
@@ -82,7 +83,7 @@ export default function SongRow({
           {metaMode !== "year" ? (
             <>
               <span>/</span>
-              <strong className="metaFlag">{song.flagEmoji}</strong> {song.country}
+              <FlagEmoji alt="" className="metaFlag" code={song.countryCode} src={song.flagEmoji} /> {song.country}
             </>
           ) : null}
           {metaMode === "countryYear" && song.year ? (

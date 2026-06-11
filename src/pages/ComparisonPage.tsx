@@ -2,6 +2,7 @@ import { ArrowLeft, Check, RotateCcw } from "lucide-react";
 import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ComparisonCard from "../components/ComparisonCard";
+import FlagEmoji from "../components/FlagEmoji";
 import { allSongs, allSongsBackground, songsByYear } from "../data/years";
 import type { ComparisonState } from "../types";
 import {
@@ -148,7 +149,7 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
             <ol className="resultsList">
               {sortedSongs.map((song) => (
                 <li key={song.id}>
-                  <span>{song.flagEmoji}</span>
+                  <FlagEmoji alt="" code={song.countryCode} src={song.flagEmoji} />
                   <strong>{song.title}</strong>
                 </li>
               ))}

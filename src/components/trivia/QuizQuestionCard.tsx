@@ -41,10 +41,10 @@ function ChoiceButton({ choice, correct, disabled, primary, secondary, onPick }:
       onClick={() => onPick(choice)}
     >
       <span className="choiceFlag" aria-label={`${choice.country} flag`}>
-        {!flagFailed && choice.flagImageUrl ? (
-          <img src={choice.flagImageUrl} alt="" onError={() => setFlagFailed(true)} />
+        {!flagFailed && choice.flagEmoji ? (
+          <img src={choice.flagEmoji} alt="" onError={() => setFlagFailed(true)} />
         ) : (
-          <span>{choice.flagEmoji || choice.countryCode}</span>
+          <span>{choice.countryCode}</span>
         )}
       </span>
       <span className="choiceText">
@@ -83,7 +83,7 @@ export default function QuizQuestionCard({ question, onAnswered, onNext }: QuizQ
       { label: "All countries", value: "all", meta: `${question.choices.length} choices` },
       ...countries.map((choice) => {
         const count = question.choices.filter((item) => item.country === choice.country).length;
-        return { label: choice.country, value: choice.country, meta: `${choice.flagEmoji} ${count} choices` };
+        return { label: choice.country, value: choice.country, meta: `${choice.countryCode} / ${count} choices` };
       }),
     ];
   }, [question.choices]);
@@ -198,9 +198,7 @@ export default function QuizQuestionCard({ question, onAnswered, onNext }: QuizQ
             {filteredChoices.map((choice) => {
               const correct = graded && choice.id === question.song.id;
               const primary = choice.title;
-              const secondary = `${choice.artist} / ${choice.flagEmoji} ${choice.country}${
-                choice.year ? ` / ${choice.year}` : ""
-              }`;
+              const secondary = `${choice.artist} / ${choice.country}${choice.year ? ` / ${choice.year}` : ""}`;
               return (
                 <ChoiceButton
                   choice={choice}
