@@ -5,268 +5,114 @@
   "backgroundImage": "/assets/backgrounds/hero-bg.webp",
   "songs": [
     {
-      "id": "1991-austria",
-      "compareStartSeconds": 0,
       "country": "Austria",
-      "countryCode": "AT",
       "artist": "Thomas Forstner",
-      "title": "Venedig im Regen",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇦🇹",
-      "imageUrl": "/assets/images/1991/1991-austria.jpg.webp",
-      "flagImageUrl": "/assets/flags/austria.png.webp"
+      "title": "Venedig im Regen"
     },
     {
-      "id": "1991-belgium",
-      "compareStartSeconds": 0,
       "country": "Belgium",
-      "countryCode": "BE",
       "artist": "Clouseau",
-      "title": "Geef het op",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇧🇪",
-      "imageUrl": "/assets/images/1991/1991-belgium.jpg.webp",
-      "flagImageUrl": "/assets/flags/belgium.png.webp"
+      "title": "Geef het op"
     },
     {
-      "id": "1991-cyprus",
-      "compareStartSeconds": 0,
       "country": "Cyprus",
-      "countryCode": "CY",
       "artist": "Elena Patroklou",
-      "title": "S.O.S.",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇨🇾",
-      "imageUrl": "/assets/images/1991/1991-cyprus.jpg.webp",
-      "flagImageUrl": "/assets/flags/cyprus.png.webp"
+      "title": "S.O.S."
     },
     {
-      "id": "1991-denmark",
-      "compareStartSeconds": 0,
       "country": "Denmark",
-      "countryCode": "DK",
       "artist": "Anders Frandsen",
-      "title": "Lige der hvor hjertet slår",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇩🇰",
-      "imageUrl": "/assets/images/1991/1991-denmark.jpg.webp",
-      "flagImageUrl": "/assets/flags/denmark.png.webp"
+      "title": "Lige der hvor hjertet slår"
     },
     {
-      "id": "1991-finland",
-      "compareStartSeconds": 0,
       "country": "Finland",
-      "countryCode": "FI",
       "artist": "Kaija",
-      "title": "Hullu yö",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇫🇮",
-      "imageUrl": "/assets/images/1991/1991-finland.jpg.webp",
-      "flagImageUrl": "/assets/flags/finland.png.webp"
+      "title": "Hullu yö"
     },
     {
-      "id": "1991-france",
-      "compareStartSeconds": 0,
       "country": "France",
-      "countryCode": "FR",
       "artist": "Amina",
-      "title": "C'est le dernier qui a parlé qui a raison",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇫🇷",
-      "imageUrl": "/assets/images/1991/1991-france.jpg.webp",
-      "flagImageUrl": "/assets/flags/france.png.webp"
+      "title": "C'est le dernier qui a parlé qui a raison"
     },
     {
-      "id": "1991-germany",
-      "compareStartSeconds": 0,
       "country": "Germany",
-      "countryCode": "DE",
       "artist": "Atlantis 2000",
-      "title": "Dieser Traum darf niemals sterben",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇩🇪",
-      "imageUrl": "/assets/images/1991/1991-germany.jpg.webp",
-      "flagImageUrl": "/assets/flags/germany.png.webp"
+      "title": "Dieser Traum darf niemals sterben"
     },
     {
-      "id": "1991-greece",
-      "compareStartSeconds": 0,
       "country": "Greece",
-      "countryCode": "GR",
       "artist": "Sophia Vossou",
-      "title": "Anixi",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇬🇷",
-      "imageUrl": "/assets/images/1991/1991-greece.jpg.webp",
-      "flagImageUrl": "/assets/flags/greece.png.webp"
+      "title": "Anixi"
     },
     {
-      "id": "1991-iceland",
-      "compareStartSeconds": 0,
       "country": "Iceland",
-      "countryCode": "IS",
       "artist": "Stefán & Eyfi",
-      "title": "Nína",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇮🇸",
-      "imageUrl": "/assets/images/1991/1991-iceland.jpg.webp",
-      "flagImageUrl": "/assets/flags/iceland.png.webp"
+      "title": "Nína"
     },
     {
-      "id": "1991-ireland",
-      "compareStartSeconds": 0,
       "country": "Ireland",
-      "countryCode": "IE",
       "artist": "Kim Jackson",
-      "title": "Could It Be That I'm in Love",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇮🇪",
-      "imageUrl": "/assets/images/1991/1991-ireland.jpg.webp",
-      "flagImageUrl": "/assets/flags/ireland.png.webp"
+      "title": "Could It Be That I'm in Love"
     },
     {
-      "id": "1991-israel",
-      "compareStartSeconds": 0,
       "country": "Israel",
-      "countryCode": "IL",
       "artist": "Duo Datz",
-      "title": "Kan",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇮🇱",
-      "imageUrl": "/assets/images/1991/1991-israel.jpg.webp",
-      "flagImageUrl": "/assets/flags/israel.png.webp"
+      "title": "Kan"
     },
     {
-      "id": "1991-italy",
-      "compareStartSeconds": 0,
       "country": "Italy",
-      "countryCode": "IT",
       "artist": "Peppino di Capri",
-      "title": "Comme è ddoce 'o mare",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇮🇹",
-      "imageUrl": "/assets/images/1991/1991-italy.jpg.webp",
-      "flagImageUrl": "/assets/flags/italy.png.webp"
+      "title": "Comme è ddoce 'o mare"
     },
     {
-      "id": "1991-luxembourg",
-      "compareStartSeconds": 0,
       "country": "Luxembourg",
-      "countryCode": "LU",
       "artist": "Sarah Bray",
-      "title": "Un baiser volé",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇱🇺",
-      "imageUrl": "/assets/images/1991/1991-luxembourg.jpg.webp",
-      "flagImageUrl": "/assets/flags/luxembourg.png.webp"
+      "title": "Un baiser volé"
     },
     {
-      "id": "1991-malta",
-      "compareStartSeconds": 0,
       "country": "Malta",
-      "countryCode": "MT",
       "artist": "Paul Giordimaina & Georgina",
-      "title": "Could It Be",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇲🇹",
-      "imageUrl": "/assets/images/1991/1991-malta.jpg.webp",
-      "flagImageUrl": "/assets/flags/malta.png.webp"
+      "title": "Could It Be"
     },
     {
-      "id": "1991-norway",
-      "compareStartSeconds": 0,
       "country": "Norway",
-      "countryCode": "NO",
       "artist": "Just 4 Fun",
-      "title": "Mrs. Thompson",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇳🇴",
-      "imageUrl": "/assets/images/1991/1991-norway.jpg.webp",
-      "flagImageUrl": "/assets/flags/norway.png.webp"
+      "title": "Mrs. Thompson"
     },
     {
-      "id": "1991-portugal",
-      "compareStartSeconds": 0,
       "country": "Portugal",
-      "countryCode": "PT",
       "artist": "Dulce",
-      "title": "Lusitana paixão",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇵🇹",
-      "imageUrl": "/assets/images/1991/1991-portugal.jpg.webp",
-      "flagImageUrl": "/assets/flags/portugal.png.webp"
+      "title": "Lusitana paixão"
     },
     {
-      "id": "1991-spain",
-      "compareStartSeconds": 0,
       "country": "Spain",
-      "countryCode": "ES",
       "artist": "Sergio Dalma",
-      "title": "Bailar pegados",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇪🇸",
-      "imageUrl": "/assets/images/1991/1991-spain.jpg.webp",
-      "flagImageUrl": "/assets/flags/spain.png.webp"
+      "title": "Bailar pegados"
     },
     {
-      "id": "1991-sweden",
-      "compareStartSeconds": 0,
       "country": "Sweden",
-      "countryCode": "SE",
       "artist": "Carola",
-      "title": "Fångad av en stormvind",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇸🇪",
-      "imageUrl": "/assets/images/1991/1991-sweden.jpg.webp",
-      "flagImageUrl": "/assets/flags/sweden.png.webp"
+      "title": "Fångad av en stormvind"
     },
     {
-      "id": "1991-switzerland",
-      "compareStartSeconds": 0,
       "country": "Switzerland",
-      "countryCode": "CH",
       "artist": "Sandra Simó",
-      "title": "Canzone per te",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇨🇭",
-      "imageUrl": "/assets/images/1991/1991-switzerland.jpg.webp",
-      "flagImageUrl": "/assets/flags/switzerland.png.webp"
+      "title": "Canzone per te"
     },
     {
-      "id": "1991-turkey",
-      "compareStartSeconds": 0,
       "country": "Turkey",
-      "countryCode": "TR",
       "artist": "Can Uğurluer, İzel Çeliköz & Reyhan Karaca",
-      "title": "İki Dakika",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇹🇷",
-      "imageUrl": "/assets/images/1991/1991-turkey.jpg.webp",
-      "flagImageUrl": "/assets/flags/turkey.png"
+      "title": "İki Dakika"
     },
     {
-      "id": "1991-united-kingdom",
-      "compareStartSeconds": 0,
       "country": "United Kingdom",
-      "countryCode": "GB",
       "artist": "Samantha Janus",
-      "title": "A Message to Your Heart",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇬🇧",
-      "imageUrl": "/assets/images/1991/1991-united-kingdom.jpg.webp",
-      "flagImageUrl": "/assets/flags/united-kingdom.png.webp"
+      "title": "A Message to Your Heart"
     },
     {
-      "id": "1991-yugoslavia",
-      "compareStartSeconds": 0,
       "country": "Yugoslavia",
-      "countryCode": "YU",
       "artist": "Baby Doll",
-      "title": "Brazil",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇾🇺",
-      "imageUrl": "/assets/images/1991/1991-yugoslavia.jpg.webp",
-      "flagImageUrl": "/assets/flags/yugoslavia.png"
+      "title": "Brazil"
     }
   ]
 }

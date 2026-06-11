@@ -5,448 +5,189 @@
   "backgroundImage": "/assets/backgrounds/hero-bg.webp",
   "songs": [
     {
-      "id": "2023-albania",
-      "compareStartSeconds": 0,
       "country": "Albania",
-      "countryCode": "AL",
       "artist": "Albina and Familja Kelmendi",
-      "title": "Duje",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇦🇱",
-      "imageUrl": "/assets/images/2023/2023-albania.jpg.webp",
-      "flagImageUrl": "/assets/flags/albania.png.webp"
+      "title": "Duje"
     },
     {
-      "id": "2023-armenia",
-      "compareStartSeconds": 0,
       "country": "Armenia",
-      "countryCode": "AM",
       "artist": "Brunette",
-      "title": "Future Lover",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇦🇲",
-      "imageUrl": "/assets/images/2023/2023-armenia.jpg.webp",
-      "flagImageUrl": "/assets/flags/armenia.png.webp"
+      "title": "Future Lover"
     },
     {
-      "id": "2023-australia",
-      "compareStartSeconds": 0,
       "country": "Australia",
-      "countryCode": "AU",
       "artist": "Voyager",
-      "title": "Promise",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇦🇺",
-      "imageUrl": "/assets/images/2023/2023-australia.jpg.webp",
-      "flagImageUrl": "/assets/flags/australia.png.webp"
+      "title": "Promise"
     },
     {
-      "id": "2023-austria",
-      "compareStartSeconds": 0,
       "country": "Austria",
-      "countryCode": "AT",
       "artist": "Teya and Salena",
-      "title": "Who the Hell Is Edgar?",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇦🇹",
-      "imageUrl": "/assets/images/2023/2023-austria.jpg.webp",
-      "flagImageUrl": "/assets/flags/austria.png.webp"
+      "title": "Who the Hell Is Edgar?"
     },
     {
-      "id": "2023-azerbaijan",
-      "compareStartSeconds": 0,
       "country": "Azerbaijan",
-      "countryCode": "AZ",
       "artist": "TuralTuranX",
-      "title": "Tell Me More",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇦🇿",
-      "imageUrl": "/assets/images/2023/2023-azerbaijan.jpg.webp",
-      "flagImageUrl": "/assets/flags/azerbaijan.png.webp"
+      "title": "Tell Me More"
     },
     {
-      "id": "2023-belgium",
-      "compareStartSeconds": 0,
       "country": "Belgium",
-      "countryCode": "BE",
       "artist": "Gustaph",
-      "title": "Because of You",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇧🇪",
-      "imageUrl": "/assets/images/2023/2023-belgium.jpg.webp",
-      "flagImageUrl": "/assets/flags/belgium.png.webp"
+      "title": "Because of You"
     },
     {
-      "id": "2023-croatia",
-      "compareStartSeconds": 0,
       "country": "Croatia",
-      "countryCode": "HR",
       "artist": "Let 3",
-      "title": "Mama ŠČ!",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇭🇷",
-      "imageUrl": "/assets/images/2023/2023-croatia.jpg.webp",
-      "flagImageUrl": "/assets/flags/croatia.png.webp"
+      "title": "Mama ŠČ!"
     },
     {
-      "id": "2023-cyprus",
-      "compareStartSeconds": 0,
       "country": "Cyprus",
-      "countryCode": "CY",
       "artist": "Andrew Lambrou",
-      "title": "Break a Broken Heart",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇨🇾",
-      "imageUrl": "/assets/images/2023/2023-cyprus.jpg.webp",
-      "flagImageUrl": "/assets/flags/cyprus.png.webp"
+      "title": "Break a Broken Heart"
     },
     {
-      "id": "2023-czechia",
-      "compareStartSeconds": 0,
       "country": "Czechia",
-      "countryCode": "CZ",
       "artist": "Vesna",
-      "title": "My Sister's Crown",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇨🇿",
-      "imageUrl": "/assets/images/2023/2023-czechia.jpg.webp",
-      "flagImageUrl": "/assets/flags/czechia.png.webp"
+      "title": "My Sister's Crown"
     },
     {
-      "id": "2023-denmark",
-      "compareStartSeconds": 0,
       "country": "Denmark",
-      "countryCode": "DK",
       "artist": "Reiley",
-      "title": "Breaking My Heart",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇩🇰",
-      "imageUrl": "/assets/images/2023/2023-denmark.jpg.webp",
-      "flagImageUrl": "/assets/flags/denmark.png.webp"
+      "title": "Breaking My Heart"
     },
     {
-      "id": "2023-estonia",
-      "compareStartSeconds": 0,
       "country": "Estonia",
-      "countryCode": "EE",
       "artist": "Alika",
-      "title": "Bridges",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇪🇪",
-      "imageUrl": "/assets/images/2023/2023-estonia.jpg.webp",
-      "flagImageUrl": "/assets/flags/estonia.png.webp"
+      "title": "Bridges"
     },
     {
-      "id": "2023-finland",
-      "compareStartSeconds": 0,
       "country": "Finland",
-      "countryCode": "FI",
       "artist": "Käärijä",
-      "title": "Cha Cha Cha",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇫🇮",
-      "imageUrl": "/assets/images/2023/2023-finland.jpg.webp",
-      "flagImageUrl": "/assets/flags/finland.png.webp"
+      "title": "Cha Cha Cha"
     },
     {
-      "id": "2023-france",
-      "compareStartSeconds": 0,
       "country": "France",
-      "countryCode": "FR",
       "artist": "La Zarra",
-      "title": "Évidemment",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇫🇷",
-      "imageUrl": "/assets/images/2023/2023-france.jpg.webp",
-      "flagImageUrl": "/assets/flags/france.png.webp"
+      "title": "Évidemment"
     },
     {
-      "id": "2023-georgia",
-      "compareStartSeconds": 0,
       "country": "Georgia",
-      "countryCode": "GE",
       "artist": "Iru",
-      "title": "Echo",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇬🇪",
-      "imageUrl": "/assets/images/2023/2023-georgia.jpg.webp",
-      "flagImageUrl": "/assets/flags/georgia.png.webp"
+      "title": "Echo"
     },
     {
-      "id": "2023-germany",
-      "compareStartSeconds": 0,
       "country": "Germany",
-      "countryCode": "DE",
       "artist": "Lord of the Lost",
-      "title": "Blood & Glitter",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇩🇪",
-      "imageUrl": "/assets/images/2023/2023-germany.jpg.webp",
-      "flagImageUrl": "/assets/flags/germany.png.webp"
+      "title": "Blood & Glitter"
     },
     {
-      "id": "2023-greece",
-      "compareStartSeconds": 0,
       "country": "Greece",
-      "countryCode": "GR",
       "artist": "Victor Vernicos",
-      "title": "What They Say",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇬🇷",
-      "imageUrl": "/assets/images/2023/2023-greece.jpg.webp",
-      "flagImageUrl": "/assets/flags/greece.png.webp"
+      "title": "What They Say"
     },
     {
-      "id": "2023-iceland",
-      "compareStartSeconds": 0,
       "country": "Iceland",
-      "countryCode": "IS",
       "artist": "Diljá",
-      "title": "Power",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇮🇸",
-      "imageUrl": "/assets/images/2023/2023-iceland.jpg.webp",
-      "flagImageUrl": "/assets/flags/iceland.png.webp"
+      "title": "Power"
     },
     {
-      "id": "2023-ireland",
-      "compareStartSeconds": 0,
       "country": "Ireland",
-      "countryCode": "IE",
       "artist": "Wild Youth",
-      "title": "We Are One",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇮🇪",
-      "imageUrl": "/assets/images/2023/2023-ireland.jpg.webp",
-      "flagImageUrl": "/assets/flags/ireland.png.webp"
+      "title": "We Are One"
     },
     {
-      "id": "2023-israel",
-      "compareStartSeconds": 0,
       "country": "Israel",
-      "countryCode": "IL",
       "artist": "Noa Kirel",
-      "title": "Unicorn",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇮🇱",
-      "imageUrl": "/assets/images/2023/2023-israel.jpg.webp",
-      "flagImageUrl": "/assets/flags/israel.png.webp"
+      "title": "Unicorn"
     },
     {
-      "id": "2023-italy",
-      "compareStartSeconds": 0,
       "country": "Italy",
-      "countryCode": "IT",
       "artist": "Marco Mengoni",
-      "title": "Due vite",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇮🇹",
-      "imageUrl": "/assets/images/2023/2023-italy.jpg.webp",
-      "flagImageUrl": "/assets/flags/italy.png.webp"
+      "title": "Due vite"
     },
     {
-      "id": "2023-latvia",
-      "compareStartSeconds": 0,
       "country": "Latvia",
-      "countryCode": "LV",
       "artist": "Sudden Lights",
-      "title": "Aijā",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇱🇻",
-      "imageUrl": "/assets/images/2023/2023-latvia.jpg.webp",
-      "flagImageUrl": "/assets/flags/latvia.png.webp"
+      "title": "Aijā"
     },
     {
-      "id": "2023-lithuania",
-      "compareStartSeconds": 0,
       "country": "Lithuania",
-      "countryCode": "LT",
       "artist": "Monika Linkytė",
-      "title": "Stay",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇱🇹",
-      "imageUrl": "/assets/images/2023/2023-lithuania.jpg.webp",
-      "flagImageUrl": "/assets/flags/lithuania.png.webp"
+      "title": "Stay"
     },
     {
-      "id": "2023-malta",
-      "compareStartSeconds": 0,
       "country": "Malta",
-      "countryCode": "MT",
       "artist": "The Busker",
-      "title": "Dance (Our Own Party)",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇲🇹",
-      "imageUrl": "/assets/images/2023/2023-malta.jpg.webp",
-      "flagImageUrl": "/assets/flags/malta.png.webp"
+      "title": "Dance (Our Own Party)"
     },
     {
-      "id": "2023-moldova",
-      "compareStartSeconds": 0,
       "country": "Moldova",
-      "countryCode": "MD",
       "artist": "Pasha Parfeni",
-      "title": "Soarele și luna",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇲🇩",
-      "imageUrl": "/assets/images/2023/2023-moldova.jpg.webp",
-      "flagImageUrl": "/assets/flags/moldova.png.webp"
+      "title": "Soarele și luna"
     },
     {
-      "id": "2023-netherlands",
-      "compareStartSeconds": 0,
       "country": "Netherlands",
-      "countryCode": "NL",
       "artist": "Mia Nicolai and Dion Cooper",
-      "title": "Burning Daylight",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇳🇱",
-      "imageUrl": "/assets/images/2023/2023-netherlands.jpg.webp",
-      "flagImageUrl": "/assets/flags/netherlands.png.webp"
+      "title": "Burning Daylight"
     },
     {
-      "id": "2023-norway",
-      "compareStartSeconds": 0,
       "country": "Norway",
-      "countryCode": "NO",
       "artist": "Alessandra",
-      "title": "Queen of Kings",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇳🇴",
-      "imageUrl": "/assets/images/2023/2023-norway.jpg.webp",
-      "flagImageUrl": "/assets/flags/norway.png.webp"
+      "title": "Queen of Kings"
     },
     {
-      "id": "2023-poland",
-      "compareStartSeconds": 0,
       "country": "Poland",
-      "countryCode": "PL",
       "artist": "Blanka",
-      "title": "Solo",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇵🇱",
-      "imageUrl": "/assets/images/2023/2023-poland.jpg.webp",
-      "flagImageUrl": "/assets/flags/poland.png.webp"
+      "title": "Solo"
     },
     {
-      "id": "2023-portugal",
-      "compareStartSeconds": 0,
       "country": "Portugal",
-      "countryCode": "PT",
       "artist": "Mimicat",
-      "title": "Ai coração",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇵🇹",
-      "imageUrl": "/assets/images/2023/2023-portugal.jpg.webp",
-      "flagImageUrl": "/assets/flags/portugal.png.webp"
+      "title": "Ai coração"
     },
     {
-      "id": "2023-romania",
-      "compareStartSeconds": 0,
       "country": "Romania",
-      "countryCode": "RO",
       "artist": "Theodor Andrei",
-      "title": "D.G.T. (Off and On)",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇷🇴",
-      "imageUrl": "/assets/images/2023/2023-romania.jpg.webp",
-      "flagImageUrl": "/assets/flags/romania.png.webp"
+      "title": "D.G.T. (Off and On)"
     },
     {
-      "id": "2023-san-marino",
-      "compareStartSeconds": 0,
       "country": "San Marino",
-      "countryCode": "SM",
       "artist": "Piqued Jacks",
-      "title": "Like an Animal",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇸🇲",
-      "imageUrl": "/assets/images/2023/2023-san-marino.jpg.webp",
-      "flagImageUrl": "/assets/flags/san-marino.png.webp"
+      "title": "Like an Animal"
     },
     {
-      "id": "2023-serbia",
-      "compareStartSeconds": 0,
       "country": "Serbia",
-      "countryCode": "RS",
       "artist": "Luke Black",
-      "title": "Samo mi se spava",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇷🇸",
-      "imageUrl": "/assets/images/2023/2023-serbia.jpg.webp",
-      "flagImageUrl": "/assets/flags/serbia.png.webp"
+      "title": "Samo mi se spava"
     },
     {
-      "id": "2023-slovenia",
-      "compareStartSeconds": 0,
       "country": "Slovenia",
-      "countryCode": "SI",
       "artist": "Joker Out",
-      "title": "Carpe Diem",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇸🇮",
-      "imageUrl": "/assets/images/2023/2023-slovenia.jpg.webp",
-      "flagImageUrl": "/assets/flags/slovenia.png.webp"
+      "title": "Carpe Diem"
     },
     {
-      "id": "2023-spain",
-      "compareStartSeconds": 0,
       "country": "Spain",
-      "countryCode": "ES",
       "artist": "Blanca Paloma",
-      "title": "Eaea",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇪🇸",
-      "imageUrl": "/assets/images/2023/2023-spain.jpg.webp",
-      "flagImageUrl": "/assets/flags/spain.png.webp"
+      "title": "Eaea"
     },
     {
-      "id": "2023-sweden",
-      "compareStartSeconds": 0,
       "country": "Sweden",
-      "countryCode": "SE",
       "artist": "Loreen",
-      "title": "Tattoo",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇸🇪",
-      "imageUrl": "/assets/images/2023/2023-sweden.jpg.webp",
-      "flagImageUrl": "/assets/flags/sweden.png.webp"
+      "title": "Tattoo"
     },
     {
-      "id": "2023-switzerland",
-      "compareStartSeconds": 0,
       "country": "Switzerland",
-      "countryCode": "CH",
       "artist": "Remo Forrer",
-      "title": "Watergun",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇨🇭",
-      "imageUrl": "/assets/images/2023/2023-switzerland.jpg.webp",
-      "flagImageUrl": "/assets/flags/switzerland.png.webp"
+      "title": "Watergun"
     },
     {
-      "id": "2023-ukraine",
-      "compareStartSeconds": 0,
       "country": "Ukraine",
-      "countryCode": "UA",
       "artist": "Tvorchi",
-      "title": "Heart of Steel",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇺🇦",
-      "imageUrl": "/assets/images/2023/2023-ukraine.jpg.webp",
-      "flagImageUrl": "/assets/flags/ukraine.png.webp"
+      "title": "Heart of Steel"
     },
     {
-      "id": "2023-united-kingdom",
-      "compareStartSeconds": 0,
       "country": "United Kingdom",
-      "countryCode": "GB",
       "artist": "Mae Muller",
-      "title": "I Wrote a Song",
-      "previewVideoUrl": "",
-      "flagEmoji": "🇬🇧",
-      "imageUrl": "/assets/images/2023/2023-united-kingdom.jpg.webp",
-      "flagImageUrl": "/assets/flags/united-kingdom.png.webp"
+      "title": "I Wrote a Song"
     }
   ]
 }

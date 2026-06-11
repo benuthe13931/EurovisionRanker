@@ -5,448 +5,265 @@
   "backgroundImage": "/assets/backgrounds/hero-bg.webp",
   "songs": [
     {
-      "id": "2024-albania",
-      "compareStartSeconds": 154,
       "country": "Albania",
-      "countryCode": "AL",
       "artist": "Besa",
       "title": "Titan",
       "previewVideoUrl": "https://www.youtube.com/watch?v=aQG22XJIdWw",
-      "flagEmoji": "🇦🇱",
-      "flagImageUrl": "/assets/flags/albania.png.webp",
+      "compareStartSeconds": 154,
       "imageUrl": "/assets/images/2024/2024-albania.png.webp"
     },
     {
-      "id": "2024-armenia",
-      "compareStartSeconds": 121,
       "country": "Armenia",
-      "countryCode": "AM",
       "artist": "Ladaniva",
       "title": "Jako",
       "previewVideoUrl": "https://www.youtube.com/watch?v=hAYXDoZzAyE",
-      "flagEmoji": "🇦🇲",
-      "flagImageUrl": "/assets/flags/armenia.png.webp",
+      "compareStartSeconds": 121,
       "imageUrl": "/assets/images/2024/2024-armenia.png.webp"
     },
     {
-      "id": "2024-australia",
-      "compareStartSeconds": 124,
       "country": "Australia",
-      "countryCode": "AU",
       "artist": "Electric Fields",
       "title": "One Milkali (One Blood)",
       "previewVideoUrl": "https://www.youtube.com/watch?v=Wzpp6996QdI",
-      "flagEmoji": "🇦🇺",
-      "flagImageUrl": "/assets/flags/australia.png.webp",
-      "imageUrl": "/assets/images/2024/2024-australia.jpg.webp"
+      "compareStartSeconds": 124
     },
     {
-      "id": "2024-austria",
-      "compareStartSeconds": 113,
       "country": "Austria",
-      "countryCode": "AT",
       "artist": "Kaleen",
       "title": "We Will Rave",
       "previewVideoUrl": "https://www.youtube.com/watch?v=VZ6SlZnk_EI",
-      "flagEmoji": "🇦🇹",
-      "flagImageUrl": "/assets/flags/austria.png.webp",
-      "imageUrl": "/assets/images/2024/2024-austria.jpg.webp"
+      "compareStartSeconds": 113
     },
     {
-      "id": "2024-azerbaijan",
-      "compareStartSeconds": 150,
       "country": "Azerbaijan",
-      "countryCode": "AZ",
       "artist": "Fahree feat. Ilkin Dovlatov",
       "title": "Özünlə apar",
       "previewVideoUrl": "https://www.youtube.com/watch?v=QhN9r8TH2Hw",
-      "flagEmoji": "🇦🇿",
-      "flagImageUrl": "/assets/flags/azerbaijan.png.webp",
-      "imageUrl": "/assets/images/2024/2024-azerbaijan.jpg.webp"
+      "compareStartSeconds": 150
     },
     {
-      "id": "2024-belgium",
-      "compareStartSeconds": 136,
       "country": "Belgium",
-      "countryCode": "BE",
       "artist": "Mustii",
       "title": "Before the Party's Over",
       "previewVideoUrl": "https://www.youtube.com/watch?v=hNIemQwCaM4",
-      "flagEmoji": "🇧🇪",
-      "flagImageUrl": "/assets/flags/belgium.png.webp",
-      "imageUrl": "/assets/images/2024/2024-belgium.jpg.webp"
+      "compareStartSeconds": 136
     },
     {
-      "id": "2024-croatia",
-      "compareStartSeconds": 105,
       "country": "Croatia",
-      "countryCode": "HR",
       "artist": "Baby Lasagna",
       "title": "Rim Tim Tagi Dim",
       "previewVideoUrl": "https://www.youtube.com/watch?v=YIBjarAiAVc",
-      "flagEmoji": "🇭🇷",
-      "flagImageUrl": "/assets/flags/croatia.png.webp",
-      "imageUrl": "/assets/images/2024/2024-croatia.jpg.webp"
+      "compareStartSeconds": 105
     },
     {
-      "id": "2024-cyprus",
-      "compareStartSeconds": 129,
       "country": "Cyprus",
-      "countryCode": "CY",
       "artist": "Silia Kapsis",
       "title": "Liar",
       "previewVideoUrl": "https://www.youtube.com/watch?v=c4wMioZXbMk",
-      "flagEmoji": "🇨🇾",
-      "flagImageUrl": "/assets/flags/cyprus.png.webp",
-      "imageUrl": "/assets/images/2024/2024-cyprus.jpg.webp"
+      "compareStartSeconds": 129
     },
     {
-      "id": "2024-czechia",
-      "compareStartSeconds": 106,
       "country": "Czechia",
-      "countryCode": "CZ",
       "artist": "Aiko",
       "title": "Pedestal",
       "previewVideoUrl": "https://www.youtube.com/watch?v=RiItbHRF1BY",
-      "flagEmoji": "🇨🇿",
-      "flagImageUrl": "/assets/flags/czechia.png.webp",
-      "imageUrl": "/assets/images/2024/2024-czechia.jpg.webp"
+      "compareStartSeconds": 106
     },
     {
-      "id": "2024-denmark",
-      "compareStartSeconds": 168,
       "country": "Denmark",
-      "countryCode": "DK",
       "artist": "Saba",
       "title": "Sand",
       "previewVideoUrl": "https://www.youtube.com/watch?v=4f_phiGot7w",
-      "flagEmoji": "🇩🇰",
-      "flagImageUrl": "/assets/flags/denmark.png.webp",
-      "imageUrl": "/assets/images/2024/2024-denmark.jpg.webp"
+      "compareStartSeconds": 168
     },
     {
-      "id": "2024-estonia",
-      "compareStartSeconds": 139,
       "country": "Estonia",
-      "countryCode": "EE",
       "artist": "5miinust and Puuluup",
       "title": "(Nendest) narkootikumidest ei tea me (küll) midagi",
       "previewVideoUrl": "https://www.youtube.com/watch?v=RSMMU2wX0Bk",
-      "flagEmoji": "🇪🇪",
-      "flagImageUrl": "/assets/flags/estonia.png.webp",
-      "imageUrl": "/assets/images/2024/2024-estonia.jpg.webp"
+      "compareStartSeconds": 139
     },
     {
-      "id": "2024-finland",
-      "compareStartSeconds": 156,
       "country": "Finland",
-      "countryCode": "FI",
       "artist": "Windows95Man",
       "title": "No Rules!",
       "previewVideoUrl": "https://www.youtube.com/watch?v=7nidDtyS0Wo",
-      "flagEmoji": "🇫🇮",
-      "flagImageUrl": "/assets/flags/finland.png.webp",
-      "imageUrl": "/assets/images/2024/2024-finland.jpg.webp"
+      "compareStartSeconds": 156
     },
     {
-      "id": "2024-france",
-      "compareStartSeconds": 91,
       "country": "France",
-      "countryCode": "FR",
       "artist": "Slimane",
       "title": "Mon amour",
       "previewVideoUrl": "https://www.youtube.com/watch?v=-XyLecY2JyE",
-      "flagEmoji": "🇫🇷",
-      "flagImageUrl": "/assets/flags/france.png.webp",
-      "imageUrl": "/assets/images/2024/2024-france.jpg.webp"
+      "compareStartSeconds": 91
     },
     {
-      "id": "2024-georgia",
-      "compareStartSeconds": 151,
       "country": "Georgia",
-      "countryCode": "GE",
       "artist": "Nutsa Buzaladze",
       "title": "Firefighter",
       "previewVideoUrl": "https://www.youtube.com/watch?v=He4PGhm7jOw",
-      "flagEmoji": "🇬🇪",
-      "flagImageUrl": "/assets/flags/georgia.png.webp",
-      "imageUrl": "/assets/images/2024/2024-georgia.jpg.webp"
+      "compareStartSeconds": 151
     },
     {
-      "id": "2024-germany",
-      "compareStartSeconds": 111,
       "country": "Germany",
-      "countryCode": "DE",
       "artist": "Isaak",
       "title": "Always on the Run",
       "previewVideoUrl": "https://www.youtube.com/watch?v=kVOHTxFOhak",
-      "flagEmoji": "🇩🇪",
-      "flagImageUrl": "/assets/flags/germany.png.webp",
-      "imageUrl": "/assets/images/2024/2024-germany.jpg.webp"
+      "compareStartSeconds": 111
     },
     {
-      "id": "2024-greece",
-      "compareStartSeconds": 161,
       "country": "Greece",
-      "countryCode": "GR",
       "artist": "Marina Satti",
       "title": "Zari",
       "previewVideoUrl": "https://www.youtube.com/watch?v=ENb4LCeq9Lc",
-      "flagEmoji": "🇬🇷",
-      "flagImageUrl": "/assets/flags/greece.png.webp",
-      "imageUrl": "/assets/images/2024/2024-greece.jpg.webp"
+      "compareStartSeconds": 161
     },
     {
-      "id": "2024-iceland",
-      "compareStartSeconds": 156,
       "country": "Iceland",
-      "countryCode": "IS",
       "artist": "Hera Björk",
       "title": "Scared of Heights",
       "previewVideoUrl": "https://www.youtube.com/watch?v=VChBgcycVl8",
-      "flagEmoji": "🇮🇸",
-      "flagImageUrl": "/assets/flags/iceland.png.webp",
-      "imageUrl": "/assets/images/2024/2024-iceland.jpg.webp"
+      "compareStartSeconds": 156
     },
     {
-      "id": "2024-ireland",
-      "compareStartSeconds": 81,
       "country": "Ireland",
-      "countryCode": "IE",
       "artist": "Bambie Thug",
       "title": "Doomsday Blue",
       "previewVideoUrl": "https://www.youtube.com/watch?v=UMq8ofCstMQ",
-      "flagEmoji": "🇮🇪",
-      "flagImageUrl": "/assets/flags/ireland.png.webp",
-      "imageUrl": "/assets/images/2024/2024-ireland.jpg.webp"
+      "compareStartSeconds": 81
     },
     {
-      "id": "2024-israel",
-      "compareStartSeconds": 141,
       "country": "Israel",
-      "countryCode": "IL",
       "artist": "Eden Golan",
       "title": "Hurricane",
       "previewVideoUrl": "https://www.youtube.com/watch?v=K60BWlEhtAA",
-      "flagEmoji": "🇮🇱",
-      "flagImageUrl": "/assets/flags/israel.png.webp",
-      "imageUrl": "/assets/images/2024/2024-israel.jpg.webp"
+      "compareStartSeconds": 141
     },
     {
-      "id": "2024-italy",
-      "compareStartSeconds": 116,
       "country": "Italy",
-      "countryCode": "IT",
       "artist": "Angelina Mango",
       "title": "La noia",
       "previewVideoUrl": "https://www.youtube.com/watch?v=zp1FXHjkjpQ",
-      "flagEmoji": "🇮🇹",
-      "flagImageUrl": "/assets/flags/italy.png.webp",
-      "imageUrl": "/assets/images/2024/2024-italy.jpg.webp"
+      "compareStartSeconds": 116
     },
     {
-      "id": "2024-latvia",
-      "compareStartSeconds": 127,
       "country": "Latvia",
-      "countryCode": "LV",
       "artist": "Dons",
       "title": "Hollow",
       "previewVideoUrl": "https://www.youtube.com/watch?v=kgIwQkMwURY",
-      "flagEmoji": "🇱🇻",
-      "flagImageUrl": "/assets/flags/latvia.png.webp",
-      "imageUrl": "/assets/images/2024/2024-latvia.jpg.webp"
+      "compareStartSeconds": 127
     },
     {
-      "id": "2024-lithuania",
-      "compareStartSeconds": 96,
       "country": "Lithuania",
-      "countryCode": "LT",
       "artist": "Silvester Belt",
       "title": "Luktelk",
       "previewVideoUrl": "https://www.youtube.com/watch?v=N8YuQzJLR_k",
-      "flagEmoji": "🇱🇹",
-      "flagImageUrl": "/assets/flags/lithuania.png.webp",
-      "imageUrl": "/assets/images/2024/2024-lithuania.jpg.webp"
+      "compareStartSeconds": 96
     },
     {
-      "id": "2024-luxembourg",
-      "compareStartSeconds": 152,
       "country": "Luxembourg",
-      "countryCode": "LU",
       "artist": "Tali",
       "title": "Fighter",
       "previewVideoUrl": "https://www.youtube.com/watch?v=TCWH3Nq5y9A",
-      "flagEmoji": "🇱🇺",
-      "flagImageUrl": "/assets/flags/luxembourg.png.webp",
-      "imageUrl": "/assets/images/2024/2024-luxembourg.jpg.webp"
+      "compareStartSeconds": 152
     },
     {
-      "id": "2024-malta",
-      "compareStartSeconds": 150,
       "country": "Malta",
-      "countryCode": "MT",
       "artist": "Sarah Bonnici",
       "title": "Loop",
       "previewVideoUrl": "https://www.youtube.com/watch?v=uG-JHeia13c",
-      "flagEmoji": "🇲🇹",
-      "flagImageUrl": "/assets/flags/malta.png.webp",
-      "imageUrl": "/assets/images/2024/2024-malta.jpg.webp"
+      "compareStartSeconds": 150
     },
     {
-      "id": "2024-moldova",
-      "compareStartSeconds": 114,
       "country": "Moldova",
-      "countryCode": "MD",
       "artist": "Natalia Barbu",
       "title": "In the Middle",
       "previewVideoUrl": "https://www.youtube.com/watch?v=evIoGkZXj2s",
-      "flagEmoji": "🇲🇩",
-      "flagImageUrl": "/assets/flags/moldova.png.webp",
-      "imageUrl": "/assets/images/2024/2024-moldova.jpg.webp"
+      "compareStartSeconds": 114
     },
     {
-      "id": "2024-netherlands",
-      "compareStartSeconds": 115,
       "country": "Netherlands",
-      "countryCode": "NL",
       "artist": "Joost Klein",
       "title": "Europapa",
       "previewVideoUrl": "https://www.youtube.com/watch?v=IiHFnmI8pxg",
-      "flagEmoji": "🇳🇱",
-      "flagImageUrl": "/assets/flags/netherlands.png.webp",
-      "imageUrl": "/assets/images/2024/2024-netherlands.jpg.webp"
+      "compareStartSeconds": 115
     },
     {
-      "id": "2024-norway",
-      "compareStartSeconds": 123,
       "country": "Norway",
-      "countryCode": "NO",
       "artist": "Gåte",
       "title": "Ulveham",
       "previewVideoUrl": "https://www.youtube.com/watch?v=YBbL8ORqNVU",
-      "flagEmoji": "🇳🇴",
-      "flagImageUrl": "/assets/flags/norway.png.webp",
-      "imageUrl": "/assets/images/2024/2024-norway.jpg.webp"
+      "compareStartSeconds": 123
     },
     {
-      "id": "2024-poland",
-      "compareStartSeconds": 147,
       "country": "Poland",
-      "countryCode": "PL",
       "artist": "Luna",
       "title": "The Tower",
       "previewVideoUrl": "https://www.youtube.com/watch?v=ESKG8Uo1YaU",
-      "flagEmoji": "🇵🇱",
-      "flagImageUrl": "/assets/flags/poland.png.webp",
-      "imageUrl": "/assets/images/2024/2024-poland.jpg.webp"
+      "compareStartSeconds": 147
     },
     {
-      "id": "2024-portugal",
-      "compareStartSeconds": 145,
       "country": "Portugal",
-      "countryCode": "PT",
       "artist": "Iolanda",
       "title": "Grito",
       "previewVideoUrl": "https://www.youtube.com/watch?v=OZn4-H6JvKU",
-      "flagEmoji": "🇵🇹",
-      "flagImageUrl": "/assets/flags/portugal.png.webp",
-      "imageUrl": "/assets/images/2024/2024-portugal.jpg.webp"
+      "compareStartSeconds": 145
     },
     {
-      "id": "2024-san-marino",
-      "compareStartSeconds": 155,
       "country": "San Marino",
-      "countryCode": "SM",
       "artist": "Megara",
       "title": "11:11",
       "previewVideoUrl": "https://www.youtube.com/watch?v=IqyJvkGmAjo",
-      "flagEmoji": "🇸🇲",
-      "flagImageUrl": "/assets/flags/san-marino.png.webp",
-      "imageUrl": "/assets/images/2024/2024-san-marino.jpg.webp"
+      "compareStartSeconds": 155
     },
     {
-      "id": "2024-serbia",
-      "compareStartSeconds": 144,
       "country": "Serbia",
-      "countryCode": "RS",
       "artist": "Teya Dora",
       "title": "Ramonda",
       "previewVideoUrl": "https://www.youtube.com/watch?v=4hUg64uIY_4",
-      "flagEmoji": "🇷🇸",
-      "flagImageUrl": "/assets/flags/serbia.png.webp",
-      "imageUrl": "/assets/images/2024/2024-serbia.jpg.webp"
+      "compareStartSeconds": 144
     },
     {
-      "id": "2024-slovenia",
-      "compareStartSeconds": 138,
       "country": "Slovenia",
-      "countryCode": "SI",
       "artist": "Raiven",
       "title": "Veronika",
       "previewVideoUrl": "https://www.youtube.com/watch?v=l86DxpRnz5M",
-      "flagEmoji": "🇸🇮",
-      "flagImageUrl": "/assets/flags/slovenia.png.webp",
-      "imageUrl": "/assets/images/2024/2024-slovenia.jpg.webp"
+      "compareStartSeconds": 138
     },
     {
-      "id": "2024-spain",
-      "compareStartSeconds": 171,
       "country": "Spain",
-      "countryCode": "ES",
       "artist": "Nebulossa",
       "title": "Zorra",
       "previewVideoUrl": "https://www.youtube.com/watch?v=FOMoQoHG5aU",
-      "flagEmoji": "🇪🇸",
-      "flagImageUrl": "/assets/flags/spain.png.webp",
-      "imageUrl": "/assets/images/2024/2024-spain.jpg.webp"
+      "compareStartSeconds": 171
     },
     {
-      "id": "2024-sweden",
-      "compareStartSeconds": 114,
       "country": "Sweden",
-      "countryCode": "SE",
       "artist": "Marcus & Martinus",
       "title": "Unforgettable",
       "previewVideoUrl": "https://www.youtube.com/watch?v=DcZpzObYzxs",
-      "flagEmoji": "🇸🇪",
-      "flagImageUrl": "/assets/flags/sweden.png.webp",
-      "imageUrl": "/assets/images/2024/2024-sweden.jpg.webp"
+      "compareStartSeconds": 114
     },
     {
-      "id": "2024-switzerland",
-      "compareStartSeconds": 163,
       "country": "Switzerland",
-      "countryCode": "CH",
       "artist": "Nemo",
       "title": "The Code",
       "previewVideoUrl": "https://www.youtube.com/watch?v=CO_qJf-nW0k",
-      "flagEmoji": "🇨🇭",
-      "flagImageUrl": "/assets/flags/switzerland.png.webp",
-      "imageUrl": "/assets/images/2024/2024-switzerland.jpg.webp"
+      "compareStartSeconds": 163
     },
     {
-      "id": "2024-ukraine",
-      "compareStartSeconds": 85,
       "country": "Ukraine",
-      "countryCode": "UA",
       "artist": "Alyona Alyona and Jerry Heil",
       "title": "Teresa & Maria",
       "previewVideoUrl": "https://www.youtube.com/watch?v=d4N82wPpdg8",
-      "flagEmoji": "🇺🇦",
-      "flagImageUrl": "/assets/flags/ukraine.png.webp",
-      "imageUrl": "/assets/images/2024/2024-ukraine.jpg.webp"
+      "compareStartSeconds": 85
     },
     {
-      "id": "2024-united-kingdom",
-      "compareStartSeconds": 98,
       "country": "United Kingdom",
-      "countryCode": "GB",
       "artist": "Olly Alexander",
       "title": "Dizzy",
       "previewVideoUrl": "https://www.youtube.com/watch?v=q0_FdJqyQW0",
-      "flagEmoji": "🇬🇧",
-      "flagImageUrl": "/assets/flags/united-kingdom.png.webp",
-      "imageUrl": "/assets/images/2024/2024-united-kingdom.jpg.webp"
+      "compareStartSeconds": 98
     }
   ]
 }
