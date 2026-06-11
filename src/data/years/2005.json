@@ -1,265 +1,279 @@
 {
-  "year": 2023,
-  "hostCity": "Liverpool",
-  "country": "United Kingdom",
+  "year": 2005,
+  "hostCity": "Kyiv",
+  "country": "Ukraine",
   "backgroundImage": "/assets/backgrounds/hero-bg.webp",
   "songs": [
     {
       "country": "Albania",
-      "artist": "Albina & Familja Kelmendi",
-      "title": "Duje",
+      "artist": "Ledina Çelo",
+      "title": "Tomorrow I Go",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
-      "country": "Armenia",
-      "artist": "Brunette",
-      "title": "Future Lover",
-      "previewVideoUrl": "",
-      "compareStartSeconds": 0
-    },
-    {
-      "country": "Australia",
-      "artist": "Voyager",
-      "title": "Promise",
+      "country": "Andorra",
+      "artist": "Marian van de Wal",
+      "title": "La mirada interior",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Austria",
-      "artist": "Teya & Salena",
-      "title": "Who the Hell Is Edgar?",
+      "artist": "Global.Kryner",
+      "title": "Y así",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
-      "country": "Azerbaijan",
-      "artist": "TuralTuranX",
-      "title": "Tell Me More",
+      "country": "Belarus",
+      "artist": "Angelica Agurbash",
+      "title": "Love Me Tonight",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Belgium",
-      "artist": "Gustaph",
-      "title": "Because of You",
+      "artist": "Nuno Resende",
+      "title": "Le Grand Soir",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Bosnia & Herzegovina",
+      "artist": "Feminnem",
+      "title": "Call Me",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Bulgaria",
+      "artist": "Kaffe",
+      "title": "Lorraine",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Croatia",
-      "artist": "Let 3",
-      "title": "Mama ŠČ!",
+      "artist": "Boris Novković feat. Lado Members",
+      "title": "Vukovi umiru sami",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Cyprus",
-      "artist": "Andrew Lambrou",
-      "title": "Break a Broken Heart",
-      "previewVideoUrl": "",
-      "compareStartSeconds": 0
-    },
-    {
-      "country": "Czechia",
-      "artist": "Vesna",
-      "title": "My Sister's Crown",
+      "artist": "Constantinos Christoforou",
+      "title": "Ela, ela",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Denmark",
-      "artist": "Reiley",
-      "title": "Breaking My Heart",
+      "artist": "Jakob Sveistrup",
+      "title": "Talking to You",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Estonia",
-      "artist": "Alika",
-      "title": "Bridges",
+      "artist": "Suntribe",
+      "title": "Let's Get Loud",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Finland",
-      "artist": "Käärijä",
-      "title": "Cha Cha Cha",
+      "artist": "Geir Rönning",
+      "title": "Why",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "France",
-      "artist": "La Zarra",
-      "title": "Évidemment",
+      "artist": "Ortal",
+      "title": "Chacun pense à soi",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
-      "country": "Georgia",
-      "artist": "Iru",
-      "title": "Echo",
+      "country": "FYR Macedonia",
+      "artist": "Martin Vučić",
+      "title": "Make My Day",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Germany",
-      "artist": "Lord of the Lost",
-      "title": "Blood & Glitter",
+      "artist": "Gracia",
+      "title": "Run & Hide",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Greece",
-      "artist": "Victor Vernicos",
-      "title": "What They Say",
+      "artist": "Helena Paparizou",
+      "title": "My Number One",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Hungary",
+      "artist": "Nox",
+      "title": "Forogj, világ",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Iceland",
-      "artist": "Diljá",
-      "title": "Power",
+      "artist": "Selma",
+      "title": "If I Had Your Love",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Ireland",
-      "artist": "Wild Youth",
-      "title": "We Are One",
+      "artist": "Donna & Joe",
+      "title": "Love?",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Israel",
-      "artist": "Noa Kirel",
-      "title": "Unicorn",
-      "previewVideoUrl": "",
-      "compareStartSeconds": 0
-    },
-    {
-      "country": "Italy",
-      "artist": "Marco Mengoni",
-      "title": "Due vite",
+      "artist": "Shiri Maimon",
+      "title": "HaSheket SheNish'ar",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Latvia",
-      "artist": "Sudden Lights",
-      "title": "Aijā",
+      "artist": "Walters & Kazha",
+      "title": "The War Is Not Over",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Lithuania",
-      "artist": "Monika Linkytė",
-      "title": "Stay",
+      "artist": "Laura & the Lovers",
+      "title": "Little by Little",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Malta",
-      "artist": "The Busker",
-      "title": "Dance (Our Own Party)",
+      "artist": "Chiara",
+      "title": "Angel",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Moldova",
-      "artist": "Pasha Parfeni",
-      "title": "Soarele și luna",
+      "artist": "Zdob și Zdub",
+      "title": "Boonika bate doba",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Lise Darly",
+      "title": "Tout de moi",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Netherlands",
-      "artist": "Mia Nicolai & Dion Cooper",
-      "title": "Burning Daylight",
+      "artist": "Glennis Grace",
+      "title": "My Impossible Dream",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Norway",
-      "artist": "Alessandra",
-      "title": "Queen of Kings",
+      "artist": "Wig Wam",
+      "title": "In My Dreams",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Poland",
-      "artist": "Blanka",
-      "title": "Solo",
+      "artist": "Ivan & Delfin",
+      "title": "Czarna dziewczyna",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Portugal",
-      "artist": "Mimicat",
-      "title": "Ai coração",
+      "artist": "2B",
+      "title": "Amar",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Romania",
-      "artist": "Theodor Andrei",
-      "title": "D.G.T. (Off and On)",
+      "artist": "Luminița Anghel & Sistem",
+      "title": "Let Me Try",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
-      "country": "San Marino",
-      "artist": "Piqued Jacks",
-      "title": "Like an Animal",
+      "country": "Russia",
+      "artist": "Natalia Podolskaya",
+      "title": "Nobody Hurt No One",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
-      "country": "Serbia",
-      "artist": "Luke Black",
-      "title": "Samo mi se spava",
+      "country": "Serbia & Montenegro",
+      "artist": "No Name",
+      "title": "Zauvijek moja",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Slovenia",
-      "artist": "Joker Out",
-      "title": "Carpe Diem",
+      "artist": "Omar Naber",
+      "title": "Stop",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Spain",
-      "artist": "Blanca Paloma",
-      "title": "Eaea",
+      "artist": "Son de Sol",
+      "title": "Brujería",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Sweden",
-      "artist": "Loreen",
-      "title": "Tattoo",
+      "artist": "Martin Stenmarck",
+      "title": "Las Vegas",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Switzerland",
-      "artist": "Remo Forrer",
-      "title": "Watergun",
+      "artist": "Vanilla Ninja",
+      "title": "Cool Vibes",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Turkey",
+      "artist": "Gülseren",
+      "title": "Rimi Rimi Ley",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Ukraine",
-      "artist": "Tvorchi",
-      "title": "Heart of Steel",
+      "artist": "GreenJolly",
+      "title": "Razom nas bahato",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "United Kingdom",
-      "artist": "Mae Muller",
-      "title": "I Wrote a Song",
+      "artist": "Javine",
+      "title": "Touch My Fire",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     }

@@ -1,0 +1,183 @@
+{
+  "year": 1998,
+  "hostCity": "Birmingham",
+  "country": "United Kingdom",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Belgium",
+      "artist": "Mélanie Cohl",
+      "title": "Dis oui",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Croatia",
+      "artist": "Danijela",
+      "title": "Neka mi ne svane",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Cyprus",
+      "artist": "Michael Hajiyanni",
+      "title": "Genesis",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Estonia",
+      "artist": "Koit Toome",
+      "title": "Mere lapsed",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Edea",
+      "title": "Aava",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Marie Line",
+      "title": "Où aller",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "FYR Macedonia",
+      "artist": "Vlado Janevski",
+      "title": "Ne zori, zoro",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Guildo Horn",
+      "title": "Guildo hat euch lieb",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Greece",
+      "artist": "Thalassa",
+      "title": "Mia krifi evaisthisia",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Hungary",
+      "artist": "Charlie",
+      "title": "A holnap már nem lesz szomorú",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "Dawn Martin",
+      "title": "Is Always Over Now",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Israel",
+      "artist": "Dana International",
+      "title": "Diva",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Malta",
+      "artist": "Chiara",
+      "title": "The One That I Love",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Edsilia",
+      "title": "Hemel en aarde",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Lars A. Fredriksen",
+      "title": "Alltid sommer",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Poland",
+      "artist": "Sixteen",
+      "title": "To takie proste",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "Alma Lusa",
+      "title": "Se eu te pudesse abraçar",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Romania",
+      "artist": "Mălina Olinescu",
+      "title": "Eu cred",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Slovakia",
+      "artist": "Katarína Hasprová",
+      "title": "Modlitba",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Slovenia",
+      "artist": "Vili Resnik",
+      "title": "Naj bogovi slišijo",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Mikel Herzog",
+      "title": "¿Qué voy a hacer sin ti?",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "Jill Johnson",
+      "title": "Kärleken är",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Gunvor",
+      "title": "Lass ihn",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Turkey",
+      "artist": "Tüzmen",
+      "title": "Unutamazsın",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Imaani",
+      "title": "Where Are You?",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
