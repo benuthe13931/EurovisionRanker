@@ -21,12 +21,29 @@ export type Song = {
   year?: number;
 };
 
+export type YearSongInput = Partial<Pick<Song, "id" | "countryCode" | "flagEmoji" | "flagImageUrl" | "imageUrl">> &
+  Pick<Song, "artist" | "title"> & {
+    country: string;
+    acceptedArtistAnswers?: string[];
+    acceptedCountryAnswers?: string[];
+    acceptedTitleAnswers?: string[];
+    previewVideoUrl?: string;
+    audioPreviewUrl?: string;
+    previewPosterUrl?: string;
+    previewType?: "audio" | "video" | "youtube" | "unknown";
+    compareStartSeconds?: number;
+  };
+
 export type YearData = {
   year: number;
   hostCity: string;
   country: string;
   backgroundImage: string;
   songs: Song[];
+};
+
+export type YearDataInput = Omit<YearData, "songs"> & {
+  songs: YearSongInput[];
 };
 
 export type RankingState = {

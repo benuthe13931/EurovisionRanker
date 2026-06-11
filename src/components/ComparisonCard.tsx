@@ -1,6 +1,7 @@
 import type { Song } from "../types";
 import AudioButton from "./AudioButton";
 import { useAudio } from "./AudioProvider";
+import FlagEmoji from "./FlagEmoji";
 import VideoPreview from "./VideoPreview";
 
 type ComparisonCardProps = {
@@ -32,7 +33,7 @@ export default function ComparisonCard({ song, onChoose }: ComparisonCardProps) 
             }}
           />
         ) : (
-          <span>{song.flagEmoji}</span>
+          <FlagEmoji alt="" code={song.countryCode} src={song.flagEmoji} />
         )}
       </div>
       <div className="comparisonBody">

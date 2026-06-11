@@ -2,6 +2,7 @@ import { ArrowLeft, RotateCcw, Save, Scale } from "lucide-react";
 import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ComparisonOverlay from "../components/ComparisonOverlay";
+import FlagEmoji from "../components/FlagEmoji";
 import RankingList from "../components/RankingList";
 import { countriesBySlug } from "../data/years";
 import type { Song } from "../types";
@@ -123,7 +124,12 @@ export default function CountryPage() {
             <ArrowLeft size={16} /> Back
           </button>
           <p className="eyebrow">
-            {currentCountryData.flagEmoji} {currentCountryData.countryCode}
+            <FlagEmoji
+              alt=""
+              code={currentCountryData.countryCode}
+              src={currentCountryData.flagEmoji}
+            />{" "}
+            {currentCountryData.countryCode}
           </p>
           <h1>{currentCountryData.country} Ranking</h1>
           <p>

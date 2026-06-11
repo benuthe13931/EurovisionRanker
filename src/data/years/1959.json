@@ -1,7 +1,7 @@
 {
   "year": 1959,
-  "hostCity": "Cannes",
-  "country": "France",
+  "hostCity": "Lausanne",
+  "country": "Switzerland",
   "backgroundImage": "/assets/backgrounds/hero-bg.webp",
   "songs": [
     {
@@ -46,7 +46,7 @@
       "country": "France",
       "countryCode": "FR",
       "artist": "Jean Philippe",
-      "title": "Oui oui oui oui",
+      "title": "Oui, oui, oui, oui",
       "previewVideoUrl": "",
       "flagEmoji": "🇫🇷",
       "imageUrl": "/assets/images/1959/1959-france.jpg.webp",
@@ -57,7 +57,7 @@
       "compareStartSeconds": 0,
       "country": "Germany",
       "countryCode": "DE",
-      "artist": "Alice and Ellen Kessler",
+      "artist": "Alice & Ellen Kessler",
       "title": "Heut' woll'n wir tanzen geh'n",
       "previewVideoUrl": "",
       "flagEmoji": "🇩🇪",
