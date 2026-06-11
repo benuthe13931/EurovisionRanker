@@ -7,112 +7,156 @@
     {
       "country": "Austria",
       "artist": "Thomas Forstner",
-      "title": "Nur ein Lied"
+      "title": "Nur ein Lied",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Belgium",
       "artist": "Ingeborg",
-      "title": "Door de wind"
+      "title": "Door de wind",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Cyprus",
       "artist": "Fanny Polymeri & Yiannis Savvidakis",
-      "title": "Apopse as vrethoume"
+      "title": "Apopse as vrethoume",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Denmark",
       "artist": "Birthe Kjær",
-      "title": "Vi maler byen rød"
+      "title": "Vi maler byen rød",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Finland",
       "artist": "Anneli Saaristo",
-      "title": "La dolce vita"
+      "title": "La dolce vita",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "France",
       "artist": "Nathalie Pâque",
-      "title": "J'ai volé la vie"
+      "title": "J'ai volé la vie",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Germany",
       "artist": "Nino de Angelo",
-      "title": "Flieger"
+      "title": "Flieger",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Greece",
       "artist": "Marianna",
-      "title": "To diko sou asteri"
+      "title": "To diko sou asteri",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Iceland",
       "artist": "Daníel",
-      "title": "Það sem enginn sér"
+      "title": "Það sem enginn sér",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Ireland",
       "artist": "Kiev Connolly & the Missing Passengers",
-      "title": "The Real Me"
+      "title": "The Real Me",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Israel",
       "artist": "Gili & Galit",
-      "title": "Derekh Hamelekh"
+      "title": "Derekh Hamelekh",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Italy",
       "artist": "Anna Oxa & Fausto Leali",
-      "title": "Avrei voluto"
+      "title": "Avrei voluto",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Luxembourg",
       "artist": "Park Café",
-      "title": "Monsieur"
+      "title": "Monsieur",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Netherlands",
       "artist": "Justine Pelmelay",
-      "title": "Blijf zoals je bent"
+      "title": "Blijf zoals je bent",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Norway",
       "artist": "Britt Synnøve Johansen",
-      "title": "Venners nærhet"
+      "title": "Venners nærhet",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Portugal",
       "artist": "Da Vinci",
-      "title": "Conquistador"
+      "title": "Conquistador",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Spain",
       "artist": "Nina",
-      "title": "Nacida para amar"
+      "title": "Nacida para amar",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Sweden",
       "artist": "Tommy Nilsson",
-      "title": "En dag"
+      "title": "En dag",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Switzerland",
       "artist": "Furbaz",
-      "title": "Viver senza tei"
+      "title": "Viver senza tei",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Turkey",
       "artist": "Pan",
-      "title": "Bana Bana"
+      "title": "Bana Bana",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "United Kingdom",
       "artist": "Live Report",
-      "title": "Why Do I Always Get It Wrong"
+      "title": "Why Do I Always Get It Wrong",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     },
     {
       "country": "Yugoslavia",
       "artist": "Riva",
-      "title": "Rock Me"
+      "title": "Rock Me",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
     }
   ]
 }
