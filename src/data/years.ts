@@ -58,8 +58,11 @@ function normalizeYearData(yearData: YearDataInput): YearData {
   };
 }
 
-export const years: YearData[] = Object.values(modules)
-  .map((yearData) => normalizeYearData(yearData as YearDataInput))
+// Template JSON files live beside real years for copy/paste convenience.
+// Keep their blank previewVideoUrl and compareStartSeconds placeholders intact.
+export const years: YearData[] = Object.entries(modules)
+  .filter(([path]) => !path.toLowerCase().includes("template"))
+  .map(([, yearData]) => normalizeYearData(yearData as YearDataInput))
   .filter((yearData) => yearData.year > 0)
   .sort((a, b) => b.year - a.year);
 

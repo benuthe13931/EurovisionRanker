@@ -1,132 +1,125 @@
 {
-  "year": 1966,
-  "hostCity": "Luxembourg City",
-  "country": "Luxembourg",
+  "year": 1967,
+  "hostCity": "Vienna",
+  "country": "Austria",
   "backgroundImage": "/assets/backgrounds/hero-bg.webp",
   "songs": [
     {
       "country": "Austria",
-      "artist": "Udo Jürgens",
-      "title": "Merci, Chérie",
+      "artist": "Peter Horton",
+      "title": "Warum es hunderttausend Sterne gibt",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Belgium",
-      "artist": "Tonia",
-      "title": "Un peu de poivre, un peu de sel",
-      "previewVideoUrl": "",
-      "compareStartSeconds": 0
-    },
-    {
-      "country": "Denmark",
-      "artist": "Ulla Pia",
-      "title": "Stop – mens legen er go'",
+      "artist": "Louis Neefs",
+      "title": "Ik heb zorgen",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Finland",
-      "artist": "Ann-Christine",
-      "title": "Playboy",
+      "artist": "Fredi",
+      "title": "Varjoon – suojaan",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "France",
-      "artist": "Dominique Walter",
-      "title": "Chez nous",
+      "artist": "Noëlle Cordier",
+      "title": "Il doit faire beau là-bas",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Germany",
-      "artist": "Margot Eskens",
-      "title": "Die Zeiger der Uhr",
+      "artist": "Inge Brück",
+      "title": "Anouschka",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Ireland",
-      "artist": "Dickie Rock",
-      "title": "Come Back to Stay",
+      "artist": "Sean Dunphy",
+      "title": "If I Could Choose",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Italy",
-      "artist": "Domenico Modugno",
-      "title": "Dio, come ti amo",
+      "artist": "Claudio Villa",
+      "title": "Non andare più lontano",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Luxembourg",
-      "artist": "Michèle Torr",
-      "title": "Ce soir je t'attendais",
+      "artist": "Vicky",
+      "title": "L'amour est bleu",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Monaco",
-      "artist": "Téréza",
-      "title": "Bien plus fort",
+      "artist": "Minouche Barelli",
+      "title": "Boum-Badaboum",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Netherlands",
-      "artist": "Milly Scott",
-      "title": "Fernando en Philippo",
+      "artist": "Thérèse Steinmetz",
+      "title": "Ringe-dinge",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Norway",
-      "artist": "Åse Kleveland",
-      "title": "Intet er nytt under solen",
+      "artist": "Kirsti Sparboe",
+      "title": "Dukkemann",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Portugal",
-      "artist": "Madalena Iglésias",
-      "title": "Ele e ela",
+      "artist": "Eduardo Nascimento",
+      "title": "O vento mudou",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Spain",
       "artist": "Raphael",
-      "title": "Yo soy aquél",
+      "title": "Hablemos del amor",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Sweden",
-      "artist": "Lill Lindfors & Svante Thuresson",
-      "title": "Nygammal vals",
+      "artist": "Östen Warnerbring",
+      "title": "Som en dröm",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Switzerland",
-      "artist": "Madeleine Pascal",
-      "title": "Ne vois-tu pas?",
+      "artist": "Géraldine",
+      "title": "Quel cœur vas-tu briser ?",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "United Kingdom",
-      "artist": "Kenneth McKellar",
-      "title": "A Man Without Love",
+      "artist": "Sandie Shaw",
+      "title": "Puppet on a String",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     },
     {
       "country": "Yugoslavia",
-      "artist": "Berta Ambrož",
-      "title": "Brez besed",
+      "artist": "Lado Leskovar",
+      "title": "Vse rože sveta",
       "previewVideoUrl": "",
       "compareStartSeconds": 0
     }
