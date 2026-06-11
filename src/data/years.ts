@@ -60,6 +60,7 @@ function normalizeYearData(yearData: YearDataInput): YearData {
 
 export const years: YearData[] = Object.values(modules)
   .map((yearData) => normalizeYearData(yearData as YearDataInput))
+  .filter((yearData) => yearData.year > 0)
   .sort((a, b) => b.year - a.year);
 
 export const songsByYear = new Map(years.map((year) => [String(year.year), year]));
