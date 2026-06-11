@@ -31,7 +31,7 @@ export default function HomePage() {
         </Link>
 
         <Link className="featurePanel triviaPanel" to="/trivia">
-          <span>audio quiz</span>
+          <span>Audio Quiz</span>
           <h2>Trivia</h2>
           <p>Test song, country, and year recognition from the preview clips.</p>
         </Link>
