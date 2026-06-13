@@ -25,6 +25,7 @@ import {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
+import { resultsByYear } from "../data/results";
 import type { ContestStage, ContestStageKey } from "../utils/contestStages";
 import {
   isAutoQualifier,
@@ -46,10 +47,14 @@ type PredictionPanelProps = {
   songs: Song[];
 };
 
+type FinalistResult = Song & {
+  actualPlacement: number;
+};
+
 const PREDICTION_SIZE = 10;
 const FLYING_DURATION_MS = 1650;
-const FINAL_RESULTS_WARNING_KEY =
-  "eurovision-ranker:hide-final-placement-warning";
+const INSTANT_REVEAL_STEP_MS = 120;
+const INSTANT_REVEAL_SETTLE_MS = 900;
 
 function emptyPredictionState(key: string): PredictionState {
   return {
@@ -94,33 +99,13 @@ function ordinal(value: number) {
   }
 }
 
-function finalResultsWarningKey(year: string) {
-  return `${FINAL_RESULTS_WARNING_KEY}:${year}`;
-}
-
-function hasHiddenFinalResultsWarning(year: string) {
-  try {
-    return localStorage.getItem(finalResultsWarningKey(year)) === "true";
-  } catch {
-    return false;
-  }
-}
-
-function hideFinalResultsWarning(year: string) {
-  try {
-    localStorage.setItem(finalResultsWarningKey(year), "true");
-  } catch {
-    // Ignore storage failures; the warning can still be shown next time.
-  }
-}
-
-function placementDifferenceLabel(difference: number) {
-  return difference === 1 ? "1 Place" : `${difference} Places`;
+function countryKey(country: string) {
+  return country.trim().toLocaleLowerCase();
 }
 
 function placementMetrics(
   predictedIds: string[],
-  officialSongs: Song[],
+  officialSongs: FinalistResult[],
   revealedIds = officialSongs.map((song) => song.id),
 ) {
   const predictedPlaceById = new Map(
@@ -129,12 +114,12 @@ function placementMetrics(
   const officialById = new Map(officialSongs.map((song) => [song.id, song]));
   const revealedSongs = revealedIds
     .map((songId) => officialById.get(songId))
-    .filter((song): song is Song => Boolean(song));
+    .filter((song): song is FinalistResult => Boolean(song));
   const diffs = revealedSongs
     .map((song) => {
       const predictedPlace = predictedPlaceById.get(song.id);
-      if (!predictedPlace || !song.finalPlacement) return undefined;
-      return Math.abs(predictedPlace - song.finalPlacement);
+      if (!predictedPlace) return undefined;
+      return Math.abs(predictedPlace - song.actualPlacement);
     })
     .filter((value): value is number => typeof value === "number");
   const averageError =
@@ -144,36 +129,45 @@ function placementMetrics(
   const predictedTop5 = new Set(predictedIds.slice(0, 5));
   const predictedTop10 = new Set(predictedIds.slice(0, 10));
   const revealedTop5 = revealedSongs.filter(
-    (song) => (song.finalPlacement ?? 0) <= 5,
+    (song) => song.actualPlacement <= 5,
   );
   const revealedTop10 = revealedSongs.filter(
-    (song) => (song.finalPlacement ?? 0) <= 10,
+    (song) => song.actualPlacement <= 10,
   );
 
   return {
     exact: diffs.filter((diff) => diff === 0).length,
     averageError,
+    currentAccuracy:
+      diffs.length > 0
+        ? Math.round(
+            (diffs.filter((diff) => diff === 0).length / diffs.length) * 100,
+          )
+        : 0,
     top5: revealedTop5.filter((song) => predictedTop5.has(song.id)).length,
     top10: revealedTop10.filter((song) => predictedTop10.has(song.id)).length,
   };
 }
 
-function finalPlacementSummary(predictedIds: string[], officialSongs: Song[]) {
+function finalPlacementSummary(
+  predictedIds: string[],
+  officialSongs: FinalistResult[],
+) {
   const predictedPlaceById = new Map(
     predictedIds.map((songId, index) => [songId, index + 1]),
   );
-  const actualWinner = officialSongs.find((song) => song.finalPlacement === 1);
+  const actualWinner = officialSongs.find((song) => song.actualPlacement === 1);
   const metrics = placementMetrics(predictedIds, officialSongs);
   const deltas = officialSongs
     .map((song) => {
       const predictedPlace = predictedPlaceById.get(song.id);
-      if (!predictedPlace || !song.finalPlacement) return undefined;
+      if (!predictedPlace) return undefined;
       return {
         song,
         predictedPlace,
-        actualPlace: song.finalPlacement,
-        overrate: song.finalPlacement - predictedPlace,
-        underrate: predictedPlace - song.finalPlacement,
+        actualPlace: song.actualPlacement,
+        overrate: song.actualPlacement - predictedPlace,
+        underrate: predictedPlace - song.actualPlacement,
       };
     })
     .filter((value): value is NonNullable<typeof value> => Boolean(value));
@@ -850,29 +844,178 @@ function PlacementSongChip({ song }: { song: Song }) {
 function PlacementRevealCard({
   song,
   predictedPlace,
+  revealIndex,
 }: {
-  song: Song;
+  song: FinalistResult;
   predictedPlace: number;
+  revealIndex: number;
 }) {
-  const actualPlace = song.finalPlacement ?? 0;
-  const difference = Math.abs(predictedPlace - actualPlace);
+  const difference = predictedPlace - song.actualPlacement;
+  const absoluteDifference = Math.abs(difference);
+  const differenceClass =
+    difference === 0
+      ? "exact"
+      : difference > 0
+        ? "underestimated"
+        : "overestimated";
 
   return (
-    <section className="placementRevealCard">
-      <span>{ordinal(actualPlace)} Place</span>
-      <h3>
+    <section
+      className={[
+        "placementRevealCard",
+        `place-${song.actualPlacement}`,
+        differenceClass,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      style={{ "--reveal-index": revealIndex } as CSSProperties}
+    >
+      <span className="placementRevealPlace">
+        {ordinal(song.actualPlacement)} Place
+      </span>
+      <div className="placementRevealIdentity">
         <FlagEmoji alt="" code={song.countryCode} src={song.flagEmoji} />
-        {song.country}
-      </h3>
-      <p>
-        {song.artist} / {song.title}
-      </p>
-      <div>
-        <strong>User Prediction: {ordinal(predictedPlace)}</strong>
-        <strong>Actual: {ordinal(actualPlace)}</strong>
-        <strong>Difference: {placementDifferenceLabel(difference)}</strong>
+        <div>
+          <h3>{song.country}</h3>
+          <p>
+            {song.artist} / {song.title}
+          </p>
+        </div>
+      </div>
+      <div className="placementComparison">
+        <strong>Predicted: {ordinal(predictedPlace)}</strong>
+        <strong>Actual: {ordinal(song.actualPlacement)}</strong>
+        <strong>
+          Difference:{" "}
+          {difference === 0
+            ? "Exact"
+            : `${difference > 0 ? "-" : "+"}${absoluteDifference}`}
+        </strong>
       </div>
     </section>
+  );
+}
+
+function splitScoreboard(songs: FinalistResult[]) {
+  const splitIndex = Math.ceil(songs.length / 2);
+  return [songs.slice(0, splitIndex), songs.slice(splitIndex)];
+}
+
+function PlacementScoreboard({
+  songs,
+  revealedIds,
+  predictedPlaceById,
+  revealOrderIds,
+}: {
+  songs: FinalistResult[];
+  revealedIds: Set<string>;
+  predictedPlaceById: Map<string, number>;
+  revealOrderIds: string[];
+}) {
+  const [leftColumn, rightColumn] = splitScoreboard(songs);
+  const revealIndexById = new Map(
+    revealOrderIds.map((songId, index) => [songId, index]),
+  );
+
+  function renderCard(song: FinalistResult) {
+    const revealed = revealedIds.has(song.id);
+    return revealed ? (
+      <PlacementRevealCard
+        key={song.id}
+        song={song}
+        predictedPlace={predictedPlaceById.get(song.id) ?? songs.length}
+        revealIndex={revealIndexById.get(song.id) ?? 0}
+      />
+    ) : (
+      <section
+        key={song.id}
+        className={[
+          "placementRevealCard",
+          "unrevealed",
+          `place-${song.actualPlacement}`,
+        ].join(" ")}
+      >
+        <span className="placementRevealPlace">
+          {ordinal(song.actualPlacement)} Place
+        </span>
+        <strong>Awaiting reveal</strong>
+      </section>
+    );
+  }
+
+  return (
+    <div className="placementScoreboard">
+      <div>{leftColumn.map(renderCard)}</div>
+      <div>{rightColumn.map(renderCard)}</div>
+    </div>
+  );
+}
+
+function RevealModeModal({
+  onCancel,
+  onSelect,
+}: {
+  onCancel: () => void;
+  onSelect: (mode: NonNullable<PredictionState["revealMode"]>) => void;
+}) {
+  const [selectedMode, setSelectedMode] =
+    useState<NonNullable<PredictionState["revealMode"]>>("instant");
+
+  return (
+    <div
+      className="spoilerModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="reveal-mode-title"
+    >
+      <div className="spoilerBackdrop" />
+      <section className="spoilerDialog revealModeDialog">
+        <h2 id="reveal-mode-title">Choose Reveal Experience</h2>
+        <label className="revealModeOption">
+          <input
+            type="radio"
+            name="reveal-mode"
+            checked={selectedMode === "instant"}
+            onChange={() => setSelectedMode("instant")}
+          />
+          <span>
+            <strong>Instant Results</strong>
+            <small>Immediately reveal all placements and statistics.</small>
+          </span>
+        </label>
+        <label className="revealModeOption">
+          <input
+            type="radio"
+            name="reveal-mode"
+            checked={selectedMode === "step"}
+            onChange={() => setSelectedMode("step")}
+          />
+          <span>
+            <strong>Step-by-Step Reveal</strong>
+            <small>Reveal placements individually with suspense.</small>
+          </span>
+        </label>
+        <label className="revealModeOption disabled">
+          <input type="radio" name="reveal-mode" disabled />
+          <span>
+            <strong>Eurovision Results Night</strong>
+            <small>Coming Soon</small>
+          </span>
+        </label>
+        <div className="spoilerActions">
+          <button className="secondaryButton" type="button" onClick={onCancel}>
+            Cancel
+          </button>
+          <button
+            className="primaryButton"
+            type="button"
+            onClick={() => onSelect(selectedMode)}
+          >
+            Reveal Results
+          </button>
+        </div>
+      </section>
+    </div>
   );
 }
 
@@ -891,20 +1034,29 @@ function PlacementPredictionPanel({
       Number(year) <= 2003 ? songs : songsForContestStage(songs, "grand-final"),
     [songs, year],
   );
-  const officialResults = useMemo(
-    () =>
-      finalists
-        .filter(
-          (song) =>
-            typeof song.finalPlacement === "number" && song.finalPlacement > 0,
-        )
-        .sort((a, b) => (a.finalPlacement ?? 0) - (b.finalPlacement ?? 0)),
-    [finalists],
-  );
+  const resultData = resultsByYear.get(year);
+  const officialResults = useMemo(() => {
+    if (!resultData) return [];
+    const placementsByCountry = new Map(
+      resultData.countries
+        .filter((country) => country.placement > 0)
+        .map((country) => [countryKey(country.country), country.placement]),
+    );
+
+    return finalists
+      .map((song) => {
+        const actualPlacement = placementsByCountry.get(
+          countryKey(song.country),
+        );
+        return actualPlacement ? { ...song, actualPlacement } : null;
+      })
+      .filter((song): song is FinalistResult => Boolean(song))
+      .sort((a, b) => a.actualPlacement - b.actualPlacement);
+  }, [finalists, resultData]);
   const revealOrderIds = useMemo(
     () =>
       [...officialResults]
-        .sort((a, b) => (b.finalPlacement ?? 0) - (a.finalPlacement ?? 0))
+        .sort((a, b) => b.actualPlacement - a.actualPlacement)
         .map((song) => song.id),
     [officialResults],
   );
@@ -914,14 +1066,15 @@ function PlacementPredictionPanel({
     emptyPredictionState(predictionKey),
   );
   const [dataError, setDataError] = useState("");
-  const [resultsWarningOpen, setResultsWarningOpen] = useState(false);
-  const [dontWarnAgain, setDontWarnAgain] = useState(false);
+  const [revealModeOpen, setRevealModeOpen] = useState(false);
+  const [instantAnimationComplete, setInstantAnimationComplete] =
+    useState(false);
 
   useEffect(() => {
     let active = true;
     setState(emptyPredictionState(predictionKey));
-    setResultsWarningOpen(false);
-    setDontWarnAgain(false);
+    setRevealModeOpen(false);
+    setInstantAnimationComplete(false);
 
     async function loadSaved() {
       try {
@@ -961,12 +1114,11 @@ function PlacementPredictionPanel({
   );
   const revealComplete =
     Boolean(state.revealStartedAt) && revealedIds.length >= finalists.length;
+  const showStatisticsButton =
+    revealComplete &&
+    !state.summaryViewedAt &&
+    (state.revealMode !== "instant" || instantAnimationComplete);
   const summaryVisible = revealComplete && Boolean(state.summaryViewedAt);
-  const latestRevealedSong = revealedIds.length
-    ? officialResults.find(
-        (song) => song.id === revealedIds[revealedIds.length - 1],
-      )
-    : undefined;
   const predictedPlaceById = new Map(
     predictedIds.map((songId, index) => [songId, index + 1]),
   );
@@ -976,6 +1128,29 @@ function PlacementPredictionPanel({
     revealedIds,
   );
   const summary = finalPlacementSummary(predictedIds, officialResults);
+
+  useEffect(() => {
+    if (
+      state.revealMode !== "instant" ||
+      !state.revealStartedAt ||
+      !revealComplete
+    ) {
+      setInstantAnimationComplete(false);
+      return;
+    }
+
+    const timeout = window.setTimeout(
+      () => setInstantAnimationComplete(true),
+      Math.max(0, officialResults.length - 1) * INSTANT_REVEAL_STEP_MS +
+        INSTANT_REVEAL_SETTLE_MS,
+    );
+    return () => window.clearTimeout(timeout);
+  }, [
+    officialResults.length,
+    revealComplete,
+    state.revealMode,
+    state.revealStartedAt,
+  ]);
 
   async function persist(nextState: PredictionState) {
     setState(nextState);
@@ -1021,6 +1196,7 @@ function PlacementPredictionPanel({
     void persist({
       ...state,
       lockedAt: undefined,
+      revealMode: undefined,
       revealStartedAt: undefined,
       revealOrderIds: undefined,
       revealedSongIds: [],
@@ -1031,28 +1207,26 @@ function PlacementPredictionPanel({
 
   function viewOfficialResults() {
     if (!hasOfficialResults) return;
-    if (hasHiddenFinalResultsWarning(year)) {
-      startReveal();
-      return;
-    }
-    setResultsWarningOpen(true);
+    setRevealModeOpen(true);
   }
 
-  function startReveal() {
-    if (dontWarnAgain) hideFinalResultsWarning(year);
+  function startReveal(mode: NonNullable<PredictionState["revealMode"]>) {
+    const nextRevealOrder = state.revealOrderIds ?? revealOrderIds;
     void persist({
       ...state,
       selectedSongIds: predictedIds,
+      revealMode: mode,
       revealStartedAt: state.revealStartedAt ?? new Date().toISOString(),
-      revealOrderIds: state.revealOrderIds ?? revealOrderIds,
-      revealedSongIds: state.revealedSongIds ?? [],
+      revealOrderIds: nextRevealOrder,
+      revealedSongIds: mode === "instant" ? nextRevealOrder : [],
+      summaryViewedAt: undefined,
       updatedAt: new Date().toISOString(),
     });
-    setResultsWarningOpen(false);
+    setRevealModeOpen(false);
   }
 
   function revealNextPlacement() {
-    if (revealComplete) {
+    if (showStatisticsButton) {
       void persist({
         ...state,
         summaryViewedAt: new Date().toISOString(),
@@ -1072,7 +1246,8 @@ function PlacementPredictionPanel({
   async function resetPrediction() {
     const nextState = emptyPredictionState(predictionKey);
     setState(nextState);
-    setResultsWarningOpen(false);
+    setRevealModeOpen(false);
+    setInstantAnimationComplete(false);
     setDataError("");
 
     try {
@@ -1170,7 +1345,7 @@ function PlacementPredictionPanel({
                   type="button"
                   onClick={viewOfficialResults}
                 >
-                  View Official Results
+                  Reveal Results
                 </button>
               ) : (
                 <span className="predictionNote">
@@ -1192,14 +1367,14 @@ function PlacementPredictionPanel({
         </>
       ) : summaryVisible ? (
         <div className="predictionSummary placementSummary">
-          <h3>Final Placement Accuracy</h3>
+          <h3>Prediction Summary</h3>
           <div className="placementStatsGrid">
             <section>
-              <span>Winner Correct</span>
+              <span>Winner Prediction Correct</span>
               <strong>{summary.winnerCorrect ? "Yes" : "No"}</strong>
             </section>
             <section>
-              <span>Exact Placements</span>
+              <span>Exact Placements Correct</span>
               <strong>{summary.metrics.exact}</strong>
             </section>
             <section>
@@ -1207,21 +1382,17 @@ function PlacementPredictionPanel({
               <strong>{summary.metrics.averageError.toFixed(1)}</strong>
             </section>
             <section>
-              <span>Top 5</span>
-              <strong>{summary.metrics.top5} / 5</strong>
-            </section>
-            <section>
-              <span>Top 10</span>
-              <strong>{summary.metrics.top10} / 10</strong>
+              <span>Current Accuracy</span>
+              <strong>{summary.metrics.currentAccuracy}%</strong>
             </section>
           </div>
           <div className="placementSummaryGrid">
             <PlacementDeltaCard
-              title="Most Overrated by User"
+              title="Largest Overestimate"
               delta={summary.mostOverrated}
             />
             <PlacementDeltaCard
-              title="Most Underrated by User"
+              title="Largest Underestimate"
               delta={summary.mostUnderrated}
             />
           </div>
@@ -1251,106 +1422,54 @@ function PlacementPredictionPanel({
               <strong>{liveMetrics.exact}</strong>
             </section>
             <section>
-              <span>Top 5 Accuracy</span>
-              <strong>{liveMetrics.top5} / 5</strong>
-            </section>
-            <section>
-              <span>Top 10 Accuracy</span>
-              <strong>{liveMetrics.top10} / 10</strong>
-            </section>
-            <section>
-              <span>Winner Prediction</span>
+              <span>Average Error</span>
               <strong>
-                {predictedWinner ? predictedWinner.country : "None"}
+                {revealedIds.length
+                  ? liveMetrics.averageError.toFixed(1)
+                  : "Hidden"}
+              </strong>
+            </section>
+            <section>
+              <span>Current Accuracy</span>
+              <strong>
+                {revealedIds.length
+                  ? `${liveMetrics.currentAccuracy}%`
+                  : "Hidden"}
               </strong>
             </section>
           </div>
 
-          {latestRevealedSong ? (
-            <PlacementRevealCard
-              song={latestRevealedSong}
-              predictedPlace={
-                predictedPlaceById.get(latestRevealedSong.id) ??
-                finalists.length
-              }
-            />
-          ) : (
-            <section className="placementRevealEmpty">
-              <strong>Official Results</strong>
-              <span>Reveal from last place upward.</span>
-            </section>
-          )}
+          <PlacementScoreboard
+            songs={officialResults}
+            revealedIds={revealedSet}
+            predictedPlaceById={predictedPlaceById}
+            revealOrderIds={state.revealOrderIds ?? revealOrderIds}
+          />
 
-          <button
-            className="primaryButton"
-            type="button"
-            onClick={revealNextPlacement}
-          >
-            {revealComplete
-              ? "See Prediction Summary"
-              : "Reveal Next Placement"}
-          </button>
-
-          <div className="placementRevealedList">
-            {revealedIds.map((songId) => {
-              const song = officialResults.find((item) => item.id === songId);
-              if (!song) return null;
-              return (
-                <span key={song.id}>
-                  {ordinal(song.finalPlacement ?? 0)}
-                  <FlagEmoji
-                    alt=""
-                    code={song.countryCode}
-                    src={song.flagEmoji}
-                  />
-                  {song.country}
-                </span>
-              );
-            })}
+          <div className="predictionFooter">
+            {showStatisticsButton || state.revealMode === "step" ? (
+              <button
+                className="primaryButton"
+                type="button"
+                disabled={
+                  state.revealMode === "instant" && !showStatisticsButton
+                }
+                onClick={revealNextPlacement}
+              >
+                {showStatisticsButton
+                  ? "Show Statistics"
+                  : "Reveal Next Placement"}
+              </button>
+            ) : null}
           </div>
         </div>
       )}
 
-      {resultsWarningOpen ? (
-        <div
-          className="spoilerModal"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="final-results-title"
-        >
-          <div className="spoilerBackdrop" />
-          <section className="spoilerDialog">
-            <h2 id="final-results-title">Reveal Final Results</h2>
-            <p>
-              This will reveal the official Eurovision placements for this
-              contest.
-            </p>
-            <label className="spoilerCheckbox">
-              <input
-                type="checkbox"
-                checked={dontWarnAgain}
-                onChange={(event) => setDontWarnAgain(event.target.checked)}
-              />
-              Don't show again for {year}
-            </label>
-            <div className="spoilerActions">
-              <button
-                className="secondaryButton"
-                type="button"
-                onClick={() => setResultsWarningOpen(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="primaryButton"
-                type="button"
-                onClick={startReveal}
-              >
-                Continue
-              </button>
-            </div>
-          </section>
-        </div>
+      {revealModeOpen ? (
+        <RevealModeModal
+          onCancel={() => setRevealModeOpen(false)}
+          onSelect={startReveal}
+        />
       ) : null}
     </section>
   );

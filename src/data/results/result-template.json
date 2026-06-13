@@ -1,0 +1,1090 @@
+{
+  "year": 0,
+  "televote": {
+    "url": "",
+    "beginTimestamp": null,
+    "endTimestamp": null
+  },
+  "countries": [
+    {
+      "country": "Albania",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Andorra",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Armenia",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Australia",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Austria",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Azerbaijan",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Belarus",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Belgium",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Bosnia & Herzegovina",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Bulgaria",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Croatia",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Cyprus",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Czechia",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Czech Republic",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Denmark",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Estonia",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Finland",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "France",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "FYR Macedonia",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Georgia",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Germany",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Greece",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Hungary",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Iceland",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Ireland",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Israel",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Italy",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Latvia",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Lithuania",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Luxembourg",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Malta",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Moldova",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Monaco",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Montenegro",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Morocco",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Netherlands",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "North Macedonia",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Norway",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Poland",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Portugal",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Romania",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Russia",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "San Marino",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Serbia",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Serbia & Montenegro",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Slovakia",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Slovenia",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Spain",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Sweden",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Switzerland",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Turkey",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Ukraine",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "United Kingdom",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    },
+    {
+      "country": "Yugoslavia",
+      "placement": 0,
+      "totalPoints": 0,
+      "juryPoints": 0,
+      "televotePoints": 0,
+      "jury": {
+        "url": "",
+        "delegationStartTime": null,
+        "twelvePointTimestamp": null,
+        "delegationEndTime": null,
+        "votesAwarded": [
+          {
+            "country": "",
+            "points": 0
+          }
+        ]
+      },
+      "pointsAnnouncedAt": null
+    }
+  ]
+}
