@@ -1,5 +1,11 @@
-import { RotateCcw, Save, Scale } from "lucide-react";
-import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
+import { RotateCcw, Scale } from "lucide-react";
+import {
+  type CSSProperties,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import ComparisonOverlay from "../components/ComparisonOverlay";
 import RankingList from "../components/RankingList";
 import { allSongs, allSongsBackground } from "../data/years";
@@ -19,21 +25,27 @@ type AllSongsPageProps = {
 function orderSongs(songs: Song[], savedIds?: string[]) {
   if (!savedIds?.length) return songs;
   const byId = new Map(songs.map((song) => [song.id, song]));
-  const ordered = savedIds.flatMap((id) => (byId.has(id) ? [byId.get(id)!] : []));
+  const ordered = savedIds.flatMap((id) =>
+    byId.has(id) ? [byId.get(id)!] : [],
+  );
   const missing = songs.filter((song) => !savedIds.includes(song.id));
   return [...ordered, ...missing];
 }
 
-export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProps) {
+export default function AllSongsPage({
+  favoritesOnly = false,
+}: AllSongsPageProps) {
   const rankingKey = favoritesOnly ? "favorites" : "all";
   const [favorites, setFavorites] = useState<Set<string>>(() => new Set());
   const sourceSongs = useMemo(
-    () => (favoritesOnly ? allSongs.filter((song) => favorites.has(song.id)) : allSongs),
+    () =>
+      favoritesOnly
+        ? allSongs.filter((song) => favorites.has(song.id))
+        : allSongs,
     [favorites, favoritesOnly],
   );
   const initialSongs = useMemo(() => sourceSongs, [sourceSongs]);
   const [songs, setSongs] = useState(initialSongs);
-  const [savedNotice, setSavedNotice] = useState("");
   const [dataError, setDataError] = useState("");
   const [comparisonOpen, setComparisonOpen] = useState(false);
   const hasLocalRankingChange = useRef(false);
@@ -51,7 +63,9 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
         setDataError("");
       } catch (error) {
         if (!active) return;
-        setDataError(error instanceof Error ? error.message : "Could not load favorites.");
+        setDataError(
+          error instanceof Error ? error.message : "Could not load favorites.",
+        );
       }
     }
 
@@ -72,7 +86,11 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
         setDataError("");
       } catch (error) {
         if (!active) return;
-        setDataError(error instanceof Error ? error.message : "Could not load saved ranking.");
+        setDataError(
+          error instanceof Error
+            ? error.message
+            : "Could not load saved ranking.",
+        );
       }
     }
 
@@ -88,19 +106,25 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
     else next.add(songId);
     setFavorites(next);
     void saveFavorites(next).catch((error: unknown) => {
-      setDataError(error instanceof Error ? error.message : "Could not save favorite.");
+      setDataError(
+        error instanceof Error ? error.message : "Could not save favorite.",
+      );
     });
   }
 
-  async function handleSave() {
+  async function autosaveRanking(nextSongs: Song[]) {
+    hasLocalRankingChange.current = true;
+    setSongs(nextSongs);
     try {
-      hasLocalRankingChange.current = true;
-      await saveRanking(rankingKey, songs.map((song) => song.id));
+      await saveRanking(
+        rankingKey,
+        nextSongs.map((song) => song.id),
+      );
       setDataError("");
-      setSavedNotice("Saved");
-      window.setTimeout(() => setSavedNotice(""), 1800);
     } catch (error) {
-      setDataError(error instanceof Error ? error.message : "Could not save ranking.");
+      setDataError(
+        error instanceof Error ? error.message : "Could not autosave ranking.",
+      );
     }
   }
 
@@ -110,10 +134,10 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
       hasLocalRankingChange.current = true;
       setSongs(sourceSongs);
       setDataError("");
-      setSavedNotice("Reset");
-      window.setTimeout(() => setSavedNotice(""), 1800);
     } catch (error) {
-      setDataError(error instanceof Error ? error.message : "Could not reset ranking.");
+      setDataError(
+        error instanceof Error ? error.message : "Could not reset ranking.",
+      );
     }
   }
 
@@ -124,7 +148,9 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
     >
       <section className="contentColumn">
         <div className="pageHeader">
-          <p className="eyebrow">{favoritesOnly ? "Saved favorites" : "Combined leaderboard"}</p>
+          <p className="eyebrow">
+            {favoritesOnly ? "Saved favorites" : "Combined leaderboard"}
+          </p>
           <h1>{favoritesOnly ? "Favorite Songs" : "All Songs Ranking"}</h1>
           <p>
             {favoritesOnly
@@ -137,17 +163,21 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
           <span className="countLine">{songs.length} songs to rank</span>
           <div className="toolbarActions">
             {!favoritesOnly ? (
-              <button className="primaryButton" type="button" onClick={() => setComparisonOpen(true)}>
+              <button
+                className="primaryButton"
+                type="button"
+                onClick={() => setComparisonOpen(true)}
+              >
                 <Scale size={17} /> Rank by Comparison
               </button>
             ) : null}
-            <button className="secondaryButton" type="button" onClick={handleReset}>
+            <button
+              className="secondaryButton"
+              type="button"
+              onClick={handleReset}
+            >
               <RotateCcw size={17} /> Reset Ranking
             </button>
-            <button className="secondaryButton" type="button" onClick={handleSave}>
-              <Save size={17} /> Save Ranking
-            </button>
-            {savedNotice ? <span className="savedNotice">{savedNotice}</span> : null}
           </div>
         </div>
         {dataError ? <div className="dataError">{dataError}</div> : null}
@@ -156,8 +186,7 @@ export default function AllSongsPage({ favoritesOnly = false }: AllSongsPageProp
           <RankingList
             songs={songs}
             onReorder={(nextSongs) => {
-              hasLocalRankingChange.current = true;
-              setSongs(nextSongs);
+              void autosaveRanking(nextSongs);
             }}
             favorites={favorites}
             onToggleFavorite={toggleFavorite}
