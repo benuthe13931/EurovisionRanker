@@ -22,7 +22,6 @@ export type Song = {
   semiFinal?: "single" | 1 | 2;
   qualifiedForFinal?: boolean | "auto";
   qualifiedAnnouncedPosition?: number;
-  finalPlacement?: number;
 };
 
 export type SemiFinalInput = Song["semiFinal"] | 0;
@@ -43,8 +42,36 @@ export type YearSongInput = Partial<
     semiFinal?: SemiFinalInput;
     qualifiedForFinal?: boolean | "auto";
     qualifiedAnnouncedPosition?: number;
-    finalPlacement?: number;
   };
+
+export type ResultCountryInput = {
+  country: string;
+  placement: number;
+  totalPoints?: number;
+  juryPoints?: number;
+  televotePoints?: number;
+  jury?: {
+    url?: string;
+    delegationStartTime?: number | null;
+    twelvePointTimestamp?: number | null;
+    delegationEndTime?: number | null;
+    votesAwarded?: {
+      country: string;
+      points: number;
+    }[];
+  };
+  pointsAnnouncedAt?: number | null;
+};
+
+export type YearResultData = {
+  year: number;
+  televote?: {
+    url?: string;
+    beginTimestamp?: number | null;
+    endTimestamp?: number | null;
+  };
+  countries: ResultCountryInput[];
+};
 
 export type YearData = {
   year: number;
@@ -85,6 +112,7 @@ export type PredictionState = {
   key: string;
   selectedSongIds: string[];
   lockedAt?: string;
+  revealMode?: "instant" | "step";
   revealStartedAt?: string;
   revealOrderIds?: string[];
   revealedSongIds: string[];
