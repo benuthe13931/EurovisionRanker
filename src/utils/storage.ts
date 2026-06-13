@@ -1,8 +1,9 @@
-import type { ComparisonState, RankingState } from "../types";
+import type { ComparisonState, PredictionState, RankingState } from "../types";
 import { supabase } from "./supabase";
 
 const RANKING_PREFIX = "eurovision-ranker:ranking:";
 const COMPARISON_PREFIX = "eurovision-ranker:comparison:";
+const PREDICTION_PREFIX = "eurovision-ranker:prediction:";
 const FAVORITES_KEY = "eurovision-ranker:favorites";
 const ACTIVE_PROFILE_KEY = "eurovision-ranker:active-profile";
 
@@ -33,14 +34,25 @@ function comparisonStorageKey(key: string) {
   return `${COMPARISON_PREFIX}${key}`;
 }
 
+function predictionStorageKey(key: string) {
+  return `${PREDICTION_PREFIX}${key}`;
+}
+
 async function rpc<T>(name: string, args: Record<string, unknown>) {
-  if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
-    throw new Error("Supabase is not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in Vercel.");
+  if (
+    !import.meta.env.VITE_SUPABASE_URL ||
+    !import.meta.env.VITE_SUPABASE_ANON_KEY
+  ) {
+    throw new Error(
+      "Supabase is not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in Vercel.",
+    );
   }
 
   const { data, error } = await supabase.rpc(name, args);
   if (error) {
-    const rawError = [error.code, error.message, error.details].filter(Boolean).join(" | ");
+    const rawError = [error.code, error.message, error.details]
+      .filter(Boolean)
+      .join(" | ");
     const missingFunction =
       error.code === "42883" ||
       error.code === "PGRST202" ||
@@ -60,12 +72,23 @@ async function rpc<T>(name: string, args: Record<string, unknown>) {
       error.message.includes("does not exist");
 
     if (missingTable) {
-      throw new Error(`Supabase setup is missing tables. Run the latest supabase/schema.sql in the Supabase SQL Editor. Supabase said: ${rawError}`);
+      throw new Error(
+        `Supabase setup is missing tables. Run the latest supabase/schema.sql in the Supabase SQL Editor. Supabase said: ${rawError}`,
+      );
     }
 
     throw new Error(rawError || error.message);
   }
   return data as T;
+}
+
+function missingRpcError(error: unknown, name: string) {
+  if (!(error instanceof Error)) return false;
+  return (
+    error.message.includes(`RPC function "${name}"`) ||
+    error.message.includes(`function public.${name}`) ||
+    error.message.includes("Could not find the function")
+  );
 }
 
 async function copyGuestDataToProfile() {
@@ -76,7 +99,16 @@ async function copyGuestDataToProfile() {
     if (!key?.startsWith(RANKING_PREFIX)) continue;
 
     const value = readJson<RankingState>(key);
-    if (value) await saveRanking(key.slice(RANKING_PREFIX.length), value.songIds);
+    if (value)
+      await saveRanking(key.slice(RANKING_PREFIX.length), value.songIds);
+  }
+
+  for (let index = 0; index < localStorage.length; index += 1) {
+    const key = localStorage.key(index);
+    if (!key?.startsWith(PREDICTION_PREFIX)) continue;
+
+    const value = readJson<PredictionState>(key);
+    if (value) await savePrediction(value);
   }
 
   for (let index = 0; index < localStorage.length; index += 1) {
@@ -136,7 +168,9 @@ export async function loadFavorites() {
   const profileId = activeProfileId();
   if (!profileId) return new Set(readJson<string[]>(FAVORITES_KEY) ?? []);
 
-  return new Set(await rpc<string[]>("get_favorites", { p_profile_id: profileId }));
+  return new Set(
+    await rpc<string[]>("get_favorites", { p_profile_id: profileId }),
+  );
 }
 
 export async function saveFavorites(favorites: Set<string>) {
@@ -165,7 +199,10 @@ export async function loadComparison(key: string) {
 
 export async function saveComparison(state: ComparisonState) {
   if (!activeProfileId()) {
-    localStorage.setItem(comparisonStorageKey(state.key), JSON.stringify(state));
+    localStorage.setItem(
+      comparisonStorageKey(state.key),
+      JSON.stringify(state),
+    );
     return state;
   }
 
@@ -188,18 +225,94 @@ export async function clearComparison(key: string) {
   });
 }
 
+export async function loadPrediction(key: string) {
+  const profileId = activeProfileId();
+  if (!profileId) return readJson<PredictionState>(predictionStorageKey(key));
+
+  try {
+    return await rpc<PredictionState | null>("get_prediction", {
+      p_prediction_key: key,
+      p_profile_id: profileId,
+    });
+  } catch (error) {
+    if (missingRpcError(error, "get_prediction")) {
+      return readJson<PredictionState>(predictionStorageKey(key));
+    }
+    throw error;
+  }
+}
+
+export async function savePrediction(state: PredictionState) {
+  const updatedState = {
+    ...state,
+    updatedAt: new Date().toISOString(),
+  };
+
+  if (!activeProfileId()) {
+    localStorage.setItem(
+      predictionStorageKey(state.key),
+      JSON.stringify(updatedState),
+    );
+    return updatedState;
+  }
+
+  try {
+    return await rpc<PredictionState>("save_prediction", {
+      p_prediction_key: state.key,
+      p_profile_id: activeProfileId(),
+      p_state: updatedState,
+    });
+  } catch (error) {
+    if (missingRpcError(error, "save_prediction")) {
+      localStorage.setItem(
+        predictionStorageKey(state.key),
+        JSON.stringify(updatedState),
+      );
+      return updatedState;
+    }
+    throw error;
+  }
+}
+
+export async function clearPrediction(key: string) {
+  if (!activeProfileId()) {
+    localStorage.removeItem(predictionStorageKey(key));
+    return;
+  }
+
+  try {
+    await rpc<void>("clear_prediction", {
+      p_prediction_key: key,
+      p_profile_id: activeProfileId(),
+    });
+  } catch (error) {
+    if (missingRpcError(error, "clear_prediction")) {
+      localStorage.removeItem(predictionStorageKey(key));
+      return;
+    }
+    throw error;
+  }
+}
+
 export function validatePassword(password: string) {
-  if (password.length < 8 || password.length > 20) return "Password must be 8-20 characters.";
-  if (!/[a-z]/.test(password)) return "Password needs at least one lowercase letter.";
-  if (!/[A-Z]/.test(password)) return "Password needs at least one capital letter.";
+  if (password.length < 8 || password.length > 20)
+    return "Password must be 8-20 characters.";
+  if (!/[a-z]/.test(password))
+    return "Password needs at least one lowercase letter.";
+  if (!/[A-Z]/.test(password))
+    return "Password needs at least one capital letter.";
   if (!/[0-9]/.test(password)) return "Password needs at least one number.";
-  if (!/[^A-Za-z0-9]/.test(password)) return "Password needs at least one symbol.";
+  if (!/[^A-Za-z0-9]/.test(password))
+    return "Password needs at least one symbol.";
   return "";
 }
 
 export function getPasswordRequirements(password: string) {
   return [
-    { label: "8-20 characters", met: password.length >= 8 && password.length <= 20 },
+    {
+      label: "8-20 characters",
+      met: password.length >= 8 && password.length <= 20,
+    },
     { label: "lowercase letter", met: /[a-z]/.test(password) },
     { label: "capital letter", met: /[A-Z]/.test(password) },
     { label: "number", met: /[0-9]/.test(password) },
@@ -211,7 +324,11 @@ export function loadActiveProfile() {
   return readJson<ActiveProfile>(ACTIVE_PROFILE_KEY);
 }
 
-export async function signUpProfile(name: string, username: string, password: string) {
+export async function signUpProfile(
+  name: string,
+  username: string,
+  password: string,
+) {
   const profile = await rpc<ActiveProfile>("signup_profile", {
     p_name: name,
     p_username: username,

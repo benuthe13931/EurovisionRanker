@@ -25,6 +25,9 @@ That one file creates the required extension, tables, indexes, `updated_at` trig
 - `get_comparison`
 - `save_comparison`
 - `clear_comparison`
+- `get_prediction`
+- `save_prediction`
+- `clear_prediction`
 
 No seed data is needed in Supabase right now. Eurovision years and songs are bundled in the app under `src/data/years`.
 

@@ -23,7 +23,19 @@ function defaultImageUrl(year: number, songId: string) {
   return `/assets/images/${year}/${songId}.${extension}`;
 }
 
-function normalizeSong(song: YearSongInput, year: number, seenIds: Set<string>): Song {
+function normalizeSemiFinal(
+  semiFinal: YearSongInput["semiFinal"],
+): Song["semiFinal"] {
+  return semiFinal === 1 || semiFinal === 2 || semiFinal === "single"
+    ? semiFinal
+    : undefined;
+}
+
+function normalizeSong(
+  song: YearSongInput,
+  year: number,
+  seenIds: Set<string>,
+): Song {
   const country = getCountryConfig(song.country, song.countryCode);
   const slug = country?.slug ?? countrySlug(song.country);
   let id = song.id ?? `${year}-${slug}`;
@@ -45,9 +57,14 @@ function normalizeSong(song: YearSongInput, year: number, seenIds: Set<string>):
       : country
         ? countryEmojiUrlForYear(country, year)
         : (song.flagEmoji ?? ""),
-    flagImageUrl: song.flagImageUrl ?? (country ? countryFlagImageUrlForYear(country, year) : undefined),
+    flagImageUrl:
+      song.flagImageUrl ??
+      (country ? countryFlagImageUrlForYear(country, year) : undefined),
     imageUrl: song.imageUrl ?? defaultImageUrl(year, id),
     year,
+    semiFinal: normalizeSemiFinal(song.semiFinal),
+    qualifiedForFinal: song.qualifiedForFinal,
+    qualifiedAnnouncedPosition: song.qualifiedAnnouncedPosition,
   };
 }
 
@@ -55,7 +72,9 @@ function normalizeYearData(yearData: YearDataInput): YearData {
   const seenIds = new Set<string>();
   return {
     ...yearData,
-    songs: yearData.songs.map((song) => normalizeSong(song, yearData.year, seenIds)),
+    songs: yearData.songs.map((song) =>
+      normalizeSong(song, yearData.year, seenIds),
+    ),
   };
 }
 
@@ -67,7 +86,9 @@ export const years: YearData[] = Object.entries(modules)
   .filter((yearData) => yearData.year > 0)
   .sort((a, b) => b.year - a.year);
 
-export const songsByYear = new Map(years.map((year) => [String(year.year), year]));
+export const songsByYear = new Map(
+  years.map((year) => [String(year.year), year]),
+);
 
 export const allSongs: Song[] = years.flatMap((year) =>
   year.songs.map((song) => ({ ...song, year: year.year })),
@@ -104,11 +125,13 @@ allSongs.forEach((song) => {
   });
 });
 
-export const countries: CountryData[] = Array.from(countriesByCode.values()).sort((a, b) =>
-  a.country.localeCompare(b.country),
-);
+export const countries: CountryData[] = Array.from(
+  countriesByCode.values(),
+).sort((a, b) => a.country.localeCompare(b.country));
 
-export const countriesBySlug = new Map(countries.map((country) => [country.slug, country]));
+export const countriesBySlug = new Map(
+  countries.map((country) => [country.slug, country]),
+);
 
 export const allSongsBackground =
   years[0]?.backgroundImage ?? "https://esc-ratings.eu/assets/hero-bg.webp";

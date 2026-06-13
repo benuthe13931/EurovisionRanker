@@ -19,9 +19,16 @@ export type Song = {
   flagImageUrl?: string;
   imageUrl: string;
   year?: number;
+  semiFinal?: "single" | 1 | 2;
+  qualifiedForFinal?: boolean | "auto";
+  qualifiedAnnouncedPosition?: number;
 };
 
-export type YearSongInput = Partial<Pick<Song, "id" | "countryCode" | "flagEmoji" | "flagImageUrl" | "imageUrl">> &
+export type SemiFinalInput = Song["semiFinal"] | 0;
+
+export type YearSongInput = Partial<
+  Pick<Song, "id" | "countryCode" | "flagEmoji" | "flagImageUrl" | "imageUrl">
+> &
   Pick<Song, "artist" | "title"> & {
     country: string;
     acceptedArtistAnswers?: string[];
@@ -32,6 +39,9 @@ export type YearSongInput = Partial<Pick<Song, "id" | "countryCode" | "flagEmoji
     previewPosterUrl?: string;
     previewType?: "audio" | "video" | "youtube" | "unknown";
     compareStartSeconds?: number;
+    semiFinal?: SemiFinalInput;
+    qualifiedForFinal?: boolean | "auto";
+    qualifiedAnnouncedPosition?: number;
   };
 
 export type YearData = {
@@ -66,5 +76,16 @@ export type ComparisonState = {
   completed: number;
   targetComparisons: number;
   currentPair?: [string, string];
+  updatedAt: string;
+};
+
+export type PredictionState = {
+  key: string;
+  selectedSongIds: string[];
+  lockedAt?: string;
+  revealStartedAt?: string;
+  revealOrderIds?: string[];
+  revealedSongIds: string[];
+  summaryViewedAt?: string;
   updatedAt: string;
 };
