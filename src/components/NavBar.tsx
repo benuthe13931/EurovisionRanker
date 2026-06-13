@@ -12,7 +12,7 @@ import {
   Trophy,
   User,
 } from "lucide-react";
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   getPasswordRequirements,
@@ -37,6 +37,27 @@ export default function NavBar() {
   const passwordHint = validatePassword(password);
   const passwordRequirements = getPasswordRequirements(password);
   const passwordsMatch = password.length > 0 && confirmPassword === password;
+
+  useEffect(() => {
+    function syncProfile() {
+      setActiveProfile(loadActiveProfile());
+    }
+
+    function openRequestedAuth(event: Event) {
+      const mode =
+        event instanceof CustomEvent && event.detail?.mode === "signup"
+          ? "signup"
+          : "login";
+      openAuth(mode);
+    }
+
+    window.addEventListener("profile:changed", syncProfile);
+    window.addEventListener("auth:open", openRequestedAuth);
+    return () => {
+      window.removeEventListener("profile:changed", syncProfile);
+      window.removeEventListener("auth:open", openRequestedAuth);
+    };
+  }, []);
 
   function openAuth(mode: AuthMode) {
     setAuthMode(mode);
@@ -66,7 +87,9 @@ export default function NavBar() {
       setConfirmPassword("");
       window.setTimeout(() => window.location.reload(), 250);
     } catch (error) {
-      setAuthStatus(error instanceof Error ? error.message : "Could not sign in.");
+      setAuthStatus(
+        error instanceof Error ? error.message : "Could not sign in.",
+      );
     }
   }
 
@@ -101,7 +124,10 @@ export default function NavBar() {
           <NavLink to="/favorites">
             <Heart size={16} /> Favorites
           </NavLink>
-          <NavLink to="/trivia" onClick={() => window.dispatchEvent(new Event("trivia:setup"))}>
+          <NavLink
+            to="/trivia"
+            onClick={() => window.dispatchEvent(new Event("trivia:setup"))}
+          >
             <Sparkles size={16} /> Trivia
           </NavLink>
           {activeProfile ? (
@@ -109,16 +135,28 @@ export default function NavBar() {
               <span className="navBadge">
                 <User size={14} /> {activeProfile.name}
               </span>
-              <button className="navAction" type="button" onClick={handleLogout}>
+              <button
+                className="navAction"
+                type="button"
+                onClick={handleLogout}
+              >
                 <LogOut size={15} /> Logout
               </button>
             </>
           ) : (
             <>
-              <button className="navAction" type="button" onClick={() => openAuth("login")}>
+              <button
+                className="navAction"
+                type="button"
+                onClick={() => openAuth("login")}
+              >
                 <LogIn size={15} /> Login
               </button>
-              <button className="navAction" type="button" onClick={() => openAuth("signup")}>
+              <button
+                className="navAction"
+                type="button"
+                onClick={() => openAuth("signup")}
+              >
                 <User size={15} /> Sign Up
               </button>
             </>
@@ -126,12 +164,29 @@ export default function NavBar() {
         </div>
       </nav>
       {authOpen ? (
-        <div className="authOverlay" role="dialog" aria-modal="true" aria-labelledby="auth-title">
-          <button className="authScrim" type="button" onClick={() => setAuthOpen(false)} aria-label="Close" />
-          <form className="authDialog" onSubmit={(event) => void handleAuthSubmit(event)}>
+        <div
+          className="authOverlay"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="auth-title"
+        >
+          <button
+            className="authScrim"
+            type="button"
+            onClick={() => setAuthOpen(false)}
+            aria-label="Close"
+          />
+          <form
+            className="authDialog"
+            onSubmit={(event) => void handleAuthSubmit(event)}
+          >
             <div>
-              <p className="eyebrow">{authMode === "signup" ? "Create profile" : "Welcome back"}</p>
-              <h2 id="auth-title">{authMode === "signup" ? "Sign Up" : "Login"}</h2>
+              <p className="eyebrow">
+                {authMode === "signup" ? "Create profile" : "Welcome back"}
+              </p>
+              <h2 id="auth-title">
+                {authMode === "signup" ? "Sign Up" : "Login"}
+              </h2>
             </div>
             {authMode === "signup" ? (
               <label>
@@ -161,7 +216,9 @@ export default function NavBar() {
                 type="password"
                 minLength={8}
                 maxLength={20}
-                autoComplete={authMode === "signup" ? "new-password" : "current-password"}
+                autoComplete={
+                  authMode === "signup" ? "new-password" : "current-password"
+                }
               />
             </label>
             {authMode === "signup" ? (
@@ -177,26 +234,50 @@ export default function NavBar() {
                 />
               </label>
             ) : null}
-            <p className={passwordHint && authMode === "signup" ? "authHint warning" : "authHint"}>
+            <p
+              className={
+                passwordHint && authMode === "signup"
+                  ? "authHint warning"
+                  : "authHint"
+              }
+            >
               8-20 characters, with lowercase, capital, number, and symbol.
             </p>
             {authMode === "signup" ? (
-              <div className="passwordChecklist" aria-label="Password requirements">
+              <div
+                className="passwordChecklist"
+                aria-label="Password requirements"
+              >
                 {passwordRequirements.map((requirement) => (
-                  <span className={requirement.met ? "met" : "missing"} key={requirement.label}>
-                    {requirement.met ? <CheckCircle2 size={14} /> : <AlertCircle size={14} />}
+                  <span
+                    className={requirement.met ? "met" : "missing"}
+                    key={requirement.label}
+                  >
+                    {requirement.met ? (
+                      <CheckCircle2 size={14} />
+                    ) : (
+                      <AlertCircle size={14} />
+                    )}
                     {requirement.label}
                   </span>
                 ))}
                 <span className={passwordsMatch ? "met" : "missing"}>
-                  {passwordsMatch ? <CheckCircle2 size={14} /> : <AlertCircle size={14} />}
+                  {passwordsMatch ? (
+                    <CheckCircle2 size={14} />
+                  ) : (
+                    <AlertCircle size={14} />
+                  )}
                   passwords match
                 </span>
               </div>
             ) : null}
             {authStatus ? <p className="authError">{authStatus}</p> : null}
             <div className="authActions">
-              <button className="secondaryButton" type="button" onClick={() => setAuthOpen(false)}>
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={() => setAuthOpen(false)}
+              >
                 Cancel
               </button>
               <button className="primaryButton" type="submit">
@@ -212,7 +293,9 @@ export default function NavBar() {
                 setConfirmPassword("");
               }}
             >
-              {authMode === "signup" ? "Already have a profile? Login" : "Need a profile? Sign up"}
+              {authMode === "signup"
+                ? "Already have a profile? Login"
+                : "Need a profile? Sign up"}
             </button>
           </form>
         </div>

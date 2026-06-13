@@ -1,3 +1,21 @@
+import {
+  closestCenter,
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { Check, LockKeyhole, RotateCcw, X } from "lucide-react";
 import {
   type CSSProperties,
@@ -30,6 +48,8 @@ type PredictionPanelProps = {
 
 const PREDICTION_SIZE = 10;
 const FLYING_DURATION_MS = 1650;
+const FINAL_RESULTS_WARNING_KEY =
+  "eurovision-ranker:hide-final-placement-warning";
 
 function emptyPredictionState(key: string): PredictionState {
   return {
@@ -56,6 +76,119 @@ function orderedQualifiers(qualifiers: Song[]) {
   }
 
   return [...qualifiers].sort(() => Math.random() - 0.5);
+}
+
+function ordinal(value: number) {
+  const remainder = value % 100;
+  if (remainder >= 11 && remainder <= 13) return `${value}th`;
+
+  switch (value % 10) {
+    case 1:
+      return `${value}st`;
+    case 2:
+      return `${value}nd`;
+    case 3:
+      return `${value}rd`;
+    default:
+      return `${value}th`;
+  }
+}
+
+function finalResultsWarningKey(year: string) {
+  return `${FINAL_RESULTS_WARNING_KEY}:${year}`;
+}
+
+function hasHiddenFinalResultsWarning(year: string) {
+  try {
+    return localStorage.getItem(finalResultsWarningKey(year)) === "true";
+  } catch {
+    return false;
+  }
+}
+
+function hideFinalResultsWarning(year: string) {
+  try {
+    localStorage.setItem(finalResultsWarningKey(year), "true");
+  } catch {
+    // Ignore storage failures; the warning can still be shown next time.
+  }
+}
+
+function placementDifferenceLabel(difference: number) {
+  return difference === 1 ? "1 Place" : `${difference} Places`;
+}
+
+function placementMetrics(
+  predictedIds: string[],
+  officialSongs: Song[],
+  revealedIds = officialSongs.map((song) => song.id),
+) {
+  const predictedPlaceById = new Map(
+    predictedIds.map((songId, index) => [songId, index + 1]),
+  );
+  const officialById = new Map(officialSongs.map((song) => [song.id, song]));
+  const revealedSongs = revealedIds
+    .map((songId) => officialById.get(songId))
+    .filter((song): song is Song => Boolean(song));
+  const diffs = revealedSongs
+    .map((song) => {
+      const predictedPlace = predictedPlaceById.get(song.id);
+      if (!predictedPlace || !song.finalPlacement) return undefined;
+      return Math.abs(predictedPlace - song.finalPlacement);
+    })
+    .filter((value): value is number => typeof value === "number");
+  const averageError =
+    diffs.length > 0
+      ? diffs.reduce((total, value) => total + value, 0) / diffs.length
+      : 0;
+  const predictedTop5 = new Set(predictedIds.slice(0, 5));
+  const predictedTop10 = new Set(predictedIds.slice(0, 10));
+  const revealedTop5 = revealedSongs.filter(
+    (song) => (song.finalPlacement ?? 0) <= 5,
+  );
+  const revealedTop10 = revealedSongs.filter(
+    (song) => (song.finalPlacement ?? 0) <= 10,
+  );
+
+  return {
+    exact: diffs.filter((diff) => diff === 0).length,
+    averageError,
+    top5: revealedTop5.filter((song) => predictedTop5.has(song.id)).length,
+    top10: revealedTop10.filter((song) => predictedTop10.has(song.id)).length,
+  };
+}
+
+function finalPlacementSummary(predictedIds: string[], officialSongs: Song[]) {
+  const predictedPlaceById = new Map(
+    predictedIds.map((songId, index) => [songId, index + 1]),
+  );
+  const actualWinner = officialSongs.find((song) => song.finalPlacement === 1);
+  const metrics = placementMetrics(predictedIds, officialSongs);
+  const deltas = officialSongs
+    .map((song) => {
+      const predictedPlace = predictedPlaceById.get(song.id);
+      if (!predictedPlace || !song.finalPlacement) return undefined;
+      return {
+        song,
+        predictedPlace,
+        actualPlace: song.finalPlacement,
+        overrate: song.finalPlacement - predictedPlace,
+        underrate: predictedPlace - song.finalPlacement,
+      };
+    })
+    .filter((value): value is NonNullable<typeof value> => Boolean(value));
+  const mostOverrated = [...deltas].sort((a, b) => b.overrate - a.overrate)[0];
+  const mostUnderrated = [...deltas].sort(
+    (a, b) => b.underrate - a.underrate,
+  )[0];
+
+  return {
+    actualWinner,
+    winnerCorrect: predictedIds[0] === actualWinner?.id,
+    metrics,
+    mostOverrated,
+    mostUnderrated,
+  };
 }
 
 function PredictionStagePanel({
@@ -592,6 +725,673 @@ function PredictionResultList({
   );
 }
 
+function PlacementPredictionRow({
+  song,
+  placement,
+  locked,
+}: {
+  song: Song;
+  placement: number;
+  locked: boolean;
+}) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: song.id,
+    disabled: locked,
+  });
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <article
+      ref={setNodeRef}
+      className={[
+        "placementPredictionRow",
+        isDragging ? "dragging" : "",
+        locked ? "locked" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      style={style}
+    >
+      <button
+        className="placementDragHandle"
+        type="button"
+        disabled={locked}
+        {...attributes}
+        {...listeners}
+        aria-label={`Move ${song.country}`}
+      >
+        <span aria-hidden="true">::</span>
+      </button>
+      <span className="placementRank">{ordinal(placement)}</span>
+      <FlagEmoji alt="" code={song.countryCode} src={song.flagEmoji} />
+      <span className="placementSongMeta">
+        <strong>{song.country}</strong>
+        <small>
+          {song.artist} / {song.title}
+        </small>
+      </span>
+    </article>
+  );
+}
+
+function PlacementPredictionList({
+  songs,
+  locked,
+  onReorder,
+}: {
+  songs: Song[];
+  locked: boolean;
+  onReorder: (songs: Song[]) => void;
+}) {
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 7 } }),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 120, tolerance: 8 },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = songs.findIndex((song) => song.id === active.id);
+    const newIndex = songs.findIndex((song) => song.id === over.id);
+    if (oldIndex < 0 || newIndex < 0) return;
+    onReorder(arrayMove(songs, oldIndex, newIndex));
+  }
+
+  return (
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
+    >
+      <SortableContext
+        items={songs.map((song) => song.id)}
+        strategy={verticalListSortingStrategy}
+      >
+        <div className="placementPredictionList">
+          {songs.map((song, index) => (
+            <PlacementPredictionRow
+              key={song.id}
+              song={song}
+              placement={index + 1}
+              locked={locked}
+            />
+          ))}
+        </div>
+      </SortableContext>
+    </DndContext>
+  );
+}
+
+function PlacementSongChip({ song }: { song: Song }) {
+  return (
+    <span className="placementSongChip">
+      <FlagEmoji alt="" code={song.countryCode} src={song.flagEmoji} />
+      {song.country}
+    </span>
+  );
+}
+
+function PlacementRevealCard({
+  song,
+  predictedPlace,
+}: {
+  song: Song;
+  predictedPlace: number;
+}) {
+  const actualPlace = song.finalPlacement ?? 0;
+  const difference = Math.abs(predictedPlace - actualPlace);
+
+  return (
+    <section className="placementRevealCard">
+      <span>{ordinal(actualPlace)} Place</span>
+      <h3>
+        <FlagEmoji alt="" code={song.countryCode} src={song.flagEmoji} />
+        {song.country}
+      </h3>
+      <p>
+        {song.artist} / {song.title}
+      </p>
+      <div>
+        <strong>User Prediction: {ordinal(predictedPlace)}</strong>
+        <strong>Actual: {ordinal(actualPlace)}</strong>
+        <strong>Difference: {placementDifferenceLabel(difference)}</strong>
+      </div>
+    </section>
+  );
+}
+
+function PlacementPredictionPanel({
+  year,
+  stage,
+  songs,
+}: {
+  year: string;
+  stage: ContestStage;
+  songs: Song[];
+}) {
+  const predictionKey = predictionKeyForStage(year, stage.key);
+  const finalists = useMemo(
+    () =>
+      Number(year) <= 2003 ? songs : songsForContestStage(songs, "grand-final"),
+    [songs, year],
+  );
+  const officialResults = useMemo(
+    () =>
+      finalists
+        .filter(
+          (song) =>
+            typeof song.finalPlacement === "number" && song.finalPlacement > 0,
+        )
+        .sort((a, b) => (a.finalPlacement ?? 0) - (b.finalPlacement ?? 0)),
+    [finalists],
+  );
+  const revealOrderIds = useMemo(
+    () =>
+      [...officialResults]
+        .sort((a, b) => (b.finalPlacement ?? 0) - (a.finalPlacement ?? 0))
+        .map((song) => song.id),
+    [officialResults],
+  );
+  const hasOfficialResults =
+    finalists.length > 0 && officialResults.length === finalists.length;
+  const [state, setState] = useState<PredictionState>(() =>
+    emptyPredictionState(predictionKey),
+  );
+  const [dataError, setDataError] = useState("");
+  const [resultsWarningOpen, setResultsWarningOpen] = useState(false);
+  const [dontWarnAgain, setDontWarnAgain] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    setState(emptyPredictionState(predictionKey));
+    setResultsWarningOpen(false);
+    setDontWarnAgain(false);
+
+    async function loadSaved() {
+      try {
+        const saved = await loadPrediction(predictionKey);
+        if (!active) return;
+        setState(saved ?? emptyPredictionState(predictionKey));
+        setDataError("");
+      } catch (error) {
+        if (!active) return;
+        setDataError(
+          error instanceof Error ? error.message : "Could not load prediction.",
+        );
+      }
+    }
+
+    void loadSaved();
+    return () => {
+      active = false;
+    };
+  }, [predictionKey]);
+
+  const finalistById = new Map(finalists.map((song) => [song.id, song]));
+  const predictedSongs = [
+    ...state.selectedSongIds
+      .map((songId) => finalistById.get(songId))
+      .filter((song): song is Song => Boolean(song)),
+    ...finalists.filter((song) => !state.selectedSongIds.includes(song.id)),
+  ];
+  const predictedIds = predictedSongs.map((song) => song.id);
+  const predictedTop5 = predictedSongs.slice(0, 5);
+  const predictedBottom5 = predictedSongs.slice(-5);
+  const predictedWinner = predictedSongs[0];
+  const revealedIds = state.revealedSongIds ?? [];
+  const revealedSet = new Set(revealedIds);
+  const nextRevealId = (state.revealOrderIds ?? revealOrderIds).find(
+    (songId) => !revealedSet.has(songId),
+  );
+  const revealComplete =
+    Boolean(state.revealStartedAt) && revealedIds.length >= finalists.length;
+  const summaryVisible = revealComplete && Boolean(state.summaryViewedAt);
+  const latestRevealedSong = revealedIds.length
+    ? officialResults.find(
+        (song) => song.id === revealedIds[revealedIds.length - 1],
+      )
+    : undefined;
+  const predictedPlaceById = new Map(
+    predictedIds.map((songId, index) => [songId, index + 1]),
+  );
+  const liveMetrics = placementMetrics(
+    predictedIds,
+    officialResults,
+    revealedIds,
+  );
+  const summary = finalPlacementSummary(predictedIds, officialResults);
+
+  async function persist(nextState: PredictionState) {
+    setState(nextState);
+    try {
+      const saved = await savePrediction(nextState);
+      setState(saved);
+      setDataError("");
+    } catch (error) {
+      setDataError(
+        error instanceof Error ? error.message : "Could not save prediction.",
+      );
+    }
+  }
+
+  function reorderPrediction(nextSongs: Song[]) {
+    if (state.lockedAt) return;
+    void persist({
+      ...state,
+      selectedSongIds: nextSongs.map((song) => song.id),
+      updatedAt: new Date().toISOString(),
+    });
+  }
+
+  function lockPrediction() {
+    if (!predictedIds.length) return;
+    void persist({
+      ...state,
+      selectedSongIds: predictedIds,
+      lockedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+  }
+
+  function unlockPrediction() {
+    if (
+      !window.confirm(
+        "Unlock this prediction? This will hide any revealed official results and allow edits.",
+      )
+    ) {
+      return;
+    }
+
+    void persist({
+      ...state,
+      lockedAt: undefined,
+      revealStartedAt: undefined,
+      revealOrderIds: undefined,
+      revealedSongIds: [],
+      summaryViewedAt: undefined,
+      updatedAt: new Date().toISOString(),
+    });
+  }
+
+  function viewOfficialResults() {
+    if (!hasOfficialResults) return;
+    if (hasHiddenFinalResultsWarning(year)) {
+      startReveal();
+      return;
+    }
+    setResultsWarningOpen(true);
+  }
+
+  function startReveal() {
+    if (dontWarnAgain) hideFinalResultsWarning(year);
+    void persist({
+      ...state,
+      selectedSongIds: predictedIds,
+      revealStartedAt: state.revealStartedAt ?? new Date().toISOString(),
+      revealOrderIds: state.revealOrderIds ?? revealOrderIds,
+      revealedSongIds: state.revealedSongIds ?? [],
+      updatedAt: new Date().toISOString(),
+    });
+    setResultsWarningOpen(false);
+  }
+
+  function revealNextPlacement() {
+    if (revealComplete) {
+      void persist({
+        ...state,
+        summaryViewedAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      });
+      return;
+    }
+
+    if (!nextRevealId) return;
+    void persist({
+      ...state,
+      revealedSongIds: [...revealedIds, nextRevealId],
+      updatedAt: new Date().toISOString(),
+    });
+  }
+
+  async function resetPrediction() {
+    const nextState = emptyPredictionState(predictionKey);
+    setState(nextState);
+    setResultsWarningOpen(false);
+    setDataError("");
+
+    try {
+      await clearPrediction(predictionKey);
+    } catch (error) {
+      setDataError(
+        error instanceof Error ? error.message : "Could not reset prediction.",
+      );
+    }
+  }
+
+  if (!finalists.length) {
+    return (
+      <section className="predictionPanel">
+        <div>
+          <h2>Predict the Official Final Results</h2>
+          <p>Add finalist data in the year JSON to enable final predictions.</p>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="predictionPanel placementPredictionPanel">
+      <div className="predictionHeader">
+        <div>
+          <h2>Predict the Official Final Results</h2>
+          <p>
+            Arrange the finalists in the order you believe Eurovision will
+            finish.
+          </p>
+        </div>
+        {state.lockedAt ? (
+          <div className="placementHeaderActions">
+            <button
+              className="secondaryButton"
+              type="button"
+              onClick={unlockPrediction}
+            >
+              Unlock Prediction
+            </button>
+            <button
+              className="secondaryButton"
+              type="button"
+              onClick={resetPrediction}
+            >
+              <RotateCcw size={16} /> Reset
+            </button>
+          </div>
+        ) : null}
+      </div>
+
+      {dataError ? <div className="dataError">{dataError}</div> : null}
+
+      {!state.revealStartedAt ? (
+        <>
+          <div className="placementLiveSummary">
+            <section>
+              <span>Predicted Winner</span>
+              {predictedWinner ? (
+                <PlacementSongChip song={predictedWinner} />
+              ) : (
+                <strong>None</strong>
+              )}
+            </section>
+            <section>
+              <span>Predicted Top 5</span>
+              <div>
+                {predictedTop5.map((song) => (
+                  <PlacementSongChip key={song.id} song={song} />
+                ))}
+              </div>
+            </section>
+            <section>
+              <span>Predicted Bottom 5</span>
+              <div>
+                {predictedBottom5.map((song) => (
+                  <PlacementSongChip key={song.id} song={song} />
+                ))}
+              </div>
+            </section>
+          </div>
+
+          <PlacementPredictionList
+            songs={predictedSongs}
+            locked={Boolean(state.lockedAt)}
+            onReorder={reorderPrediction}
+          />
+
+          <div className="predictionFooter">
+            {state.lockedAt ? (
+              hasOfficialResults ? (
+                <button
+                  className="primaryButton"
+                  type="button"
+                  onClick={viewOfficialResults}
+                >
+                  View Official Results
+                </button>
+              ) : (
+                <span className="predictionNote">
+                  Official final placements are not available for this contest
+                  yet.
+                </span>
+              )
+            ) : (
+              <button
+                className="primaryButton"
+                type="button"
+                disabled={!predictedIds.length}
+                onClick={lockPrediction}
+              >
+                <LockKeyhole size={16} /> Lock Prediction
+              </button>
+            )}
+          </div>
+        </>
+      ) : summaryVisible ? (
+        <div className="predictionSummary placementSummary">
+          <h3>Final Placement Accuracy</h3>
+          <div className="placementStatsGrid">
+            <section>
+              <span>Winner Correct</span>
+              <strong>{summary.winnerCorrect ? "Yes" : "No"}</strong>
+            </section>
+            <section>
+              <span>Exact Placements</span>
+              <strong>{summary.metrics.exact}</strong>
+            </section>
+            <section>
+              <span>Average Placement Error</span>
+              <strong>{summary.metrics.averageError.toFixed(1)}</strong>
+            </section>
+            <section>
+              <span>Top 5</span>
+              <strong>{summary.metrics.top5} / 5</strong>
+            </section>
+            <section>
+              <span>Top 10</span>
+              <strong>{summary.metrics.top10} / 10</strong>
+            </section>
+          </div>
+          <div className="placementSummaryGrid">
+            <PlacementDeltaCard
+              title="Most Overrated by User"
+              delta={summary.mostOverrated}
+            />
+            <PlacementDeltaCard
+              title="Most Underrated by User"
+              delta={summary.mostUnderrated}
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="placementReveal">
+          <div className="placementRevealHeader">
+            <div>
+              <h3>Official Results</h3>
+              <p>
+                Placements Revealed: {revealedIds.length} / {finalists.length}
+              </p>
+            </div>
+            <div>
+              <span>Average Prediction Error</span>
+              <strong>
+                {revealedIds.length
+                  ? liveMetrics.averageError.toFixed(1)
+                  : "Hidden"}
+              </strong>
+            </div>
+          </div>
+
+          <div className="placementStatsGrid">
+            <section>
+              <span>Exact Placements Predicted</span>
+              <strong>{liveMetrics.exact}</strong>
+            </section>
+            <section>
+              <span>Top 5 Accuracy</span>
+              <strong>{liveMetrics.top5} / 5</strong>
+            </section>
+            <section>
+              <span>Top 10 Accuracy</span>
+              <strong>{liveMetrics.top10} / 10</strong>
+            </section>
+            <section>
+              <span>Winner Prediction</span>
+              <strong>
+                {predictedWinner ? predictedWinner.country : "None"}
+              </strong>
+            </section>
+          </div>
+
+          {latestRevealedSong ? (
+            <PlacementRevealCard
+              song={latestRevealedSong}
+              predictedPlace={
+                predictedPlaceById.get(latestRevealedSong.id) ??
+                finalists.length
+              }
+            />
+          ) : (
+            <section className="placementRevealEmpty">
+              <strong>Official Results</strong>
+              <span>Reveal from last place upward.</span>
+            </section>
+          )}
+
+          <button
+            className="primaryButton"
+            type="button"
+            onClick={revealNextPlacement}
+          >
+            {revealComplete
+              ? "See Prediction Summary"
+              : "Reveal Next Placement"}
+          </button>
+
+          <div className="placementRevealedList">
+            {revealedIds.map((songId) => {
+              const song = officialResults.find((item) => item.id === songId);
+              if (!song) return null;
+              return (
+                <span key={song.id}>
+                  {ordinal(song.finalPlacement ?? 0)}
+                  <FlagEmoji
+                    alt=""
+                    code={song.countryCode}
+                    src={song.flagEmoji}
+                  />
+                  {song.country}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {resultsWarningOpen ? (
+        <div
+          className="spoilerModal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="final-results-title"
+        >
+          <div className="spoilerBackdrop" />
+          <section className="spoilerDialog">
+            <h2 id="final-results-title">Reveal Final Results</h2>
+            <p>
+              This will reveal the official Eurovision placements for this
+              contest.
+            </p>
+            <label className="spoilerCheckbox">
+              <input
+                type="checkbox"
+                checked={dontWarnAgain}
+                onChange={(event) => setDontWarnAgain(event.target.checked)}
+              />
+              Don't show again for {year}
+            </label>
+            <div className="spoilerActions">
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={() => setResultsWarningOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="primaryButton"
+                type="button"
+                onClick={startReveal}
+              >
+                Continue
+              </button>
+            </div>
+          </section>
+        </div>
+      ) : null}
+    </section>
+  );
+}
+
+function PlacementDeltaCard({
+  title,
+  delta,
+}: {
+  title: string;
+  delta?: {
+    song: Song;
+    predictedPlace: number;
+    actualPlace: number;
+  };
+}) {
+  return (
+    <section className="placementDeltaCard">
+      <h4>{title}</h4>
+      {delta ? (
+        <>
+          <strong>
+            <FlagEmoji
+              alt=""
+              code={delta.song.countryCode}
+              src={delta.song.flagEmoji}
+            />
+            {delta.song.country}
+          </strong>
+          <span>
+            Predicted {ordinal(delta.predictedPlace)} / Actual{" "}
+            {ordinal(delta.actualPlace)}
+          </span>
+        </>
+      ) : (
+        <p>None</p>
+      )}
+    </section>
+  );
+}
+
 export default function PredictionPanel({ year, songs }: PredictionPanelProps) {
   const stages = useMemo(() => predictionStagesForYear(Number(year)), [year]);
   const [activeStageKey, setActiveStageKey] = useState<ContestStageKey>(
@@ -627,12 +1427,21 @@ export default function PredictionPanel({ year, songs }: PredictionPanelProps) {
           </button>
         ))}
       </nav>
-      <PredictionStagePanel
-        key={activeStage.key}
-        year={year}
-        stage={activeStage}
-        songs={songs}
-      />
+      {activeStage.key === "grand-final" ? (
+        <PlacementPredictionPanel
+          key={activeStage.key}
+          year={year}
+          stage={activeStage}
+          songs={songs}
+        />
+      ) : (
+        <PredictionStagePanel
+          key={activeStage.key}
+          year={year}
+          stage={activeStage}
+          songs={songs}
+        />
+      )}
     </div>
   );
 }

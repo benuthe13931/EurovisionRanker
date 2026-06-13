@@ -704,6 +704,264 @@ a {
   visibility: hidden;
 }
 
+.placementPredictionPanel {
+  gap: 18px;
+}
+
+.placementHeaderActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.placementLiveSummary {
+  display: grid;
+  grid-template-columns: 0.8fr 1.1fr 1.1fr;
+  gap: 12px;
+}
+
+.placementLiveSummary section,
+.placementStatsGrid section,
+.placementDeltaCard,
+.placementRevealHeader,
+.placementRevealCard,
+.placementRevealEmpty {
+  min-width: 0;
+  padding: 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.placementLiveSummary section {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.placementLiveSummary section > span,
+.placementStatsGrid span,
+.placementRevealHeader span,
+.placementDeltaCard span {
+  color: rgba(247, 242, 255, 0.58);
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.placementLiveSummary section > div,
+.placementRevealedList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.placementSongChip,
+.placementRevealedList span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  min-height: 32px;
+  padding: 0 10px;
+  border-radius: 8px;
+  background: rgba(7, 7, 12, 0.52);
+  color: rgba(247, 242, 255, 0.9);
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.placementPredictionList {
+  display: grid;
+  gap: 8px;
+}
+
+.placementPredictionRow {
+  display: grid;
+  grid-template-columns: 34px 64px 34px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 10px 12px 10px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.065);
+}
+
+.placementPredictionRow.dragging {
+  z-index: 5;
+  border-color: rgba(117, 240, 255, 0.48);
+  background: rgba(117, 240, 255, 0.13);
+}
+
+.placementPredictionRow.locked {
+  opacity: 0.9;
+}
+
+.placementDragHandle {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 38px;
+  border: 0;
+  border-radius: 8px;
+  color: rgba(247, 242, 255, 0.54);
+  background: transparent;
+  cursor: grab;
+  font-weight: 900;
+  touch-action: none;
+}
+
+.placementDragHandle:disabled {
+  cursor: default;
+  opacity: 0.38;
+}
+
+.placementRank {
+  color: #75f0ff;
+  font-weight: 950;
+}
+
+.placementSongMeta {
+  display: grid;
+  min-width: 0;
+}
+
+.placementSongMeta strong,
+.placementSongMeta small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.placementSongMeta small {
+  color: rgba(247, 242, 255, 0.58);
+  font-size: 0.78rem;
+}
+
+.placementReveal {
+  display: grid;
+  gap: 14px;
+}
+
+.placementRevealHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.placementRevealHeader h3,
+.placementRevealHeader p,
+.placementRevealEmpty strong,
+.placementRevealEmpty span,
+.placementRevealCard h3,
+.placementRevealCard p,
+.placementDeltaCard h4,
+.placementDeltaCard p {
+  margin: 0;
+}
+
+.placementRevealHeader strong {
+  display: block;
+  margin-top: 4px;
+  color: #75f0ff;
+  font-size: 1.4rem;
+}
+
+.placementStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.placementStatsGrid section {
+  display: grid;
+  gap: 5px;
+}
+
+.placementStatsGrid strong {
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+.placementRevealCard {
+  display: grid;
+  gap: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(117, 240, 255, 0.28);
+  animation: placement-card-in 360ms ease both;
+}
+
+.placementRevealCard > span {
+  color: #75f0ff;
+  font-weight: 950;
+}
+
+.placementRevealCard h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.55rem;
+}
+
+.placementRevealCard p,
+.placementRevealEmpty span {
+  color: rgba(247, 242, 255, 0.64);
+}
+
+.placementRevealCard div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.placementRevealCard div strong {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  padding: 0 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  font-size: 0.86rem;
+}
+
+.placementRevealEmpty {
+  display: grid;
+  place-items: center;
+  gap: 4px;
+  min-height: 130px;
+  text-align: center;
+}
+
+.placementSummaryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.placementDeltaCard {
+  display: grid;
+  gap: 9px;
+}
+
+.placementDeltaCard strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@keyframes placement-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @keyframes reveal-swipe {
   from {
     transform: translateX(-101%);
@@ -806,6 +1064,58 @@ a {
 
 .spoilerActions {
   display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.guestSaveModal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 20px;
+  pointer-events: none;
+}
+
+.guestSaveBackdrop {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+}
+
+.guestSaveDialog {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 12px;
+  width: min(430px, 100%);
+  padding: 18px;
+  border: 1px solid rgba(117, 240, 255, 0.22);
+  border-radius: 10px;
+  background: rgba(9, 9, 16, 0.96);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+  pointer-events: auto;
+}
+
+.guestSaveDialog h2,
+.guestSaveDialog p {
+  margin: 0;
+}
+
+.guestSaveDialog h2 {
+  font-size: 1.15rem;
+}
+
+.guestSaveDialog p {
+  color: rgba(247, 242, 255, 0.68);
+  line-height: 1.45;
+}
+
+.guestSaveActions {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   gap: 10px;
 }
@@ -3016,6 +3326,29 @@ a {
 
   .predictionSummaryGrid {
     grid-template-columns: 1fr;
+  }
+
+  .placementLiveSummary,
+  .placementStatsGrid,
+  .placementSummaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .placementRevealHeader,
+  .placementHeaderActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .placementHeaderActions .secondaryButton,
+  .placementPredictionPanel .primaryButton {
+    width: 100%;
+  }
+
+  .placementPredictionRow {
+    grid-template-columns: 32px 54px 30px minmax(0, 1fr);
+    gap: 8px;
+    padding-right: 10px;
   }
 }
 

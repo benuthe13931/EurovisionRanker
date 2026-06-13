@@ -22,6 +22,7 @@ export type Song = {
   semiFinal?: "single" | 1 | 2;
   qualifiedForFinal?: boolean | "auto";
   qualifiedAnnouncedPosition?: number;
+  finalPlacement?: number;
 };
 
 export type SemiFinalInput = Song["semiFinal"] | 0;
@@ -42,6 +43,7 @@ export type YearSongInput = Partial<
     semiFinal?: SemiFinalInput;
     qualifiedForFinal?: boolean | "auto";
     qualifiedAnnouncedPosition?: number;
+    finalPlacement?: number;
   };
 
 export type YearData = {

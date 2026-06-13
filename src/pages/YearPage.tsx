@@ -22,11 +22,14 @@ import {
 } from "../utils/contestStages";
 import {
   clearRanking,
+  loadActiveProfile,
   loadFavorites,
   loadRanking,
   saveFavorites,
   saveRanking,
 } from "../utils/storage";
+
+const GUEST_SAVE_PROMPT_KEY = "eurovision-ranker:hide-guest-save-prompt";
 
 function orderSongs(songs: Song[], savedIds?: string[]) {
   if (!savedIds?.length) return songs;
@@ -61,6 +64,9 @@ export default function YearPage() {
   const [pendingStage, setPendingStage] = useState<ContestStage | null>(null);
   const [skipGrandFinalWarning, setSkipGrandFinalWarning] = useState(false);
   const [dontWarnAgain, setDontWarnAgain] = useState(false);
+  const [guestSavePromptOpen, setGuestSavePromptOpen] = useState(false);
+  const [dontShowGuestSavePrompt, setDontShowGuestSavePrompt] = useState(false);
+  const guestSavePromptShown = useRef(false);
   const localSongOrders = useRef(new Map<string, Song[]>());
 
   const stageSourceSongs = useMemo(
@@ -170,6 +176,29 @@ export default function YearPage() {
     });
   }
 
+  function shouldShowGuestSavePrompt() {
+    if (loadActiveProfile()) return false;
+    if (guestSavePromptShown.current) return false;
+    return localStorage.getItem(GUEST_SAVE_PROMPT_KEY) !== "true";
+  }
+
+  function closeGuestSavePrompt() {
+    if (dontShowGuestSavePrompt) {
+      localStorage.setItem(GUEST_SAVE_PROMPT_KEY, "true");
+    }
+    setGuestSavePromptOpen(false);
+    setDontShowGuestSavePrompt(false);
+  }
+
+  function openAuthFromGuestPrompt(mode: "login" | "signup") {
+    if (dontShowGuestSavePrompt) {
+      localStorage.setItem(GUEST_SAVE_PROMPT_KEY, "true");
+    }
+    setGuestSavePromptOpen(false);
+    setDontShowGuestSavePrompt(false);
+    window.dispatchEvent(new CustomEvent("auth:open", { detail: { mode } }));
+  }
+
   async function autosaveRanking(nextSongs: Song[]) {
     localSongOrders.current.set(rankingKey, nextSongs);
     setSongs(nextSongs);
@@ -179,6 +208,10 @@ export default function YearPage() {
         nextSongs.map((song) => song.id),
       );
       setDataError("");
+      if (shouldShowGuestSavePrompt()) {
+        guestSavePromptShown.current = true;
+        setGuestSavePromptOpen(true);
+      }
     } catch (error) {
       setDataError(
         error instanceof Error ? error.message : "Could not autosave ranking.",
@@ -346,6 +379,57 @@ export default function YearPage() {
                 onClick={continueToPendingStage}
               >
                 Continue
+              </button>
+            </div>
+          </section>
+        </div>
+      ) : null}
+      {guestSavePromptOpen ? (
+        <div
+          className="guestSaveModal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="guest-save-title"
+        >
+          <div className="guestSaveBackdrop" />
+          <section className="guestSaveDialog">
+            <h2 id="guest-save-title">Save rankings across devices</h2>
+            <p>
+              You're currently ranking as a guest. Your changes are saved in
+              this browser, but signing in keeps them available if browser data
+              is cleared or you switch devices.
+            </p>
+            <label className="spoilerCheckbox">
+              <input
+                type="checkbox"
+                checked={dontShowGuestSavePrompt}
+                onChange={(event) =>
+                  setDontShowGuestSavePrompt(event.target.checked)
+                }
+              />
+              Don't show this again
+            </label>
+            <div className="guestSaveActions">
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={closeGuestSavePrompt}
+              >
+                No Thanks
+              </button>
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={() => openAuthFromGuestPrompt("login")}
+              >
+                Login
+              </button>
+              <button
+                className="primaryButton"
+                type="button"
+                onClick={() => openAuthFromGuestPrompt("signup")}
+              >
+                Create Account
               </button>
             </div>
           </section>
