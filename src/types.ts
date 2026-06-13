@@ -112,7 +112,7 @@ export type PredictionState = {
   key: string;
   selectedSongIds: string[];
   lockedAt?: string;
-  revealMode?: "instant" | "step";
+  revealMode?: "instant" | "step" | "eurovision-night";
   revealStartedAt?: string;
   revealOrderIds?: string[];
   revealedSongIds: string[];
