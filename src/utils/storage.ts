@@ -6,11 +6,15 @@ const COMPARISON_PREFIX = "eurovision-ranker:comparison:";
 const PREDICTION_PREFIX = "eurovision-ranker:prediction:";
 const FAVORITES_KEY = "eurovision-ranker:favorites";
 const ACTIVE_PROFILE_KEY = "eurovision-ranker:active-profile";
+const PROFILE_TTL_MS = 1000 * 60 * 60 * 24 * 30;
+const UUID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export type ActiveProfile = {
   id: string;
   name: string;
   username: string;
+  expiresAt?: string;
 };
 
 function readJson<T>(key: string): T | null {
@@ -22,8 +26,42 @@ function readJson<T>(key: string): T | null {
   }
 }
 
+function profileExpired(profile: ActiveProfile) {
+  return profile.expiresAt
+    ? Date.parse(profile.expiresAt) <= Date.now()
+    : false;
+}
+
+function notifyProfileChange() {
+  window.dispatchEvent(new Event("profile:changed"));
+}
+
+function clearActiveProfile() {
+  localStorage.removeItem(ACTIVE_PROFILE_KEY);
+  notifyProfileChange();
+}
+
+function profileWithExpiry(profile: ActiveProfile): ActiveProfile {
+  return {
+    ...profile,
+    expiresAt: new Date(Date.now() + PROFILE_TTL_MS).toISOString(),
+  };
+}
+
+function activeProfile() {
+  const profile = readJson<ActiveProfile>(ACTIVE_PROFILE_KEY);
+  if (!profile) return null;
+
+  if (!UUID_PATTERN.test(profile.id) || profileExpired(profile)) {
+    clearActiveProfile();
+    return null;
+  }
+
+  return profile;
+}
+
 function activeProfileId() {
-  return readJson<ActiveProfile>(ACTIVE_PROFILE_KEY)?.id;
+  return activeProfile()?.id;
 }
 
 function rankingStorageKey(key: string) {
@@ -321,7 +359,7 @@ export function getPasswordRequirements(password: string) {
 }
 
 export function loadActiveProfile() {
-  return readJson<ActiveProfile>(ACTIVE_PROFILE_KEY);
+  return activeProfile();
 }
 
 export async function signUpProfile(
@@ -335,9 +373,11 @@ export async function signUpProfile(
     p_password: password,
   });
 
-  localStorage.setItem(ACTIVE_PROFILE_KEY, JSON.stringify(profile));
+  const activeProfile = profileWithExpiry(profile);
+  localStorage.setItem(ACTIVE_PROFILE_KEY, JSON.stringify(activeProfile));
+  notifyProfileChange();
   await copyGuestDataToProfile();
-  return profile;
+  return activeProfile;
 }
 
 export async function loginProfile(username: string, password: string) {
@@ -346,10 +386,12 @@ export async function loginProfile(username: string, password: string) {
     p_password: password,
   });
 
-  localStorage.setItem(ACTIVE_PROFILE_KEY, JSON.stringify(profile));
-  return profile;
+  const activeProfile = profileWithExpiry(profile);
+  localStorage.setItem(ACTIVE_PROFILE_KEY, JSON.stringify(activeProfile));
+  notifyProfileChange();
+  return activeProfile;
 }
 
 export function logoutProfile() {
-  localStorage.removeItem(ACTIVE_PROFILE_KEY);
+  clearActiveProfile();
 }

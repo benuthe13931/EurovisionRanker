@@ -47,10 +47,15 @@ export function predictionKeyForStage(year: string, stageKey: ContestStageKey) {
   return `year:${year}:prediction:${stageKey}`;
 }
 
-export function predictionStagesForYear(year: number) {
-  return getContestStages(year).filter((stage) =>
-    stage.key.includes("semi-final"),
-  );
+export function predictionStagesForYear(year: number): ContestStage[] {
+  if (year <= 2003) return [{ key: "grand-final", label: "Final Placings" }];
+
+  return [
+    ...getContestStages(year).filter((stage) =>
+      stage.key.includes("semi-final"),
+    ),
+    { key: "grand-final", label: "Grand Final Placements" },
+  ] satisfies ContestStage[];
 }
 
 function qualifiedForGrandFinal(song: Song) {

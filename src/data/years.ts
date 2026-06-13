@@ -65,6 +65,7 @@ function normalizeSong(
     semiFinal: normalizeSemiFinal(song.semiFinal),
     qualifiedForFinal: song.qualifiedForFinal,
     qualifiedAnnouncedPosition: song.qualifiedAnnouncedPosition,
+    finalPlacement: song.finalPlacement,
   };
 }
 
