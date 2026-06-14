@@ -1191,7 +1191,7 @@ a {
 
 .resultsNightStage {
   display: grid;
-  grid-template-columns: minmax(380px, 0.76fr) minmax(760px, 1.5fr);
+  grid-template-columns: minmax(460px, 1fr) minmax(620px, 1.15fr);
   gap: 22px;
   align-items: start;
   overflow: visible;
@@ -1337,7 +1337,7 @@ a {
 .resultsNightVideo > div {
   display: block;
   width: 100%;
-  height: clamp(250px, 28vw, 430px);
+  height: clamp(280px, 32vw, 520px);
   border: 0;
   object-fit: contain;
   backface-visibility: hidden;
@@ -1347,26 +1347,26 @@ a {
 .nightScoreboard {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 30px;
+  gap: 22px;
   align-items: start;
   overflow: visible;
-  padding-inline: 8px;
+  padding-inline: 4px;
 }
 
 .nightScoreboard > div {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   overflow: visible;
 }
 
 .nightScoreboardCard {
   position: relative;
   display: grid;
-  grid-template-columns: 62px 28px minmax(0, 1fr) 84px;
+  grid-template-columns: 54px 24px minmax(0, 1fr) 68px;
   align-items: center;
-  gap: 12px;
-  min-height: 56px;
-  padding: 9px 12px 9px 0;
+  gap: 8px;
+  min-height: 52px;
+  padding: 8px 9px 8px 0;
   overflow: visible;
   border: 1px solid rgba(255, 255, 255, 0.11);
   border-radius: 8px;
@@ -1455,9 +1455,12 @@ a {
 }
 
 .nightScoreboardCard.active {
-  border-color: rgba(117, 240, 255, 0.7);
-  box-shadow: 0 0 24px rgba(117, 240, 255, 0.16);
-  animation: active-night-pulse 2400ms ease-in-out infinite;
+  z-index: 2;
+  border-color: rgba(117, 240, 255, 0.78);
+  box-shadow:
+    0 0 0 1px rgba(117, 240, 255, 0.24),
+    0 0 26px rgba(117, 240, 255, 0.18);
+  animation: active-night-pulse 1800ms ease-in-out infinite;
 }
 
 .nightScoreboardCard.completed::before {
@@ -1487,8 +1490,8 @@ a {
   align-self: stretch;
   display: grid;
   place-items: center;
-  min-width: 58px;
-  margin-block: -9px;
+  min-width: 52px;
+  margin-block: -8px;
   border-right: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px 0 0 8px;
   color: #fff;
@@ -1499,7 +1502,7 @@ a {
       rgba(53, 214, 255, 0.38)
     ),
     rgba(255, 255, 255, 0.045);
-  font-size: 1.45rem;
+  font-size: 1.38rem;
   font-weight: 950;
   text-align: center;
   font-variant-numeric: tabular-nums;
@@ -1619,11 +1622,22 @@ a {
   pointer-events: none;
   transform: translate(-50%, -50%) scale(1);
   transform-origin: center;
-  animation: televote-jackpot 2600ms cubic-bezier(0.12, 0.86, 0.2, 1) forwards;
+  animation: televote-jackpot-grow 2600ms cubic-bezier(0.12, 0.86, 0.2, 1)
+    forwards;
+}
+
+.centerTelevoteScore span {
+  display: block;
+  transform-origin: center;
+  animation: televote-jackpot-shake 82ms steps(1, end) 32 forwards;
 }
 
 .centerTelevoteScore.flying {
   animation: televote-score-fly 900ms cubic-bezier(0.16, 0.84, 0.26, 1) forwards;
+}
+
+.centerTelevoteScore.flying span {
+  animation: none;
 }
 
 .centerStaticAward {
@@ -1773,10 +1787,10 @@ a {
 @keyframes active-night-pulse {
   0%,
   100% {
-    transform: scale(1);
+    scale: 1;
   }
   50% {
-    transform: scale(1.015);
+    scale: 1.024;
   }
 }
 
@@ -1789,36 +1803,43 @@ a {
   }
 }
 
-@keyframes televote-jackpot {
+@keyframes televote-jackpot-grow {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.06) rotate(0deg);
+    transform: translate(-50%, -50%) scale(0.06);
   }
-  12% {
+  10% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(0.22) rotate(45deg);
+    transform: translate(-50%, -50%) scale(0.18);
   }
   24% {
-    transform: translate(-50%, -50%) scale(0.38) rotate(-45deg);
-  }
-  36% {
-    transform: translate(-50%, -50%) scale(0.54) rotate(45deg);
+    transform: translate(-50%, -50%) scale(0.36);
   }
   48% {
-    transform: translate(-50%, -50%) scale(0.7) rotate(-45deg);
+    transform: translate(-50%, -50%) scale(0.72);
   }
   60% {
-    transform: translate(-50%, -50%) scale(0.86) rotate(45deg);
+    transform: translate(-50%, -50%) scale(0.9);
   }
   72% {
-    transform: translate(-50%, -50%) scale(1.08) rotate(-45deg);
+    transform: translate(-50%, -50%) scale(1.08);
   }
-  86% {
-    transform: translate(-50%, -50%) scale(0.94) rotate(0deg);
+  88% {
+    transform: translate(-50%, -50%) scale(0.94);
   }
   100% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes televote-jackpot-shake {
+  0%,
+  100% {
+    transform: rotate(-45deg);
+  }
+  50% {
+    transform: rotate(45deg);
   }
 }
 
