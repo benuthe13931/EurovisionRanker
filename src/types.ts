@@ -51,8 +51,8 @@ export type ResultCountryInput = {
   juryPoints?: number;
   televotePoints?: number;
   jury?: {
-    url?: string;
     delegationStartTime?: number | null;
+    twelvePointAnnouncementStartTime?: number | null;
     twelvePointTimestamp?: number | null;
     delegationEndTime?: number | null;
     votesAwarded?: {
@@ -65,8 +65,9 @@ export type ResultCountryInput = {
 
 export type YearResultData = {
   year: number;
+  livestreamUrl?: string;
+  juryAnnouncementOrder?: string[];
   televote?: {
-    url?: string;
     beginTimestamp?: number | null;
     endTimestamp?: number | null;
   };
@@ -113,6 +114,8 @@ export type PredictionState = {
   selectedSongIds: string[];
   lockedAt?: string;
   revealMode?: "instant" | "step" | "eurovision-night";
+  useResultsVideo?: boolean;
+  juryVideoSegment?: "full-call" | "twelve-point";
   revealStartedAt?: string;
   revealOrderIds?: string[];
   revealedSongIds: string[];

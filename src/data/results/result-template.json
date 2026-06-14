@@ -1,7 +1,8 @@
 {
   "year": 0,
+  "livestreamUrl": "",
+  "juryAnnouncementOrder": [],
   "televote": {
-    "url": "",
     "beginTimestamp": null,
     "endTimestamp": null
   },
@@ -13,14 +14,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -33,14 +70,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -53,14 +126,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -73,14 +182,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -93,14 +238,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -113,14 +294,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -133,14 +350,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -153,14 +406,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -173,14 +462,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -193,14 +518,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -213,14 +574,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -233,14 +630,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -253,14 +686,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -273,14 +742,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -293,14 +798,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -313,14 +854,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -333,14 +910,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -353,14 +966,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -373,14 +1022,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -393,14 +1078,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -413,14 +1134,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -433,14 +1190,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -453,14 +1246,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -473,14 +1302,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -493,14 +1358,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -513,14 +1414,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -533,14 +1470,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -553,14 +1526,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -573,14 +1582,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -593,14 +1638,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -613,14 +1694,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -633,14 +1750,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -653,14 +1806,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -673,14 +1862,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -693,14 +1918,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -713,14 +1974,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -733,14 +2030,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -753,14 +2086,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -773,14 +2142,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -793,14 +2198,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -813,14 +2254,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -833,14 +2310,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -853,14 +2366,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -873,14 +2422,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -893,14 +2478,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -913,14 +2534,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -933,14 +2590,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -953,14 +2646,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -973,14 +2702,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -993,14 +2758,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -1013,14 +2814,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -1033,14 +2870,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -1053,14 +2926,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
@@ -1073,14 +2982,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
         "delegationStartTime": null,
-        "twelvePointTimestamp": null,
+        "twelvePointAnnouncementStartTime": null,
+        "twelvePointTimestamp": 0,
         "delegationEndTime": null,
         "votesAwarded": [
           {
             "country": "",
-            "points": 0
+            "points": 12
+          },
+          {
+            "country": "",
+            "points": 10
+          },
+          {
+            "country": "",
+            "points": 8
+          },
+          {
+            "country": "",
+            "points": 7
+          },
+          {
+            "country": "",
+            "points": 6
+          },
+          {
+            "country": "",
+            "points": 5
+          },
+          {
+            "country": "",
+            "points": 4
+          },
+          {
+            "country": "",
+            "points": 3
+          },
+          {
+            "country": "",
+            "points": 2
+          },
+          {
+            "country": "",
+            "points": 1
           }
         ]
       },
