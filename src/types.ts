@@ -63,6 +63,7 @@ export type ResultCountryInput = {
     }[];
   };
   pointsAnnouncedAt?: number | null;
+  assetsPointsAnnouncedAt?: number | null;
 };
 
 export type YearResultData = {
@@ -144,6 +145,12 @@ export type PredictionState = {
   revealStartedAt?: string;
   revealOrderIds?: string[];
   revealedSongIds: string[];
+  finalsRevealProgress?: {
+    phase: "ready" | "jury" | "jury-complete" | "televote-intro" | "televote" | "winner";
+    juryIndex: number;
+    televoteIndex: number;
+    scores: Record<string, number>;
+  };
   summaryViewedAt?: string;
   updatedAt: string;
 };
