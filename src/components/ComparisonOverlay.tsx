@@ -33,7 +33,7 @@ function withCurrentPair(state: ComparisonState, songs: Song[]): ComparisonState
   return normalizeComparisonState(state, state.key, songs, "smart");
 }
 
-function FlagBadge({ song }: { song: Song }) {
+export function ComparisonFlagBadge({ song }: { song: Song }) {
   return (
     <span className="compareFlag">
       <img
@@ -44,7 +44,7 @@ function FlagBadge({ song }: { song: Song }) {
   );
 }
 
-function OverlayCard({
+export function ComparisonOverlayChoiceCard({
   badge,
   song,
   metaMode,
@@ -72,7 +72,7 @@ function OverlayCard({
       }}
     >
       <div className="compareCardTop">
-        <FlagBadge song={song} />
+        <ComparisonFlagBadge song={song} />
         <span className="choiceBadge">{badge}</span>
       </div>
       <div
@@ -324,7 +324,7 @@ export default function ComparisonOverlay({
           <div className="compareStage">
             {!isComplete && pairSongs[0] && pairSongs[1] ? (
               <>
-                <OverlayCard
+                <ComparisonOverlayChoiceCard
                   badge="A"
                   song={pairSongs[0]}
                   metaMode={metaMode}
@@ -333,7 +333,7 @@ export default function ComparisonOverlay({
                 <div className="versusDivider">
                   <span>VS</span>
                 </div>
-                <OverlayCard
+                <ComparisonOverlayChoiceCard
                   badge="B"
                   song={pairSongs[1]}
                   metaMode={metaMode}
@@ -372,7 +372,7 @@ export default function ComparisonOverlay({
                   }}
                 >
                   <span className="liveRank">{index + 1}</span>
-                  <FlagBadge song={song} />
+                  <ComparisonFlagBadge song={song} />
                   <div>
                     <strong>{song.title}</strong>
                     <p>{song.artist}</p>

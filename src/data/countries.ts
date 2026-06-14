@@ -71,8 +71,8 @@ export const countryConfigs = [
     country: "North Macedonia",
     countryCode: "MK",
     slug: "north-macedonia",
-    aliases: ["FYR Macedonia", "FYR-Macedonia", "Macedonia"],
-    historicalNames: [{ fromYear: 1993, toYear: 2018, country: "FYR Macedonia" }],
+    aliases: ["F.Y.R Macedonia", "FYR-Macedonia", "Macedonia"],
+    historicalNames: [{ fromYear: 1993, toYear: 2018, country: "F.Y.R Macedonia" }],
     historicalAssets: [
       {
         fromYear: 1993,

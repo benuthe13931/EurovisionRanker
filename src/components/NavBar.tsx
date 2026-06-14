@@ -115,8 +115,8 @@ export default function NavBar() {
           <NavLink to="/years">
             <CalendarDays size={16} /> Years
           </NavLink>
-          <NavLink to="/all-songs">
-            <ListMusic size={16} /> All Songs
+          <NavLink to="/global-rankings">
+            <ListMusic size={16} /> Global Rankings
           </NavLink>
           <NavLink to="/countries">
             <Flag size={16} /> Countries

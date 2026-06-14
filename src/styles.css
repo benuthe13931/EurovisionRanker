@@ -447,6 +447,35 @@ a {
   gap: 12px;
 }
 
+.revealControlStrip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(117, 240, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(117, 240, 255, 0.075);
+}
+
+.revealControlStrip > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.revealControlStrip span {
+  color: rgba(247, 242, 255, 0.58);
+  font-size: 0.82rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.revealControlStrip strong {
+  color: #fff;
+}
+
 .predictionHeader h2,
 .predictionLocked h3,
 .predictionSummary h3,
@@ -3708,6 +3737,243 @@ a {
   color: rgba(247, 242, 255, 0.62);
 }
 
+.primaryButton:disabled,
+.secondaryButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.globalStats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.globalStats section,
+.globalYearPanel,
+.globalRankingsPanel {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(10, 10, 18, 0.68);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(18px);
+}
+
+.globalStats span {
+  display: block;
+  margin-bottom: 6px;
+  color: rgba(247, 242, 255, 0.58);
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.globalStats strong {
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.globalYearsLayout {
+  display: grid;
+  gap: 16px;
+}
+
+.globalYearPanel h2 {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+}
+
+.globalYearGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  gap: 10px;
+}
+
+.globalYearGrid.compactPicker {
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  max-height: 360px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.globalYearButton {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  min-height: 66px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: rgba(247, 242, 255, 0.9);
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  text-align: left;
+}
+
+.globalYearButton:hover {
+  border-color: rgba(117, 240, 255, 0.42);
+  background: rgba(117, 240, 255, 0.12);
+}
+
+.globalYearButton.inserted {
+  border-color: rgba(113, 240, 162, 0.26);
+}
+
+.globalYearButton svg {
+  color: #75f0ff;
+}
+
+.globalYearButton.inserted svg {
+  color: #71f0a2;
+}
+
+.globalYearButton span,
+.globalYearButton small {
+  min-width: 0;
+}
+
+.globalYearButton span {
+  font-size: 1.05rem;
+  font-weight: 950;
+}
+
+.globalYearButton small {
+  grid-column: 2;
+  color: rgba(247, 242, 255, 0.56);
+  font-size: 0.74rem;
+  font-weight: 750;
+}
+
+.globalModal {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.globalModalBackdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 4, 10, 0.68);
+  backdrop-filter: blur(10px);
+}
+
+.globalDialog {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 14px;
+  width: min(620px, 100%);
+  max-height: min(760px, 92vh);
+  overflow: auto;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  background: rgba(9, 9, 16, 0.96);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48);
+}
+
+.globalDialog h2 {
+  margin: 0;
+  font-size: 1.45rem;
+}
+
+.globalDialogBody {
+  display: grid;
+  gap: 10px;
+}
+
+.globalDialogBody p {
+  margin: 0;
+  color: rgba(247, 242, 255, 0.68);
+  line-height: 1.5;
+}
+
+.globalDialogActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.recommendedAction {
+  box-shadow:
+    0 18px 50px rgba(233, 40, 185, 0.22),
+    0 0 0 1px rgba(117, 240, 255, 0.22);
+}
+
+.dangerButton {
+  background: #ff4f8f;
+}
+
+.globalInfoLine {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #75f0ff !important;
+  font-weight: 850;
+}
+
+.globalChangeList {
+  display: grid;
+  gap: 8px;
+  max-height: 320px;
+  overflow: auto;
+  margin: 0;
+  padding-left: 22px;
+}
+
+.globalChangeList li {
+  color: rgba(247, 242, 255, 0.72);
+  line-height: 1.45;
+}
+
+.globalChangeList strong {
+  color: #fff;
+}
+
+.globalConfirmInput {
+  display: grid;
+  gap: 8px;
+  color: rgba(247, 242, 255, 0.72);
+  font-weight: 800;
+}
+
+.globalConfirmInput input {
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+  outline: none;
+}
+
+.globalFloatingError {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 10000;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: min(520px, calc(100vw - 36px));
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 143, 190, 0.38);
+  border-radius: 8px;
+  color: #ff9fc8;
+  background: rgba(9, 9, 16, 0.96);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.3);
+  font-weight: 800;
+}
+
 @media (max-width: 1180px) {
   .resultsNightStage {
     grid-template-columns: 1fr;
@@ -3974,12 +4240,14 @@ a {
 
   .yearModeTabs,
   .predictionHeader,
-  .predictionFooter {
+  .predictionFooter,
+  .revealControlStrip {
     align-items: stretch;
     flex-direction: column;
   }
 
   .yearModeTabs button,
+  .revealControlStrip .secondaryButton,
   .predictionFooter .primaryButton {
     width: 100%;
   }

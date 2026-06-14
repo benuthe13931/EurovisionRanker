@@ -10,6 +10,19 @@ function estimatedInsertionComparisons(songCount: number) {
   return total;
 }
 
+function estimatedPendingInsertionComparisons(
+  baselineCount: number,
+  pendingCount: number,
+) {
+  let total = 0;
+
+  for (let index = 0; index < pendingCount; index += 1) {
+    total += Math.ceil(Math.log2(baselineCount + index + 1));
+  }
+
+  return total;
+}
+
 function idsForSongs(songs: Song[]) {
   return songs.map((song) => song.id);
 }
@@ -38,6 +51,22 @@ function nextInsertionState(state: ComparisonState): ComparisonState {
 
   const low = Math.max(0, Math.min(state.low, state.sortedIds.length));
   const high = Math.max(low, Math.min(state.high ?? state.sortedIds.length, state.sortedIds.length));
+
+  if (low >= high) {
+    const sortedIds = [...state.sortedIds];
+    sortedIds.splice(low, 0, activeId);
+    return nextInsertionState({
+      ...state,
+      sortedIds,
+      pendingIds: state.pendingIds.filter((id) => id !== activeId),
+      low: state.preservePendingOrder ? low + 1 : 0,
+      high: sortedIds.length,
+      activeId: undefined,
+      compareAgainstId: undefined,
+      currentPair: undefined,
+    });
+  }
+
   const mid = Math.floor((low + high) / 2);
   const compareAgainstId = state.sortedIds[mid];
 
@@ -53,6 +82,13 @@ function nextInsertionState(state: ComparisonState): ComparisonState {
 
 export function targetComparisonCount(songCount: number) {
   return estimatedInsertionComparisons(songCount);
+}
+
+export function targetPendingInsertionComparisonCount(
+  baselineCount: number,
+  pendingCount: number,
+) {
+  return estimatedPendingInsertionComparisons(baselineCount, pendingCount);
 }
 
 export function createComparisonState(
@@ -73,6 +109,29 @@ export function createComparisonState(
     high: sortedIds.length,
     completed: 0,
     targetComparisons: targetComparisonCount(songIds.length),
+    updatedAt: new Date().toISOString(),
+  });
+}
+
+export function createInsertionComparisonState(
+  key: string,
+  baselineIds: string[],
+  pendingIds: string[],
+  mode: ComparisonMode = "smart",
+): ComparisonState {
+  return nextInsertionState({
+    key,
+    mode,
+    sortedIds: [...baselineIds],
+    pendingIds: pendingIds.filter((id) => !baselineIds.includes(id)),
+    preservePendingOrder: true,
+    low: 0,
+    high: baselineIds.length,
+    completed: 0,
+    targetComparisons: targetPendingInsertionComparisonCount(
+      baselineIds.length,
+      pendingIds.length,
+    ),
     updatedAt: new Date().toISOString(),
   });
 }
@@ -148,7 +207,7 @@ export function chooseInsertionWinner(state: ComparisonState, winnerId: string) 
     sortedIds = [...state.sortedIds];
     sortedIds.splice(low, 0, activeId);
     pendingIds = state.pendingIds.filter((id) => id !== activeId);
-    low = 0;
+    low = state.preservePendingOrder ? low + 1 : 0;
     high = sortedIds.length;
   }
 

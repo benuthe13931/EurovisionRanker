@@ -1133,6 +1133,9 @@ function PlacementScoreboard({
 function RevealModeModal({
   onCancel,
   onSelect,
+  initialMode = "instant",
+  initialUseResultsVideo = true,
+  initialJuryVideoSegment = "twelve-point",
 }: {
   onCancel: () => void;
   onSelect: (options: {
@@ -1140,12 +1143,19 @@ function RevealModeModal({
     useResultsVideo: boolean;
     juryVideoSegment: NonNullable<PredictionState["juryVideoSegment"]>;
   }) => void;
+  initialMode?: NonNullable<PredictionState["revealMode"]>;
+  initialUseResultsVideo?: boolean;
+  initialJuryVideoSegment?: NonNullable<PredictionState["juryVideoSegment"]>;
 }) {
   const [selectedMode, setSelectedMode] =
-    useState<NonNullable<PredictionState["revealMode"]>>("instant");
-  const [useResultsVideo, setUseResultsVideo] = useState(true);
+    useState<NonNullable<PredictionState["revealMode"]>>(initialMode);
+  const [useResultsVideo, setUseResultsVideo] = useState(
+    initialUseResultsVideo,
+  );
   const [juryVideoSegment, setJuryVideoSegment] =
-    useState<NonNullable<PredictionState["juryVideoSegment"]>>("twelve-point");
+    useState<NonNullable<PredictionState["juryVideoSegment"]>>(
+      initialJuryVideoSegment,
+    );
   const showVideoOptions = selectedMode === "eurovision-night";
 
   return (
@@ -2441,7 +2451,7 @@ function PlacementPredictionPanel({
       revealMode: mode,
       useResultsVideo,
       juryVideoSegment,
-      revealStartedAt: state.revealStartedAt ?? new Date().toISOString(),
+      revealStartedAt: new Date().toISOString(),
       revealOrderIds: nextRevealOrder,
       revealedSongIds:
         mode === "instant" || mode === "eurovision-night"
@@ -2451,6 +2461,24 @@ function PlacementPredictionPanel({
       updatedAt: new Date().toISOString(),
     });
     setRevealModeOpen(false);
+  }
+
+  function resetRevealState() {
+    void persist({
+      ...state,
+      revealMode: undefined,
+      revealStartedAt: undefined,
+      revealOrderIds: undefined,
+      revealedSongIds: [],
+      summaryViewedAt: undefined,
+      updatedAt: new Date().toISOString(),
+    });
+    setRevealModeOpen(false);
+    setInstantAnimationComplete(false);
+  }
+
+  function changeRevealSettings() {
+    setRevealModeOpen(true);
   }
 
   function revealNextPlacement() {
@@ -2500,6 +2528,14 @@ function PlacementPredictionPanel({
 
   const resultsNightActive =
     state.revealStartedAt && state.revealMode === "eurovision-night";
+  const revealModeLabel =
+    state.revealMode === "eurovision-night"
+      ? "Eurovision Results Night"
+      : state.revealMode === "step"
+        ? "Step-by-Step Reveal"
+        : state.revealMode === "instant"
+          ? "Instant Results"
+          : "Not selected";
 
   return (
     <section
@@ -2540,6 +2576,33 @@ function PlacementPredictionPanel({
       </div>
 
       {dataError ? <div className="dataError">{dataError}</div> : null}
+
+      {state.lockedAt && hasOfficialResults ? (
+        <div className="revealControlStrip">
+          <div>
+            <span>Reveal Mode</span>
+            <strong>{revealModeLabel}</strong>
+          </div>
+          <div>
+            <button
+              className="secondaryButton"
+              type="button"
+              onClick={changeRevealSettings}
+            >
+              {state.revealStartedAt ? "Change Reveal" : "Choose Reveal"}
+            </button>
+            {state.revealStartedAt ? (
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={resetRevealState}
+              >
+                Restart Reveal
+              </button>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
 
       {!state.revealStartedAt ? (
         <>
@@ -2584,7 +2647,7 @@ function PlacementPredictionPanel({
                   type="button"
                   onClick={viewOfficialResults}
                 >
-                  Reveal Results
+                  Choose Reveal
                 </button>
               ) : (
                 <span className="predictionNote">
@@ -2723,6 +2786,9 @@ function PlacementPredictionPanel({
         <RevealModeModal
           onCancel={() => setRevealModeOpen(false)}
           onSelect={startReveal}
+          initialMode={state.revealMode ?? "instant"}
+          initialUseResultsVideo={state.useResultsVideo ?? true}
+          initialJuryVideoSegment={state.juryVideoSegment ?? "twelve-point"}
         />
       ) : null}
     </section>
