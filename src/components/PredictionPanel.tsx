@@ -91,8 +91,7 @@ const JURY_AWARD_MERGE_PAUSE_MS = 2500;
 const JURY_AWARD_MERGE_STAGGER_MS = 200;
 const JURY_AWARD_REMOVE_AFTER_MERGE_MS = 300;
 const JURY_SCORE_APPLY_MS = 9000;
-const TWELVE_POINT_PREVIEW_MS = 500;
-const TWELVE_POINT_POST_TIMESTAMP_HOLD_MS = 1500;
+const TWELVE_POINT_HOLD_MS = 1000;
 const TWELVE_POINT_FLIGHT_MS = 2400;
 const TELEVOTE_SCORE_APPLY_MS = 2500;
 const SCORE_RESHUFFLE_MS = 4200;
@@ -1278,10 +1277,10 @@ function AnimatedScore({
 
     setPreviousValue(start);
     setRolling(true);
-    const duration = 200;
+    const duration = 400;
     const startedAt = performance.now();
     let frame = 0;
-    let rollTimer = window.setTimeout(() => setRolling(false), duration + 80);
+    let rollTimer = window.setTimeout(() => setRolling(false), duration + 40);
 
     function tick(now: number) {
       const progress = Math.min((now - startedAt) / duration, 1);
@@ -1867,21 +1866,16 @@ function EurovisionResultsNight({
       hasTwelveAwardTimestamp
     ) {
       const twelveRecipient = pointsRecipient(twelvePointVote.country);
-      const twelveCollapseDelay =
+      const twelveRevealDelay =
         RESULTS_VIDEO_LEAD_IN_MS + Math.max(0, (twelveAt - start) * 1000);
-      const twelveFlyDelay =
-        twelveCollapseDelay + TWELVE_POINT_POST_TIMESTAMP_HOLD_MS;
-      const anticipationDelay = Math.max(
-        0,
-        twelveCollapseDelay - TWELVE_POINT_PREVIEW_MS,
-      );
+      const twelveFlyDelay = twelveRevealDelay + TWELVE_POINT_HOLD_MS;
 
       schedule(() => {
         setCenterTwelve({
           visible: true,
           flying: false,
         });
-      }, anticipationDelay);
+      }, twelveRevealDelay);
 
       schedule(() => {
         if (!twelveRecipient) return;
@@ -1891,7 +1885,7 @@ function EurovisionResultsNight({
 
       twelveScoreApplyDelay = Math.max(
         twelveFlyDelay + TWELVE_POINT_FLIGHT_MS,
-        anticipationDelay + TWELVE_POINT_PREVIEW_MS + TWELVE_POINT_FLIGHT_MS,
+        twelveRevealDelay + TWELVE_POINT_HOLD_MS + TWELVE_POINT_FLIGHT_MS,
       );
 
       schedule(() => {
