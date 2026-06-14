@@ -1,30 +1,103 @@
 {
-  "year": 0,
+  "year": 2026,
+  "livestreamUrl": "https://www.youtube.com/watch?v=wYEIv2qhYAI",
+  "juryAnnouncementOrder": [
+    "Switzerland",
+    "Malta",
+    "Ukraine",
+    "Luxembourg",
+    "Bulgaria",
+    "Azerbaijan",
+    "San Marino",
+    "Estonia",
+    "Israel",
+    "Australia",
+    "Germany",
+    "Belgium",
+    "Portugal",
+    "Sweden",
+    "Albania",
+    "Cyprus",
+    "Georgia",
+    "Montenegro",
+    "Armenia",
+    "Poland",
+    "Greece",
+    "Czechia",
+    "Denmark",
+    "France",
+    "Norway",
+    "Italy",
+    "Finland",
+    "United Kingdom",
+    "Latvia",
+    "Serbia",
+    "Moldova",
+    "Croatia",
+    "Lithuania",
+    "Romania",
+    "Austria"
+  ],
   "televote": {
-    "url": "",
-    "beginTimestamp": null,
+    "beginTimestamp": 13467,
     "endTimestamp": null
   },
   "countries": [
     {
       "country": "Albania",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 13,
+      "totalPoints": 145,
+      "juryPoints": 60,
+      "televotePoints": 85,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12060,
+        "twelvePointAnnouncementStartTime": 12088,
+        "twelvePointTimestamp": 12097,
+        "delegationEndTime": 12106,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Italy",
+            "points": 12
+          },
+          {
+            "country": "Norway",
+            "points": 10
+          },
+          {
+            "country": "Israel",
+            "points": 8
+          },
+          {
+            "country": "Czechia",
+            "points": 7
+          },
+          {
+            "country": "Malta",
+            "points": 6
+          },
+          {
+            "country": "Denmark",
+            "points": 5
+          },
+          {
+            "country": "France",
+            "points": 4
+          },
+          {
+            "country": "Bulgaria",
+            "points": 3
+          },
+          {
+            "country": "Greece",
+            "points": 2
+          },
+          {
+            "country": "Australia",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13831
     },
     {
       "country": "Armenia",
@@ -33,14 +106,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12268,
+        "twelvePointAnnouncementStartTime": 12288,
+        "twelvePointTimestamp": 12296,
+        "delegationEndTime": 12305,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Australia",
+            "points": 12
+          },
+          {
+            "country": "Bulgaria",
+            "points": 10
+          },
+          {
+            "country": "France",
+            "points": 8
+          },
+          {
+            "country": "Israel",
+            "points": 7
+          },
+          {
+            "country": "Norway",
+            "points": 6
+          },
+          {
+            "country": "Denmark",
+            "points": 5
+          },
+          {
+            "country": "Czechia",
+            "points": 4
+          },
+          {
+            "country": "Greece",
+            "points": 3
+          },
+          {
+            "country": "Finland",
+            "points": 2
+          },
+          {
+            "country": "Poland",
+            "points": 1
           }
         ]
       },
@@ -48,43 +157,115 @@
     },
     {
       "country": "Australia",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 4,
+      "totalPoints": 287,
+      "juryPoints": 165,
+      "televotePoints": 122,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 11770,
+        "twelvePointAnnouncementStartTime": 11809,
+        "twelvePointTimestamp": 11814,
+        "delegationEndTime": 11824,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Bulgaria",
+            "points": 12
+          },
+          {
+            "country": "France",
+            "points": 10
+          },
+          {
+            "country": "Poland",
+            "points": 8
+          },
+          {
+            "country": "Czechia",
+            "points": 7
+          },
+          {
+            "country": "Norway",
+            "points": 6
+          },
+          {
+            "country": "Denmark",
+            "points": 5
+          },
+          {
+            "country": "Finland",
+            "points": 4
+          },
+          {
+            "country": "Cyprus",
+            "points": 3
+          },
+          {
+            "country": "Greece",
+            "points": 2
+          },
+          {
+            "country": "Italy",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 12321
     },
     {
       "country": "Austria",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 24,
+      "totalPoints": 6,
+      "juryPoints": 1,
+      "televotePoints": 5,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 13275,
+        "twelvePointAnnouncementStartTime": 13324,
+        "twelvePointTimestamp": 13330,
+        "delegationEndTime": 13340,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Poland",
+            "points": 12
+          },
+          {
+            "country": "Denmark",
+            "points": 10
+          },
+          {
+            "country": "Israel",
+            "points": 8
+          },
+          {
+            "country": "Australia",
+            "points": 7
+          },
+          {
+            "country": "Finland",
+            "points": 6
+          },
+          {
+            "country": "Czechia",
+            "points": 5
+          },
+          {
+            "country": "France",
+            "points": 4
+          },
+          {
+            "country": "Norway",
+            "points": 3
+          },
+          {
+            "country": "Italy",
+            "points": 2
+          },
+          {
+            "country": "Greece",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13540
     },
     {
       "country": "Azerbaijan",
@@ -93,14 +274,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 11567,
+        "twelvePointAnnouncementStartTime": 11589,
+        "twelvePointTimestamp": 11596,
+        "delegationEndTime": 11606,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Italy",
+            "points": 12
+          },
+          {
+            "country": "Ukraine",
+            "points": 10
+          },
+          {
+            "country": "Serbia",
+            "points": 8
+          },
+          {
+            "country": "Croatia",
+            "points": 7
+          },
+          {
+            "country": "Albania",
+            "points": 6
+          },
+          {
+            "country": "Bulgaria",
+            "points": 5
+          },
+          {
+            "country": "Israel",
+            "points": 4
+          },
+          {
+            "country": "Romania",
+            "points": 3
+          },
+          {
+            "country": "Malta",
+            "points": 2
+          },
+          {
+            "country": "Czechia",
+            "points": 1
           }
         ]
       },
@@ -108,123 +325,339 @@
     },
     {
       "country": "Belgium",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
+      "placement": 21,
+      "totalPoints": 36,
+      "juryPoints": 36,
       "televotePoints": 0,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 11913,
+        "twelvePointAnnouncementStartTime": 11939,
+        "twelvePointTimestamp": 11946,
+        "delegationEndTime": 11956,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Poland",
+            "points": 12
+          },
+          {
+            "country": "Australia",
+            "points": 10
+          },
+          {
+            "country": "Finland",
+            "points": 8
+          },
+          {
+            "country": "Norway",
+            "points": 7
+          },
+          {
+            "country": "Italy",
+            "points": 6
+          },
+          {
+            "country": "France",
+            "points": 5
+          },
+          {
+            "country": "Bulgaria",
+            "points": 4
+          },
+          {
+            "country": "Albania",
+            "points": 3
+          },
+          {
+            "country": "Germany",
+            "points": 2
+          },
+          {
+            "country": "Israel",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13660
     },
     {
       "country": "Bulgaria",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 1,
+      "totalPoints": 516,
+      "juryPoints": 204,
+      "televotePoints": 312,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 11518,
+        "twelvePointAnnouncementStartTime": 11540,
+        "twelvePointTimestamp": 11548,
+        "delegationEndTime": 11557,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Malta",
+            "points": 12
+          },
+          {
+            "country": "Cyprus",
+            "points": 10
+          },
+          {
+            "country": "Australia",
+            "points": 8
+          },
+          {
+            "country": "Israel",
+            "points": 7
+          },
+          {
+            "country": "Italy",
+            "points": 6
+          },
+          {
+            "country": "Moldova",
+            "points": 5
+          },
+          {
+            "country": "Czechia",
+            "points": 4
+          },
+          {
+            "country": "Norway",
+            "points": 3
+          },
+          {
+            "country": "Germany",
+            "points": 2
+          },
+          {
+            "country": "Denmark",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 14431
     },
     {
       "country": "Croatia",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 15,
+      "totalPoints": 124,
+      "juryPoints": 53,
+      "televotePoints": 71,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 13143,
+        "twelvePointAnnouncementStartTime": 13161,
+        "twelvePointTimestamp": 13167,
+        "delegationEndTime": 13177,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Serbia",
+            "points": 12
+          },
+          {
+            "country": "Denmark",
+            "points": 10
+          },
+          {
+            "country": "Albania",
+            "points": 8
+          },
+          {
+            "country": "Australia",
+            "points": 7
+          },
+          {
+            "country": "Finland",
+            "points": 6
+          },
+          {
+            "country": "Israel",
+            "points": 5
+          },
+          {
+            "country": "Bulgaria",
+            "points": 4
+          },
+          {
+            "country": "France",
+            "points": 3
+          },
+          {
+            "country": "Poland",
+            "points": 2
+          },
+          {
+            "country": "Moldova",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13787
     },
     {
       "country": "Cyprus",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 19,
+      "totalPoints": 75,
+      "juryPoints": 41,
+      "televotePoints": 34,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12133,
+        "twelvePointAnnouncementStartTime": 12154,
+        "twelvePointTimestamp": 12161,
+        "delegationEndTime": 12171,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Greece",
+            "points": 12
+          },
+          {
+            "country": "Bulgaria",
+            "points": 10
+          },
+          {
+            "country": "Albania",
+            "points": 8
+          },
+          {
+            "country": "Malta",
+            "points": 7
+          },
+          {
+            "country": "Denmark",
+            "points": 6
+          },
+          {
+            "country": "Australia",
+            "points": 5
+          },
+          {
+            "country": "Finland",
+            "points": 4
+          },
+          {
+            "country": "France",
+            "points": 3
+          },
+          {
+            "country": "Czechia",
+            "points": 2
+          },
+          {
+            "country": "Italy",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13726
     },
     {
       "country": "Czechia",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 16,
+      "totalPoints": 113,
+      "juryPoints": 104,
+      "televotePoints": 9,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12634,
+        "twelvePointAnnouncementStartTime": 12662,
+        "twelvePointTimestamp": 12668,
+        "delegationEndTime": 12678,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Denmark",
+            "points": 12
+          },
+          {
+            "country": "Norway",
+            "points": 10
+          },
+          {
+            "country": "Romania",
+            "points": 8
+          },
+          {
+            "country": "Finland",
+            "points": 7
+          },
+          {
+            "country": "Australia",
+            "points": 6
+          },
+          {
+            "country": "Poland",
+            "points": 5
+          },
+          {
+            "country": "Bulgaria",
+            "points": 4
+          },
+          {
+            "country": "France",
+            "points": 3
+          },
+          {
+            "country": "Israel",
+            "points": 2
+          },
+          {
+            "country": "Malta",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13943
     },
     {
       "country": "Denmark",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 7,
+      "totalPoints": 243,
+      "juryPoints": 165,
+      "televotePoints": 78,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12685,
+        "twelvePointAnnouncementStartTime": 12705,
+        "twelvePointTimestamp": 12713,
+        "delegationEndTime": 12724,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Bulgaria",
+            "points": 12
+          },
+          {
+            "country": "Sweden",
+            "points": 10
+          },
+          {
+            "country": "Finland",
+            "points": 8
+          },
+          {
+            "country": "Israel",
+            "points": 7
+          },
+          {
+            "country": "Italy",
+            "points": 6
+          },
+          {
+            "country": "Czechia",
+            "points": 5
+          },
+          {
+            "country": "Australia",
+            "points": 4
+          },
+          {
+            "country": "France",
+            "points": 3
+          },
+          {
+            "country": "Cyprus",
+            "points": 2
+          },
+          {
+            "country": "Romania",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 14194
     },
     {
       "country": "Estonia",
@@ -233,14 +666,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 11657,
+        "twelvePointAnnouncementStartTime": 11675,
+        "twelvePointTimestamp": 11688,
+        "delegationEndTime": 11696,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Finland",
+            "points": 12
+          },
+          {
+            "country": "Norway",
+            "points": 10
+          },
+          {
+            "country": "Denmark",
+            "points": 8
+          },
+          {
+            "country": "Bulgaria",
+            "points": 7
+          },
+          {
+            "country": "Italy",
+            "points": 6
+          },
+          {
+            "country": "Poland",
+            "points": 5
+          },
+          {
+            "country": "Croatia",
+            "points": 4
+          },
+          {
+            "country": "Greece",
+            "points": 3
+          },
+          {
+            "country": "Belgium",
+            "points": 2
+          },
+          {
+            "country": "Czechia",
+            "points": 1
           }
         ]
       },
@@ -248,43 +717,115 @@
     },
     {
       "country": "Finland",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 6,
+      "totalPoints": 279,
+      "juryPoints": 141,
+      "televotePoints": 138,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12876,
+        "twelvePointAnnouncementStartTime": 12904,
+        "twelvePointTimestamp": 12909,
+        "delegationEndTime": 12919,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "France",
+            "points": 12
+          },
+          {
+            "country": "Denmark",
+            "points": 10
+          },
+          {
+            "country": "Lithuania",
+            "points": 8
+          },
+          {
+            "country": "Australia",
+            "points": 7
+          },
+          {
+            "country": "Poland",
+            "points": 6
+          },
+          {
+            "country": "Croatia",
+            "points": 5
+          },
+          {
+            "country": "Belgium",
+            "points": 4
+          },
+          {
+            "country": "Italy",
+            "points": 3
+          },
+          {
+            "country": "Czechia",
+            "points": 2
+          },
+          {
+            "country": "Moldova",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 14136
     },
     {
       "country": "France",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 11,
+      "totalPoints": 158,
+      "juryPoints": 144,
+      "televotePoints": 14,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12732,
+        "twelvePointAnnouncementStartTime": 12755,
+        "twelvePointTimestamp": 12759,
+        "delegationEndTime": 12769,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Norway",
+            "points": 12
+          },
+          {
+            "country": "Denmark",
+            "points": 10
+          },
+          {
+            "country": "Italy",
+            "points": 8
+          },
+          {
+            "country": "Bulgaria",
+            "points": 7
+          },
+          {
+            "country": "Ukraine",
+            "points": 6
+          },
+          {
+            "country": "Australia",
+            "points": 5
+          },
+          {
+            "country": "Israel",
+            "points": 4
+          },
+          {
+            "country": "Malta",
+            "points": 3
+          },
+          {
+            "country": "Finland",
+            "points": 2
+          },
+          {
+            "country": "Serbia",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 14165
     },
     {
       "country": "Georgia",
@@ -293,14 +834,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12186,
+        "twelvePointAnnouncementStartTime": 12204,
+        "twelvePointTimestamp": 12217,
+        "delegationEndTime": 12226,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "France",
+            "points": 12
+          },
+          {
+            "country": "Italy",
+            "points": 10
+          },
+          {
+            "country": "Cyprus",
+            "points": 8
+          },
+          {
+            "country": "Finland",
+            "points": 7
+          },
+          {
+            "country": "Israel",
+            "points": 6
+          },
+          {
+            "country": "Norway",
+            "points": 5
+          },
+          {
+            "country": "Malta",
+            "points": 4
+          },
+          {
+            "country": "Bulgaria",
+            "points": 3
+          },
+          {
+            "country": "Poland",
+            "points": 2
+          },
+          {
+            "country": "Czechia",
+            "points": 1
           }
         ]
       },
@@ -308,103 +885,227 @@
     },
     {
       "country": "Germany",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
+      "placement": 23,
+      "totalPoints": 12,
+      "juryPoints": 12,
       "televotePoints": 0,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 11860,
+        "twelvePointAnnouncementStartTime": 11890,
+        "twelvePointTimestamp": 11896,
+        "delegationEndTime": 11905,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Poland",
+            "points": 12
+          },
+          {
+            "country": "Italy",
+            "points": 10
+          },
+          {
+            "country": "Finland",
+            "points": 8
+          },
+          {
+            "country": "Bulgaria",
+            "points": 7
+          },
+          {
+            "country": "France",
+            "points": 6
+          },
+          {
+            "country": "Australia",
+            "points": 5
+          },
+          {
+            "country": "Denmark",
+            "points": 4
+          },
+          {
+            "country": "Israel",
+            "points": 3
+          },
+          {
+            "country": "Croatia",
+            "points": 2
+          },
+          {
+            "country": "Sweden",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13621
     },
     {
       "country": "Greece",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 10,
+      "totalPoints": 220,
+      "juryPoints": 73,
+      "televotePoints": 147,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12593,
+        "twelvePointAnnouncementStartTime": 12610,
+        "twelvePointTimestamp": 12616,
+        "delegationEndTime": 12626,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Cyprus",
+            "points": 12
+          },
+          {
+            "country": "Poland",
+            "points": 10
+          },
+          {
+            "country": "France",
+            "points": 8
+          },
+          {
+            "country": "Australia",
+            "points": 7
+          },
+          {
+            "country": "Bulgaria",
+            "points": 6
+          },
+          {
+            "country": "Serbia",
+            "points": 5
+          },
+          {
+            "country": "Croatia",
+            "points": 4
+          },
+          {
+            "country": "Moldova",
+            "points": 3
+          },
+          {
+            "country": "Romania",
+            "points": 2
+          },
+          {
+            "country": "Albania",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
-    },
-    {
-      "country": "Iceland",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
-      "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
-        "votesAwarded": [
-          {
-            "country": "",
-            "points": 0
-          }
-        ]
-      },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13897
     },
     {
       "country": "Israel",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 2,
+      "totalPoints": 343,
+      "juryPoints": 123,
+      "televotePoints": 220,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 11704,
+        "twelvePointAnnouncementStartTime": 11742,
+        "twelvePointTimestamp": 11746,
+        "delegationEndTime": 11754,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Australia",
+            "points": 12
+          },
+          {
+            "country": "Denmark",
+            "points": 10
+          },
+          {
+            "country": "Bulgaria",
+            "points": 8
+          },
+          {
+            "country": "Finland",
+            "points": 7
+          },
+          {
+            "country": "Moldova",
+            "points": 6
+          },
+          {
+            "country": "Greece",
+            "points": 5
+          },
+          {
+            "country": "Romania",
+            "points": 4
+          },
+          {
+            "country": "Italy",
+            "points": 3
+          },
+          {
+            "country": "Belgium",
+            "points": 2
+          },
+          {
+            "country": "Albania",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13997
     },
     {
       "country": "Italy",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 5,
+      "totalPoints": 281,
+      "juryPoints": 134,
+      "televotePoints": 147,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12820,
+        "twelvePointAnnouncementStartTime": 12850,
+        "twelvePointTimestamp": 12858,
+        "delegationEndTime": 12868,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Belgium",
+            "points": 12
+          },
+          {
+            "country": "Sweden",
+            "points": 10
+          },
+          {
+            "country": "Malta",
+            "points": 8
+          },
+          {
+            "country": "Ukraine",
+            "points": 7
+          },
+          {
+            "country": "Poland",
+            "points": 6
+          },
+          {
+            "country": "Romania",
+            "points": 5
+          },
+          {
+            "country": "Germany",
+            "points": 4
+          },
+          {
+            "country": "Bulgaria",
+            "points": 3
+          },
+          {
+            "country": "Lithuania",
+            "points": 2
+          },
+          {
+            "country": "Moldova",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 14059
     },
     {
       "country": "Latvia",
@@ -413,14 +1114,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12985,
+        "twelvePointAnnouncementStartTime": 13011,
+        "twelvePointTimestamp": 13020,
+        "delegationEndTime": 13028,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Czechia",
+            "points": 12
+          },
+          {
+            "country": "Belgium",
+            "points": 10
+          },
+          {
+            "country": "Poland",
+            "points": 8
+          },
+          {
+            "country": "Ukraine",
+            "points": 7
+          },
+          {
+            "country": "France",
+            "points": 6
+          },
+          {
+            "country": "Denmark",
+            "points": 5
+          },
+          {
+            "country": "Bulgaria",
+            "points": 4
+          },
+          {
+            "country": "Finland",
+            "points": 3
+          },
+          {
+            "country": "Romania",
+            "points": 2
+          },
+          {
+            "country": "Greece",
+            "points": 1
           }
         ]
       },
@@ -428,23 +1165,59 @@
     },
     {
       "country": "Lithuania",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 22,
+      "totalPoints": 22,
+      "juryPoints": 10,
+      "televotePoints": 12,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 13184,
+        "twelvePointAnnouncementStartTime": 13197,
+        "twelvePointTimestamp": 13203,
+        "delegationEndTime": 13212,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Bulgaria",
+            "points": 12
+          },
+          {
+            "country": "Poland",
+            "points": 10
+          },
+          {
+            "country": "Israel",
+            "points": 8
+          },
+          {
+            "country": "Norway",
+            "points": 7
+          },
+          {
+            "country": "Sweden",
+            "points": 6
+          },
+          {
+            "country": "Finland",
+            "points": 5
+          },
+          {
+            "country": "Denmark",
+            "points": 4
+          },
+          {
+            "country": "Moldova",
+            "points": 3
+          },
+          {
+            "country": "Czechia",
+            "points": 2
+          },
+          {
+            "country": "France",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13600
     },
     {
       "country": "Luxembourg",
@@ -453,14 +1226,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 11454,
+        "twelvePointAnnouncementStartTime": 11491,
+        "twelvePointTimestamp": 11501,
+        "delegationEndTime": 11510,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Romania",
+            "points": 12
+          },
+          {
+            "country": "Australia",
+            "points": 10
+          },
+          {
+            "country": "Bulgaria",
+            "points": 8
+          },
+          {
+            "country": "Croatia",
+            "points": 7
+          },
+          {
+            "country": "France",
+            "points": 6
+          },
+          {
+            "country": "Denmark",
+            "points": 5
+          },
+          {
+            "country": "Norway",
+            "points": 4
+          },
+          {
+            "country": "Finland",
+            "points": 3
+          },
+          {
+            "country": "Malta",
+            "points": 2
+          },
+          {
+            "country": "Austria",
+            "points": 1
           }
         ]
       },
@@ -468,43 +1277,115 @@
     },
     {
       "country": "Malta",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 18,
+      "totalPoints": 89,
+      "juryPoints": 81,
+      "televotePoints": 8,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 11332,
+        "twelvePointAnnouncementStartTime": 11364,
+        "twelvePointTimestamp": 11371,
+        "delegationEndTime": 11379,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Bulgaria",
+            "points": 12
+          },
+          {
+            "country": "Italy",
+            "points": 10
+          },
+          {
+            "country": "Australia",
+            "points": 8
+          },
+          {
+            "country": "France",
+            "points": 7
+          },
+          {
+            "country": "Albania",
+            "points": 6
+          },
+          {
+            "country": "Finland",
+            "points": 5
+          },
+          {
+            "country": "Israel",
+            "points": 4
+          },
+          {
+            "country": "Cyprus",
+            "points": 3
+          },
+          {
+            "country": "Norway",
+            "points": 2
+          },
+          {
+            "country": "Poland",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13924
     },
     {
       "country": "Moldova",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 8,
+      "totalPoints": 226,
+      "juryPoints": 43,
+      "televotePoints": 183,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 13093,
+        "twelvePointAnnouncementStartTime": 13119,
+        "twelvePointTimestamp": 13127,
+        "delegationEndTime": 13136,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Poland",
+            "points": 12
+          },
+          {
+            "country": "Israel",
+            "points": 10
+          },
+          {
+            "country": "Greece",
+            "points": 8
+          },
+          {
+            "country": "Bulgaria",
+            "points": 7
+          },
+          {
+            "country": "Norway",
+            "points": 6
+          },
+          {
+            "country": "Czechia",
+            "points": 5
+          },
+          {
+            "country": "Australia",
+            "points": 4
+          },
+          {
+            "country": "Romania",
+            "points": 3
+          },
+          {
+            "country": "France",
+            "points": 2
+          },
+          {
+            "country": "Italy",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13750
     },
     {
       "country": "Montenegro",
@@ -513,34 +1394,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12233,
+        "twelvePointAnnouncementStartTime": 12249,
+        "twelvePointTimestamp": 12253,
+        "delegationEndTime": 12262,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
-          }
-        ]
-      },
-      "pointsAnnouncedAt": null
-    },
-    {
-      "country": "Morocco",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
-      "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
-        "votesAwarded": [
+            "country": "Serbia",
+            "points": 12
+          },
           {
-            "country": "",
-            "points": 0
+            "country": "Albania",
+            "points": 10
+          },
+          {
+            "country": "Croatia",
+            "points": 8
+          },
+          {
+            "country": "Finland",
+            "points": 7
+          },
+          {
+            "country": "Greece",
+            "points": 6
+          },
+          {
+            "country": "Bulgaria",
+            "points": 5
+          },
+          {
+            "country": "Sweden",
+            "points": 4
+          },
+          {
+            "country": "Italy",
+            "points": 3
+          },
+          {
+            "country": "Moldova",
+            "points": 2
+          },
+          {
+            "country": "Poland",
+            "points": 1
           }
         ]
       },
@@ -548,43 +1445,115 @@
     },
     {
       "country": "Norway",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 14,
+      "totalPoints": 134,
+      "juryPoints": 115,
+      "televotePoints": 19,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12776,
+        "twelvePointAnnouncementStartTime": 12795,
+        "twelvePointTimestamp": 12803,
+        "delegationEndTime": 12812,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Denmark",
+            "points": 12
+          },
+          {
+            "country": "France",
+            "points": 10
+          },
+          {
+            "country": "Finland",
+            "points": 8
+          },
+          {
+            "country": "Australia",
+            "points": 7
+          },
+          {
+            "country": "Romania",
+            "points": 6
+          },
+          {
+            "country": "Italy",
+            "points": 5
+          },
+          {
+            "country": "Sweden",
+            "points": 4
+          },
+          {
+            "country": "Bulgaria",
+            "points": 3
+          },
+          {
+            "country": "Czechia",
+            "points": 2
+          },
+          {
+            "country": "Israel",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13967
     },
     {
       "country": "Poland",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 12,
+      "totalPoints": 150,
+      "juryPoints": 133,
+      "televotePoints": 17,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12312,
+        "twelvePointAnnouncementStartTime": 12340,
+        "twelvePointTimestamp": 12345,
+        "delegationEndTime": 12353,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Israel",
+            "points": 12
+          },
+          {
+            "country": "Bulgaria",
+            "points": 10
+          },
+          {
+            "country": "Greece",
+            "points": 8
+          },
+          {
+            "country": "Australia",
+            "points": 7
+          },
+          {
+            "country": "Belgium",
+            "points": 6
+          },
+          {
+            "country": "Romania",
+            "points": 5
+          },
+          {
+            "country": "Czechia",
+            "points": 4
+          },
+          {
+            "country": "Norway",
+            "points": 3
+          },
+          {
+            "country": "Italy",
+            "points": 2
+          },
+          {
+            "country": "Ukraine",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 14035
     },
     {
       "country": "Portugal",
@@ -593,14 +1562,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 11963,
+        "twelvePointAnnouncementStartTime": 11985,
+        "twelvePointTimestamp": 11994,
+        "delegationEndTime": 12004,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Albania",
+            "points": 12
+          },
+          {
+            "country": "Denmark",
+            "points": 10
+          },
+          {
+            "country": "Croatia",
+            "points": 8
+          },
+          {
+            "country": "Finland",
+            "points": 7
+          },
+          {
+            "country": "Poland",
+            "points": 6
+          },
+          {
+            "country": "France",
+            "points": 5
+          },
+          {
+            "country": "Germany",
+            "points": 4
+          },
+          {
+            "country": "Ukraine",
+            "points": 3
+          },
+          {
+            "country": "Norway",
+            "points": 2
+          },
+          {
+            "country": "Romania",
+            "points": 1
           }
         ]
       },
@@ -608,23 +1613,59 @@
     },
     {
       "country": "Romania",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 3,
+      "totalPoints": 296,
+      "juryPoints": 64,
+      "televotePoints": 232,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 13219,
+        "twelvePointAnnouncementStartTime": 13250,
+        "twelvePointTimestamp": 13259,
+        "delegationEndTime": 13267,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Australia",
+            "points": 12
+          },
+          {
+            "country": "Moldova",
+            "points": 10
+          },
+          {
+            "country": "Czechia",
+            "points": 8
+          },
+          {
+            "country": "Denmark",
+            "points": 7
+          },
+          {
+            "country": "Israel",
+            "points": 6
+          },
+          {
+            "country": "Norway",
+            "points": 5
+          },
+          {
+            "country": "Bulgaria",
+            "points": 4
+          },
+          {
+            "country": "Malta",
+            "points": 3
+          },
+          {
+            "country": "Croatia",
+            "points": 2
+          },
+          {
+            "country": "Ukraine",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13860
     },
     {
       "country": "San Marino",
@@ -633,14 +1674,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 11613,
+        "twelvePointAnnouncementStartTime": 11631,
+        "twelvePointTimestamp": 11638,
+        "delegationEndTime": 11647,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Malta",
+            "points": 12
+          },
+          {
+            "country": "Italy",
+            "points": 10
+          },
+          {
+            "country": "Bulgaria",
+            "points": 8
+          },
+          {
+            "country": "Romania",
+            "points": 7
+          },
+          {
+            "country": "Greece",
+            "points": 6
+          },
+          {
+            "country": "Albania",
+            "points": 5
+          },
+          {
+            "country": "Israel",
+            "points": 4
+          },
+          {
+            "country": "Cyprus",
+            "points": 3
+          },
+          {
+            "country": "Finland",
+            "points": 2
+          },
+          {
+            "country": "Denmark",
+            "points": 1
           }
         ]
       },
@@ -648,43 +1725,115 @@
     },
     {
       "country": "Serbia",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 17,
+      "totalPoints": 90,
+      "juryPoints": 38,
+      "televotePoints": 52,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 13036,
+        "twelvePointAnnouncementStartTime": 13068,
+        "twelvePointTimestamp": 13077,
+        "delegationEndTime": 13087,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Greece",
+            "points": 12
+          },
+          {
+            "country": "Italy",
+            "points": 10
+          },
+          {
+            "country": "Malta",
+            "points": 8
+          },
+          {
+            "country": "Bulgaria",
+            "points": 7
+          },
+          {
+            "country": "Denmark",
+            "points": 6
+          },
+          {
+            "country": "Norway",
+            "points": 5
+          },
+          {
+            "country": "Israel",
+            "points": 4
+          },
+          {
+            "country": "Moldova",
+            "points": 3
+          },
+          {
+            "country": "Australia",
+            "points": 2
+          },
+          {
+            "country": "Poland",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13709
     },
     {
       "country": "Sweden",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 20,
+      "totalPoints": 51,
+      "juryPoints": 35,
+      "televotePoints": 16,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12011,
+        "twelvePointAnnouncementStartTime": 12032,
+        "twelvePointTimestamp": 12042,
+        "delegationEndTime": 12052,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Finland",
+            "points": 12
+          },
+          {
+            "country": "Denmark",
+            "points": 10
+          },
+          {
+            "country": "Australia",
+            "points": 8
+          },
+          {
+            "country": "Czechia",
+            "points": 7
+          },
+          {
+            "country": "Croatia",
+            "points": 6
+          },
+          {
+            "country": "Bulgaria",
+            "points": 5
+          },
+          {
+            "country": "Greece",
+            "points": 4
+          },
+          {
+            "country": "Italy",
+            "points": 3
+          },
+          {
+            "country": "France",
+            "points": 2
+          },
+          {
+            "country": "Romania",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13640
     },
     {
       "country": "Switzerland",
@@ -693,14 +1842,50 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 11277,
+        "twelvePointAnnouncementStartTime": 11312,
+        "twelvePointTimestamp": 11317,
+        "delegationEndTime": 11325,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Ukraine",
+            "points": 12
+          },
+          {
+            "country": "Czechia",
+            "points": 10
+          },
+          {
+            "country": "Poland",
+            "points": 8
+          },
+          {
+            "country": "France",
+            "points": 7
+          },
+          {
+            "country": "Australia",
+            "points": 6
+          },
+          {
+            "country": "Norway",
+            "points": 5
+          },
+          {
+            "country": "Bulgaria",
+            "points": 4
+          },
+          {
+            "country": "Denmark",
+            "points": 3
+          },
+          {
+            "country": "Israel",
+            "points": 2
+          },
+          {
+            "country": "Romania",
+            "points": 1
           }
         ]
       },
@@ -708,43 +1893,115 @@
     },
     {
       "country": "Ukraine",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
-      "televotePoints": 0,
+      "placement": 9,
+      "totalPoints": 221,
+      "juryPoints": 54,
+      "televotePoints": 167,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 11332,
+        "twelvePointAnnouncementStartTime": 11422,
+        "twelvePointTimestamp": 11429,
+        "delegationEndTime": 11438,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "Malta",
+            "points": 12
+          },
+          {
+            "country": "Israel",
+            "points": 10
+          },
+          {
+            "country": "Moldova",
+            "points": 8
+          },
+          {
+            "country": "Czechia",
+            "points": 7
+          },
+          {
+            "country": "Finland",
+            "points": 6
+          },
+          {
+            "country": "France",
+            "points": 5
+          },
+          {
+            "country": "Italy",
+            "points": 4
+          },
+          {
+            "country": "Romania",
+            "points": 3
+          },
+          {
+            "country": "Australia",
+            "points": 2
+          },
+          {
+            "country": "United Kingdom",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13805
     },
     {
       "country": "United Kingdom",
-      "placement": 0,
-      "totalPoints": 0,
-      "juryPoints": 0,
+      "placement": 25,
+      "totalPoints": 1,
+      "juryPoints": 1,
       "televotePoints": 0,
       "jury": {
-        "url": "",
-        "delegationStartTime": null,
-        "twelvePointTimestamp": null,
-        "delegationEndTime": null,
+        "delegationStartTime": 12926,
+        "twelvePointAnnouncementStartTime": 12964,
+        "twelvePointTimestamp": 12968,
+        "delegationEndTime": 12977,
         "votesAwarded": [
           {
-            "country": "",
-            "points": 0
+            "country": "France",
+            "points": 12
+          },
+          {
+            "country": "Bulgaria",
+            "points": 10
+          },
+          {
+            "country": "Czechia",
+            "points": 8
+          },
+          {
+            "country": "Ukraine",
+            "points": 7
+          },
+          {
+            "country": "Denmark",
+            "points": 6
+          },
+          {
+            "country": "Poland",
+            "points": 5
+          },
+          {
+            "country": "Norway",
+            "points": 4
+          },
+          {
+            "country": "Australia",
+            "points": 3
+          },
+          {
+            "country": "Finland",
+            "points": 2
+          },
+          {
+            "country": "Malta",
+            "points": 1
           }
         ]
       },
-      "pointsAnnouncedAt": null
+      "pointsAnnouncedAt": 13566
     }
   ]
 }

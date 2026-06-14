@@ -39,7 +39,12 @@ import {
   loadPrediction,
   savePrediction,
 } from "../utils/storage";
-import type { PredictionState, ResultCountryInput, Song } from "../types";
+import type {
+  PredictionState,
+  ResultCountryInput,
+  Song,
+  YearResultData,
+} from "../types";
 import FlagEmoji from "./FlagEmoji";
 
 type PredictionPanelProps = {
@@ -47,15 +52,23 @@ type PredictionPanelProps = {
   songs: Song[];
 };
 
-type FinalistResult = Song & {
-  actualPlacement: number;
+type ResultDelegation = Song & {
   result: ResultCountryInput;
+};
+
+type FinalistResult = ResultDelegation & {
+  actualPlacement: number;
 };
 
 type AwardAnimation = {
   songId: string;
   points: number;
   delay: number;
+};
+
+type JuryVote = {
+  country: string;
+  points: number;
 };
 
 type EurovisionNightPhase =
@@ -72,9 +85,17 @@ const PREDICTION_SIZE = 10;
 const FLYING_DURATION_MS = 1650;
 const INSTANT_REVEAL_STEP_MS = 120;
 const INSTANT_REVEAL_SETTLE_MS = 900;
-const JURY_SCORE_APPLY_MS = 1550;
+const RESULTS_VIDEO_LEAD_IN_MS = 1000;
+const JURY_AWARD_STAGGER_MS = 100;
+const JURY_AWARD_MERGE_PAUSE_MS = 2500;
+const JURY_AWARD_MERGE_STAGGER_MS = 200;
+const JURY_AWARD_REMOVE_AFTER_MERGE_MS = 300;
+const JURY_SCORE_APPLY_MS = 9000;
+const TWELVE_POINT_PREVIEW_MS = 500;
+const TWELVE_POINT_POST_TIMESTAMP_HOLD_MS = 1500;
+const TWELVE_POINT_FLIGHT_MS = 2400;
 const TELEVOTE_SCORE_APPLY_MS = 2500;
-const SCORE_RESHUFFLE_MS = 680;
+const SCORE_RESHUFFLE_MS = 4200;
 
 function emptyPredictionState(key: string): PredictionState {
   return {
@@ -157,21 +178,40 @@ function hasTelevoting(songs: FinalistResult[]) {
   return songs.some((song) => (song.result.televotePoints ?? 0) > 0);
 }
 
-function votingDelegations(songs: FinalistResult[]) {
+function votingDelegations(
+  songs: ResultDelegation[],
+  juryAnnouncementOrder?: string[],
+) {
+  const orderByCountry = new Map(
+    (juryAnnouncementOrder ?? []).map((country, index) => [
+      countryKey(country),
+      index,
+    ]),
+  );
+
   return songs
     .filter((song) =>
       song.result.jury?.votesAwarded?.some((vote) => vote.points > 0),
     )
-    .sort((a, b) => a.country.localeCompare(b.country));
+    .sort((a, b) => {
+      const aOrder = orderByCountry.get(countryKey(a.country));
+      const bOrder = orderByCountry.get(countryKey(b.country));
+      if (typeof aOrder === "number" && typeof bOrder === "number") {
+        return aOrder - bOrder;
+      }
+      if (typeof aOrder === "number") return -1;
+      if (typeof bOrder === "number") return 1;
+      return a.country.localeCompare(b.country);
+    });
 }
 
-function juryVotesForDisplay(delegation?: FinalistResult) {
+function juryVotesForDisplay(delegation?: ResultDelegation, hideTwelve = false) {
   return [...(delegation?.result.jury?.votesAwarded ?? [])]
-    .filter((vote) => vote.points > 0)
+    .filter((vote) => vote.points > 0 && (!hideTwelve || vote.points !== 12))
     .sort((a, b) => b.points - a.points);
 }
 
-function juryVotesForCascade(delegation?: FinalistResult) {
+function juryVotesForCascade(delegation?: ResultDelegation) {
   return [...(delegation?.result.jury?.votesAwarded ?? [])]
     .filter((vote) => vote.points > 0)
     .sort((a, b) => a.points - b.points);
@@ -185,6 +225,62 @@ function televoteOrder(songs: FinalistResult[]) {
       if (juryDiff !== 0) return juryDiff;
       return b.actualPlacement - a.actualPlacement;
     });
+}
+
+function timestampSeconds(value?: number | null) {
+  if (typeof value !== "number" || Number.isNaN(value)) return undefined;
+  return value;
+}
+
+function youtubeEmbedUrl(url: string, start?: number, end?: number) {
+  const idMatch =
+    url.match(/[?&]v=([^&]+)/) ??
+    url.match(/youtu\.be\/([^?&]+)/) ??
+    url.match(/embed\/([^?&]+)/);
+  const videoId = idMatch?.[1];
+  if (!videoId) return url;
+
+  const params = new URLSearchParams({
+    autoplay: "1",
+    rel: "0",
+    modestbranding: "1",
+  });
+  const startSeconds =
+    typeof start === "number" ? Math.max(0, Math.floor(start)) : undefined;
+  if (typeof startSeconds === "number") {
+    params.set("start", String(startSeconds));
+    params.set("t", `${startSeconds}s`);
+  }
+  if (typeof end === "number")
+    params.set("end", String(Math.max(0, Math.floor(end))));
+
+  return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
+}
+
+function hasJuryVideo(
+  delegation?: ResultDelegation,
+  resultData?: YearResultData,
+  juryVideoSegment: NonNullable<PredictionState["juryVideoSegment"]> = "full-call",
+) {
+  const jury = delegation?.result.jury;
+  const startTime =
+    juryVideoSegment === "twelve-point"
+      ? jury?.twelvePointAnnouncementStartTime
+      : jury?.delegationStartTime;
+
+  return Boolean(
+    resultData?.livestreamUrl &&
+    typeof timestampSeconds(startTime) === "number" &&
+    typeof timestampSeconds(jury?.delegationEndTime) === "number",
+  );
+}
+
+function hasTelevoteVideo(resultData?: YearResultData) {
+  return Boolean(
+    resultData?.livestreamUrl &&
+    typeof timestampSeconds(resultData.televote?.beginTimestamp) === "number" &&
+    typeof timestampSeconds(resultData.televote?.endTimestamp) === "number",
+  );
 }
 
 function placementMetrics(
@@ -1040,10 +1136,18 @@ function RevealModeModal({
   onSelect,
 }: {
   onCancel: () => void;
-  onSelect: (mode: NonNullable<PredictionState["revealMode"]>) => void;
+  onSelect: (options: {
+    mode: NonNullable<PredictionState["revealMode"]>;
+    useResultsVideo: boolean;
+    juryVideoSegment: NonNullable<PredictionState["juryVideoSegment"]>;
+  }) => void;
 }) {
   const [selectedMode, setSelectedMode] =
     useState<NonNullable<PredictionState["revealMode"]>>("instant");
+  const [useResultsVideo, setUseResultsVideo] = useState(true);
+  const [juryVideoSegment, setJuryVideoSegment] =
+    useState<NonNullable<PredictionState["juryVideoSegment"]>>("twelve-point");
+  const showVideoOptions = selectedMode === "eurovision-night";
 
   return (
     <div
@@ -1091,6 +1195,44 @@ function RevealModeModal({
             <small>Recreate the jury and televote scoreboard sequence.</small>
           </span>
         </label>
+        {showVideoOptions ? (
+          <div className="revealVideoOptions">
+            <label className="revealModeOption compact">
+              <input
+                type="checkbox"
+                checked={useResultsVideo}
+                onChange={(event) => setUseResultsVideo(event.target.checked)}
+              />
+              <span>
+                <strong>Use Livestream Video</strong>
+                <small>Sync available jury and televote timestamps.</small>
+              </span>
+            </label>
+            {useResultsVideo ? (
+              <fieldset className="revealSegmentOptions">
+                <legend>Jury video length</legend>
+                <label>
+                  <input
+                    type="radio"
+                    name="jury-video-segment"
+                    checked={juryVideoSegment === "twelve-point"}
+                    onChange={() => setJuryVideoSegment("twelve-point")}
+                  />
+                  <span>12-point moment only</span>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="jury-video-segment"
+                    checked={juryVideoSegment === "full-call"}
+                    onChange={() => setJuryVideoSegment("full-call")}
+                  />
+                  <span>Whole delegation call</span>
+                </label>
+              </fieldset>
+            ) : null}
+          </div>
+        ) : null}
         <div className="spoilerActions">
           <button className="secondaryButton" type="button" onClick={onCancel}>
             Cancel
@@ -1098,7 +1240,14 @@ function RevealModeModal({
           <button
             className="primaryButton"
             type="button"
-            onClick={() => onSelect(selectedMode)}
+            onClick={() =>
+              onSelect({
+                mode: selectedMode,
+                useResultsVideo:
+                  selectedMode === "eurovision-night" && useResultsVideo,
+                juryVideoSegment,
+              })
+            }
           >
             Reveal Results
           </button>
@@ -1108,32 +1257,64 @@ function RevealModeModal({
   );
 }
 
-function AnimatedScore({ value, active }: { value: number; active?: boolean }) {
+function AnimatedScore({
+  value,
+  active,
+  songId,
+}: {
+  value: number;
+  active?: boolean;
+  songId: string;
+}) {
   const [displayValue, setDisplayValue] = useState(value);
+  const [previousValue, setPreviousValue] = useState(value);
+  const [rolling, setRolling] = useState(false);
+  const displayValueRef = useRef(value);
 
   useEffect(() => {
-    const start = displayValue;
+    const start = displayValueRef.current;
     const end = value;
     if (start === end) return;
 
-    const duration = 620;
+    setPreviousValue(start);
+    setRolling(true);
+    const duration = 200;
     const startedAt = performance.now();
     let frame = 0;
+    let rollTimer = window.setTimeout(() => setRolling(false), duration + 80);
 
     function tick(now: number) {
       const progress = Math.min((now - startedAt) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplayValue(Math.round(start + (end - start) * eased));
+      const nextValue = Math.round(start + (end - start) * eased);
+      displayValueRef.current = nextValue;
+      setDisplayValue(nextValue);
       if (progress < 1) frame = window.requestAnimationFrame(tick);
     }
 
     frame = window.requestAnimationFrame(tick);
-    return () => window.cancelAnimationFrame(frame);
-  }, [displayValue, value]);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(rollTimer);
+    };
+  }, [value]);
 
   return (
-    <strong className={active ? "nightScore impact" : "nightScore"}>
-      {displayValue}
+    <strong
+      className={[
+        "nightScore",
+        active ? "impact" : "",
+        rolling ? "rolling" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      data-score-target={songId}
+    >
+      <span className="scoreRoller" aria-hidden="true">
+        <span>{previousValue}</span>
+        <span>{displayValue}</span>
+      </span>
+      <span className="srOnly">{displayValue}</span>
     </strong>
   );
 }
@@ -1180,7 +1361,11 @@ function ResultNightScoreboard({
           <small>{song.title}</small>
         </span>
         <span className="nightScoreWrap">
-          <AnimatedScore value={scores[song.id] ?? 0} active={Boolean(award)} />
+          <AnimatedScore
+            value={scores[song.id] ?? 0}
+            active={Boolean(award)}
+            songId={song.id}
+          />
           {award ? (
             <em
               className="nightAward"
@@ -1206,8 +1391,16 @@ function ResultNightScoreboard({
   );
 }
 
-function JuryAwardPanel({ delegation }: { delegation?: FinalistResult }) {
-  const votes = juryVotesForDisplay(delegation);
+function JuryAwardPanel({
+  delegation,
+  hideTwelve,
+  visibleVotes,
+}: {
+  delegation?: ResultDelegation;
+  hideTwelve?: boolean;
+  visibleVotes?: JuryVote[];
+}) {
+  const votes = visibleVotes ?? juryVotesForDisplay(delegation, hideTwelve);
   const left = votes.slice(0, Math.ceil(votes.length / 2));
   const right = votes.slice(Math.ceil(votes.length / 2));
 
@@ -1296,17 +1489,90 @@ function CenterTelevoteScore({
   );
 }
 
+function CenterStaticAward({
+  visible,
+  points,
+  flying,
+  target,
+}: {
+  visible: boolean;
+  points: number;
+  flying: boolean;
+  target?: { x: number; y: number };
+}) {
+  if (!visible) return null;
+
+  return createPortal(
+    <div
+      className={flying ? "centerStaticAward flying" : "centerStaticAward"}
+      style={
+        {
+          "--target-x": target
+            ? `${target.x - window.innerWidth / 2}px`
+            : "0px",
+          "--target-y": target
+            ? `${target.y - window.innerHeight / 2}px`
+            : "0px",
+        } as CSSProperties
+      }
+    >
+      +{points}
+    </div>,
+    document.body,
+  );
+}
+
+function ResultNightVideo({
+  title,
+  url,
+  start,
+  end,
+  playbackKey,
+}: {
+  title: string;
+  url?: string;
+  start?: number;
+  end?: number;
+  playbackKey: string;
+}) {
+  if (!url) return null;
+
+  return (
+    <section className="resultsNightVideo">
+      <iframe
+        key={playbackKey}
+        src={youtubeEmbedUrl(url, start, end)}
+        title={title}
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowFullScreen
+      />
+    </section>
+  );
+}
+
 function EurovisionResultsNight({
   songs,
+  delegations,
+  resultData,
+  useResultsVideo,
+  juryVideoSegment,
   onShowSummary,
 }: {
   songs: FinalistResult[];
+  delegations: ResultDelegation[];
+  resultData?: YearResultData;
+  useResultsVideo: boolean;
+  juryVideoSegment: NonNullable<PredictionState["juryVideoSegment"]>;
   onShowSummary: () => void;
 }) {
-  const juryDelegations = useMemo(() => votingDelegations(songs), [songs]);
+  const juryDelegations = useMemo(
+    () => votingDelegations(delegations, resultData?.juryAnnouncementOrder),
+    [delegations, resultData?.juryAnnouncementOrder],
+  );
   const televoteSongs = useMemo(() => televoteOrder(songs), [songs]);
   const hasJury = juryDelegations.length > 0;
   const hasTelevote = hasTelevoting(songs);
+  const televoteVideoEnabled = useResultsVideo && hasTelevoteVideo(resultData);
   const winner = songs.find((song) => song.actualPlacement === 1);
   const [phase, setPhase] = useState<EurovisionNightPhase>("ready");
   const [scores, setScores] = useState<ScoreboardSnapshot>(() =>
@@ -1315,9 +1581,10 @@ function EurovisionResultsNight({
   const [juryIndex, setJuryIndex] = useState(0);
   const [televoteIndex, setTelevoteIndex] = useState(0);
   const [currentDelegation, setCurrentDelegation] = useState<
-    FinalistResult | undefined
+    ResultDelegation | undefined
   >();
   const [awards, setAwards] = useState<AwardAnimation[]>([]);
+  const [visibleJuryVotes, setVisibleJuryVotes] = useState<JuryVote[]>([]);
   const [animating, setAnimating] = useState(false);
   const [activeTelevoteSongId, setActiveTelevoteSongId] = useState<
     string | undefined
@@ -1333,12 +1600,38 @@ function EurovisionResultsNight({
       }
     | undefined
   >();
+  const [centerTwelve, setCenterTwelve] = useState<
+    | {
+        visible: boolean;
+        flying: boolean;
+        target?: { x: number; y: number };
+      }
+    | undefined
+  >();
+  const [activeVideo, setActiveVideo] = useState<
+    | {
+        title: string;
+        url: string;
+        start?: number;
+        end?: number;
+        key: string;
+      }
+    | undefined
+  >();
+  const [frozenOrderIds, setFrozenOrderIds] = useState<string[] | undefined>();
   const cardRefs = useRef(new Map<string, HTMLElement>());
+  const timers = useRef<number[]>([]);
 
   const scoreboardSongs = useMemo(() => {
+    if (frozenOrderIds) {
+      const byId = new Map(songs.map((song) => [song.id, song]));
+      return frozenOrderIds
+        .map((songId) => byId.get(songId))
+        .filter((song): song is FinalistResult => Boolean(song));
+    }
     if (phase === "ready") return songs;
     return [...songs].sort((a, b) => scoreSort(a, b, scores));
-  }, [phase, scores, songs]);
+  }, [frozenOrderIds, phase, scores, songs]);
 
   const currentTelevoteSong = televoteSongs[televoteIndex];
 
@@ -1352,6 +1645,23 @@ function EurovisionResultsNight({
       setActiveTelevoteSongId(currentTelevoteSong.id);
     }
   }, [animating, currentTelevoteSong, phase]);
+
+  useEffect(() => {
+    return () => {
+      timers.current.forEach((timer) => window.clearTimeout(timer));
+    };
+  }, []);
+
+  function schedule(callback: () => void, delay: number) {
+    const timer = window.setTimeout(callback, Math.max(0, delay));
+    timers.current.push(timer);
+    return timer;
+  }
+
+  function clearScheduled() {
+    timers.current.forEach((timer) => window.clearTimeout(timer));
+    timers.current = [];
+  }
 
   function registerCard(songId: string, node: HTMLElement | null) {
     if (node) cardRefs.current.set(songId, node);
@@ -1403,15 +1713,35 @@ function EurovisionResultsNight({
     animatePositionChanges(previousRects);
   }
 
+  function releaseFrozenScoreboard() {
+    const previousRects = capturePositions();
+    setFrozenOrderIds(undefined);
+    animatePositionChanges(previousRects);
+  }
+
   function pointsRecipient(voteCountry: string) {
     return songs.find(
       (song) => countryKey(song.country) === countryKey(voteCountry),
     );
   }
 
+  function scoreTargetForSong(songId: string) {
+    const scoreNode = cardRefs.current
+      .get(songId)
+      ?.querySelector(".nightScore")
+      ?.getBoundingClientRect();
+    return scoreNode
+      ? {
+          x: scoreNode.left + scoreNode.width / 2,
+          y: scoreNode.top + scoreNode.height / 2,
+        }
+      : undefined;
+  }
+
   function startVoting() {
     if (hasJury) {
       setPhase("jury");
+      schedule(() => processNextJuryDelegation(), 0);
       return;
     }
 
@@ -1428,41 +1758,225 @@ function EurovisionResultsNight({
   function processNextJuryDelegation() {
     const delegation = juryDelegations[juryIndex];
     if (!delegation || animating) return;
+    clearScheduled();
 
-    const nextAwards = juryVotesForCascade(delegation)
-      .map((vote, index) => {
+    const hasVideo =
+      useResultsVideo &&
+      hasJuryVideo(delegation, resultData, juryVideoSegment);
+    const delegationStart = timestampSeconds(
+      delegation.result.jury?.delegationStartTime,
+    );
+    const twelveAnnouncementStart = timestampSeconds(
+      delegation.result.jury?.twelvePointAnnouncementStartTime,
+    );
+    const twelveAt = timestampSeconds(
+      delegation.result.jury?.twelvePointTimestamp,
+    );
+    const end = timestampSeconds(delegation.result.jury?.delegationEndTime);
+    const start =
+      juryVideoSegment === "twelve-point" &&
+      typeof twelveAnnouncementStart === "number"
+        ? twelveAnnouncementStart
+        : delegationStart;
+    const videoMode = hasVideo && typeof start === "number";
+    const votesForCascade = juryVotesForCascade(delegation);
+    const twelvePointVote = votesForCascade.find((vote) => vote.points === 12);
+    const lowerVotes = videoMode
+      ? votesForCascade.filter((vote) => vote.points !== 12)
+      : votesForCascade;
+    const nextAwards = lowerVotes
+      .map((vote) => {
         const recipient = pointsRecipient(vote.country);
         return recipient
-          ? { songId: recipient.id, points: vote.points, delay: index * 120 }
+          ? {
+              songId: recipient.id,
+              points: vote.points,
+              delay: 0,
+            }
           : null;
       })
       .filter((award): award is AwardAnimation => Boolean(award));
 
     setAnimating(true);
     setCurrentDelegation(delegation);
-    setAwards(nextAwards);
+    setAwards([]);
+    setVisibleJuryVotes([]);
+    setFrozenOrderIds(scoreboardSongs.map((song) => song.id));
+    const videoLeadIn = videoMode ? RESULTS_VIDEO_LEAD_IN_MS : 0;
+    const lowerAwardsStartDelay = videoLeadIn;
 
-    window.setTimeout(() => {
-      applyScores((current) => {
-        const next = { ...current };
-        nextAwards.forEach((award) => {
-          next[award.songId] = (next[award.songId] ?? 0) + award.points;
+    if (videoMode && resultData?.livestreamUrl) {
+      const livestreamUrl = resultData.livestreamUrl;
+      setActiveVideo(undefined);
+      schedule(() => {
+        setActiveVideo({
+          title: `${delegation.country} jury votes`,
+          url: livestreamUrl,
+          start,
+          end,
+          key: `${delegation.id}-${juryIndex}-${Date.now()}`,
         });
-        return next;
-      });
-    }, JURY_SCORE_APPLY_MS);
+      }, RESULTS_VIDEO_LEAD_IN_MS);
+    } else {
+      setActiveVideo(undefined);
+    }
 
-    window.setTimeout(
-      () => {
-        setAwards([]);
-        setAnimating(false);
-        setJuryIndex((index) => index + 1);
-        if (juryIndex + 1 >= juryDelegations.length) {
-          setPhase(hasTelevote ? "jury-complete" : "winner");
+    const lowerAwardsMergeStartDelay =
+      nextAwards.length > 0
+        ? lowerAwardsStartDelay +
+          Math.max(0, nextAwards.length - 1) * JURY_AWARD_STAGGER_MS +
+          JURY_AWARD_MERGE_PAUSE_MS
+        : lowerAwardsStartDelay;
+
+    nextAwards.forEach((award, index) => {
+      const awardStartDelay =
+        lowerAwardsStartDelay + index * JURY_AWARD_STAGGER_MS;
+      const awardMergeDelay =
+        lowerAwardsMergeStartDelay + index * JURY_AWARD_MERGE_STAGGER_MS;
+      schedule(() => {
+        const vote = lowerVotes[index];
+        if (vote) {
+          setVisibleJuryVotes((current) => [...current, vote]);
         }
-      },
-      JURY_SCORE_APPLY_MS + SCORE_RESHUFFLE_MS + 180,
+        setAwards((current) => [...current, award]);
+      }, awardStartDelay);
+      schedule(() => {
+        setScores((current) => ({
+          ...current,
+          [award.songId]: (current[award.songId] ?? 0) + award.points,
+        }));
+      }, awardMergeDelay);
+      schedule(() => {
+        setAwards((current) =>
+          current.filter(
+            (currentAward) =>
+              currentAward.songId !== award.songId ||
+              currentAward.points !== award.points,
+          ),
+        );
+      }, awardMergeDelay + JURY_AWARD_REMOVE_AFTER_MERGE_MS);
+    });
+
+    const hasTwelveAwardTimestamp =
+      typeof twelveAt === "number" && twelveAt > 0;
+    let twelveScoreApplyDelay: number | undefined;
+    if (
+      videoMode &&
+      twelvePointVote &&
+      typeof start === "number" &&
+      hasTwelveAwardTimestamp
+    ) {
+      const twelveRecipient = pointsRecipient(twelvePointVote.country);
+      const twelveCollapseDelay =
+        RESULTS_VIDEO_LEAD_IN_MS + Math.max(0, (twelveAt - start) * 1000);
+      const twelveFlyDelay =
+        twelveCollapseDelay + TWELVE_POINT_POST_TIMESTAMP_HOLD_MS;
+      const anticipationDelay = Math.max(
+        0,
+        twelveCollapseDelay - TWELVE_POINT_PREVIEW_MS,
+      );
+
+      schedule(() => {
+        setCenterTwelve({
+          visible: true,
+          flying: false,
+        });
+      }, anticipationDelay);
+
+      schedule(() => {
+        if (!twelveRecipient) return;
+        const target = scoreTargetForSong(twelveRecipient.id);
+        setCenterTwelve({ visible: true, flying: true, target });
+      }, twelveFlyDelay);
+
+      twelveScoreApplyDelay = Math.max(
+        twelveFlyDelay + TWELVE_POINT_FLIGHT_MS,
+        anticipationDelay + TWELVE_POINT_PREVIEW_MS + TWELVE_POINT_FLIGHT_MS,
+      );
+
+      schedule(() => {
+        if (!twelveRecipient) return;
+        setCenterTwelve(undefined);
+        setScores((current) => {
+          const next = { ...current };
+          next[twelveRecipient.id] =
+            (next[twelveRecipient.id] ?? 0) + twelvePointVote.points;
+          return next;
+        });
+      }, twelveScoreApplyDelay);
+
+      schedule(() => {
+        releaseFrozenScoreboard();
+      }, twelveScoreApplyDelay + 250);
+    } else if (twelvePointVote) {
+      const twelveRecipient = pointsRecipient(twelvePointVote.country);
+      const fallbackTwelveApplyDelay =
+        lowerAwardsMergeStartDelay +
+        Math.max(0, nextAwards.length - 1) * JURY_AWARD_MERGE_STAGGER_MS +
+        JURY_AWARD_REMOVE_AFTER_MERGE_MS;
+      schedule(() => {
+        if (!twelveRecipient) return;
+        setScores((current) => ({
+          ...current,
+          [twelveRecipient.id]:
+            (current[twelveRecipient.id] ?? 0) + twelvePointVote.points,
+        }));
+        releaseFrozenScoreboard();
+      }, fallbackTwelveApplyDelay);
+    }
+
+    if (!videoMode) {
+      const batchApplyDelay =
+        lowerAwardsMergeStartDelay +
+        Math.max(0, nextAwards.length - 1) * JURY_AWARD_MERGE_STAGGER_MS +
+        JURY_AWARD_REMOVE_AFTER_MERGE_MS;
+      schedule(() => {
+        releaseFrozenScoreboard();
+      }, batchApplyDelay);
+    } else if (!twelvePointVote) {
+      const batchApplyDelay =
+        lowerAwardsMergeStartDelay +
+        Math.max(0, nextAwards.length - 1) * JURY_AWARD_MERGE_STAGGER_MS +
+        JURY_AWARD_REMOVE_AFTER_MERGE_MS;
+      schedule(() => {
+        releaseFrozenScoreboard();
+      }, batchApplyDelay);
+    }
+
+    const videoCompletionDelay =
+      videoMode && typeof start === "number" && typeof end === "number"
+        ? RESULTS_VIDEO_LEAD_IN_MS + Math.max(0, (end - start) * 1000)
+        : JURY_SCORE_APPLY_MS + SCORE_RESHUFFLE_MS + 180;
+    const twelveCompletionDelay =
+      typeof twelveScoreApplyDelay === "number"
+        ? twelveScoreApplyDelay + SCORE_RESHUFFLE_MS + 750
+        : 0;
+    const lowerPointCompletionDelay =
+      nextAwards.length > 0
+        ? lowerAwardsMergeStartDelay +
+          (nextAwards.length - 1) * JURY_AWARD_MERGE_STAGGER_MS +
+          JURY_AWARD_REMOVE_AFTER_MERGE_MS +
+          SCORE_RESHUFFLE_MS +
+          500
+        : 0;
+    const completionDelay = Math.max(
+      videoCompletionDelay,
+      twelveCompletionDelay,
+      lowerPointCompletionDelay,
     );
+
+    schedule(() => {
+      setAwards([]);
+      setVisibleJuryVotes([]);
+      setCenterTwelve(undefined);
+      setAnimating(false);
+      setFrozenOrderIds(undefined);
+      setJuryIndex((index) => index + 1);
+      if (juryIndex + 1 >= juryDelegations.length) {
+        setActiveVideo(undefined);
+        setPhase(hasTelevote ? "jury-complete" : "winner");
+      }
+    }, completionDelay);
   }
 
   function continueAfterJury() {
@@ -1476,23 +1990,46 @@ function EurovisionResultsNight({
   function beginTelevote() {
     setPhase("televote");
     setActiveTelevoteSongId(televoteSongs[0]?.id);
+    if (!televoteVideoEnabled || !resultData?.livestreamUrl) return;
+
+    const begin = timestampSeconds(resultData.televote?.beginTimestamp);
+    const end = timestampSeconds(resultData.televote?.endTimestamp);
+    setActiveVideo({
+      title: "Televote Results",
+      url: resultData.livestreamUrl,
+      start: begin,
+      end,
+      key: `televote-${Date.now()}`,
+    });
+
+    if (typeof begin === "number") {
+      televoteSongs.forEach((song, index) => {
+        const announcedAt = timestampSeconds(song.result.pointsAnnouncedAt);
+        if (typeof announcedAt !== "number") return;
+        schedule(
+          () => {
+            runTelevoteAnimation(song, index);
+          },
+          (announcedAt - begin) * 1000,
+        );
+      });
+    }
+
+    if (typeof begin === "number" && typeof end === "number") {
+      schedule(
+        () => {
+          setActiveTelevoteSongId(undefined);
+          setActiveVideo(undefined);
+          setPhase("winner");
+        },
+        (end - begin) * 1000,
+      );
+    }
   }
 
-  function processNextTelevote() {
-    const song = televoteSongs[televoteIndex];
-    if (!song || animating) return;
-
+  function runTelevoteAnimation(song: FinalistResult, index: number) {
     const points = song.result.televotePoints ?? 0;
-    const scoreNode = cardRefs.current
-      .get(song.id)
-      ?.querySelector(".nightScoreWrap")
-      ?.getBoundingClientRect();
-    const target = scoreNode
-      ? {
-          x: scoreNode.left + scoreNode.width / 2,
-          y: scoreNode.top + scoreNode.height / 2,
-        }
-      : undefined;
+    const target = scoreTargetForSong(song.id);
 
     setAnimating(true);
     setActiveTelevoteSongId(song.id);
@@ -1515,15 +2052,21 @@ function EurovisionResultsNight({
       setAwards([]);
       setCompletedTelevoteIds((current) => new Set(current).add(song.id));
       setAnimating(false);
-      setTelevoteIndex((index) => index + 1);
-      const nextSong = televoteSongs[televoteIndex + 1];
+      setTelevoteIndex((current) => Math.max(current, index + 1));
+      const nextSong = televoteSongs[index + 1];
       if (nextSong) {
         setActiveTelevoteSongId(nextSong.id);
       } else {
         setActiveTelevoteSongId(undefined);
-        setPhase("winner");
+        if (!televoteVideoEnabled) setPhase("winner");
       }
     }, TELEVOTE_SCORE_APPLY_MS + SCORE_RESHUFFLE_MS);
+  }
+
+  function processNextTelevote() {
+    const song = televoteSongs[televoteIndex];
+    if (!song || animating) return;
+    runTelevoteAnimation(song, televoteIndex);
   }
 
   const progressText =
@@ -1532,6 +2075,10 @@ function EurovisionResultsNight({
       : phase === "televote"
         ? `Televote ${Math.min(televoteIndex + 1, televoteSongs.length)} / ${televoteSongs.length}`
         : "Scoreboard ready";
+  const hideJuryTwelveInPanel =
+    phase === "jury" &&
+    useResultsVideo &&
+    juryVideoSegment === "twelve-point";
 
   return (
     <div className="resultsNight">
@@ -1578,7 +2125,7 @@ function EurovisionResultsNight({
               Begin Televote Results
             </button>
           ) : null}
-          {phase === "televote" ? (
+          {phase === "televote" && !televoteVideoEnabled ? (
             <button
               className="primaryButton"
               type="button"
@@ -1600,49 +2147,71 @@ function EurovisionResultsNight({
         </div>
       </div>
 
-      {phase === "jury" || currentDelegation ? (
-        <JuryAwardPanel delegation={currentDelegation} />
-      ) : null}
-      {phase === "jury-complete" ? (
-        <section className="resultsNightNotice">
-          <h3>Jury Voting Complete</h3>
-          <p>Current Jury Standings</p>
-        </section>
-      ) : null}
-      {phase === "televote-intro" ? (
-        <section className="resultsNightNotice">
-          <h3>Televote Results</h3>
-          <p>Countries will receive televote points in jury-score order.</p>
-        </section>
-      ) : null}
-      {phase === "winner" && winner ? (
-        <section className="winnerReveal">
-          <span>Winner</span>
-          <strong>
-            <FlagEmoji
-              alt=""
-              code={winner.countryCode}
-              src={winner.flagEmoji}
-            />
-            {winner.country}
-          </strong>
-        </section>
-      ) : null}
+      <div className="resultsNightStage">
+        <div className="resultsNightMediaColumn">
+          <ResultNightVideo
+            title={activeVideo?.title ?? "Eurovision results video"}
+            url={activeVideo?.url}
+            start={activeVideo?.start}
+            end={activeVideo?.end}
+            playbackKey={activeVideo?.key ?? "no-video"}
+          />
 
-      <ResultNightScoreboard
-        songs={scoreboardSongs}
-        scores={scores}
-        awards={awards}
-        activeSongId={activeTelevoteSongId}
-        completedSongIds={completedTelevoteIds}
-        winnerSongId={phase === "winner" ? winner?.id : undefined}
-        registerCard={registerCard}
-      />
+          {phase === "jury" || currentDelegation ? (
+            <JuryAwardPanel
+              delegation={currentDelegation}
+              hideTwelve={hideJuryTwelveInPanel}
+              visibleVotes={visibleJuryVotes}
+            />
+          ) : null}
+          {phase === "jury-complete" ? (
+            <section className="resultsNightNotice">
+              <h3>Jury Voting Complete</h3>
+              <p>Current Jury Standings</p>
+            </section>
+          ) : null}
+          {phase === "televote-intro" ? (
+            <section className="resultsNightNotice">
+              <h3>Televote Results</h3>
+              <p>Countries will receive televote points in jury-score order.</p>
+            </section>
+          ) : null}
+          {phase === "winner" && winner ? (
+            <section className="winnerReveal">
+              <span>Winner</span>
+              <strong>
+                <FlagEmoji
+                  alt=""
+                  code={winner.countryCode}
+                  src={winner.flagEmoji}
+                />
+                {winner.country}
+              </strong>
+            </section>
+          ) : null}
+        </div>
+
+        <ResultNightScoreboard
+          songs={scoreboardSongs}
+          scores={scores}
+          awards={awards}
+          activeSongId={activeTelevoteSongId}
+          completedSongIds={completedTelevoteIds}
+          winnerSongId={phase === "winner" ? winner?.id : undefined}
+          registerCard={registerCard}
+        />
+      </div>
 
       <CenterTelevoteScore
         points={centerTelevote?.points}
         flying={Boolean(centerTelevote?.flying)}
         target={centerTelevote?.target}
+      />
+      <CenterStaticAward
+        visible={Boolean(centerTwelve?.visible)}
+        points={12}
+        flying={Boolean(centerTwelve?.flying)}
+        target={centerTwelve?.target}
       />
     </div>
   );
@@ -1664,6 +2233,16 @@ function PlacementPredictionPanel({
     [songs, year],
   );
   const resultData = resultsByYear.get(year);
+  const resultCountriesByCountry = useMemo(() => {
+    if (!resultData) return new Map<string, ResultCountryInput>();
+    return new Map(
+      resultData.countries.map((country) => [
+        countryKey(country.country),
+        country,
+      ]),
+    );
+  }, [resultData]);
+
   const officialResults = useMemo(() => {
     if (!resultData) return [];
     const resultsByCountry = new Map(
@@ -1682,6 +2261,19 @@ function PlacementPredictionPanel({
       .filter((song): song is FinalistResult => Boolean(song))
       .sort((a, b) => a.actualPlacement - b.actualPlacement);
   }, [finalists, resultData]);
+  const votingResultDelegations = useMemo(
+    () =>
+      songs
+        .map((song) => {
+          const result = resultCountriesByCountry.get(countryKey(song.country));
+          return result ? { ...song, result } : null;
+        })
+        .filter((song): song is ResultDelegation => Boolean(song))
+        .filter((song) =>
+          song.result.jury?.votesAwarded?.some((vote) => vote.points > 0),
+        ),
+    [resultCountriesByCountry, songs],
+  );
   const revealOrderIds = useMemo(
     () =>
       [...officialResults]
@@ -1839,12 +2431,22 @@ function PlacementPredictionPanel({
     setRevealModeOpen(true);
   }
 
-  function startReveal(mode: NonNullable<PredictionState["revealMode"]>) {
+  function startReveal({
+    mode,
+    useResultsVideo,
+    juryVideoSegment,
+  }: {
+    mode: NonNullable<PredictionState["revealMode"]>;
+    useResultsVideo: boolean;
+    juryVideoSegment: NonNullable<PredictionState["juryVideoSegment"]>;
+  }) {
     const nextRevealOrder = state.revealOrderIds ?? revealOrderIds;
     void persist({
       ...state,
       selectedSongIds: predictedIds,
       revealMode: mode,
+      useResultsVideo,
+      juryVideoSegment,
       revealStartedAt: state.revealStartedAt ?? new Date().toISOString(),
       revealOrderIds: nextRevealOrder,
       revealedSongIds:
@@ -1902,8 +2504,19 @@ function PlacementPredictionPanel({
     );
   }
 
+  const resultsNightActive =
+    state.revealStartedAt && state.revealMode === "eurovision-night";
+
   return (
-    <section className="predictionPanel placementPredictionPanel">
+    <section
+      className={[
+        "predictionPanel",
+        "placementPredictionPanel",
+        resultsNightActive ? "resultsNightActive" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
       <div className="predictionHeader">
         <div>
           <h2>Predict the Official Final Results</h2>
@@ -2032,6 +2645,10 @@ function PlacementPredictionPanel({
       ) : state.revealMode === "eurovision-night" ? (
         <EurovisionResultsNight
           songs={officialResults}
+          delegations={votingResultDelegations}
+          resultData={resultData}
+          useResultsVideo={state.useResultsVideo ?? true}
+          juryVideoSegment={state.juryVideoSegment ?? "twelve-point"}
           onShowSummary={() =>
             void persist({
               ...state,
