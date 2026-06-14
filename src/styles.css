@@ -1191,9 +1191,10 @@ a {
 
 .resultsNightStage {
   display: grid;
-  grid-template-columns: minmax(420px, 0.95fr) minmax(560px, 1.25fr);
-  gap: 12px;
+  grid-template-columns: minmax(380px, 0.76fr) minmax(760px, 1.5fr);
+  gap: 22px;
   align-items: start;
+  overflow: visible;
 }
 
 .resultsNightMediaColumn {
@@ -1245,6 +1246,17 @@ a {
   gap: 10px;
 }
 
+.juryAwardPanel h3 {
+  opacity: 0;
+  transform: translateX(-18px);
+  animation: jury-vote-in 420ms ease forwards;
+}
+
+.juryAwardPanel.exiting h3 {
+  animation: jury-panel-title-out 650ms ease forwards;
+  animation-delay: 280ms;
+}
+
 .juryAwardPanel > div {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1265,8 +1277,15 @@ a {
   background: rgba(7, 7, 12, 0.48);
   opacity: 0;
   transform: translateX(-18px);
-  animation: jury-vote-in 2200ms ease forwards;
+  animation: jury-vote-in 420ms ease forwards;
   animation-delay: var(--vote-delay, 0ms);
+}
+
+.juryAwardPanel.exiting span {
+  opacity: 1;
+  transform: translateX(0);
+  animation: jury-vote-out 650ms ease forwards;
+  animation-delay: var(--vote-exit-delay, 0ms);
 }
 
 .juryAwardPanel strong {
@@ -1279,40 +1298,131 @@ a {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   background: #05050a;
+  contain: layout paint style;
+  isolation: isolate;
+  transform: translateZ(0);
 }
 
-.resultsNightVideo iframe {
+.resultsNightVideo iframe,
+.resultsNightVideo video,
+.resultsNightVideo > div {
   display: block;
   width: 100%;
   height: clamp(250px, 28vw, 430px);
   border: 0;
+  object-fit: contain;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .nightScoreboard {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  gap: 30px;
   align-items: start;
+  overflow: visible;
+  padding-inline: 8px;
 }
 
 .nightScoreboard > div {
   display: grid;
-  gap: 6px;
+  gap: 10px;
+  overflow: visible;
 }
 
 .nightScoreboardCard {
   position: relative;
   display: grid;
-  grid-template-columns: 28px 28px minmax(0, 1fr) 76px;
+  grid-template-columns: 62px 28px minmax(0, 1fr) 84px;
   align-items: center;
-  gap: 8px;
-  min-height: 46px;
-  padding: 7px 10px;
-  overflow: hidden;
+  gap: 12px;
+  min-height: 56px;
+  padding: 9px 12px 9px 0;
+  overflow: visible;
   border: 1px solid rgba(255, 255, 255, 0.11);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.065);
-  will-change: transform;
+  scale: 1;
+  transition:
+    background 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease,
+    scale 320ms ease;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, scale;
+}
+
+.nightScoreboardCard.awarded {
+  z-index: 2;
+  scale: 1.028;
+  border-color: rgba(117, 240, 255, 0.72);
+  background: rgba(255, 255, 255, 0.075);
+  box-shadow:
+    0 0 0 1px rgba(117, 240, 255, 0.3),
+    0 0 28px rgba(117, 240, 255, 0.2);
+}
+
+.nightScoreboardCard.awarded::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    rgba(117, 240, 255, 0.34),
+    rgba(117, 240, 255, 0.12)
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: awarded-card-sweep 960ms ease forwards;
+}
+
+.nightScoreboardCard.awarded.settled::after {
+  animation: none;
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+.nightScoreboardCard.awarded.resetting {
+  scale: 1;
+  border-color: rgba(255, 255, 255, 0.11);
+  box-shadow: none;
+}
+
+.nightScoreboardCard.awarded.resetting::after {
+  transform-origin: right;
+  animation: awarded-card-reset 900ms ease forwards;
+}
+
+.nightScoreboardCard.podiumFirst {
+  scale: 1.04;
+  border-color: rgba(255, 214, 79, 0.82);
+  background: rgba(255, 214, 79, 0.16);
+  box-shadow: 0 0 24px rgba(255, 214, 79, 0.2);
+}
+
+.nightScoreboardCard.podiumSecond {
+  scale: 1.028;
+  border-color: rgba(222, 231, 241, 0.76);
+  background: rgba(222, 231, 241, 0.13);
+  box-shadow: 0 0 22px rgba(222, 231, 241, 0.16);
+}
+
+.nightScoreboardCard.podiumThird {
+  scale: 1.018;
+  border-color: rgba(214, 142, 73, 0.78);
+  background: rgba(214, 142, 73, 0.15);
+  box-shadow: 0 0 20px rgba(214, 142, 73, 0.16);
+}
+
+.nightScoreboardCard.awarded.podiumFirst,
+.nightScoreboardCard.awarded.podiumSecond,
+.nightScoreboardCard.awarded.podiumThird {
+  box-shadow:
+    0 0 0 1px rgba(117, 240, 255, 0.36),
+    0 0 30px rgba(117, 240, 255, 0.2);
 }
 
 .nightScoreboardCard.active {
@@ -1336,7 +1446,7 @@ a {
   border-color: rgba(255, 214, 79, 0.72);
   background: rgba(255, 214, 79, 0.16);
   box-shadow: 0 0 34px rgba(255, 214, 79, 0.18);
-  transform: scale(1.02);
+  scale: 1.045;
 }
 
 .nightScoreboardCard > * {
@@ -1345,10 +1455,40 @@ a {
 }
 
 .nightRank {
-  color: rgba(247, 242, 255, 0.54);
-  font-size: 0.82rem;
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+  min-width: 58px;
+  margin-block: -9px;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px 0 0 8px;
+  color: #fff;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 67, 209, 0.44),
+      rgba(53, 214, 255, 0.38)
+    ),
+    rgba(255, 255, 255, 0.045);
+  font-size: 1.45rem;
   font-weight: 950;
-  text-align: right;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.nightScoreboardCard.podiumFirst .nightRank {
+  color: #ffe17a;
+  background: rgba(255, 214, 79, 0.16);
+}
+
+.nightScoreboardCard.podiumSecond .nightRank {
+  color: #e4edf7;
+  background: rgba(222, 231, 241, 0.13);
+}
+
+.nightScoreboardCard.podiumThird .nightRank {
+  color: #e2a66d;
+  background: rgba(214, 142, 73, 0.14);
 }
 
 .nightCountry {
@@ -1389,7 +1529,7 @@ a {
 }
 
 .nightScore.impact {
-  animation: score-impact 380ms ease;
+  animation: none;
 }
 
 .nightAward {
@@ -1416,7 +1556,8 @@ a {
 }
 
 .nightScore.rolling .scoreRoller {
-  animation: score-roll 400ms cubic-bezier(0.12, 0.9, 0.24, 1) both;
+  animation: score-roll var(--score-roll-duration, 400ms)
+    cubic-bezier(0.12, 0.9, 0.24, 1) both;
 }
 
 .nightScore:not(.rolling) .scoreRoller {
@@ -1460,7 +1601,10 @@ a {
   top: 50%;
   left: 50%;
   z-index: 10001;
-  color: #fff;
+  color: #75f0ff;
+  padding: 0;
+  border: 0;
+  background: transparent;
   font-size: clamp(3.2rem, 9vw, 7.2rem);
   font-weight: 950;
   line-height: 1;
@@ -1470,6 +1614,9 @@ a {
   pointer-events: none;
   transform: translate(-50%, -50%) scale(1);
   animation: static-award-anticipation 500ms ease both;
+  backface-visibility: hidden;
+  contain: layout paint style;
+  will-change: transform, opacity;
 }
 
 .centerStaticAward.flying {
@@ -1506,6 +1653,28 @@ a {
   }
 }
 
+@keyframes jury-vote-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(72px);
+  }
+}
+
+@keyframes jury-panel-title-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(72px);
+  }
+}
+
 @keyframes local-award-pocket {
   0% {
     opacity: 0;
@@ -1518,6 +1687,28 @@ a {
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes awarded-card-sweep {
+  0% {
+    opacity: 0.8;
+    transform: scaleX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes awarded-card-reset {
+  0% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(0);
   }
 }
 
@@ -3974,9 +4165,13 @@ a {
   font-weight: 800;
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1280px) {
   .resultsNightStage {
     grid-template-columns: 1fr;
+  }
+
+  .nightScoreboard {
+    padding-inline: 6px;
   }
 }
 

@@ -95,7 +95,9 @@
             "country": "Australia",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 28,
+        "assetsTwelvePointTimestamp": 37
       },
       "pointsAnnouncedAt": 13831
     },
@@ -151,7 +153,9 @@
             "country": "Poland",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 20,
+        "assetsTwelvePointTimestamp": 28
       },
       "pointsAnnouncedAt": null
     },
@@ -207,7 +211,9 @@
             "country": "Italy",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 39,
+        "assetsTwelvePointTimestamp": 44
       },
       "pointsAnnouncedAt": 12321
     },
@@ -263,7 +269,9 @@
             "country": "Greece",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 49,
+        "assetsTwelvePointTimestamp": 55
       },
       "pointsAnnouncedAt": 13540
     },
@@ -319,7 +327,9 @@
             "country": "Czechia",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 22,
+        "assetsTwelvePointTimestamp": 29
       },
       "pointsAnnouncedAt": null
     },
@@ -375,7 +385,9 @@
             "country": "Israel",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 26,
+        "assetsTwelvePointTimestamp": 33
       },
       "pointsAnnouncedAt": 13660
     },
@@ -431,7 +443,9 @@
             "country": "Denmark",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 22,
+        "assetsTwelvePointTimestamp": 30
       },
       "pointsAnnouncedAt": 14431
     },
@@ -487,7 +501,9 @@
             "country": "Moldova",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 18,
+        "assetsTwelvePointTimestamp": 24
       },
       "pointsAnnouncedAt": 13787
     },
@@ -543,7 +559,9 @@
             "country": "Italy",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 21,
+        "assetsTwelvePointTimestamp": 28
       },
       "pointsAnnouncedAt": 13726
     },
@@ -599,7 +617,9 @@
             "country": "Malta",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 28,
+        "assetsTwelvePointTimestamp": 34
       },
       "pointsAnnouncedAt": 13943
     },
@@ -655,7 +675,9 @@
             "country": "Romania",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 20,
+        "assetsTwelvePointTimestamp": 28
       },
       "pointsAnnouncedAt": 14194
     },
@@ -711,7 +733,9 @@
             "country": "Czechia",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 18,
+        "assetsTwelvePointTimestamp": 31
       },
       "pointsAnnouncedAt": null
     },
@@ -767,7 +791,9 @@
             "country": "Moldova",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 28,
+        "assetsTwelvePointTimestamp": 33
       },
       "pointsAnnouncedAt": 14136
     },
@@ -823,7 +849,9 @@
             "country": "Serbia",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 23,
+        "assetsTwelvePointTimestamp": 27
       },
       "pointsAnnouncedAt": 14165
     },
@@ -879,7 +907,9 @@
             "country": "Czechia",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 18,
+        "assetsTwelvePointTimestamp": 31
       },
       "pointsAnnouncedAt": null
     },
@@ -935,7 +965,9 @@
             "country": "Sweden",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 30,
+        "assetsTwelvePointTimestamp": 36
       },
       "pointsAnnouncedAt": 13621
     },
@@ -991,7 +1023,9 @@
             "country": "Albania",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 17,
+        "assetsTwelvePointTimestamp": 23
       },
       "pointsAnnouncedAt": 13897
     },
@@ -1047,7 +1081,9 @@
             "country": "Albania",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 38,
+        "assetsTwelvePointTimestamp": 42
       },
       "pointsAnnouncedAt": 13997
     },
@@ -1103,7 +1139,9 @@
             "country": "Moldova",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 30,
+        "assetsTwelvePointTimestamp": 38
       },
       "pointsAnnouncedAt": 14059
     },
@@ -1159,7 +1197,9 @@
             "country": "Greece",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 26,
+        "assetsTwelvePointTimestamp": 35
       },
       "pointsAnnouncedAt": null
     },
@@ -1215,7 +1255,9 @@
             "country": "France",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 13,
+        "assetsTwelvePointTimestamp": 19
       },
       "pointsAnnouncedAt": 13600
     },
@@ -1271,7 +1313,9 @@
             "country": "Austria",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 37,
+        "assetsTwelvePointTimestamp": 47
       },
       "pointsAnnouncedAt": null
     },
@@ -1327,7 +1371,9 @@
             "country": "Poland",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 32,
+        "assetsTwelvePointTimestamp": 39
       },
       "pointsAnnouncedAt": 13924
     },
@@ -1383,7 +1429,9 @@
             "country": "Italy",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 26,
+        "assetsTwelvePointTimestamp": 34
       },
       "pointsAnnouncedAt": 13750
     },
@@ -1439,7 +1487,9 @@
             "country": "Poland",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 16,
+        "assetsTwelvePointTimestamp": 20
       },
       "pointsAnnouncedAt": null
     },
@@ -1495,7 +1545,9 @@
             "country": "Israel",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 19,
+        "assetsTwelvePointTimestamp": 27
       },
       "pointsAnnouncedAt": 13967
     },
@@ -1551,7 +1603,9 @@
             "country": "Ukraine",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 28,
+        "assetsTwelvePointTimestamp": 33
       },
       "pointsAnnouncedAt": 14035
     },
@@ -1607,7 +1661,9 @@
             "country": "Romania",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 22,
+        "assetsTwelvePointTimestamp": 31
       },
       "pointsAnnouncedAt": null
     },
@@ -1663,7 +1719,9 @@
             "country": "Ukraine",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 31,
+        "assetsTwelvePointTimestamp": 40
       },
       "pointsAnnouncedAt": 13860
     },
@@ -1719,7 +1777,9 @@
             "country": "Denmark",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 18,
+        "assetsTwelvePointTimestamp": 25
       },
       "pointsAnnouncedAt": null
     },
@@ -1775,7 +1835,9 @@
             "country": "Poland",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 32,
+        "assetsTwelvePointTimestamp": 41
       },
       "pointsAnnouncedAt": 13709
     },
@@ -1831,7 +1893,9 @@
             "country": "Romania",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 21,
+        "assetsTwelvePointTimestamp": 31
       },
       "pointsAnnouncedAt": 13640
     },
@@ -1842,7 +1906,7 @@
       "juryPoints": 0,
       "televotePoints": 0,
       "jury": {
-        "delegationStartTime": 11277,
+        "delegationStartTime": 11273,
         "twelvePointAnnouncementStartTime": 11312,
         "twelvePointTimestamp": 11317,
         "delegationEndTime": 11325,
@@ -1887,7 +1951,9 @@
             "country": "Romania",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 39,
+        "assetsTwelvePointTimestamp": 44
       },
       "pointsAnnouncedAt": null
     },
@@ -1898,7 +1964,7 @@
       "juryPoints": 54,
       "televotePoints": 167,
       "jury": {
-        "delegationStartTime": 11332,
+        "delegationStartTime": 11389,
         "twelvePointAnnouncementStartTime": 11422,
         "twelvePointTimestamp": 11429,
         "delegationEndTime": 11438,
@@ -1943,7 +2009,9 @@
             "country": "United Kingdom",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 33,
+        "assetsTwelvePointTimestamp": 40
       },
       "pointsAnnouncedAt": 13805
     },
@@ -1999,7 +2067,9 @@
             "country": "Malta",
             "points": 1
           }
-        ]
+        ],
+        "assetsTwelvePointAnnouncementStartTime": 38,
+        "assetsTwelvePointTimestamp": 42
       },
       "pointsAnnouncedAt": 13566
     }

@@ -53,7 +53,9 @@ export type ResultCountryInput = {
   jury?: {
     delegationStartTime?: number | null;
     twelvePointAnnouncementStartTime?: number | null;
+    assetsTwelvePointAnnouncementStartTime?: number | null;
     twelvePointTimestamp?: number | null;
+    assetsTwelvePointTimestamp?: number | null;
     delegationEndTime?: number | null;
     votesAwarded?: {
       country: string;
@@ -138,6 +140,7 @@ export type PredictionState = {
   revealMode?: "instant" | "step" | "eurovision-night";
   useResultsVideo?: boolean;
   juryVideoSegment?: "full-call" | "twelve-point";
+  autoAdvanceJury?: boolean;
   revealStartedAt?: string;
   revealOrderIds?: string[];
   revealedSongIds: string[];
