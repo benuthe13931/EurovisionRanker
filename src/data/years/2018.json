@@ -9,301 +9,430 @@
       "artist": "Eugent Bushpepa",
       "title": "Mall",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Armenia",
       "artist": "Sevak Khanagyan",
       "title": "Qami",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Australia",
       "artist": "Jessica Mauboy",
       "title": "We Got Love",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Austria",
       "artist": "Cesár Sampson",
       "title": "Nobody but You",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Azerbaijan",
       "artist": "Aisel",
       "title": "X My Heart",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Belarus",
       "artist": "Alekseev",
       "title": "Forever",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Belgium",
       "artist": "Sennek",
       "title": "A Matter of Time",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Bulgaria",
       "artist": "Equinox",
       "title": "Bones",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Croatia",
       "artist": "Franka",
       "title": "Crazy",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Cyprus",
       "artist": "Eleni Foureira",
       "title": "Fuego",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Czech Republic",
       "artist": "Mikolas Josef",
       "title": "Lie to Me",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Denmark",
       "artist": "Rasmussen",
       "title": "Higher Ground",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Estonia",
       "artist": "Elina Nechayeva",
       "title": "La forza",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Finland",
       "artist": "Saara Aalto",
       "title": "Monsters",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "France",
       "artist": "Madame Monsieur",
       "title": "Mercy",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 0,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "FYR Macedonia",
       "artist": "Eye Cue",
       "title": "Lost and Found",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Georgia",
       "artist": "Ethno-Jazz Band Iriao",
       "title": "For You",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Germany",
       "artist": "Michael Schulte",
       "title": "You Let Me Walk Alone",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 0,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Greece",
       "artist": "Yianna Terzi",
       "title": "Oniro mou",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Hungary",
       "artist": "AWS",
       "title": "Viszlát nyár",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Iceland",
       "artist": "Ari Ólafsson",
       "title": "Our Choice",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Ireland",
       "artist": "Ryan O'Shaughnessy",
       "title": "Together",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Israel",
       "artist": "Netta",
       "title": "Toy",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Italy",
       "artist": "Ermal Meta & Fabrizio Moro",
       "title": "Non mi avete fatto niente",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 0,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Latvia",
       "artist": "Laura Rizzotto",
       "title": "Funny Girl",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Lithuania",
       "artist": "Ieva Zasimauskaitė",
       "title": "When We're Old",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Malta",
       "artist": "Christabelle",
       "title": "Taboo",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Moldova",
       "artist": "DoReDoS",
       "title": "My Lucky Day",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Montenegro",
       "artist": "Vanja Radovanović",
       "title": "Inje",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Netherlands",
       "artist": "Waylon",
       "title": "Outlaw in 'Em",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Norway",
       "artist": "Alexander Rybak",
       "title": "That's How You Write a Song",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Poland",
       "artist": "Gromee feat. Lukas Meijer",
       "title": "Light Me Up",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Portugal",
       "artist": "Cláudia Pascoal",
       "title": "O jardim",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 0,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Romania",
       "artist": "The Humans",
       "title": "Goodbye",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Russia",
       "artist": "Julia Samoylova",
       "title": "I Won't Break",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "San Marino",
       "artist": "Jessika feat. Jenifer Brening",
       "title": "Who We Are",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Serbia",
       "artist": "Sanja Ilić & Balkanika",
       "title": "Nova deca",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Slovenia",
       "artist": "Lea Sirk",
       "title": "Hvala, ne!",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Spain",
       "artist": "Amaia & Alfred",
       "title": "Tu canción",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 0,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Sweden",
       "artist": "Benjamin Ingrosso",
       "title": "Dance You Off",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Switzerland",
       "artist": "Zibbz",
       "title": "Stones",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Ukraine",
       "artist": "Mélovin",
       "title": "Under the Ladder",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "United Kingdom",
       "artist": "SuRie",
       "title": "Storm",
       "previewVideoUrl": "",
-      "compareStartSeconds": 0
+      "compareStartSeconds": 0,
+      "semiFinal": 0,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
     }
   ]
 }
