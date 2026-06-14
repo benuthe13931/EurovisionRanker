@@ -301,10 +301,30 @@ function juryVotesForCascade(delegation?: ResultDelegation) {
     .sort((a, b) => a.points - b.points);
 }
 
+function validTimestampSeconds(value?: number | null) {
+  const timestamp = timestampSeconds(value);
+  return typeof timestamp === "number" && timestamp >= 0 ? timestamp : undefined;
+}
+
 function televoteOrder(songs: FinalistResult[]) {
   return [...songs]
     .filter((song) => typeof song.result.televotePoints === "number")
     .sort((a, b) => {
+      const aAnnouncedAt =
+        validTimestampSeconds(a.result.assetsPointsAnnouncedAt) ??
+        validTimestampSeconds(a.result.pointsAnnouncedAt);
+      const bAnnouncedAt =
+        validTimestampSeconds(b.result.assetsPointsAnnouncedAt) ??
+        validTimestampSeconds(b.result.pointsAnnouncedAt);
+      const aHasValidAnnouncement = typeof aAnnouncedAt === "number";
+      const bHasValidAnnouncement = typeof bAnnouncedAt === "number";
+
+      if (aHasValidAnnouncement && bHasValidAnnouncement) {
+        return aAnnouncedAt - bAnnouncedAt;
+      }
+      if (aHasValidAnnouncement) return -1;
+      if (bHasValidAnnouncement) return 1;
+
       const juryDiff = (a.result.juryPoints ?? 0) - (b.result.juryPoints ?? 0);
       if (juryDiff !== 0) return juryDiff;
       return b.actualPlacement - a.actualPlacement;
@@ -1506,7 +1526,9 @@ function ResultNightScoreboard({
         ref={(node) => registerCard(song.id, node)}
         className={[
           "nightScoreboardCard",
-          activeSongId === song.id ? "active" : "",
+          activeSongId === song.id && !highlightedSongIds.has(song.id)
+            ? "active"
+            : "",
           highlightedSongIds.has(song.id) ? "awarded" : "",
           settledHighlightSongIds.has(song.id) ? "settled" : "",
           resettingSongIds.has(song.id) ? "resetting" : "",
@@ -1658,7 +1680,7 @@ function CenterTelevoteScore({
         } as CSSProperties
       }
     >
-      +{displayValue}
+      <span>+{displayValue}</span>
     </div>,
     document.body,
   );
@@ -1948,6 +1970,7 @@ function EurovisionResultsNight({
   autoAdvanceJury,
   initialProgress,
   onProgressChange,
+  onSaveExit,
   onShowSummary,
 }: {
   songs: FinalistResult[];
@@ -1958,6 +1981,7 @@ function EurovisionResultsNight({
   autoAdvanceJury: boolean;
   initialProgress?: FinalsRevealProgress;
   onProgressChange: (progress: FinalsRevealProgress) => void;
+  onSaveExit: () => void;
   onShowSummary: () => void;
 }) {
   const juryDelegations = useMemo(
@@ -2113,6 +2137,17 @@ function EurovisionResultsNight({
   function clearScheduled() {
     timers.current.forEach((timer) => window.clearTimeout(timer));
     timers.current = [];
+  }
+
+  function resetAwardedHighlightsAfterShuffle(songIds: Set<string>) {
+    schedule(() => {
+      setResettingSongIds(new Set(songIds));
+      schedule(() => {
+        setHighlightedSongIds(new Set());
+        setSettledHighlightSongIds(new Set());
+        setResettingSongIds(new Set());
+      }, 950);
+    }, SCORE_RESHUFFLE_MS + 500);
   }
 
   function scheduleLowerAwards(
@@ -2271,6 +2306,29 @@ function EurovisionResultsNight({
     saveProgress("winner", 0, 0, finalScores);
   }
 
+  function skipToTelevote() {
+    clearScheduled();
+    const juryScores = juryScoreSnapshot(songs);
+    scoresRef.current = juryScores;
+    videoSyncRef.current = undefined;
+    setActiveVideo(undefined);
+    setCurrentDelegation(undefined);
+    setAwards([]);
+    setVisibleJuryVotes([]);
+    setJuryPanelExiting(false);
+    setHighlightedSongIds(new Set());
+    setSettledHighlightSongIds(new Set());
+    setResettingSongIds(new Set());
+    setCenterTwelve(undefined);
+    setSlowRollingSongId(undefined);
+    setFrozenOrderIds(undefined);
+    setAnimating(false);
+    setJuryIndex(juryDelegations.length);
+    setScores(juryScores);
+    setPhase("televote-intro");
+    saveProgress("televote-intro", juryDelegations.length, televoteIndex, juryScores);
+  }
+
   function finishJuryDelegation() {
     const completedIndex = activeJuryIndexRef.current;
     const nextIndex = completedIndex + 1;
@@ -2334,10 +2392,11 @@ function EurovisionResultsNight({
           (current[twelveRecipientId] ?? 0) + twelvePointVote.points,
       }));
       schedule(() => setSlowRollingSongId(undefined), 900);
-    }, TWELVE_POINT_HOLD_MS + TWELVE_POINT_FLIGHT_MS - 650);
+    }, TWELVE_POINT_HOLD_MS + TWELVE_POINT_FLIGHT_MS - 950);
 
     schedule(() => {
       releaseFrozenScoreboard();
+      resetAwardedHighlightsAfterShuffle(new Set([twelveRecipientId]));
     }, TWELVE_POINT_HOLD_MS + TWELVE_POINT_FLIGHT_MS + 400);
   }
 
@@ -2372,7 +2431,9 @@ function EurovisionResultsNight({
       return;
     }
 
-    const dueTelevoteSongs = televoteSongs
+    if (animating) return;
+
+    const pendingTelevoteEntries = televoteSongs
       .map((song, index) => ({
         song,
         index,
@@ -2385,12 +2446,23 @@ function EurovisionResultsNight({
       .filter(
         (entry) =>
           typeof entry.announcedAt === "number" &&
-          currentTime >= Math.max(0, entry.announcedAt - 0.1) &&
+          entry.announcedAt >= 0 &&
           !sync.firedSongIds.has(entry.song.id),
       )
       .sort((a, b) => (a.announcedAt ?? 0) - (b.announcedAt ?? 0));
+    const nextWaitingEntry = pendingTelevoteEntries.find(
+      (entry) => (entry.announcedAt ?? 0) >= currentTime - 0.1,
+    );
 
-    dueTelevoteSongs.forEach(({ song, index }) => {
+    if (nextWaitingEntry && activeTelevoteSongId !== nextWaitingEntry.song.id) {
+      setActiveTelevoteSongId(nextWaitingEntry.song.id);
+    }
+
+    const dueTelevoteSongs = pendingTelevoteEntries.filter(
+      (entry) => currentTime >= Math.max(0, (entry.announcedAt ?? 0) - 0.1),
+    );
+
+    dueTelevoteSongs.slice(0, 1).forEach(({ song, index }) => {
       sync.firedSongIds.add(song.id);
       runTelevoteAnimation(song, index);
     });
@@ -2638,7 +2710,7 @@ function EurovisionResultsNight({
       twelveScoreApplyDelay = Math.max(
         twelveFlyDelay + TWELVE_POINT_FLIGHT_MS,
         twelveRevealDelay + TWELVE_POINT_HOLD_MS + TWELVE_POINT_FLIGHT_MS,
-      );
+      ) - 300;
 
       schedule(() => {
         if (!twelveRecipient) return;
@@ -2663,6 +2735,9 @@ function EurovisionResultsNight({
 
       schedule(() => {
         releaseFrozenScoreboard();
+        if (twelveRecipient) {
+          resetAwardedHighlightsAfterShuffle(new Set([twelveRecipient.id]));
+        }
       }, twelveScoreApplyDelay + 250);
     } else if (!videoMode && twelvePointVote) {
       const twelveRecipient = pointsRecipient(twelvePointVote.country);
@@ -2688,6 +2763,7 @@ function EurovisionResultsNight({
         }));
         schedule(() => setSlowRollingSongId(undefined), 900);
         releaseFrozenScoreboard();
+        resetAwardedHighlightsAfterShuffle(new Set([twelveRecipient.id]));
       }, fallbackTwelveApplyDelay);
     }
 
@@ -2698,6 +2774,9 @@ function EurovisionResultsNight({
         JURY_AWARD_REMOVE_AFTER_MERGE_MS;
       schedule(() => {
         releaseFrozenScoreboard();
+        resetAwardedHighlightsAfterShuffle(
+          new Set(nextAwards.map((award) => award.songId)),
+        );
       }, batchApplyDelay);
     } else if (!videoMode && !twelvePointVote) {
       const batchApplyDelay =
@@ -2706,6 +2785,9 @@ function EurovisionResultsNight({
         JURY_AWARD_REMOVE_AFTER_MERGE_MS;
       schedule(() => {
         releaseFrozenScoreboard();
+        resetAwardedHighlightsAfterShuffle(
+          new Set(nextAwards.map((award) => award.songId)),
+        );
       }, batchApplyDelay);
     }
 
@@ -2831,11 +2913,15 @@ function EurovisionResultsNight({
     setActiveTelevoteSongId(song.id);
     setCenterTelevote({ points, flying: false, target });
 
-    window.setTimeout(() => {
-      setCenterTelevote({ points, flying: true, target });
+    schedule(() => {
+      setCenterTelevote({
+        points,
+        flying: true,
+        target: scoreTargetForSong(song.id),
+      });
     }, flyDelay);
 
-    window.setTimeout(() => {
+    schedule(() => {
       setCenterTelevote(undefined);
       setAwards([{ songId: song.id, points, delay: 0 }]);
       setHighlightedSongIds(new Set([song.id]));
@@ -2848,9 +2934,15 @@ function EurovisionResultsNight({
       }));
     }, scoreApplyDelay);
 
-    window.setTimeout(() => {
+    schedule(() => {
+      setResettingSongIds(new Set([song.id]));
+    }, scoreApplyDelay + SCORE_RESHUFFLE_MS + 500);
+
+    schedule(() => {
       setAwards([]);
       setHighlightedSongIds(new Set());
+      setSettledHighlightSongIds(new Set());
+      setResettingSongIds(new Set());
       setCompletedTelevoteIds((current) => new Set(current).add(song.id));
       setAnimating(false);
       const nextTelevoteIndex = Math.max(televoteIndex, index + 1);
@@ -2867,7 +2959,7 @@ function EurovisionResultsNight({
         setActiveTelevoteSongId(undefined);
         if (!televoteVideoEnabled) setPhase("winner");
       }
-    }, scoreApplyDelay + SCORE_RESHUFFLE_MS);
+    }, scoreApplyDelay + SCORE_RESHUFFLE_MS + 1450);
   }
 
   function processNextTelevote() {
@@ -2895,6 +2987,27 @@ function EurovisionResultsNight({
           <p>{progressText}</p>
         </div>
         <div className="resultsNightActions">
+          {phase !== "ready" ? (
+            <button
+              className="secondaryButton"
+              type="button"
+              onClick={() => {
+                saveProgress(phase, juryIndex, televoteIndex);
+                onSaveExit();
+              }}
+            >
+              Save & Exit
+            </button>
+          ) : null}
+          {(phase === "jury" || phase === "jury-complete") && hasTelevote ? (
+            <button
+              className="secondaryButton"
+              type="button"
+              onClick={skipToTelevote}
+            >
+              Skip to Televote
+            </button>
+          ) : null}
           {phase === "ready" ? (
             <button
               className="primaryButton"
@@ -3600,6 +3713,7 @@ function PlacementPredictionPanel({
                 updatedAt: new Date().toISOString(),
               })
             }
+            onSaveExit={() => setResumePromptOpen(true)}
             onShowSummary={() =>
               void persist({
                 ...state,
