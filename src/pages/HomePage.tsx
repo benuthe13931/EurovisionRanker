@@ -13,15 +13,15 @@ export default function HomePage() {
           <p className="eyebrow">Private local ranking app</p>
           <h1>Eurovision Ranker</h1>
           <p>
-            Rank songs by contest year, keep favorites, or build a giant all-songs ranking with
-            drag-and-drop and comparison sorting.
+            Rank songs by contest year, keep favorites, or build a dedicated Global Ranking with
+            drag-and-drop and comparison insertion.
           </p>
         </div>
 
-        <Link className="featurePanel allSongsPanel" to="/all-songs">
+        <Link className="featurePanel allSongsPanel" to="/global-rankings">
           <span>{allSongs.length} songs</span>
-          <h2>All Songs Ranking</h2>
-          <p>Combine every JSON year file into one local leaderboard.</p>
+          <h2>Global Rankings</h2>
+          <p>Insert selected years into one persistent cross-year leaderboard.</p>
         </Link>
 
         <Link className="featurePanel countryPanel" to="/countries">

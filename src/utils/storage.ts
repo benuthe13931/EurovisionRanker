@@ -1,9 +1,15 @@
-import type { ComparisonState, PredictionState, RankingState } from "../types";
+import type {
+  ComparisonState,
+  GlobalRankingState,
+  PredictionState,
+  RankingState,
+} from "../types";
 import { supabase } from "./supabase";
 
 const RANKING_PREFIX = "eurovision-ranker:ranking:";
 const COMPARISON_PREFIX = "eurovision-ranker:comparison:";
 const PREDICTION_PREFIX = "eurovision-ranker:prediction:";
+const GLOBAL_RANKING_KEY = "eurovision-ranker:global-ranking";
 const FAVORITES_KEY = "eurovision-ranker:favorites";
 const ACTIVE_PROFILE_KEY = "eurovision-ranker:active-profile";
 const PROFILE_TTL_MS = 1000 * 60 * 60 * 24 * 30;
@@ -157,6 +163,9 @@ async function copyGuestDataToProfile() {
     if (value) await saveComparison(value);
   }
 
+  const globalRanking = readJson<GlobalRankingState>(GLOBAL_RANKING_KEY);
+  if (globalRanking) await saveGlobalRanking(globalRanking);
+
   const favorites = readJson<string[]>(FAVORITES_KEY);
   if (favorites) await saveFavorites(new Set(favorites));
 }
@@ -200,6 +209,66 @@ export async function clearRanking(key: string) {
     p_profile_id: activeProfileId(),
     p_ranking_key: key,
   });
+}
+
+export async function loadGlobalRanking() {
+  const profileId = activeProfileId();
+  if (!profileId) return readJson<GlobalRankingState>(GLOBAL_RANKING_KEY);
+
+  try {
+    return await rpc<GlobalRankingState | null>("get_global_ranking", {
+      p_profile_id: profileId,
+    });
+  } catch (error) {
+    if (missingRpcError(error, "get_global_ranking")) {
+      return readJson<GlobalRankingState>(GLOBAL_RANKING_KEY);
+    }
+    throw error;
+  }
+}
+
+export async function saveGlobalRanking(state: GlobalRankingState) {
+  const updatedState: GlobalRankingState = {
+    ...state,
+    updatedAt: new Date().toISOString(),
+  };
+
+  if (!activeProfileId()) {
+    localStorage.setItem(GLOBAL_RANKING_KEY, JSON.stringify(updatedState));
+    return updatedState;
+  }
+
+  try {
+    return await rpc<GlobalRankingState>("save_global_ranking", {
+      p_profile_id: activeProfileId(),
+      p_state: updatedState,
+    });
+  } catch (error) {
+    if (missingRpcError(error, "save_global_ranking")) {
+      localStorage.setItem(GLOBAL_RANKING_KEY, JSON.stringify(updatedState));
+      return updatedState;
+    }
+    throw error;
+  }
+}
+
+export async function clearGlobalRanking() {
+  if (!activeProfileId()) {
+    localStorage.removeItem(GLOBAL_RANKING_KEY);
+    return;
+  }
+
+  try {
+    await rpc<void>("clear_global_ranking", {
+      p_profile_id: activeProfileId(),
+    });
+  } catch (error) {
+    if (missingRpcError(error, "clear_global_ranking")) {
+      localStorage.removeItem(GLOBAL_RANKING_KEY);
+      return;
+    }
+    throw error;
+  }
 }
 
 export async function loadFavorites() {

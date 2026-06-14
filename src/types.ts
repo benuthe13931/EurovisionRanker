@@ -92,6 +92,27 @@ export type RankingState = {
   updatedAt: string;
 };
 
+export type GlobalInsertedYear = {
+  year: number;
+  insertedAt: string;
+  updatedAt?: string;
+};
+
+export type GlobalManualAdjustment = {
+  songId: string;
+  fromIndex: number;
+  toIndex: number;
+  adjustedAt: string;
+};
+
+export type GlobalRankingState = {
+  globalOrder: string[];
+  insertedYears: GlobalInsertedYear[];
+  totalSongCount: number;
+  manualAdjustments: GlobalManualAdjustment[];
+  updatedAt: string;
+};
+
 export type ComparisonMode = "smart";
 
 export type ComparisonState = {
@@ -99,6 +120,7 @@ export type ComparisonState = {
   mode: ComparisonMode;
   sortedIds: string[];
   pendingIds: string[];
+  preservePendingOrder?: boolean;
   activeId?: string;
   low: number;
   high: number;
