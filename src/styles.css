@@ -1473,6 +1473,68 @@ a {
   animation: completed-sweep 3600ms ease forwards;
 }
 
+.nightLock {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 4px);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  color: rgba(255, 255, 255, 0.92);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(18px, -50%) scale(0);
+  animation: night-lock-hit 720ms cubic-bezier(0.16, 0.84, 0.26, 1) forwards;
+}
+
+.nightLock svg {
+  grid-area: 1 / 1;
+}
+
+.nightLockOpen {
+  animation: lock-open-vanish 520ms ease forwards;
+}
+
+.nightLockClosed {
+  opacity: 0;
+  transform-origin: center;
+  animation: lock-closed-click 520ms ease forwards;
+}
+
+.nightLockRays {
+  grid-area: 1 / 1;
+  position: relative;
+  width: 22px;
+  height: 22px;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: lock-rays-click 420ms ease 320ms forwards;
+}
+
+.nightLockRays::before,
+.nightLockRays::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  width: 2px;
+  height: 4px;
+  border-radius: 999px;
+  background: currentColor;
+  transform-origin: bottom center;
+}
+
+.nightLockRays::before {
+  left: 5px;
+  transform: rotate(-38deg);
+}
+
+.nightLockRays::after {
+  right: 5px;
+  transform: rotate(38deg);
+}
+
 .nightScoreboardCard.winner {
   z-index: 3;
   border-color: rgba(255, 214, 79, 0.72);
@@ -1545,6 +1607,7 @@ a {
   display: grid;
   justify-items: end;
   min-height: 34px;
+  padding-left: 22px;
 }
 
 .nightScore {
@@ -1629,7 +1692,9 @@ a {
 .centerTelevoteScore span {
   display: block;
   transform-origin: center;
-  animation: televote-jackpot-shake 82ms steps(1, end) 32 forwards;
+  animation:
+    televote-jackpot-shake 84ms cubic-bezier(0.5, 0.05, 0.5, 0.95) 30 alternate,
+    televote-jackpot-settle 120ms ease-out 2520ms forwards;
 }
 
 .centerTelevoteScore.flying {
@@ -1803,6 +1868,21 @@ a {
   }
 }
 
+@keyframes night-lock-hit {
+  0% {
+    opacity: 0;
+    transform: translate(18px, -50%) scale(0);
+  }
+  58% {
+    opacity: 1;
+    transform: translate(2px, -50%) scale(1.18);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, -50%) scale(1);
+  }
+}
+
 @keyframes televote-jackpot-grow {
   0% {
     opacity: 0;
@@ -1825,7 +1905,7 @@ a {
     transform: translate(-50%, -50%) scale(1.08);
   }
   88% {
-    transform: translate(-50%, -50%) scale(0.94);
+    transform: translate(-50%, -50%) scale(1.04);
   }
   100% {
     opacity: 1;
@@ -1834,12 +1914,59 @@ a {
 }
 
 @keyframes televote-jackpot-shake {
-  0%,
-  100% {
-    transform: rotate(-45deg);
+  from {
+    transform: rotate(-10deg);
   }
+  to {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes televote-jackpot-settle {
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes lock-open-vanish {
+  0%,
+  54% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes lock-closed-click {
+  0%,
   50% {
-    transform: rotate(45deg);
+    opacity: 0;
+    transform: translateY(-2px) scale(0.82);
+  }
+  64% {
+    opacity: 1;
+    transform: translateY(1px) scale(1.12);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes lock-rays-click {
+  0% {
+    opacity: 0;
+    transform: translateY(-2px) scale(0.7);
+  }
+  45% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-6px) scale(1.08);
   }
 }
 

@@ -16,7 +16,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Check, LockKeyhole, RotateCcw, X } from "lucide-react";
+import { Check, LockKeyhole, LockKeyholeOpen, RotateCcw, X } from "lucide-react";
 import {
   type CSSProperties,
   memo,
@@ -1562,6 +1562,21 @@ function ResultNightScoreboard({
               +{award.points}
             </em>
           ) : null}
+          {completedSongIds.has(song.id) ? (
+            <span className="nightLock" aria-hidden="true">
+              <LockKeyholeOpen
+                className="nightLockOpen"
+                size={18}
+                strokeWidth={2.2}
+              />
+              <LockKeyhole
+                className="nightLockClosed"
+                size={18}
+                strokeWidth={2.2}
+              />
+              <span className="nightLockRays" />
+            </span>
+          ) : null}
         </span>
       </article>
     );
@@ -2451,7 +2466,7 @@ function EurovisionResultsNight({
       )
       .sort((a, b) => (a.announcedAt ?? 0) - (b.announcedAt ?? 0));
     const nextWaitingEntry = pendingTelevoteEntries.find(
-      (entry) => (entry.announcedAt ?? 0) >= currentTime - 0.1,
+      (entry) => (entry.announcedAt ?? 0) >= currentTime,
     );
 
     if (nextWaitingEntry && activeTelevoteSongId !== nextWaitingEntry.song.id) {
@@ -2459,7 +2474,7 @@ function EurovisionResultsNight({
     }
 
     const dueTelevoteSongs = pendingTelevoteEntries.filter(
-      (entry) => currentTime >= Math.max(0, (entry.announcedAt ?? 0) - 0.1),
+      (entry) => currentTime >= Math.max(0, (entry.announcedAt ?? 0)),
     );
 
     dueTelevoteSongs.slice(0, 1).forEach(({ song, index }) => {
@@ -2972,7 +2987,12 @@ function EurovisionResultsNight({
     phase === "jury"
       ? `Jury delegation ${Math.min(juryIndex + 1, juryDelegations.length)} / ${juryDelegations.length}`
       : phase === "televote"
-        ? `Televote ${Math.min(televoteIndex + 1, televoteSongs.length)} / ${televoteSongs.length}`
+        ? `Televote ${Math.max(
+            1,
+            activeTelevoteSongId
+              ? televoteSongs.findIndex((song) => song.id === activeTelevoteSongId) + 1
+              : completedTelevoteIds.size,
+          )} / ${televoteSongs.length}`
         : "Scoreboard ready";
   const hideJuryTwelveInPanel =
     phase === "jury" &&
