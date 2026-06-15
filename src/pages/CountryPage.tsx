@@ -10,15 +10,21 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import ComparisonOverlay from "../components/ComparisonOverlay";
 import FlagEmoji from "../components/FlagEmoji";
 import RankingList from "../components/RankingList";
+import RankingSnapshotControls, {
+  ComparisonStatusLine,
+} from "../components/RankingSnapshotControls";
 import { countriesBySlug } from "../data/years";
 import type { Song } from "../types";
 import {
+  clearComparison,
   clearRanking,
+  loadComparison,
   loadFavorites,
   loadRanking,
   saveFavorites,
   saveRanking,
 } from "../utils/storage";
+import { comparisonIsComplete } from "../utils/pairing";
 
 function orderSongs(songs: Song[], savedIds?: string[]) {
   if (!savedIds?.length) return songs;
@@ -38,6 +44,9 @@ export default function CountryPage() {
   const [favorites, setFavorites] = useState<Set<string>>(() => new Set());
   const [dataError, setDataError] = useState("");
   const [comparisonOpen, setComparisonOpen] = useState(false);
+  const [resumePromptOpen, setResumePromptOpen] = useState(false);
+  const [hasUnfinishedComparison, setHasUnfinishedComparison] = useState(false);
+  const [comparisonStatusRefresh, setComparisonStatusRefresh] = useState(0);
   const hasLocalRankingChange = useRef(false);
 
   const initialSongs = useMemo(() => countryData?.songs ?? [], [countryData]);
@@ -75,6 +84,20 @@ export default function CountryPage() {
       active = false;
     };
   }, [countryData, rankingKey]);
+
+  useEffect(() => {
+    let active = true;
+    loadComparison(`${rankingKey}:comparison`)
+      .then((saved) => {
+        if (active) setHasUnfinishedComparison(Boolean(saved && !comparisonIsComplete(saved)));
+      })
+      .catch(() => {
+        if (active) setHasUnfinishedComparison(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, [rankingKey, comparisonOpen]);
 
   if (!countryData) {
     return (
@@ -130,6 +153,36 @@ export default function CountryPage() {
     }
   }
 
+  function requestComparison() {
+    if (hasUnfinishedComparison) {
+      setResumePromptOpen(true);
+      return;
+    }
+    setComparisonOpen(true);
+  }
+
+  async function startComparisonOver() {
+    if (
+      !window.confirm(
+        "Start over and delete the unfinished comparison session for this ranking?",
+      )
+    ) {
+      return;
+    }
+    try {
+      await clearComparison(`${rankingKey}:comparison`);
+      setHasUnfinishedComparison(false);
+      setResumePromptOpen(false);
+      setComparisonOpen(true);
+    } catch (error) {
+      setDataError(
+        error instanceof Error
+          ? error.message
+          : "Could not clear comparison session.",
+      );
+    }
+  }
+
   return (
     <main
       className="pageShell"
@@ -170,10 +223,28 @@ export default function CountryPage() {
             <button
               className="primaryButton"
               type="button"
-              onClick={() => setComparisonOpen(true)}
+              onClick={requestComparison}
             >
-              <Scale size={17} /> Rank by Comparison
+              <Scale size={17} />{" "}
+              {hasUnfinishedComparison
+                ? "Continue Rank by Comparison"
+                : "Rank by Comparison"}
             </button>
+            <RankingSnapshotControls
+              rankingKey={rankingKey}
+              songs={songs}
+              sourceSongs={currentCountryData.songs}
+              title={`${currentCountryData.country} Ranking`}
+              favorites={favorites}
+              metaMode="year"
+              onToggleFavorite={toggleFavorite}
+              onRestore={(nextSongs) => {
+                hasLocalRankingChange.current = true;
+                setSongs(nextSongs);
+              }}
+              onError={setDataError}
+              refreshKey={comparisonStatusRefresh}
+            />
             <button
               className="secondaryButton"
               type="button"
@@ -183,6 +254,10 @@ export default function CountryPage() {
             </button>
           </div>
         </div>
+        <ComparisonStatusLine
+          rankingKey={rankingKey}
+          refreshKey={comparisonStatusRefresh}
+        />
         {dataError ? <div className="dataError">{dataError}</div> : null}
 
         <RankingList
@@ -202,11 +277,60 @@ export default function CountryPage() {
           rankingKey={rankingKey}
           metaMode="year"
           onClose={() => setComparisonOpen(false)}
+          onComplete={() => {
+            setHasUnfinishedComparison(false);
+            setComparisonStatusRefresh((value) => value + 1);
+          }}
           onRankingUpdate={(nextSongs) => {
             hasLocalRankingChange.current = true;
             setSongs(nextSongs);
           }}
         />
+      ) : null}
+      {resumePromptOpen ? (
+        <div
+          className="globalModal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="resume-comparison-title"
+        >
+          <div className="globalModalBackdrop" />
+          <section className="globalDialog">
+            <h2 id="resume-comparison-title">Resume comparison?</h2>
+            <div className="globalDialogBody">
+              <p>
+                You have an unfinished comparison session for this ranking.
+                Would you like to resume where you left off?
+              </p>
+            </div>
+            <div className="globalDialogActions">
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={() => setResumePromptOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={() => void startComparisonOver()}
+              >
+                Start Over
+              </button>
+              <button
+                className="primaryButton"
+                type="button"
+                onClick={() => {
+                  setResumePromptOpen(false);
+                  setComparisonOpen(true);
+                }}
+              >
+                Resume
+              </button>
+            </div>
+          </section>
+        </div>
       ) : null}
     </main>
   );

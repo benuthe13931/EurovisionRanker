@@ -12,8 +12,11 @@ import {
 import {
   clearComparison,
   clearRanking,
+  createRankingSnapshot,
   loadComparison,
+  rankingContextFromKey,
   saveComparison,
+  saveComparisonStatus,
   saveRanking,
 } from "../utils/storage";
 import AudioButton from "./AudioButton";
@@ -27,6 +30,7 @@ type ComparisonOverlayProps = {
   metaMode?: "country" | "year";
   onClose: () => void;
   onRankingUpdate: (songs: Song[]) => void;
+  onComplete?: () => void;
 };
 
 function withCurrentPair(state: ComparisonState, songs: Song[]): ComparisonState {
@@ -136,6 +140,7 @@ export default function ComparisonOverlay({
   metaMode = "country",
   onClose,
   onRankingUpdate,
+  onComplete,
 }: ComparisonOverlayProps) {
   const { stopAudio } = useAudio();
   const comparisonKey = `${rankingKey}:comparison`;
@@ -148,6 +153,7 @@ export default function ComparisonOverlay({
   const previousRankingPositions = useRef(new Map<string, number>());
   const hasLocalComparisonChange = useRef(false);
   const choosing = useRef(false);
+  const completionHandled = useRef(false);
 
   useEffect(() => {
     let active = true;
@@ -229,6 +235,33 @@ export default function ComparisonOverlay({
     previousRankingPositions.current = nextPositions;
   }, [sortedSongs]);
 
+  async function finishComparison(nextState: ComparisonState, nextRanking: Song[]) {
+    if (completionHandled.current) return;
+    completionHandled.current = true;
+    const completedAt = new Date();
+    const completedAtText = new Intl.DateTimeFormat(undefined, {
+      dateStyle: "medium",
+      timeStyle: "short",
+    }).format(completedAt);
+
+    await saveRanking(rankingKey, nextRanking.map((song) => song.id));
+    await saveComparisonStatus({
+      key: rankingKey,
+      ...rankingContextFromKey(rankingKey),
+      completedAt: completedAt.toISOString(),
+      completedComparisons: nextState.completed,
+      songCount: nextRanking.length,
+      algorithmType: "binary-insertion",
+      algorithmVersion: "1",
+    });
+    await createRankingSnapshot(rankingKey, nextRanking.map((song) => song.id), {
+      name: `Comparison Rankings - ${completedAtText}`,
+      notes: `This snapshot was automatically created as a result of the comparison results determined by the 'Rank By Comparison' tool on ${completedAtText}.`,
+    });
+    await clearComparison(comparisonKey);
+    onComplete?.();
+  }
+
   function chooseWinner(winnerId: string) {
     if (choosing.current) return;
     hasLocalComparisonChange.current = true;
@@ -256,6 +289,16 @@ export default function ComparisonOverlay({
       setDataError(error instanceof Error ? error.message : "Could not save ranking.");
     });
     onRankingUpdate(nextRanking);
+
+    if (comparisonIsComplete(nextState)) {
+      void finishComparison(nextState, nextRanking).catch((error: unknown) => {
+        setDataError(
+          error instanceof Error
+            ? error.message
+            : "Comparison complete, but completion metadata could not be saved.",
+        );
+      });
+    }
   }
 
   function resetComparisonAndRanking() {
@@ -285,6 +328,10 @@ export default function ComparisonOverlay({
     onClose();
   }
 
+  function saveAndExit() {
+    closeComparison();
+  }
+
   return createPortal(
     <div className="comparisonOverlay" role="dialog" aria-modal="true">
       <div className="overlayBackdrop" />
@@ -308,6 +355,9 @@ export default function ComparisonOverlay({
               title="Reset comparison and ranking"
             >
               <RotateCcw size={15} /> Reset
+            </button>
+            <button className="overlayReset" type="button" onClick={saveAndExit}>
+              Save and Exit
             </button>
             <button className="overlayClose" type="button" onClick={closeComparison} aria-label="Close comparison">
               <X size={18} />

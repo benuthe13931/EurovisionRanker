@@ -23,6 +23,7 @@ type RankingListProps = {
   favorites: Set<string>;
   onToggleFavorite: (songId: string) => void;
   metaMode?: "country" | "countryYear" | "year";
+  readOnly?: boolean;
 };
 
 export default function RankingList({
@@ -31,6 +32,7 @@ export default function RankingList({
   favorites,
   onToggleFavorite,
   metaMode = "country",
+  readOnly = false,
 }: RankingListProps) {
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 7 } }),
@@ -40,6 +42,7 @@ export default function RankingList({
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
+    if (readOnly) return;
     if (!over || active.id === over.id) return;
 
     const oldIndex = songs.findIndex((song) => song.id === active.id);
@@ -59,6 +62,7 @@ export default function RankingList({
               favorite={favorites.has(song.id)}
               onToggleFavorite={onToggleFavorite}
               metaMode={metaMode}
+              readOnly={readOnly}
             />
           ))}
         </div>

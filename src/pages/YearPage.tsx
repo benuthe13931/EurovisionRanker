@@ -10,6 +10,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import ComparisonOverlay from "../components/ComparisonOverlay";
 import PredictionPanel from "../components/PredictionPanel";
 import RankingList from "../components/RankingList";
+import RankingSnapshotControls, {
+  ComparisonStatusLine,
+} from "../components/RankingSnapshotControls";
 import { songsByYear } from "../data/years";
 import type { Song } from "../types";
 import {
@@ -21,13 +24,16 @@ import {
   type ContestStageKey,
 } from "../utils/contestStages";
 import {
+  clearComparison,
   clearRanking,
+  loadComparison,
   loadActiveProfile,
   loadFavorites,
   loadRanking,
   saveFavorites,
   saveRanking,
 } from "../utils/storage";
+import { comparisonIsComplete } from "../utils/pairing";
 
 const GUEST_SAVE_PROMPT_KEY = "eurovision-ranker:hide-guest-save-prompt";
 
@@ -61,6 +67,9 @@ export default function YearPage() {
   );
   const [dataError, setDataError] = useState("");
   const [comparisonOpen, setComparisonOpen] = useState(false);
+  const [resumePromptOpen, setResumePromptOpen] = useState(false);
+  const [hasUnfinishedComparison, setHasUnfinishedComparison] = useState(false);
+  const [comparisonStatusRefresh, setComparisonStatusRefresh] = useState(0);
   const [pendingStage, setPendingStage] = useState<ContestStage | null>(null);
   const [skipGrandFinalWarning, setSkipGrandFinalWarning] = useState(false);
   const [dontWarnAgain, setDontWarnAgain] = useState(false);
@@ -125,6 +134,20 @@ export default function YearPage() {
       active = false;
     };
   }, [rankingKey, stageSourceSongs, yearData]);
+
+  useEffect(() => {
+    let active = true;
+    loadComparison(`${rankingKey}:comparison`)
+      .then((saved) => {
+        if (active) setHasUnfinishedComparison(Boolean(saved && !comparisonIsComplete(saved)));
+      })
+      .catch(() => {
+        if (active) setHasUnfinishedComparison(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, [rankingKey, comparisonOpen]);
 
   if (!yearData) {
     return (
@@ -232,6 +255,49 @@ export default function YearPage() {
     }
   }
 
+  function requestComparison() {
+    if (hasUnfinishedComparison) {
+      setResumePromptOpen(true);
+      return;
+    }
+    setComparisonOpen(true);
+  }
+
+  async function startComparisonOver() {
+    if (
+      !window.confirm(
+        "Start over and delete the unfinished comparison session for this ranking?",
+      )
+    ) {
+      return;
+    }
+    try {
+      await clearComparison(`${rankingKey}:comparison`);
+      setHasUnfinishedComparison(false);
+      setResumePromptOpen(false);
+      setComparisonOpen(true);
+    } catch (error) {
+      setDataError(
+        error instanceof Error
+          ? error.message
+          : "Could not clear comparison session.",
+      );
+    }
+  }
+
+  async function songsForExportStage(stage: ContestStage) {
+    const stageRankingKey = rankingKeyForStage(year, stage.key);
+    const sourceSongs = songsForContestStage(
+      currentYearData.songs,
+      stage.key,
+    );
+    const localOrder = localSongOrders.current.get(stageRankingKey);
+    if (localOrder) return localOrder;
+
+    const savedRanking = await loadRanking(stageRankingKey);
+    return orderSongs(sourceSongs, savedRanking?.songIds);
+  }
+
   return (
     <main
       className="pageShell"
@@ -310,10 +376,32 @@ export default function YearPage() {
                   <button
                     className="primaryButton"
                     type="button"
-                    onClick={() => setComparisonOpen(true)}
+                    onClick={requestComparison}
                   >
-                    <Scale size={17} /> Rank by Comparison
+                    <Scale size={17} />{" "}
+                    {hasUnfinishedComparison
+                      ? "Continue Rank by Comparison"
+                      : "Rank by Comparison"}
                   </button>
+                  <RankingSnapshotControls
+                    rankingKey={rankingKey}
+                    songs={songs}
+                    sourceSongs={stageSourceSongs}
+                    title={`Eurovision ${currentYearData.year} - ${activeStage.label}`}
+                    exportSectionOptions={stages.map((stage) => ({
+                      id: stage.key,
+                      label: stage.label,
+                      getSongs: () => songsForExportStage(stage),
+                    }))}
+                    favorites={favorites}
+                    onToggleFavorite={toggleFavorite}
+                    onRestore={(nextSongs) => {
+                      localSongOrders.current.set(rankingKey, nextSongs);
+                      setSongs(nextSongs);
+                    }}
+                    onError={setDataError}
+                    refreshKey={comparisonStatusRefresh}
+                  />
                   <button
                     className="secondaryButton"
                     type="button"
@@ -323,6 +411,10 @@ export default function YearPage() {
                   </button>
                 </div>
               </div>
+              <ComparisonStatusLine
+                rankingKey={rankingKey}
+                refreshKey={comparisonStatusRefresh}
+              />
               {dataError ? <div className="dataError">{dataError}</div> : null}
 
               <RankingList
@@ -441,11 +533,60 @@ export default function YearPage() {
           resetSongs={stageSourceSongs}
           rankingKey={rankingKey}
           onClose={() => setComparisonOpen(false)}
+          onComplete={() => {
+            setHasUnfinishedComparison(false);
+            setComparisonStatusRefresh((value) => value + 1);
+          }}
           onRankingUpdate={(nextSongs) => {
             localSongOrders.current.set(rankingKey, nextSongs);
             setSongs(nextSongs);
           }}
         />
+      ) : null}
+      {resumePromptOpen ? (
+        <div
+          className="globalModal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="resume-comparison-title"
+        >
+          <div className="globalModalBackdrop" />
+          <section className="globalDialog">
+            <h2 id="resume-comparison-title">Resume comparison?</h2>
+            <div className="globalDialogBody">
+              <p>
+                You have an unfinished comparison session for this ranking.
+                Would you like to resume where you left off?
+              </p>
+            </div>
+            <div className="globalDialogActions">
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={() => setResumePromptOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={() => void startComparisonOver()}
+              >
+                Start Over
+              </button>
+              <button
+                className="primaryButton"
+                type="button"
+                onClick={() => {
+                  setResumePromptOpen(false);
+                  setComparisonOpen(true);
+                }}
+              >
+                Resume
+              </button>
+            </div>
+          </section>
+        </div>
       ) : null}
     </main>
   );

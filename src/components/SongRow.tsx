@@ -12,6 +12,7 @@ type SongRowProps = {
   favorite: boolean;
   onToggleFavorite: (songId: string) => void;
   metaMode?: "country" | "countryYear" | "year";
+  readOnly?: boolean;
 };
 
 export default function SongRow({
@@ -20,11 +21,13 @@ export default function SongRow({
   favorite,
   onToggleFavorite,
   metaMode = "country",
+  readOnly = false,
 }: SongRowProps) {
   const [flagFailed, setFlagFailed] = useState(false);
   const [backgroundFailed, setBackgroundFailed] = useState(false);
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: song.id,
+    disabled: readOnly,
   });
 
   const style = {
@@ -37,7 +40,7 @@ export default function SongRow({
   return (
     <article
       ref={setNodeRef}
-      className={`songRow ${rankClass} ${isDragging ? "dragging" : ""}`}
+      className={`songRow ${rankClass} ${isDragging ? "dragging" : ""} ${readOnly ? "readOnly" : ""}`}
       style={style}
     >
       {!backgroundFailed && song.imageUrl ? (
@@ -52,6 +55,7 @@ export default function SongRow({
         {...attributes}
         {...listeners}
         aria-label="Drag song"
+        disabled={readOnly}
       >
         <GripVertical size={19} />
       </button>

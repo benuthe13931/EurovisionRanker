@@ -2229,6 +2229,25 @@ a {
   font-weight: 750;
 }
 
+.comparisonStatus {
+  display: inline-flex;
+  width: fit-content;
+  margin: -4px 0 14px;
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 8px;
+  color: rgba(247, 242, 255, 0.66);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.comparisonStatus.complete {
+  color: #71f0a2;
+  border-color: rgba(113, 240, 162, 0.24);
+  background: rgba(113, 240, 162, 0.08);
+}
+
 .dataError,
 .overlayError {
   padding: 10px 12px;
@@ -2273,6 +2292,11 @@ a {
     rgba(10, 10, 17, 0.72);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.26);
   backdrop-filter: blur(20px);
+}
+
+.songRow.readOnly .dragHandle {
+  cursor: default;
+  opacity: 0.35;
 }
 
 .songRow::before {
@@ -4208,6 +4232,24 @@ a {
   border-color: rgba(113, 240, 162, 0.26);
 }
 
+.globalYearButton.inProgress {
+  cursor: default;
+  border-color: rgba(255, 214, 79, 0.34);
+}
+
+.globalYearActions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.globalYearActions .secondaryButton {
+  min-height: 32px;
+  padding: 0 10px;
+  font-size: 0.78rem;
+}
+
 .globalYearButton svg {
   color: #75f0ff;
 }
@@ -4285,6 +4327,98 @@ a {
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 10px;
+}
+
+.snapshotDialog {
+  width: min(880px, 100%);
+}
+
+.snapshotField {
+  display: grid;
+  gap: 7px;
+  color: rgba(247, 242, 255, 0.72);
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.snapshotField input,
+.snapshotField textarea,
+.snapshotToolbar select {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+  outline: none;
+}
+
+.snapshotField textarea {
+  padding-block: 10px;
+  resize: vertical;
+}
+
+.snapshotToolbar {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) repeat(4, auto);
+  gap: 10px;
+  align-items: center;
+}
+
+.snapshotMeta {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.snapshotMeta strong,
+.snapshotMeta span,
+.snapshotMeta p {
+  margin: 0;
+}
+
+.snapshotMeta span {
+  color: rgba(247, 242, 255, 0.58);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.snapshotMeta p {
+  color: rgba(247, 242, 255, 0.68);
+  line-height: 1.45;
+}
+
+.exportChecklist {
+  display: grid;
+  gap: 8px;
+  margin: 2px 0 0;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.exportChecklist legend {
+  padding: 0 6px;
+  color: rgba(247, 242, 255, 0.58);
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.exportChecklist label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(247, 242, 255, 0.86);
+  font-weight: 800;
+}
+
+.exportChecklist input {
+  accent-color: #35d6ff;
 }
 
 .recommendedAction {
@@ -4620,6 +4754,10 @@ a {
 
   .segmented {
     width: 100%;
+  }
+
+  .snapshotToolbar {
+    grid-template-columns: 1fr;
   }
 
   .segmented button {

@@ -23,6 +23,7 @@ import {
   ComparisonOverlayChoiceCard,
 } from "../components/ComparisonOverlay";
 import RankingList from "../components/RankingList";
+import RankingSnapshotControls from "../components/RankingSnapshotControls";
 import { allSongs, allSongsBackground, songsByYear, years } from "../data/years";
 import type { GlobalRankingState, Song, YearData } from "../types";
 import {
@@ -33,9 +34,15 @@ import {
 import { rankingKeyForStage } from "../utils/contestStages";
 import {
   clearGlobalRanking,
+  clearComparison,
+  createRankingSnapshot,
   loadFavorites,
+  loadComparison,
   loadGlobalRanking,
   loadRanking,
+  rankingContextFromKey,
+  saveComparison,
+  saveComparisonStatus,
   saveFavorites,
   saveGlobalRanking,
 } from "../utils/storage";
@@ -171,6 +178,7 @@ export default function GlobalRankingsPage() {
   const [insertPickerOpen, setInsertPickerOpen] = useState(false);
   const [comparisonRun, setComparisonRun] = useState<ComparisonRun | null>(null);
   const [comparisonSidebarOpen, setComparisonSidebarOpen] = useState(false);
+  const [inProgressYears, setInProgressYears] = useState<Set<number>>(() => new Set());
   const [resetStep, setResetStep] = useState<0 | 1 | 2>(0);
   const [resetText, setResetText] = useState("");
   const [dataError, setDataError] = useState("");
@@ -209,6 +217,29 @@ export default function GlobalRankingsPage() {
       active = false;
     };
   }, [allSongIds]);
+
+  useEffect(() => {
+    let active = true;
+    async function loadInProgress() {
+      const entries = await Promise.all(
+        years.map(async (year) => {
+          const saved = await loadComparison(`global:${year.year}:comparison`);
+          return saved && !comparisonIsComplete(saved) ? year.year : null;
+        }),
+      );
+      if (active) {
+        setInProgressYears(
+          new Set(entries.filter((year): year is number => year !== null)),
+        );
+      }
+    }
+    void loadInProgress().catch(() => {
+      if (active) setInProgressYears(new Set());
+    });
+    return () => {
+      active = false;
+    };
+  }, [comparisonRun]);
 
   useEffect(() => {
     if (!comparisonRun) return;
@@ -328,15 +359,18 @@ export default function GlobalRankingsPage() {
         return;
       }
 
+      const key = `global:${year.year}:comparison`;
+      const saved = await loadComparison(key);
+      const state =
+        saved && !comparisonIsComplete(saved)
+          ? saved
+          : createInsertionComparisonState(key, baseline, source.ids);
+
       setComparisonRun({
         year,
         baselineIds: baseline,
         pendingIds: source.ids,
-        state: createInsertionComparisonState(
-          `global:${year.year}:comparison`,
-          baseline,
-          source.ids,
-        ),
+        state,
       });
       setFlow(null);
     } catch (error) {
@@ -346,29 +380,97 @@ export default function GlobalRankingsPage() {
 
   function resetComparisonRun() {
     if (!comparisonRun) return;
-    setComparisonRun({
+    const nextRun = {
       ...comparisonRun,
       state: createInsertionComparisonState(
         `global:${comparisonRun.year.year}:comparison`,
         comparisonRun.baselineIds,
         comparisonRun.pendingIds,
       ),
-    });
+    };
+    setComparisonRun(nextRun);
+    void saveComparison(nextRun.state);
   }
 
   async function chooseComparisonWinner(songId: string) {
     if (!comparisonRun) return;
     const nextState = chooseInsertionWinner(comparisonRun.state, songId);
     setComparisonRun({ ...comparisonRun, state: nextState });
+    await saveComparison(nextState);
 
     if (comparisonIsComplete(nextState)) {
-      await persist({
+      const nextGlobalRanking = {
         ...globalRanking,
         globalOrder: nextState.sortedIds,
         insertedYears: upsertInsertedYear(globalRanking.insertedYears, comparisonRun.year.year),
+      };
+      await persist(nextGlobalRanking);
+      const completedAt = new Date();
+      const completedAtText = new Intl.DateTimeFormat(undefined, {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }).format(completedAt);
+      await saveComparisonStatus({
+        key: "global",
+        ...rankingContextFromKey("global"),
+        completedAt: completedAt.toISOString(),
+        completedComparisons: nextState.completed,
+        songCount: nextState.sortedIds.length,
+        algorithmType: "global-binary-insertion",
+        algorithmVersion: "1",
+      });
+      await createRankingSnapshot("global", nextState.sortedIds, {
+        name: `Comparison Rankings - ${completedAtText}`,
+        notes: `This snapshot was automatically created as a result of the comparison results determined by the 'Rank By Comparison' tool on ${completedAtText}.`,
+      });
+      await clearComparison(nextState.key);
+      setInProgressYears((current) => {
+        const next = new Set(current);
+        next.delete(comparisonRun.year.year);
+        return next;
       });
       setComparisonRun(null);
       setView("rankings");
+    }
+  }
+
+  async function resumeComparison(year: YearData) {
+    try {
+      const source = await getYearSource(year);
+      const baseline = insertedYearSet.has(year.year)
+        ? removeYearIds(globalRanking.globalOrder, year)
+        : globalRanking.globalOrder;
+      const saved = await loadComparison(`global:${year.year}:comparison`);
+      if (!saved || comparisonIsComplete(saved)) return;
+      setComparisonRun({
+        year,
+        baselineIds: baseline,
+        pendingIds: source.ids,
+        state: saved,
+      });
+      setFlow(null);
+    } catch (error) {
+      setDataError(error instanceof Error ? error.message : "Could not resume comparison.");
+    }
+  }
+
+  async function discardComparison(year: YearData) {
+    if (
+      !window.confirm(
+        `Discard the saved Global Rankings comparison session for ${year.year}?`,
+      )
+    ) {
+      return;
+    }
+    try {
+      await clearComparison(`global:${year.year}:comparison`);
+      setInProgressYears((current) => {
+        const next = new Set(current);
+        next.delete(year.year);
+        return next;
+      });
+    } catch (error) {
+      setDataError(error instanceof Error ? error.message : "Could not discard comparison.");
     }
   }
 
@@ -463,6 +565,9 @@ export default function GlobalRankingsPage() {
     : [];
   const insertedYears = years.filter((year) => insertedYearSet.has(year.year));
   const notInsertedYears = years.filter((year) => !insertedYearSet.has(year.year));
+  const inProgressYearList = years.filter((year) =>
+    inProgressYears.has(year.year),
+  );
 
   return (
     <main
@@ -511,6 +616,26 @@ export default function GlobalRankingsPage() {
                 <Plus size={17} /> Insert Year
               </button>
             ) : null}
+            {view === "rankings" && hasGlobalRankings ? (
+              <RankingSnapshotControls
+                rankingKey="global"
+                songs={currentSongs}
+                sourceSongs={allSongs}
+                title="Global Rankings"
+                favorites={favorites}
+                metaMode="countryYear"
+                onToggleFavorite={(songId) => void toggleFavorite(songId)}
+                onPersistRestore={async (nextSongs) => {
+                  await persist({
+                    ...globalRanking,
+                    globalOrder: nextSongs.map((song) => song.id),
+                  });
+                }}
+                onRestore={() => undefined}
+                onError={setDataError}
+                refreshKey={globalRanking.updatedAt}
+              />
+            ) : null}
             {view !== "rankings" ? (
               <button
                 className="primaryButton"
@@ -551,6 +676,36 @@ export default function GlobalRankingsPage() {
           </section>
         ) : (
           <section className="globalYearsLayout">
+            {inProgressYearList.length ? (
+              <div className="globalYearPanel">
+                <h2>Years In Progress</h2>
+                <div className="globalYearGrid">
+                  {inProgressYearList.map((year) => (
+                    <div className="globalYearButton inProgress" key={year.year}>
+                      <Scale size={16} />
+                      <span>{year.year}</span>
+                      <small>Comparison saved</small>
+                      <div className="globalYearActions">
+                        <button
+                          className="secondaryButton"
+                          type="button"
+                          onClick={() => void resumeComparison(year)}
+                        >
+                          Resume
+                        </button>
+                        <button
+                          className="secondaryButton"
+                          type="button"
+                          onClick={() => void discardComparison(year)}
+                        >
+                          Discard
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
             {hasGlobalRankings ? (
               <div className="globalYearPanel">
                 <h2>Years Already Inserted</h2>
@@ -895,9 +1050,32 @@ export default function GlobalRankingsPage() {
                   <RotateCcw size={15} /> Reset
                 </button>
                 <button
+                  className="overlayReset"
+                  type="button"
+                  onClick={() => {
+                    if (comparisonRun) {
+                      void saveComparison(comparisonRun.state);
+                      setInProgressYears((current) =>
+                        new Set(current).add(comparisonRun.year.year),
+                      );
+                    }
+                    setComparisonRun(null);
+                  }}
+                >
+                  Save and Exit
+                </button>
+                <button
                   className="overlayClose"
                   type="button"
-                  onClick={() => setComparisonRun(null)}
+                  onClick={() => {
+                    if (comparisonRun) {
+                      void saveComparison(comparisonRun.state);
+                      setInProgressYears((current) =>
+                        new Set(current).add(comparisonRun.year.year),
+                      );
+                    }
+                    setComparisonRun(null);
+                  }}
                   aria-label="Close comparison"
                 >
                   <X size={18} />

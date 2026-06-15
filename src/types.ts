@@ -95,6 +95,33 @@ export type RankingState = {
   updatedAt: string;
 };
 
+export type RankingSnapshot = {
+  id: string;
+  key: string;
+  scopeType: "year" | "country" | "global";
+  scopeId: string;
+  rankingMode?: string | null;
+  name: string;
+  notes?: string | null;
+  songIds: string[];
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ComparisonStatus = {
+  key: string;
+  scopeType: "year" | "country" | "global";
+  scopeId: string;
+  rankingMode?: string | null;
+  completedAt: string;
+  completedComparisons?: number | null;
+  songCount?: number | null;
+  algorithmType?: string | null;
+  algorithmVersion?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
 export type GlobalInsertedYear = {
   year: number;
   insertedAt: string;

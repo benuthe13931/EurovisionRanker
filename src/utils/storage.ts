@@ -1,13 +1,17 @@
 import type {
   ComparisonState,
+  ComparisonStatus,
   GlobalRankingState,
   PredictionState,
+  RankingSnapshot,
   RankingState,
 } from "../types";
 import { supabase } from "./supabase";
 
 const RANKING_PREFIX = "eurovision-ranker:ranking:";
 const COMPARISON_PREFIX = "eurovision-ranker:comparison:";
+const COMPARISON_STATUS_PREFIX = "eurovision-ranker:comparison-status:";
+const SNAPSHOT_PREFIX = "eurovision-ranker:ranking-snapshots:";
 const PREDICTION_PREFIX = "eurovision-ranker:prediction:";
 const GLOBAL_RANKING_KEY = "eurovision-ranker:global-ranking";
 const FAVORITES_KEY = "eurovision-ranker:favorites";
@@ -82,6 +86,41 @@ function predictionStorageKey(key: string) {
   return `${PREDICTION_PREFIX}${key}`;
 }
 
+function snapshotStorageKey(key: string) {
+  return `${SNAPSHOT_PREFIX}${activeProfileId() ?? "guest"}:${key}`;
+}
+
+function comparisonStatusStorageKey(key: string) {
+  return `${COMPARISON_STATUS_PREFIX}${activeProfileId() ?? "guest"}:${key}`;
+}
+
+function uuid() {
+  return crypto.randomUUID?.() ?? `${Date.now()}-${Math.random()}`;
+}
+
+export function rankingContextFromKey(key: string): {
+  scopeType: RankingSnapshot["scopeType"];
+  scopeId: string;
+  rankingMode: string | null;
+} {
+  const parts = key.split(":");
+  if (parts[0] === "year") {
+    return {
+      scopeType: "year",
+      scopeId: parts[1] ?? key,
+      rankingMode: parts.slice(2).join(":") || "overall",
+    };
+  }
+  if (parts[0] === "country") {
+    return {
+      scopeType: "country",
+      scopeId: parts[1] ?? key,
+      rankingMode: null,
+    };
+  }
+  return { scopeType: "global", scopeId: "global", rankingMode: null };
+}
+
 async function rpc<T>(name: string, args: Record<string, unknown>) {
   if (
     !import.meta.env.VITE_SUPABASE_URL ||
@@ -149,6 +188,29 @@ async function copyGuestDataToProfile() {
 
   for (let index = 0; index < localStorage.length; index += 1) {
     const key = localStorage.key(index);
+    if (!key?.startsWith(`${SNAPSHOT_PREFIX}guest:`)) continue;
+
+    const snapshots = readJson<RankingSnapshot[]>(key);
+    if (!snapshots) continue;
+    for (const snapshot of snapshots) {
+      await createRankingSnapshot(snapshot.key, snapshot.songIds, {
+        name: snapshot.name,
+        notes: snapshot.notes ?? undefined,
+        createdAt: snapshot.createdAt,
+      });
+    }
+  }
+
+  for (let index = 0; index < localStorage.length; index += 1) {
+    const key = localStorage.key(index);
+    if (!key?.startsWith(`${COMPARISON_STATUS_PREFIX}guest:`)) continue;
+
+    const status = readJson<ComparisonStatus>(key);
+    if (status) await saveComparisonStatus(status);
+  }
+
+  for (let index = 0; index < localStorage.length; index += 1) {
+    const key = localStorage.key(index);
     if (!key?.startsWith(PREDICTION_PREFIX)) continue;
 
     const value = readJson<PredictionState>(key);
@@ -209,6 +271,101 @@ export async function clearRanking(key: string) {
     p_profile_id: activeProfileId(),
     p_ranking_key: key,
   });
+}
+
+export async function loadRankingSnapshots(key: string) {
+  const profileId = activeProfileId();
+  if (!profileId) return readJson<RankingSnapshot[]>(snapshotStorageKey(key)) ?? [];
+
+  try {
+    return await rpc<RankingSnapshot[]>("get_ranking_snapshots", {
+      p_profile_id: profileId,
+      p_ranking_key: key,
+    });
+  } catch (error) {
+    if (missingRpcError(error, "get_ranking_snapshots")) {
+      return readJson<RankingSnapshot[]>(snapshotStorageKey(key)) ?? [];
+    }
+    throw error;
+  }
+}
+
+export async function createRankingSnapshot(
+  key: string,
+  songIds: string[],
+  options?: { name?: string; notes?: string; createdAt?: string },
+) {
+  const existing = await loadRankingSnapshots(key);
+  const { scopeType, scopeId, rankingMode } = rankingContextFromKey(key);
+  const now = options?.createdAt ?? new Date().toISOString();
+  const snapshot: RankingSnapshot = {
+    id: uuid(),
+    key,
+    scopeType,
+    scopeId,
+    rankingMode,
+    name: options?.name?.trim() || `Snapshot #${existing.length + 1}`,
+    notes: options?.notes?.trim() || null,
+    songIds,
+    createdAt: now,
+    updatedAt: now,
+  };
+
+  const profileId = activeProfileId();
+  if (!profileId) {
+    localStorage.setItem(
+      snapshotStorageKey(key),
+      JSON.stringify([...existing, snapshot]),
+    );
+    return snapshot;
+  }
+
+  try {
+    return await rpc<RankingSnapshot>("create_ranking_snapshot", {
+      p_profile_id: profileId,
+      p_snapshot: snapshot,
+    });
+  } catch (error) {
+    if (missingRpcError(error, "create_ranking_snapshot")) {
+      localStorage.setItem(
+        snapshotStorageKey(key),
+        JSON.stringify([...existing, snapshot]),
+      );
+      return snapshot;
+    }
+    throw error;
+  }
+}
+
+export async function deleteRankingSnapshot(key: string, snapshotId: string) {
+  const profileId = activeProfileId();
+  if (!profileId) {
+    const snapshots = await loadRankingSnapshots(key);
+    localStorage.setItem(
+      snapshotStorageKey(key),
+      JSON.stringify(snapshots.filter((snapshot) => snapshot.id !== snapshotId)),
+    );
+    return;
+  }
+
+  try {
+    await rpc<void>("delete_ranking_snapshot", {
+      p_profile_id: profileId,
+      p_snapshot_id: snapshotId,
+    });
+  } catch (error) {
+    if (missingRpcError(error, "delete_ranking_snapshot")) {
+      const snapshots = await loadRankingSnapshots(key);
+      localStorage.setItem(
+        snapshotStorageKey(key),
+        JSON.stringify(
+          snapshots.filter((snapshot) => snapshot.id !== snapshotId),
+        ),
+      );
+      return;
+    }
+    throw error;
+  }
 }
 
 export async function loadGlobalRanking() {
@@ -330,6 +487,58 @@ export async function clearComparison(key: string) {
     p_profile_id: activeProfileId(),
     p_comparison_key: key,
   });
+}
+
+export async function loadComparisonStatus(key: string) {
+  const profileId = activeProfileId();
+  if (!profileId)
+    return readJson<ComparisonStatus>(comparisonStatusStorageKey(key));
+
+  try {
+    return await rpc<ComparisonStatus | null>("get_comparison_status", {
+      p_profile_id: profileId,
+      p_status_key: key,
+    });
+  } catch (error) {
+    if (missingRpcError(error, "get_comparison_status")) {
+      return readJson<ComparisonStatus>(comparisonStatusStorageKey(key));
+    }
+    throw error;
+  }
+}
+
+export async function saveComparisonStatus(status: ComparisonStatus) {
+  const profileId = activeProfileId();
+  const context = rankingContextFromKey(status.key);
+  const nextStatus: ComparisonStatus = {
+    ...context,
+    ...status,
+    completedAt: status.completedAt || new Date().toISOString(),
+  };
+
+  if (!profileId) {
+    localStorage.setItem(
+      comparisonStatusStorageKey(status.key),
+      JSON.stringify(nextStatus),
+    );
+    return nextStatus;
+  }
+
+  try {
+    return await rpc<ComparisonStatus>("save_comparison_status", {
+      p_profile_id: profileId,
+      p_status: nextStatus,
+    });
+  } catch (error) {
+    if (missingRpcError(error, "save_comparison_status")) {
+      localStorage.setItem(
+        comparisonStatusStorageKey(status.key),
+        JSON.stringify(nextStatus),
+      );
+      return nextStatus;
+    }
+    throw error;
+  }
 }
 
 export async function loadPrediction(key: string) {
