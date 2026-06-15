@@ -1,0 +1,100 @@
+{
+  "year": 1960,
+  "hostCity": "London",
+  "country": "United Kingdom",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Austria",
+      "artist": "Harry Winter",
+      "title": "Du hast mich so fasziniert",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Belgium",
+      "artist": "Fud Leclerc",
+      "title": "Mon amour pour toi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Denmark",
+      "artist": "Katy Bødtger",
+      "title": "Det var en yndig tid",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Jacqueline Boyer",
+      "title": "Tom Pillibi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Wyn Hoop",
+      "title": "Bonne nuit ma chérie",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Renato Rascel",
+      "title": "Romantica",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Camillo Felgen",
+      "title": "So laang we's du do bast",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "François Deguelt",
+      "title": "Ce soir-là",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Rudi Carrell",
+      "title": "Wat een geluk",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Nora Brockstedt",
+      "title": "Voi-voi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "Siw Malmkvist",
+      "title": "Alla andra får varann",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Anita Traversi",
+      "title": "Cielo e terra",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Bryan Johnson",
+      "title": "Looking High, High, High",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
+
