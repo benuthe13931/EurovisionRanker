@@ -10,7 +10,10 @@
       "title": "Titan",
       "previewVideoUrl": "https://www.youtube.com/watch?v=aQG22XJIdWw",
       "compareStartSeconds": 154,
-      "imageUrl": "/assets/images/2024/2024-albania.png.webp"
+      "imageUrl": "/assets/images/2024/2024-albania.png.webp",
+      "semiFinal": 2,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Armenia",
@@ -18,252 +21,360 @@
       "title": "Jako",
       "previewVideoUrl": "https://www.youtube.com/watch?v=hAYXDoZzAyE",
       "compareStartSeconds": 121,
-      "imageUrl": "/assets/images/2024/2024-armenia.png.webp"
+      "imageUrl": "/assets/images/2024/2024-armenia.png.webp",
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 10
     },
     {
       "country": "Australia",
       "artist": "Electric Fields",
       "title": "One Milkali (One Blood)",
       "previewVideoUrl": "https://www.youtube.com/watch?v=Wzpp6996QdI",
-      "compareStartSeconds": 124
+      "compareStartSeconds": 124,
+      "semiFinal": 1,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Austria",
       "artist": "Kaleen",
       "title": "We Will Rave",
       "previewVideoUrl": "https://www.youtube.com/watch?v=VZ6SlZnk_EI",
-      "compareStartSeconds": 113
+      "compareStartSeconds": 113,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 2
     },
     {
       "country": "Azerbaijan",
       "artist": "Fahree feat. Ilkin Dovlatov",
       "title": "Özünlə apar",
       "previewVideoUrl": "https://www.youtube.com/watch?v=QhN9r8TH2Hw",
-      "compareStartSeconds": 150
+      "compareStartSeconds": 150,
+      "semiFinal": 1,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Belgium",
       "artist": "Mustii",
       "title": "Before the Party's Over",
       "previewVideoUrl": "https://www.youtube.com/watch?v=hNIemQwCaM4",
-      "compareStartSeconds": 136
+      "compareStartSeconds": 136,
+      "semiFinal": 2,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Croatia",
       "artist": "Baby Lasagna",
       "title": "Rim Tim Tagi Dim",
       "previewVideoUrl": "https://www.youtube.com/watch?v=YIBjarAiAVc",
-      "compareStartSeconds": 105
+      "compareStartSeconds": 105,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 8
     },
     {
       "country": "Cyprus",
       "artist": "Silia Kapsis",
       "title": "Liar",
       "previewVideoUrl": "https://www.youtube.com/watch?v=c4wMioZXbMk",
-      "compareStartSeconds": 129
+      "compareStartSeconds": 129,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 7
     },
     {
       "country": "Czechia",
       "artist": "Aiko",
       "title": "Pedestal",
       "previewVideoUrl": "https://www.youtube.com/watch?v=RiItbHRF1BY",
-      "compareStartSeconds": 106
+      "compareStartSeconds": 106,
+      "semiFinal": 2,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Denmark",
       "artist": "Saba",
       "title": "Sand",
       "previewVideoUrl": "https://www.youtube.com/watch?v=4f_phiGot7w",
-      "compareStartSeconds": 168
+      "compareStartSeconds": 168,
+      "semiFinal": 2,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Estonia",
       "artist": "5miinust & Puuluup",
       "title": "(Nendest) narkootikumidest ei tea me (küll) midagi",
       "previewVideoUrl": "https://www.youtube.com/watch?v=RSMMU2wX0Bk",
-      "compareStartSeconds": 139
+      "compareStartSeconds": 139,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 7
     },
     {
       "country": "Finland",
       "artist": "Windows95Man",
       "title": "No Rules!",
       "previewVideoUrl": "https://www.youtube.com/watch?v=7nidDtyS0Wo",
-      "compareStartSeconds": 156
+      "compareStartSeconds": 156,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 6
     },
     {
       "country": "France",
       "artist": "Slimane",
       "title": "Mon amour",
       "previewVideoUrl": "https://www.youtube.com/watch?v=-XyLecY2JyE",
-      "compareStartSeconds": 91
+      "compareStartSeconds": 91,
+      "semiFinal": 2,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Georgia",
       "artist": "Nutsa Buzaladze",
       "title": "Firefighter",
       "previewVideoUrl": "https://www.youtube.com/watch?v=He4PGhm7jOw",
-      "compareStartSeconds": 151
+      "compareStartSeconds": 151,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 9
     },
     {
       "country": "Germany",
       "artist": "Isaak",
       "title": "Always on the Run",
       "previewVideoUrl": "https://www.youtube.com/watch?v=kVOHTxFOhak",
-      "compareStartSeconds": 111
+      "compareStartSeconds": 111,
+      "semiFinal": 1,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Greece",
       "artist": "Marina Satti",
       "title": "Zari",
       "previewVideoUrl": "https://www.youtube.com/watch?v=ENb4LCeq9Lc",
-      "compareStartSeconds": 161
+      "compareStartSeconds": 161,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 6
     },
     {
       "country": "Iceland",
       "artist": "Hera Björk",
       "title": "Scared of Heights",
       "previewVideoUrl": "https://www.youtube.com/watch?v=VChBgcycVl8",
-      "compareStartSeconds": 156
+      "compareStartSeconds": 156,
+      "semiFinal": 1,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Ireland",
       "artist": "Bambie Thug",
       "title": "Doomsday Blue",
       "previewVideoUrl": "https://www.youtube.com/watch?v=UMq8ofCstMQ",
-      "compareStartSeconds": 81
+      "compareStartSeconds": 81,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 9
     },
     {
       "country": "Israel",
       "artist": "Eden Golan",
       "title": "Hurricane",
       "previewVideoUrl": "https://www.youtube.com/watch?v=K60BWlEhtAA",
-      "compareStartSeconds": 141
+      "compareStartSeconds": 141,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 5
     },
     {
       "country": "Italy",
       "artist": "Angelina Mango",
       "title": "La noia",
       "previewVideoUrl": "https://www.youtube.com/watch?v=zp1FXHjkjpQ",
-      "compareStartSeconds": 116
+      "compareStartSeconds": 116,
+      "semiFinal": 2,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Latvia",
       "artist": "Dons",
       "title": "Hollow",
       "previewVideoUrl": "https://www.youtube.com/watch?v=kgIwQkMwURY",
-      "compareStartSeconds": 127
+      "compareStartSeconds": 127,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 1
     },
     {
       "country": "Lithuania",
       "artist": "Silvester Belt",
       "title": "Luktelk",
       "previewVideoUrl": "https://www.youtube.com/watch?v=N8YuQzJLR_k",
-      "compareStartSeconds": 96
+      "compareStartSeconds": 96,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 5
     },
     {
       "country": "Luxembourg",
       "artist": "Tali",
       "title": "Fighter",
       "previewVideoUrl": "https://www.youtube.com/watch?v=TCWH3Nq5y9A",
-      "compareStartSeconds": 152
+      "compareStartSeconds": 152,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 10
     },
     {
       "country": "Malta",
       "artist": "Sarah Bonnici",
       "title": "Loop",
       "previewVideoUrl": "https://www.youtube.com/watch?v=uG-JHeia13c",
-      "compareStartSeconds": 150
+      "compareStartSeconds": 150,
+      "semiFinal": 2,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Moldova",
       "artist": "Natalia Barbu",
       "title": "In the Middle",
       "previewVideoUrl": "https://www.youtube.com/watch?v=evIoGkZXj2s",
-      "compareStartSeconds": 114
+      "compareStartSeconds": 114,
+      "semiFinal": 1,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Netherlands",
       "artist": "Joost Klein",
       "title": "Europapa",
       "previewVideoUrl": "https://www.youtube.com/watch?v=IiHFnmI8pxg",
-      "compareStartSeconds": 115
+      "compareStartSeconds": 115,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 3
     },
     {
       "country": "Norway",
       "artist": "Gåte",
       "title": "Ulveham",
       "previewVideoUrl": "https://www.youtube.com/watch?v=YBbL8ORqNVU",
-      "compareStartSeconds": 123
+      "compareStartSeconds": 123,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 4
     },
     {
       "country": "Poland",
       "artist": "Luna",
       "title": "The Tower",
       "previewVideoUrl": "https://www.youtube.com/watch?v=ESKG8Uo1YaU",
-      "compareStartSeconds": 147
+      "compareStartSeconds": 147,
+      "semiFinal": 1,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Portugal",
       "artist": "Iolanda",
       "title": "Grito",
       "previewVideoUrl": "https://www.youtube.com/watch?v=OZn4-H6JvKU",
-      "compareStartSeconds": 145
+      "compareStartSeconds": 145,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 2
     },
     {
       "country": "San Marino",
       "artist": "Megara",
       "title": "11:11",
       "previewVideoUrl": "https://www.youtube.com/watch?v=IqyJvkGmAjo",
-      "compareStartSeconds": 155
+      "compareStartSeconds": 155,
+      "semiFinal": 2,
+      "qualifiedForFinal": false,
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Serbia",
       "artist": "Teya Dora",
       "title": "Ramonda",
       "previewVideoUrl": "https://www.youtube.com/watch?v=4hUg64uIY_4",
-      "compareStartSeconds": 144
+      "compareStartSeconds": 144,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 1
     },
     {
       "country": "Slovenia",
       "artist": "Raiven",
       "title": "Veronika",
       "previewVideoUrl": "https://www.youtube.com/watch?v=l86DxpRnz5M",
-      "compareStartSeconds": 138
+      "compareStartSeconds": 138,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 3
     },
     {
       "country": "Spain",
       "artist": "Nebulossa",
       "title": "Zorra",
       "previewVideoUrl": "https://www.youtube.com/watch?v=FOMoQoHG5aU",
-      "compareStartSeconds": 171
+      "compareStartSeconds": 171,
+      "semiFinal": 2,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Sweden",
       "artist": "Marcus & Martinus",
       "title": "Unforgettable",
       "previewVideoUrl": "https://www.youtube.com/watch?v=DcZpzObYzxs",
-      "compareStartSeconds": 114
+      "compareStartSeconds": 114,
+      "semiFinal": 1,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
     },
     {
       "country": "Switzerland",
       "artist": "Nemo",
       "title": "The Code",
       "previewVideoUrl": "https://www.youtube.com/watch?v=CO_qJf-nW0k",
-      "compareStartSeconds": 163
+      "compareStartSeconds": 163,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 8
     },
     {
       "country": "Ukraine",
       "artist": "Alyona Alyona & Jerry Heil",
       "title": "Teresa & Maria",
       "previewVideoUrl": "https://www.youtube.com/watch?v=d4N82wPpdg8",
-      "compareStartSeconds": 85
+      "compareStartSeconds": 85,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 4
     },
     {
       "country": "United Kingdom",
       "artist": "Olly Alexander",
       "title": "Dizzy",
       "previewVideoUrl": "https://www.youtube.com/watch?v=q0_FdJqyQW0",
-      "compareStartSeconds": 98
+      "compareStartSeconds": 98,
+      "semiFinal": 1,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
     }
   ]
 }
