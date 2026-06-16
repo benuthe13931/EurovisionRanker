@@ -144,7 +144,7 @@ export default function TriviaPage() {
       missedQuestions,
       currentGraded,
     });
-    void saveTriviaSession(session)
+    void saveTriviaSession(session, { remote: false })
       .then((saved) => setSavedSession(saved))
       .catch(() => setSavedSession(session));
   }, [currentGraded, currentIndex, deck, missedQuestions, mode, score, settings]);

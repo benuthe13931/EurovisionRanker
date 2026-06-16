@@ -627,7 +627,10 @@ export async function loadTriviaSession<T>() {
   }
 }
 
-export async function saveTriviaSession<T>(state: T) {
+export async function saveTriviaSession<T>(
+  state: T,
+  options: { remote?: boolean } = {},
+) {
   const updatedState = {
     ...(state && typeof state === "object" ? state : {}),
     savedAt: new Date().toISOString(),
@@ -635,7 +638,7 @@ export async function saveTriviaSession<T>(state: T) {
 
   localStorage.setItem(TRIVIA_SESSION_KEY, JSON.stringify(updatedState));
 
-  if (!activeProfileId()) {
+  if (options.remote === false || !activeProfileId()) {
     return updatedState;
   }
 
