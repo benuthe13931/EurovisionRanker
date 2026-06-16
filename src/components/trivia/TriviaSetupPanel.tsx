@@ -1,5 +1,6 @@
-import { Cloud, Gamepad2, Play, Trash2 } from "lucide-react";
-import { countries, years } from "../../data/years";
+import { Cloud, Gamepad2, Play, Search, Trash2 } from "lucide-react";
+import { allSongs, countries, years } from "../../data/years";
+import { useMemo, useState } from "react";
 import {
   defaultFormatForScope,
   eligibleSongsForSettings,
@@ -35,6 +36,21 @@ function formatSavedAt(value?: string) {
   }).format(new Date(value));
 }
 
+function searchableSongText(song: (typeof allSongs)[number]) {
+  return [
+    song.title,
+    song.artist,
+    song.country,
+    song.year,
+    ...(song.acceptedArtistAnswers ?? []),
+    ...(song.acceptedCountryAnswers ?? []),
+    ...(song.acceptedTitleAnswers ?? []),
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+}
+
 export default function TriviaSetupPanel({
   cloudStatus,
   savedAt,
@@ -45,16 +61,43 @@ export default function TriviaSetupPanel({
   onResume,
   onStart,
 }: TriviaSetupPanelProps) {
+  const [searchQuery, setSearchQuery] = useState("");
   const eligibleCount = eligibleSongsForSettings(settings).length;
   const unavailableCount = unavailablePreviewCount(settings);
   const questionCount = settings.length === "all" ? eligibleCount : Math.min(settings.length, eligibleCount);
   const canStart = questionCount > 0;
+  const searchResults = useMemo(() => {
+    const tokens = searchQuery
+      .trim()
+      .toLowerCase()
+      .split(/\s+/)
+      .filter(Boolean);
+    if (!tokens.length) return [];
 
-  function updateScope(scope: QuizScope) {
+    return allSongs
+      .filter((song) => {
+        const haystack = searchableSongText(song);
+        return tokens.every((token) => haystack.includes(token));
+      })
+      .slice(0, 12);
+  }, [searchQuery]);
+
+  function settingsForScope(scope: QuizScope, nextSettings: Partial<QuizSettings> = {}) {
     const answerFormat = isFormatValidForScope(scope, settings.answerFormat)
       ? settings.answerFormat
       : defaultFormatForScope(scope);
-    onChange({ ...settings, scope, answerFormat, length: "all" });
+
+    return {
+      ...settings,
+      ...nextSettings,
+      scope,
+      answerFormat,
+      length: "all" as const,
+    };
+  }
+
+  function updateScope(scope: QuizScope) {
+    onChange(settingsForScope(scope));
   }
 
   function updateFormat(answerFormat: AnswerFormat) {
@@ -63,6 +106,22 @@ export default function TriviaSetupPanel({
 
   function updateLength(length: QuizLength) {
     onChange({ ...settings, length });
+  }
+
+  function applySongYear(song: (typeof allSongs)[number]) {
+    onChange(settingsForScope("year", { year: String(song.year ?? "") }));
+    setSearchQuery("");
+  }
+
+  function applySongCountry(song: (typeof allSongs)[number]) {
+    const country = countries.find(
+      (item) =>
+        item.countryCode === song.countryCode ||
+        item.country.toLowerCase() === song.country.toLowerCase(),
+    );
+    if (!country) return;
+    onChange(settingsForScope("country", { countrySlug: country.slug }));
+    setSearchQuery("");
   }
 
   return (
@@ -99,6 +158,48 @@ export default function TriviaSetupPanel({
         </div>
       )}
       {cloudStatus ? <p className="triviaCloudStatus">{cloudStatus}</p> : null}
+
+      <section className="setupSection triviaSearchSection">
+        <div className="setupSectionHeader">
+          <span>?</span>
+          <h2>Find an entry</h2>
+        </div>
+        <label className="triviaSearchField">
+          <Search size={17} />
+          <span className="srOnly">Search songs, artists, countries, or years</span>
+          <input
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            placeholder="Search songs, artists, countries, or years..."
+            type="search"
+          />
+        </label>
+        {searchQuery.trim() ? (
+          <div className="triviaSearchResults">
+            {searchResults.length ? (
+              searchResults.map((song) => (
+                <div className="triviaSearchResult" key={song.id}>
+                  <button type="button" onClick={() => applySongYear(song)}>
+                    <strong>{song.title}</strong>
+                    <span>
+                      {song.artist} / {song.country} / {song.year}
+                    </span>
+                  </button>
+                  <button
+                    className="triviaSearchScopeButton"
+                    type="button"
+                    onClick={() => applySongCountry(song)}
+                  >
+                    Country
+                  </button>
+                </div>
+              ))
+            ) : (
+              <p>No matching entries found.</p>
+            )}
+          </div>
+        ) : null}
+      </section>
 
       <ScopeSelector scope={settings.scope} onChange={updateScope} />
       <AnswerFormatSelector scope={settings.scope} format={settings.answerFormat} onChange={updateFormat} />

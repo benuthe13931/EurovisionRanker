@@ -12,9 +12,18 @@ type StyledDropdownProps = {
   options: DropdownOption[];
   value: string;
   onChange: (value: string) => void;
+  searchable?: boolean;
+  autoFocusSearch?: boolean;
 };
 
-export default function StyledDropdown({ label, options, value, onChange }: StyledDropdownProps) {
+export default function StyledDropdown({
+  label,
+  options,
+  value,
+  onChange,
+  searchable = false,
+  autoFocusSearch = false,
+}: StyledDropdownProps) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -22,9 +31,13 @@ export default function StyledDropdown({ label, options, value, onChange }: Styl
   const filteredOptions = useMemo(
     () =>
       options.filter((option) =>
-        `${option.label} ${option.meta ?? ""}`.toLowerCase().includes(query.trim().toLowerCase()),
+        searchable
+          ? `${option.label} ${option.meta ?? ""}`
+              .toLowerCase()
+              .includes(query.trim().toLowerCase())
+          : true,
       ),
-    [options, query],
+    [options, query, searchable],
   );
 
   useEffect(() => {
@@ -36,10 +49,36 @@ export default function StyledDropdown({ label, options, value, onChange }: Styl
     return () => window.removeEventListener("pointerdown", handlePointerDown);
   }, []);
 
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const mobileQuery = window.matchMedia("(max-width: 720px)");
+    if (!mobileQuery.matches) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [open]);
+
   return (
     <div className="styledDropdown" ref={rootRef}>
       <span className="dropdownLabel">{label}</span>
-      <button className="dropdownButton" type="button" onClick={() => setOpen((current) => !current)}>
+      <button
+        aria-expanded={open}
+        className="dropdownButton"
+        type="button"
+        onClick={() => setOpen((current) => !current)}
+      >
         <span>
           <strong>{selected?.label ?? "Choose"}</strong>
           {selected?.meta ? <em>{selected.meta}</em> : null}
@@ -48,15 +87,17 @@ export default function StyledDropdown({ label, options, value, onChange }: Styl
       </button>
       {open ? (
         <div className="dropdownMenu">
-          <label className="dropdownSearch">
-            <Search size={15} />
-            <input
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder={`Search ${label.toLowerCase()}`}
-              autoFocus
-            />
-          </label>
+          {searchable ? (
+            <label className="dropdownSearch">
+              <Search size={15} />
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder={`Search ${label.toLowerCase()}`}
+                autoFocus={autoFocusSearch}
+              />
+            </label>
+          ) : null}
           <div className="dropdownOptions">
             {filteredOptions.map((option) => (
               <button
