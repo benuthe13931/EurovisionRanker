@@ -16,6 +16,7 @@ const PREDICTION_PREFIX = "eurovision-ranker:prediction:";
 const GLOBAL_RANKING_KEY = "eurovision-ranker:global-ranking";
 const FAVORITES_KEY = "eurovision-ranker:favorites";
 const TRIVIA_SESSION_KEY = "eurovision-ranker:trivia-session";
+const TRIVIA_SESSION_REMOTE_KEY = "trivia:session";
 const ACTIVE_PROFILE_KEY = "eurovision-ranker:active-profile";
 const PROFILE_TTL_MS = 1000 * 60 * 60 * 24 * 30;
 const UUID_PATTERN =
@@ -619,8 +620,9 @@ export async function loadTriviaSession<T>() {
   if (!profileId) return readJson<T>(TRIVIA_SESSION_KEY);
 
   try {
-    return await rpc<T | null>("get_trivia_session", {
+    return await rpc<T | null>("get_comparison", {
       p_profile_id: profileId,
+      p_comparison_key: TRIVIA_SESSION_REMOTE_KEY,
     });
   } catch (error) {
     return readJson<T>(TRIVIA_SESSION_KEY);
@@ -643,8 +645,9 @@ export async function saveTriviaSession<T>(
   }
 
   try {
-    return await rpc<T>("save_trivia_session", {
+    return await rpc<T>("save_comparison", {
       p_profile_id: activeProfileId(),
+      p_comparison_key: TRIVIA_SESSION_REMOTE_KEY,
       p_state: updatedState,
     });
   } catch (error) {
@@ -660,8 +663,9 @@ export async function clearTriviaSession() {
   }
 
   try {
-    await rpc<void>("clear_trivia_session", {
+    await rpc<void>("clear_comparison", {
       p_profile_id: activeProfileId(),
+      p_comparison_key: TRIVIA_SESSION_REMOTE_KEY,
     });
   } catch (error) {
     return;
