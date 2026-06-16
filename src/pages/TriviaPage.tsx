@@ -118,7 +118,9 @@ export default function TriviaPage() {
 
     async function loadSession() {
       try {
-        const session = await loadTriviaSession<SavedTriviaSession>();
+        const session = await loadTriviaSession<SavedTriviaSession>({
+          remote: false,
+        });
         if (active) setSavedSession(session);
       } catch {
         if (active) setSavedSession(null);
@@ -218,6 +220,11 @@ export default function TriviaPage() {
     setSavedSession(null);
   }
 
+  async function loadCloudSavedQuiz() {
+    const session = await loadTriviaSession<SavedTriviaSession>();
+    setSavedSession(session);
+  }
+
   function handleAnswered(graded: GradedAnswer) {
     if (!currentQuestion) return;
     setCurrentGraded(graded);
@@ -260,6 +267,7 @@ export default function TriviaPage() {
             settings={settings}
             onChange={setSettings}
             onDiscardSaved={discardSavedQuiz}
+            onLoadCloudSaved={loadCloudSavedQuiz}
             onResume={resumeQuiz}
             onStart={startQuiz}
           />

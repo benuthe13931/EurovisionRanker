@@ -615,9 +615,13 @@ export async function clearPrediction(key: string) {
   }
 }
 
-export async function loadTriviaSession<T>() {
+export async function loadTriviaSession<T>(
+  options: { remote?: boolean } = {},
+) {
   const profileId = activeProfileId();
-  if (!profileId) return readJson<T>(TRIVIA_SESSION_KEY);
+  if (options.remote === false || !profileId) {
+    return readJson<T>(TRIVIA_SESSION_KEY);
+  }
 
   try {
     return await rpc<T | null>("get_comparison", {

@@ -1,4 +1,4 @@
-import { Gamepad2, Play, Trash2 } from "lucide-react";
+import { Cloud, Gamepad2, Play, Trash2 } from "lucide-react";
 import { countries, years } from "../../data/years";
 import {
   defaultFormatForScope,
@@ -21,6 +21,7 @@ type TriviaSetupPanelProps = {
   settings: QuizSettings;
   onChange: (settings: QuizSettings) => void;
   onDiscardSaved: () => void;
+  onLoadCloudSaved: () => void;
   onResume: () => void;
   onStart: () => void;
 };
@@ -38,6 +39,7 @@ export default function TriviaSetupPanel({
   settings,
   onChange,
   onDiscardSaved,
+  onLoadCloudSaved,
   onResume,
   onStart,
 }: TriviaSetupPanelProps) {
@@ -78,7 +80,19 @@ export default function TriviaSetupPanel({
             </button>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div className="triviaResumeCard">
+          <div>
+            <strong>Resume from another device</strong>
+            <span>Check your signed-in profile for a saved quiz.</span>
+          </div>
+          <div>
+            <button className="secondaryButton" type="button" onClick={onLoadCloudSaved}>
+              <Cloud size={16} /> Check Cloud Save
+            </button>
+          </div>
+        </div>
+      )}
 
       <ScopeSelector scope={settings.scope} onChange={updateScope} />
       <AnswerFormatSelector scope={settings.scope} format={settings.answerFormat} onChange={updateFormat} />
