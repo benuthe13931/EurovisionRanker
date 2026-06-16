@@ -1,4 +1,4 @@
-import { ArrowLeft, RotateCcw, Scale } from "lucide-react";
+import { ArrowLeft, CheckCircle, RotateCcw, Scale } from "lucide-react";
 import {
   type CSSProperties,
   useEffect,
@@ -6,19 +6,18 @@ import {
   useRef,
   useState,
 } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ComparisonOverlay from "../components/ComparisonOverlay";
 import FlagEmoji from "../components/FlagEmoji";
 import RankingList from "../components/RankingList";
-import RankingSnapshotControls, {
-  ComparisonStatusLine,
-} from "../components/RankingSnapshotControls";
+import RankingSnapshotControls from "../components/RankingSnapshotControls";
 import { countriesBySlug } from "../data/years";
 import type { Song } from "../types";
 import {
   clearComparison,
   clearRanking,
   loadComparison,
+  loadComparisonStatus,
   loadFavorites,
   loadRanking,
   saveFavorites,
@@ -38,7 +37,6 @@ function orderSongs(songs: Song[], savedIds?: string[]) {
 
 export default function CountryPage() {
   const { countrySlug = "" } = useParams();
-  const navigate = useNavigate();
   const countryData = countriesBySlug.get(countrySlug);
   const rankingKey = `country:${countrySlug}`;
   const [favorites, setFavorites] = useState<Set<string>>(() => new Set());
@@ -47,6 +45,7 @@ export default function CountryPage() {
   const [resumePromptOpen, setResumePromptOpen] = useState(false);
   const [hasUnfinishedComparison, setHasUnfinishedComparison] = useState(false);
   const [comparisonStatusRefresh, setComparisonStatusRefresh] = useState(0);
+  const [comparisonCompletedAt, setComparisonCompletedAt] = useState("");
   const hasLocalRankingChange = useRef(false);
 
   const initialSongs = useMemo(() => countryData?.songs ?? [], [countryData]);
@@ -98,6 +97,20 @@ export default function CountryPage() {
       active = false;
     };
   }, [rankingKey, comparisonOpen]);
+
+  useEffect(() => {
+    let active = true;
+    loadComparisonStatus(rankingKey)
+      .then((status) => {
+        if (active) setComparisonCompletedAt(status?.completedAt ?? "");
+      })
+      .catch(() => {
+        if (active) setComparisonCompletedAt("");
+      });
+    return () => {
+      active = false;
+    };
+  }, [rankingKey, comparisonStatusRefresh]);
 
   if (!countryData) {
     return (
@@ -194,13 +207,12 @@ export default function CountryPage() {
     >
       <section className="contentColumn">
         <div className="pageHeader">
-          <button
+          <Link
             className="backButton"
-            type="button"
-            onClick={() => navigate(-1)}
+            to="/countries"
           >
             <ArrowLeft size={16} /> Back
-          </button>
+          </Link>
           <p className="eyebrow">
             <FlagEmoji
               alt=""
@@ -221,14 +233,35 @@ export default function CountryPage() {
           <span className="countLine">{songs.length} songs to rank</span>
           <div className="toolbarActions">
             <button
-              className="primaryButton"
+              className={`primaryButton ${
+                comparisonCompletedAt && !hasUnfinishedComparison
+                  ? "comparisonCompleteButton"
+                  : ""
+              }`}
               type="button"
               onClick={requestComparison}
+              title={
+                comparisonCompletedAt && !hasUnfinishedComparison
+                  ? `Rank by Comparison completed ${new Date(
+                      comparisonCompletedAt,
+                    ).toLocaleString()}`
+                  : undefined
+              }
             >
               <Scale size={17} />{" "}
               {hasUnfinishedComparison
                 ? "Continue Rank by Comparison"
                 : "Rank by Comparison"}
+              {comparisonCompletedAt && !hasUnfinishedComparison ? (
+                <CheckCircle size={16} />
+              ) : null}
+            </button>
+            <button
+              className="secondaryButton"
+              type="button"
+              onClick={handleReset}
+            >
+              <RotateCcw size={17} /> Reset
             </button>
             <RankingSnapshotControls
               rankingKey={rankingKey}
@@ -245,19 +278,8 @@ export default function CountryPage() {
               onError={setDataError}
               refreshKey={comparisonStatusRefresh}
             />
-            <button
-              className="secondaryButton"
-              type="button"
-              onClick={handleReset}
-            >
-              <RotateCcw size={17} /> Reset Ranking
-            </button>
           </div>
         </div>
-        <ComparisonStatusLine
-          rankingKey={rankingKey}
-          refreshKey={comparisonStatusRefresh}
-        />
         {dataError ? <div className="dataError">{dataError}</div> : null}
 
         <RankingList

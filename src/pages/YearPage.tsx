@@ -1,4 +1,4 @@
-import { ArrowLeft, RotateCcw, Scale } from "lucide-react";
+import { ArrowLeft, CheckCircle, RotateCcw, Scale } from "lucide-react";
 import {
   type CSSProperties,
   useEffect,
@@ -6,13 +6,11 @@ import {
   useRef,
   useState,
 } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ComparisonOverlay from "../components/ComparisonOverlay";
 import PredictionPanel from "../components/PredictionPanel";
 import RankingList from "../components/RankingList";
-import RankingSnapshotControls, {
-  ComparisonStatusLine,
-} from "../components/RankingSnapshotControls";
+import RankingSnapshotControls from "../components/RankingSnapshotControls";
 import { songsByYear } from "../data/years";
 import type { Song } from "../types";
 import {
@@ -27,6 +25,7 @@ import {
   clearComparison,
   clearRanking,
   loadComparison,
+  loadComparisonStatus,
   loadActiveProfile,
   loadFavorites,
   loadRanking,
@@ -49,7 +48,6 @@ function orderSongs(songs: Song[], savedIds?: string[]) {
 
 export default function YearPage() {
   const { year = "" } = useParams();
-  const navigate = useNavigate();
   const yearData = songsByYear.get(year);
   const stages = useMemo(
     () => getContestStages(Number(yearData?.year ?? year)),
@@ -70,6 +68,7 @@ export default function YearPage() {
   const [resumePromptOpen, setResumePromptOpen] = useState(false);
   const [hasUnfinishedComparison, setHasUnfinishedComparison] = useState(false);
   const [comparisonStatusRefresh, setComparisonStatusRefresh] = useState(0);
+  const [comparisonCompletedAt, setComparisonCompletedAt] = useState("");
   const [pendingStage, setPendingStage] = useState<ContestStage | null>(null);
   const [skipGrandFinalWarning, setSkipGrandFinalWarning] = useState(false);
   const [dontWarnAgain, setDontWarnAgain] = useState(false);
@@ -148,6 +147,20 @@ export default function YearPage() {
       active = false;
     };
   }, [rankingKey, comparisonOpen]);
+
+  useEffect(() => {
+    let active = true;
+    loadComparisonStatus(rankingKey)
+      .then((status) => {
+        if (active) setComparisonCompletedAt(status?.completedAt ?? "");
+      })
+      .catch(() => {
+        if (active) setComparisonCompletedAt("");
+      });
+    return () => {
+      active = false;
+    };
+  }, [rankingKey, comparisonStatusRefresh]);
 
   if (!yearData) {
     return (
@@ -310,13 +323,12 @@ export default function YearPage() {
       <section className="contentColumn">
         <div className={pendingStage ? "stageContent blurred" : "stageContent"}>
           <div className="pageHeader">
-            <button
+            <Link
               className="backButton"
-              type="button"
-              onClick={() => navigate(-1)}
+              to="/"
             >
               <ArrowLeft size={16} /> Back
-            </button>
+            </Link>
             <h1>Eurovision Song Contest {currentYearData.year}</h1>
             <p>
               Rank songs from {currentYearData.hostCity},{" "}
@@ -374,14 +386,35 @@ export default function YearPage() {
                 </span>
                 <div className="toolbarActions">
                   <button
-                    className="primaryButton"
+                    className={`primaryButton ${
+                      comparisonCompletedAt && !hasUnfinishedComparison
+                        ? "comparisonCompleteButton"
+                        : ""
+                    }`}
                     type="button"
                     onClick={requestComparison}
+                    title={
+                      comparisonCompletedAt && !hasUnfinishedComparison
+                        ? `Rank by Comparison completed ${new Date(
+                            comparisonCompletedAt,
+                          ).toLocaleString()}`
+                        : undefined
+                    }
                   >
                     <Scale size={17} />{" "}
                     {hasUnfinishedComparison
                       ? "Continue Rank by Comparison"
                       : "Rank by Comparison"}
+                    {comparisonCompletedAt && !hasUnfinishedComparison ? (
+                      <CheckCircle size={16} />
+                    ) : null}
+                  </button>
+                  <button
+                    className="secondaryButton"
+                    type="button"
+                    onClick={handleReset}
+                  >
+                    <RotateCcw size={17} /> Reset
                   </button>
                   <RankingSnapshotControls
                     rankingKey={rankingKey}
@@ -402,19 +435,8 @@ export default function YearPage() {
                     onError={setDataError}
                     refreshKey={comparisonStatusRefresh}
                   />
-                  <button
-                    className="secondaryButton"
-                    type="button"
-                    onClick={handleReset}
-                  >
-                    <RotateCcw size={17} /> Reset Ranking
-                  </button>
                 </div>
               </div>
-              <ComparisonStatusLine
-                rankingKey={rankingKey}
-                refreshKey={comparisonStatusRefresh}
-              />
               {dataError ? <div className="dataError">{dataError}</div> : null}
 
               <RankingList

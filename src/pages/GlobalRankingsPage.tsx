@@ -616,6 +616,14 @@ export default function GlobalRankingsPage() {
                 <Plus size={17} /> Insert Year
               </button>
             ) : null}
+            <button
+              className="secondaryButton"
+              type="button"
+              disabled={!hasGlobalRankings}
+              onClick={() => setResetStep(1)}
+            >
+              <Trash2 size={17} /> Reset
+            </button>
             {view === "rankings" && hasGlobalRankings ? (
               <RankingSnapshotControls
                 rankingKey="global"
@@ -646,14 +654,6 @@ export default function GlobalRankingsPage() {
                 <Eye size={17} /> View Current Rankings
               </button>
             ) : null}
-            <button
-              className="secondaryButton"
-              type="button"
-              disabled={!hasGlobalRankings}
-              onClick={() => setResetStep(1)}
-            >
-              <Trash2 size={17} /> Reset Global Rankings
-            </button>
           </div>
         </div>
         {dataError ? <div className="dataError">{dataError}</div> : null}

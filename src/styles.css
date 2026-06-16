@@ -2217,6 +2217,14 @@ a {
   background: rgba(8, 8, 14, 0.62);
 }
 
+.primaryButton.comparisonCompleteButton {
+  border-color: rgba(113, 240, 162, 0.54);
+  background: rgba(20, 92, 55, 0.46);
+  box-shadow:
+    0 0 0 1px rgba(113, 240, 162, 0.16),
+    0 12px 34px rgba(58, 214, 120, 0.14);
+}
+
 .primaryButton:disabled,
 .secondaryButton:disabled {
   cursor: not-allowed;

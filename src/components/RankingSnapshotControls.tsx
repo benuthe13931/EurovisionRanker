@@ -272,18 +272,6 @@ export default function RankingSnapshotControls({
       <button
         className="secondaryButton"
         type="button"
-        onClick={() => {
-          setSelectedExportSectionIds(
-            currentExportOptions.map((option) => option.id),
-          );
-          setExportTarget("current");
-        }}
-      >
-        <Download size={17} /> Export Current
-      </button>
-      <button
-        className="secondaryButton"
-        type="button"
         disabled={!snapshots.length}
         onClick={() => {
           void refreshSnapshots();
@@ -291,6 +279,18 @@ export default function RankingSnapshotControls({
         }}
       >
         <Clock size={17} /> View Snapshots
+      </button>
+      <button
+        className="secondaryButton"
+        type="button"
+        onClick={() => {
+          setSelectedExportSectionIds(
+            currentExportOptions.map((option) => option.id),
+          );
+          setExportTarget("current");
+        }}
+      >
+        <Download size={17} /> Export
       </button>
 
       {mode ? (
