@@ -17,6 +17,7 @@ import ScopeSelector from "./ScopeSelector";
 import StyledDropdown from "./StyledDropdown";
 
 type TriviaSetupPanelProps = {
+  cloudStatus?: string;
   savedAt?: string;
   settings: QuizSettings;
   onChange: (settings: QuizSettings) => void;
@@ -35,6 +36,7 @@ function formatSavedAt(value?: string) {
 }
 
 export default function TriviaSetupPanel({
+  cloudStatus,
   savedAt,
   settings,
   onChange,
@@ -72,6 +74,9 @@ export default function TriviaSetupPanel({
             <span>Saved {formatSavedAt(savedAt)}</span>
           </div>
           <div>
+            <button className="secondaryButton" type="button" onClick={onLoadCloudSaved}>
+              <Cloud size={16} /> Retry Sync
+            </button>
             <button className="secondaryButton" type="button" onClick={onDiscardSaved}>
               <Trash2 size={16} /> Discard
             </button>
@@ -93,6 +98,7 @@ export default function TriviaSetupPanel({
           </div>
         </div>
       )}
+      {cloudStatus ? <p className="triviaCloudStatus">{cloudStatus}</p> : null}
 
       <ScopeSelector scope={settings.scope} onChange={updateScope} />
       <AnswerFormatSelector scope={settings.scope} format={settings.answerFormat} onChange={updateFormat} />

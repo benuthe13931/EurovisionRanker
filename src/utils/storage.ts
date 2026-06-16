@@ -16,7 +16,6 @@ const PREDICTION_PREFIX = "eurovision-ranker:prediction:";
 const GLOBAL_RANKING_KEY = "eurovision-ranker:global-ranking";
 const FAVORITES_KEY = "eurovision-ranker:favorites";
 const TRIVIA_SESSION_KEY = "eurovision-ranker:trivia-session";
-const TRIVIA_SESSION_REMOTE_KEY = "trivia:session";
 const ACTIVE_PROFILE_KEY = "eurovision-ranker:active-profile";
 const PROFILE_TTL_MS = 1000 * 60 * 60 * 24 * 30;
 const UUID_PATTERN =
@@ -27,6 +26,11 @@ export type ActiveProfile = {
   name: string;
   username: string;
   expiresAt?: string;
+};
+
+export type TriviaSessionMetadata = {
+  hasSession: boolean;
+  savedAt: string | null;
 };
 
 function readJson<T>(key: string): T | null {
@@ -234,7 +238,7 @@ async function copyGuestDataToProfile() {
   if (favorites) await saveFavorites(new Set(favorites));
 
   const triviaSession = readJson<unknown>(TRIVIA_SESSION_KEY);
-  if (triviaSession) await saveTriviaSession(triviaSession);
+  if (triviaSession) await saveRemoteTriviaSession(triviaSession);
 }
 
 export async function loadRanking(key: string) {
@@ -615,21 +619,67 @@ export async function clearPrediction(key: string) {
   }
 }
 
+export function loadLocalTriviaSession<T>() {
+  return readJson<T>(TRIVIA_SESSION_KEY);
+}
+
+export function saveLocalTriviaSession<T>(state: T) {
+  localStorage.setItem(TRIVIA_SESSION_KEY, JSON.stringify(state));
+  return state;
+}
+
+export function clearLocalTriviaSession() {
+  localStorage.removeItem(TRIVIA_SESSION_KEY);
+}
+
+export async function getTriviaSessionMetadata() {
+  const profileId = activeProfileId();
+  if (!profileId) {
+    return { hasSession: false, savedAt: null } satisfies TriviaSessionMetadata;
+  }
+
+  return rpc<TriviaSessionMetadata>("get_trivia_session_metadata", {
+    p_profile_id: profileId,
+  });
+}
+
+export async function loadRemoteTriviaSession<T>() {
+  const profileId = activeProfileId();
+  if (!profileId) return null;
+
+  return rpc<T | null>("get_trivia_session", {
+    p_profile_id: profileId,
+  });
+}
+
+export async function saveRemoteTriviaSession<T>(state: T) {
+  const profileId = activeProfileId();
+  if (!profileId) return state;
+
+  return rpc<T>("save_trivia_session", {
+    p_profile_id: profileId,
+    p_state: state,
+  });
+}
+
+export async function clearRemoteTriviaSession() {
+  const profileId = activeProfileId();
+  if (!profileId) return;
+
+  await rpc<void>("clear_trivia_session", {
+    p_profile_id: profileId,
+  });
+}
+
 export async function loadTriviaSession<T>(
   options: { remote?: boolean } = {},
 ) {
-  const profileId = activeProfileId();
-  if (options.remote === false || !profileId) {
-    return readJson<T>(TRIVIA_SESSION_KEY);
-  }
+  if (options.remote === false) return loadLocalTriviaSession<T>();
 
   try {
-    return await rpc<T | null>("get_comparison", {
-      p_profile_id: profileId,
-      p_comparison_key: TRIVIA_SESSION_REMOTE_KEY,
-    });
+    return (await loadRemoteTriviaSession<T>()) ?? loadLocalTriviaSession<T>();
   } catch (error) {
-    return readJson<T>(TRIVIA_SESSION_KEY);
+    return loadLocalTriviaSession<T>();
   }
 }
 
@@ -637,40 +687,22 @@ export async function saveTriviaSession<T>(
   state: T,
   options: { remote?: boolean } = {},
 ) {
-  const updatedState = {
-    ...(state && typeof state === "object" ? state : {}),
-    savedAt: new Date().toISOString(),
-  } as T;
+  saveLocalTriviaSession(state);
 
-  localStorage.setItem(TRIVIA_SESSION_KEY, JSON.stringify(updatedState));
-
-  if (options.remote === false || !activeProfileId()) {
-    return updatedState;
-  }
+  if (options.remote === false) return state;
 
   try {
-    return await rpc<T>("save_comparison", {
-      p_profile_id: activeProfileId(),
-      p_comparison_key: TRIVIA_SESSION_REMOTE_KEY,
-      p_state: updatedState,
-    });
+    return await saveRemoteTriviaSession(state);
   } catch (error) {
-    return updatedState;
+    return state;
   }
 }
 
 export async function clearTriviaSession() {
-  localStorage.removeItem(TRIVIA_SESSION_KEY);
-
-  if (!activeProfileId()) {
-    return;
-  }
+  clearLocalTriviaSession();
 
   try {
-    await rpc<void>("clear_comparison", {
-      p_profile_id: activeProfileId(),
-      p_comparison_key: TRIVIA_SESSION_REMOTE_KEY,
-    });
+    await clearRemoteTriviaSession();
   } catch (error) {
     return;
   }

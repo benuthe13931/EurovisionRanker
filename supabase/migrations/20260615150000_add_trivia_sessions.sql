@@ -23,6 +23,7 @@ USING (false)
 WITH CHECK (false);
 
 DROP FUNCTION IF EXISTS public.get_trivia_session(uuid);
+DROP FUNCTION IF EXISTS public.get_trivia_session_metadata(uuid);
 DROP FUNCTION IF EXISTS public.save_trivia_session(uuid, jsonb);
 DROP FUNCTION IF EXISTS public.clear_trivia_session(uuid);
 
@@ -37,6 +38,26 @@ AS $$
   WHERE profile_id = p_profile_id;
 $$;
 
+CREATE OR REPLACE FUNCTION public.get_trivia_session_metadata(p_profile_id uuid)
+RETURNS jsonb
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT CASE
+    WHEN session.profile_id IS NULL THEN
+      jsonb_build_object('hasSession', false, 'savedAt', NULL)
+    ELSE
+      jsonb_build_object(
+        'hasSession', true,
+        'savedAt', session.state_json->>'savedAt'
+      )
+    END
+  FROM (SELECT 1) seed
+  LEFT JOIN public.trivia_sessions session
+    ON session.profile_id = p_profile_id;
+$$;
+
 CREATE OR REPLACE FUNCTION public.save_trivia_session(
   p_profile_id uuid,
   p_state jsonb
@@ -47,12 +68,7 @@ SECURITY DEFINER
 SET search_path = public
 AS $$
 DECLARE
-  updated_state jsonb := jsonb_set(
-    coalesce(p_state, '{}'::jsonb),
-    '{savedAt}',
-    to_jsonb(now()::text),
-    true
-  );
+  updated_state jsonb := coalesce(p_state, '{}'::jsonb);
 BEGIN
   INSERT INTO public.trivia_sessions (profile_id, state_json)
   VALUES (p_profile_id, updated_state)
@@ -74,6 +90,7 @@ AS $$
 $$;
 
 GRANT EXECUTE ON FUNCTION public.get_trivia_session(uuid) TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.get_trivia_session_metadata(uuid) TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.save_trivia_session(uuid, jsonb) TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.clear_trivia_session(uuid) TO anon, authenticated;
 
