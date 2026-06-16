@@ -11,7 +11,9 @@ import {
 } from "../utils/storage";
 import {
   buildQuizDeck,
+  buildQuestion,
   defaultQuizSettings,
+  sourceSongsForSettings,
   type GradedAnswer,
   type MissedQuestion,
   type QuizSettings,
@@ -21,13 +23,75 @@ import {
 type TriviaMode = "setup" | "active" | "complete";
 type SavedTriviaSession = {
   settings: QuizSettings;
+  deckSongIds: string[];
+  currentIndex: number;
+  score: number;
+  missedQuestions: {
+    questionId: string;
+    graded: GradedAnswer;
+  }[];
+  currentGraded: GradedAnswer | null;
+  savedAt: string;
+  deck?: TriviaQuestion[];
+};
+
+function hydrateSavedSession(session: SavedTriviaSession | null) {
+  if (!session) return null;
+  const sourceSongs = sourceSongsForSettings(session.settings);
+  const songById = new Map(sourceSongs.map((song) => [song.id, song]));
+  const sourceDeck =
+    session.deckSongIds?.length
+      ? session.deckSongIds.flatMap((id) => {
+          const song = songById.get(id);
+          return song
+            ? [buildQuestion(song, session.settings, sourceSongs)]
+            : [];
+        })
+      : session.deck ?? [];
+
+  const questionById = new Map(
+    sourceDeck.map((question) => [question.id, question]),
+  );
+  const missedQuestions = session.missedQuestions.flatMap((missed) => {
+    const question = questionById.get(missed.questionId);
+    return question ? [{ question, graded: missed.graded }] : [];
+  });
+
+  return {
+    ...session,
+    deck: sourceDeck,
+    missedQuestions,
+  };
+}
+
+function compactTriviaSession({
+  settings,
+  deck,
+  currentIndex,
+  score,
+  missedQuestions,
+  currentGraded,
+}: {
+  settings: QuizSettings;
   deck: TriviaQuestion[];
   currentIndex: number;
   score: number;
   missedQuestions: MissedQuestion[];
   currentGraded: GradedAnswer | null;
-  savedAt: string;
-};
+}): SavedTriviaSession {
+  return {
+    settings,
+    deckSongIds: deck.map((question) => question.song.id),
+    currentIndex,
+    score,
+    missedQuestions: missedQuestions.map((missed) => ({
+      questionId: missed.question.id,
+      graded: missed.graded,
+    })),
+    currentGraded,
+    savedAt: new Date().toISOString(),
+  };
+}
 
 export default function TriviaPage() {
   const [settings, setSettings] = useState<QuizSettings>(defaultQuizSettings);
@@ -72,15 +136,14 @@ export default function TriviaPage() {
   useEffect(() => {
     if (mode !== "active" || !deck.length) return;
 
-    const session: SavedTriviaSession = {
+    const session = compactTriviaSession({
       settings,
       deck,
       currentIndex,
       score,
       missedQuestions,
       currentGraded,
-      savedAt: new Date().toISOString(),
-    };
+    });
     void saveTriviaSession(session)
       .then((saved) => setSavedSession(saved))
       .catch(() => setSavedSession(session));
@@ -120,22 +183,18 @@ export default function TriviaPage() {
     setSavedSession(null);
   }
 
-  async function saveAndExit() {
+  function saveAndExit() {
     if (mode === "active" && deck.length) {
-      const session: SavedTriviaSession = {
+      const session = compactTriviaSession({
         settings,
         deck,
         currentIndex,
         score,
         missedQuestions,
         currentGraded,
-        savedAt: new Date().toISOString(),
-      };
-      try {
-        setSavedSession(await saveTriviaSession(session));
-      } catch {
-        setSavedSession(session);
-      }
+      });
+      setSavedSession(session);
+      void saveTriviaSession(session).then((saved) => setSavedSession(saved));
     }
     setMode("setup");
   }
@@ -143,13 +202,14 @@ export default function TriviaPage() {
   async function resumeQuiz() {
     const session =
       savedSession ?? (await loadTriviaSession<SavedTriviaSession>());
-    if (!session?.deck.length) return;
-    setSettings(session.settings);
-    setDeck(session.deck);
-    setCurrentIndex(session.currentIndex);
-    setScore(session.score);
-    setMissedQuestions(session.missedQuestions);
-    setCurrentGraded(session.currentGraded);
+    const hydratedSession = hydrateSavedSession(session);
+    if (!hydratedSession?.deck.length) return;
+    setSettings(hydratedSession.settings);
+    setDeck(hydratedSession.deck);
+    setCurrentIndex(hydratedSession.currentIndex);
+    setScore(hydratedSession.score);
+    setMissedQuestions(hydratedSession.missedQuestions);
+    setCurrentGraded(hydratedSession.currentGraded);
     setMode("active");
   }
 
@@ -214,7 +274,7 @@ export default function TriviaPage() {
               settings={settings}
               total={deck.length}
               onRestart={retryQuiz}
-              onSaveExit={() => void saveAndExit()}
+              onSaveExit={saveAndExit}
               onSetup={backToSetup}
             />
             <QuizQuestionCard
