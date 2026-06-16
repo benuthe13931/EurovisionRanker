@@ -1,4 +1,4 @@
-import { Gamepad2 } from "lucide-react";
+import { Gamepad2, Play, Trash2 } from "lucide-react";
 import { countries, years } from "../../data/years";
 import {
   defaultFormatForScope,
@@ -17,12 +17,30 @@ import ScopeSelector from "./ScopeSelector";
 import StyledDropdown from "./StyledDropdown";
 
 type TriviaSetupPanelProps = {
+  savedAt?: string;
   settings: QuizSettings;
   onChange: (settings: QuizSettings) => void;
+  onDiscardSaved: () => void;
+  onResume: () => void;
   onStart: () => void;
 };
 
-export default function TriviaSetupPanel({ settings, onChange, onStart }: TriviaSetupPanelProps) {
+function formatSavedAt(value?: string) {
+  if (!value) return "";
+  return new Intl.DateTimeFormat(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(new Date(value));
+}
+
+export default function TriviaSetupPanel({
+  savedAt,
+  settings,
+  onChange,
+  onDiscardSaved,
+  onResume,
+  onStart,
+}: TriviaSetupPanelProps) {
   const eligibleCount = eligibleSongsForSettings(settings).length;
   const unavailableCount = unavailablePreviewCount(settings);
   const questionCount = settings.length === "all" ? eligibleCount : Math.min(settings.length, eligibleCount);
@@ -45,6 +63,23 @@ export default function TriviaSetupPanel({ settings, onChange, onStart }: Trivia
 
   return (
     <section className="triviaSetupPanel">
+      {savedAt ? (
+        <div className="triviaResumeCard">
+          <div>
+            <strong>Saved quiz in progress</strong>
+            <span>Saved {formatSavedAt(savedAt)}</span>
+          </div>
+          <div>
+            <button className="secondaryButton" type="button" onClick={onDiscardSaved}>
+              <Trash2 size={16} /> Discard
+            </button>
+            <button className="primaryButton" type="button" onClick={onResume}>
+              <Play size={16} /> Resume
+            </button>
+          </div>
+        </div>
+      ) : null}
+
       <ScopeSelector scope={settings.scope} onChange={updateScope} />
       <AnswerFormatSelector scope={settings.scope} format={settings.answerFormat} onChange={updateFormat} />
 

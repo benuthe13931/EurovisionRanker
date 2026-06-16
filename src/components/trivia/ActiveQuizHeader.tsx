@@ -1,4 +1,4 @@
-import { ArrowLeft, RotateCcw } from "lucide-react";
+import { ArrowLeft, RotateCcw, Save } from "lucide-react";
 import type { QuizSettings } from "../../utils/trivia";
 import { answerFormatLabel, quizScopeLabel, scopeDetail } from "../../utils/trivia";
 
@@ -9,6 +9,7 @@ type ActiveQuizHeaderProps = {
   settings: QuizSettings;
   total: number;
   onRestart: () => void;
+  onSaveExit: () => void;
   onSetup: () => void;
 };
 
@@ -19,6 +20,7 @@ export default function ActiveQuizHeader({
   settings,
   total,
   onRestart,
+  onSaveExit,
   onSetup,
 }: ActiveQuizHeaderProps) {
   return (
@@ -32,6 +34,9 @@ export default function ActiveQuizHeader({
       </div>
       <div className="activeQuizActions">
         {answeredCount > 0 ? <span className="scorePill">Score: {score} correct</span> : null}
+        <button className="secondaryButton" type="button" onClick={onSaveExit}>
+          <Save size={16} /> Save and Exit
+        </button>
         <button className="secondaryButton" type="button" onClick={onSetup}>
           <ArrowLeft size={16} /> Back to Trivia Setup
         </button>

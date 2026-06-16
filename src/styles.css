@@ -2714,6 +2714,39 @@ a {
   padding: 22px;
 }
 
+.triviaResumeCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid rgba(117, 240, 255, 0.22);
+  border-radius: 8px;
+  background: rgba(117, 240, 255, 0.08);
+}
+
+.triviaResumeCard > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.triviaResumeCard > div:first-child {
+  display: grid;
+  gap: 3px;
+}
+
+.triviaResumeCard strong {
+  color: #fff;
+}
+
+.triviaResumeCard span {
+  color: rgba(247, 242, 255, 0.62);
+  font-size: 0.84rem;
+  font-weight: 750;
+}
+
 .setupSection {
   display: grid;
   gap: 12px;
@@ -3187,10 +3220,18 @@ a {
   place-items: center;
   width: 38px;
   height: 38px;
+  line-height: 0;
   border-radius: 999px;
   color: #08100c;
   background: #71f0a2;
   animation: feedbackPop 220ms ease;
+}
+
+.feedbackIcon svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.7;
 }
 
 .answerFeedback.wrong .feedbackIcon {
@@ -3780,6 +3821,15 @@ a {
   color: rgba(255, 255, 255, 0.9);
 }
 
+.overlayProgressText small {
+  display: block;
+  margin-top: 2px;
+  color: rgba(247, 242, 255, 0.54);
+  font-size: 0.68rem;
+  font-weight: 750;
+  text-align: right;
+}
+
 .overlayReset {
   display: inline-flex;
   align-items: center;
@@ -4295,8 +4345,10 @@ a {
 .globalModalBackdrop {
   position: absolute;
   inset: 0;
+  border: 0;
   background: rgba(3, 4, 10, 0.68);
   backdrop-filter: blur(10px);
+  cursor: default;
 }
 
 .globalDialog {
@@ -4341,6 +4393,26 @@ a {
   width: min(880px, 100%);
 }
 
+.snapshotCloseButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 8px;
+  color: rgba(247, 242, 255, 0.78);
+  background: transparent;
+  cursor: pointer;
+}
+
+.snapshotCloseButton:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .snapshotField {
   display: grid;
   gap: 7px;
@@ -4350,8 +4422,7 @@ a {
 }
 
 .snapshotField input,
-.snapshotField textarea,
-.snapshotToolbar select {
+.snapshotField textarea {
   width: 100%;
   min-height: 42px;
   padding: 0 12px;
@@ -4369,9 +4440,53 @@ a {
 
 .snapshotToolbar {
   display: grid;
-  grid-template-columns: minmax(180px, 1fr) repeat(4, auto);
+  grid-template-columns: minmax(220px, 1fr) repeat(4, auto);
   gap: 10px;
-  align-items: center;
+  align-items: start;
+}
+
+.snapshotList {
+  display: grid;
+  gap: 7px;
+  max-height: 190px;
+  overflow: auto;
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.snapshotList button {
+  display: grid;
+  gap: 3px;
+  width: 100%;
+  min-width: 0;
+  padding: 9px 10px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  color: rgba(247, 242, 255, 0.9);
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.snapshotList button:hover,
+.snapshotList button.selected {
+  border-color: rgba(117, 240, 255, 0.34);
+  background: rgba(117, 240, 255, 0.1);
+}
+
+.snapshotList strong,
+.snapshotList span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.snapshotList span {
+  color: rgba(247, 242, 255, 0.58);
+  font-size: 0.78rem;
+  font-weight: 800;
 }
 
 .snapshotMeta {

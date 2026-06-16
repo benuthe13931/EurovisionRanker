@@ -15,6 +15,7 @@ const SNAPSHOT_PREFIX = "eurovision-ranker:ranking-snapshots:";
 const PREDICTION_PREFIX = "eurovision-ranker:prediction:";
 const GLOBAL_RANKING_KEY = "eurovision-ranker:global-ranking";
 const FAVORITES_KEY = "eurovision-ranker:favorites";
+const TRIVIA_SESSION_KEY = "eurovision-ranker:trivia-session";
 const ACTIVE_PROFILE_KEY = "eurovision-ranker:active-profile";
 const PROFILE_TTL_MS = 1000 * 60 * 60 * 24 * 30;
 const UUID_PATTERN =
@@ -230,6 +231,9 @@ async function copyGuestDataToProfile() {
 
   const favorites = readJson<string[]>(FAVORITES_KEY);
   if (favorites) await saveFavorites(new Set(favorites));
+
+  const triviaSession = readJson<unknown>(TRIVIA_SESSION_KEY);
+  if (triviaSession) await saveTriviaSession(triviaSession);
 }
 
 export async function loadRanking(key: string) {
@@ -604,6 +608,66 @@ export async function clearPrediction(key: string) {
   } catch (error) {
     if (missingRpcError(error, "clear_prediction")) {
       localStorage.removeItem(predictionStorageKey(key));
+      return;
+    }
+    throw error;
+  }
+}
+
+export async function loadTriviaSession<T>() {
+  const profileId = activeProfileId();
+  if (!profileId) return readJson<T>(TRIVIA_SESSION_KEY);
+
+  try {
+    return await rpc<T | null>("get_trivia_session", {
+      p_profile_id: profileId,
+    });
+  } catch (error) {
+    if (missingRpcError(error, "get_trivia_session")) {
+      return readJson<T>(TRIVIA_SESSION_KEY);
+    }
+    throw error;
+  }
+}
+
+export async function saveTriviaSession<T>(state: T) {
+  const updatedState = {
+    ...(state && typeof state === "object" ? state : {}),
+    savedAt: new Date().toISOString(),
+  } as T;
+
+  if (!activeProfileId()) {
+    localStorage.setItem(TRIVIA_SESSION_KEY, JSON.stringify(updatedState));
+    return updatedState;
+  }
+
+  try {
+    return await rpc<T>("save_trivia_session", {
+      p_profile_id: activeProfileId(),
+      p_state: updatedState,
+    });
+  } catch (error) {
+    if (missingRpcError(error, "save_trivia_session")) {
+      localStorage.setItem(TRIVIA_SESSION_KEY, JSON.stringify(updatedState));
+      return updatedState;
+    }
+    throw error;
+  }
+}
+
+export async function clearTriviaSession() {
+  if (!activeProfileId()) {
+    localStorage.removeItem(TRIVIA_SESSION_KEY);
+    return;
+  }
+
+  try {
+    await rpc<void>("clear_trivia_session", {
+      p_profile_id: activeProfileId(),
+    });
+  } catch (error) {
+    if (missingRpcError(error, "clear_trivia_session")) {
+      localStorage.removeItem(TRIVIA_SESSION_KEY);
       return;
     }
     throw error;

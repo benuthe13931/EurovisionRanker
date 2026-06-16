@@ -247,7 +247,7 @@ export default function GlobalRankingsPage() {
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        setComparisonRun(null);
+        saveGlobalComparisonAndExit();
         return;
       }
       if (event.key === "ArrowLeft" && pairSongs[0]) {
@@ -390,6 +390,15 @@ export default function GlobalRankingsPage() {
     };
     setComparisonRun(nextRun);
     void saveComparison(nextRun.state);
+  }
+
+  function saveGlobalComparisonAndExit() {
+    if (!comparisonRun) return;
+    void saveComparison(comparisonRun.state);
+    setInProgressYears((current) =>
+      new Set(current).add(comparisonRun.year.year),
+    );
+    setComparisonRun(null);
   }
 
   async function chooseComparisonWinner(songId: string) {
@@ -1039,7 +1048,16 @@ export default function GlobalRankingsPage() {
               </div>
               <div className="overlayHeaderActions">
                 <span className="overlayProgressText">
-                  {comparisonRun.state.completed} / ~{comparisonRun.state.targetComparisons}
+                  Comparison {comparisonRun.state.completed} / ~
+                  {comparisonRun.state.targetComparisons}
+                  <small>
+                    {Math.max(
+                      comparisonRun.state.targetComparisons -
+                        comparisonRun.state.completed,
+                      0,
+                    )}{" "}
+                    remaining
+                  </small>
                 </span>
                 <button
                   className="overlayReset"
@@ -1052,30 +1070,14 @@ export default function GlobalRankingsPage() {
                 <button
                   className="overlayReset"
                   type="button"
-                  onClick={() => {
-                    if (comparisonRun) {
-                      void saveComparison(comparisonRun.state);
-                      setInProgressYears((current) =>
-                        new Set(current).add(comparisonRun.year.year),
-                      );
-                    }
-                    setComparisonRun(null);
-                  }}
+                  onClick={saveGlobalComparisonAndExit}
                 >
                   Save and Exit
                 </button>
                 <button
                   className="overlayClose"
                   type="button"
-                  onClick={() => {
-                    if (comparisonRun) {
-                      void saveComparison(comparisonRun.state);
-                      setInProgressYears((current) =>
-                        new Set(current).add(comparisonRun.year.year),
-                      );
-                    }
-                    setComparisonRun(null);
-                  }}
+                  onClick={saveGlobalComparisonAndExit}
                   aria-label="Close comparison"
                 >
                   <X size={18} />

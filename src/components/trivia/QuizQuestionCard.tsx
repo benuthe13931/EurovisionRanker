@@ -16,6 +16,7 @@ import StyledDropdown from "./StyledDropdown";
 
 type QuizQuestionCardProps = {
   question: TriviaQuestion;
+  savedGraded?: GradedAnswer | null;
   onAnswered: (graded: GradedAnswer) => void;
   onNext: () => void;
 };
@@ -55,9 +56,14 @@ function ChoiceButton({ choice, correct, disabled, primary, secondary, onPick }:
   );
 }
 
-export default function QuizQuestionCard({ question, onAnswered, onNext }: QuizQuestionCardProps) {
+export default function QuizQuestionCard({
+  question,
+  savedGraded = null,
+  onAnswered,
+  onNext,
+}: QuizQuestionCardProps) {
   const [typedValues, setTypedValues] = useState<Record<string, string>>({});
-  const [graded, setGraded] = useState<GradedAnswer | null>(null);
+  const [graded, setGraded] = useState<GradedAnswer | null>(savedGraded);
   const [yearFilter, setYearFilter] = useState("all");
   const [countryFilter, setCountryFilter] = useState("all");
   const focusedPart = useRef<AnswerPartKey | null>(question.answerParts[0]?.key ?? null);
@@ -100,11 +106,11 @@ export default function QuizQuestionCard({ question, onAnswered, onNext }: QuizQ
 
   useEffect(() => {
     setTypedValues({});
-    setGraded(null);
+    setGraded(savedGraded);
     setYearFilter("all");
     setCountryFilter("all");
     focusedPart.current = question.answerParts[0]?.key ?? null;
-  }, [question.id, question.answerParts]);
+  }, [question.id, question.answerParts, savedGraded]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {

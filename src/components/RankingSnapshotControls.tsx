@@ -5,6 +5,7 @@ import {
   FileSpreadsheet,
   RotateCcw,
   Trash2,
+  X,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import type { ComparisonStatus, RankingSnapshot, Song } from "../types";
@@ -42,10 +43,14 @@ type ExportTarget = "current" | "snapshot" | null;
 
 function formatDate(value?: string | null) {
   if (!value) return "Not completed";
-  return new Intl.DateTimeFormat(undefined, {
+  const date = new Date(value);
+  const day = new Intl.DateTimeFormat(undefined, {
     dateStyle: "medium",
+  }).format(date);
+  const time = new Intl.DateTimeFormat(undefined, {
     timeStyle: "short",
-  }).format(new Date(value));
+  }).format(date);
+  return `${day} • ${time}`;
 }
 
 function orderSongs(sourceSongs: Song[], songIds: string[]) {
@@ -133,6 +138,25 @@ export default function RankingSnapshotControls({
   useEffect(() => {
     void refreshSnapshots();
   }, [rankingKey, refreshKey]);
+
+  useEffect(() => {
+    if (!mode && !exportTarget) return;
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setMode(null);
+        setExportTarget(null);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mode, exportTarget]);
+
+  function closeOverlays() {
+    setMode(null);
+    setExportTarget(null);
+  }
 
   async function handleCreate() {
     try {
@@ -300,8 +324,21 @@ export default function RankingSnapshotControls({
           aria-modal="true"
           aria-labelledby="snapshot-modal-title"
         >
-          <div className="globalModalBackdrop" />
+          <button
+            className="globalModalBackdrop"
+            type="button"
+            aria-label="Close"
+            onClick={closeOverlays}
+          />
           <section className="globalDialog snapshotDialog">
+            <button
+              className="snapshotCloseButton"
+              type="button"
+              onClick={closeOverlays}
+              aria-label="Close"
+            >
+              <X size={18} />
+            </button>
             {mode === "create" ? (
               <>
                 <h2 id="snapshot-modal-title">Save Ranking Snapshot</h2>
@@ -346,16 +383,23 @@ export default function RankingSnapshotControls({
               <>
                 <h2 id="snapshot-modal-title">Ranking Snapshots</h2>
                 <div className="snapshotToolbar">
-                  <select
-                    value={selectedId}
-                    onChange={(event) => setSelectedId(event.target.value)}
-                  >
+                  <div className="snapshotList" role="listbox" aria-label="Saved snapshots">
                     {snapshots.map((snapshot) => (
-                      <option key={snapshot.id} value={snapshot.id}>
-                        {snapshot.name}
-                      </option>
+                      <button
+                        className={
+                          snapshot.id === selectedId ? "selected" : ""
+                        }
+                        key={snapshot.id}
+                        type="button"
+                        role="option"
+                        aria-selected={snapshot.id === selectedId}
+                        onClick={() => setSelectedId(snapshot.id)}
+                      >
+                        <strong>{snapshot.name}</strong>
+                        <span>{formatDate(snapshot.createdAt)}</span>
+                      </button>
                     ))}
-                  </select>
+                  </div>
                   <button
                     className="secondaryButton"
                     type="button"
@@ -481,8 +525,21 @@ export default function RankingSnapshotControls({
           aria-modal="true"
           aria-labelledby="export-modal-title"
         >
-          <div className="globalModalBackdrop" />
+          <button
+            className="globalModalBackdrop"
+            type="button"
+            aria-label="Close"
+            onClick={closeOverlays}
+          />
           <section className="globalDialog">
+            <button
+              className="snapshotCloseButton"
+              type="button"
+              onClick={closeOverlays}
+              aria-label="Close"
+            >
+              <X size={18} />
+            </button>
             <h2 id="export-modal-title">Export Format</h2>
             <div className="globalDialogBody">
               <p>Choose which file format you want to download.</p>
