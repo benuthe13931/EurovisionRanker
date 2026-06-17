@@ -1,0 +1,120 @@
+{
+  "year": 1961,
+  "hostCity": "Cannes",
+  "country": "France",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Austria",
+      "artist": "Jimmy Makulis",
+      "title": "Sehnsucht",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Belgium",
+      "artist": "Bob Benny",
+      "title": "September, gouden roos",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Denmark",
+      "artist": "Dario Campeotto",
+      "title": "Angelique",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Laila Kinnunen",
+      "title": "Valoa ikkunassa",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Jean-Paul Mauric",
+      "title": "Printemps (avril carillonne)",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Lale Andersen",
+      "title": "Einmal sehen wir uns wieder",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Betty Curtis",
+      "title": "Al di là",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Jean-Claude Pascal",
+      "title": "Nous les amoureux",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Colette Deréal",
+      "title": "Allons, allons les enfants",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Greetje Kauffeld",
+      "title": "Wat een dag",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Nora Brockstedt",
+      "title": "Sommer i Palma",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Conchita Bautista",
+      "title": "Estando contigo",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "Lill-Babs",
+      "title": "April, april",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Franca di Rienzo",
+      "title": "Nous aurons demain",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "The Allisons",
+      "title": "Are You Sure?",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Yugoslavia",
+      "artist": "Ljiljana Petrović",
+      "title": "Neke davne zvezde",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
