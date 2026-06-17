@@ -4945,31 +4945,73 @@ a {
     object-fit: contain !important;
   }
 
+  .currentRankingPreview,
+  .currentRankingHeader,
+  .rankingDrawerButton {
+    min-height: unset;
+    height: auto;
+    padding: 10px 14px;
+  }
+
   .compareCardBody {
-    gap: 7px;
-    padding: 9px 10px;
+    display: grid;
+    grid-template-columns: 28px max-content minmax(0, 1fr);
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
   }
 
-  .compareCardBody h2 {
-    font-size: 0.92rem;
+  .compareIconRow {
+    grid-column: 1;
+    margin: 0;
   }
 
-  .compareCardBody span,
-  .compareCardBody p {
-    font-size: 0.8rem;
+  .compareCardBody>div:first-child {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: max-content;
   }
 
   .pickButton {
-    min-height: 34px;
-    font-size: 0.78rem;
+    grid-column: 3;
+    width: 100%;
+    height: 24px;
+    min-height: 24px;
+    padding: 0 8px;
+    font-size: 0.72rem;
+    line-height: 1;
+    white-space: nowrap;
   }
 
-  .rankingDrawerButton {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 42px;
-    padding: 0 13px;
+  .iconButton {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+  }
+
+  .compareCardBody h2 {
+    font-size: 0.7rem;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  .compareCardBody p,
+  .compareCardBody span {
+    font-size: 0.58rem;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  .comparisonLayer {
+    grid-template-rows: auto 34px minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .comparisonLayer>.rankingDrawerButton {
+    display: flex !important;
+    height: 34px;
+    min-height: 34px;
+    padding: 0 14px;
     border: 1px solid rgba(117, 240, 255, 0.24);
     border-radius: 8px;
     color: rgba(247, 242, 255, 0.92);
@@ -4978,6 +5020,9 @@ a {
       rgba(255, 255, 255, 0.08);
     box-shadow: 0 14px 38px rgba(0, 0, 0, 0.22);
     font-weight: 850;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 0.9rem;
   }
 
   .currentRankingPanel {
@@ -5407,7 +5452,7 @@ a {
 
   .compareMedia {
     aspect-ratio: auto;
-    height: clamp(82px, 24dvh, 138px);
+    height: clamp(118px, 100dvh, 200px);
     margin: 42px 10px 0;
   }
 
@@ -5421,36 +5466,59 @@ a {
     object-fit: contain !important;
   }
 
+  .rankingDrawerButton {
+    display: none;
+  }
+
   .compareCardBody {
-    gap: 5px;
-    padding: 7px 10px 8px;
+    display: grid;
+    grid-template-columns: 24px max-content minmax(0, 1fr);
+    align-items: center;
+    gap: 4px;
+    padding: 3px 6px;
+  }
+
+  .compareIconRow {
+    grid-column: 1;
+    margin: 0;
+  }
+
+  .compareCardBody>div:first-child {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: max-content;
+  }
+
+  .pickButton {
+    grid-column: 3;
+    width: 100%;
+    height: 22px;
+    min-height: 22px;
+    padding: 0 7px;
+    border-radius: 7px;
+    font-size: 0.68rem;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .iconButton,
+  .compareIconRow .iconButton {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
   }
 
   .compareCardBody h2 {
-    margin-bottom: 1px;
-    font-size: 0.9rem;
-    line-height: 1.05;
+    margin: 0;
+    font-size: 0.68rem;
+    line-height: 1.04;
   }
 
   .compareCardBody p,
   .compareCardBody span {
-    font-size: 0.76rem;
-    line-height: 1.1;
-  }
-
-  .compareIconRow .iconButton {
-    width: 30px;
-    height: 30px;
-  }
-
-  .pickButton {
-    min-height: 30px;
-    border-radius: 8px;
-    font-size: 0.74rem;
-  }
-
-  .rankingDrawerButton {
-    display: none;
+    margin: 0;
+    font-size: 0.56rem;
+    line-height: 1.04;
   }
 
   .currentRankingPanel {
