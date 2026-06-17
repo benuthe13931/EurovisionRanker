@@ -3,7 +3,6 @@ import {
   Clock,
   Download,
   FileSpreadsheet,
-  RotateCcw,
   Trash2,
   X,
 } from "lucide-react";
@@ -109,6 +108,7 @@ export default function RankingSnapshotControls({
   const [selectedId, setSelectedId] = useState("");
   const [mode, setMode] = useState<ModalMode>(null);
   const [exportTarget, setExportTarget] = useState<ExportTarget>(null);
+  const [snapshotMenuOpen, setSnapshotMenuOpen] = useState(false);
   const [selectedExportSectionIds, setSelectedExportSectionIds] = useState<
     string[]
   >([]);
@@ -286,27 +286,44 @@ export default function RankingSnapshotControls({
 
   return (
     <>
+      <span className="snapshotMenu">
+        <button
+          className="secondaryButton snapshotMenuButton"
+          type="button"
+          onClick={() => setSnapshotMenuOpen((current) => !current)}
+        >
+          <Camera size={17} /> Snapshots
+        </button>
+        {snapshotMenuOpen ? (
+          <span className="snapshotMenuPopover">
+            <button
+              type="button"
+              onClick={() => {
+                setSnapshotMenuOpen(false);
+                setMode("create");
+              }}
+            >
+              Create New Snapshot
+            </button>
+            <button
+              type="button"
+              disabled={!snapshots.length}
+              onClick={() => {
+                setSnapshotMenuOpen(false);
+                void refreshSnapshots();
+                setMode("view");
+              }}
+            >
+              <Clock size={16} /> View Past Snapshots
+            </button>
+          </span>
+        ) : null}
+      </span>
       <button
-        className="secondaryButton"
+        className="secondaryButton iconOnlyAction snapshotExportButton"
         type="button"
-        onClick={() => setMode("create")}
-      >
-        <Camera size={17} /> Create Snapshot
-      </button>
-      <button
-        className="secondaryButton"
-        type="button"
-        disabled={!snapshots.length}
-        onClick={() => {
-          void refreshSnapshots();
-          setMode("view");
-        }}
-      >
-        <Clock size={17} /> View Snapshots
-      </button>
-      <button
-        className="secondaryButton"
-        type="button"
+        aria-label="Export"
+        title="Export"
         onClick={() => {
           setSelectedExportSectionIds(
             currentExportOptions.map((option) => option.id),
@@ -314,7 +331,7 @@ export default function RankingSnapshotControls({
           setExportTarget("current");
         }}
       >
-        <Download size={17} /> Export
+        <Download size={17} />
       </button>
 
       {mode ? (
@@ -383,30 +400,28 @@ export default function RankingSnapshotControls({
               <>
                 <h2 id="snapshot-modal-title">Ranking Snapshots</h2>
                 <div className="snapshotToolbar">
-                  <div className="snapshotList" role="listbox" aria-label="Saved snapshots">
-                    {snapshots.map((snapshot) => (
-                      <button
-                        className={
-                          snapshot.id === selectedId ? "selected" : ""
-                        }
-                        key={snapshot.id}
-                        type="button"
-                        role="option"
-                        aria-selected={snapshot.id === selectedId}
-                        onClick={() => setSelectedId(snapshot.id)}
-                      >
-                        <strong>{snapshot.name}</strong>
-                        <span>{formatDate(snapshot.createdAt)}</span>
-                      </button>
-                    ))}
-                  </div>
+                  <label className="snapshotField">
+                    Choose snapshot
+                    <select
+                      value={selectedId}
+                      onChange={(event) => setSelectedId(event.target.value)}
+                    >
+                      {snapshots.map((snapshot) => (
+                        <option key={snapshot.id} value={snapshot.id}>
+                          {snapshot.name} - {formatDate(snapshot.createdAt)}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
                   <button
-                    className="secondaryButton"
+                    className="secondaryButton iconOnlyAction"
                     type="button"
                     disabled={!selectedSnapshot}
+                    aria-label="Export snapshot"
+                    title="Export snapshot"
                     onClick={() => setExportTarget("snapshot")}
                   >
-                    <Download size={16} /> Export Snapshot
+                    <Download size={16} />
                   </button>
                   <button
                     className="secondaryButton"
@@ -422,15 +437,17 @@ export default function RankingSnapshotControls({
                     disabled={!selectedSnapshot}
                     onClick={() => setMode("restore")}
                   >
-                    <RotateCcw size={16} /> Restore Snapshot
+                    Restore
                   </button>
                   <button
-                    className="secondaryButton"
+                    className="secondaryButton iconOnlyAction"
                     type="button"
                     disabled={!selectedSnapshot}
+                    aria-label="Delete snapshot"
+                    title="Delete snapshot"
                     onClick={() => setMode("delete")}
                   >
-                    <Trash2 size={16} /> Delete Snapshot
+                    <Trash2 size={16} />
                   </button>
                 </div>
                 {selectedSnapshot ? (

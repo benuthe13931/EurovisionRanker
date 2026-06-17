@@ -1,0 +1,419 @@
+.nightScoreboardCard {
+    position: relative;
+    display: grid;
+    grid-template-columns: 44px 24px minmax(0, 1fr) 64px;
+    align-items: center;
+    gap: 10px;
+    min-height: 50px;
+    padding: 7px 10px 7px 0;
+    overflow: visible;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.065);
+    scale: 1;
+    transition:
+        background 260ms ease,
+        border-color 260ms ease,
+        box-shadow 260ms ease,
+        scale 320ms ease;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform, scale;
+}
+
+.nightScoreboardCard.awarded {
+    z-index: 2;
+    scale: 1.028;
+    border-color: rgba(117, 240, 255, 0.72);
+    background: rgba(255, 255, 255, 0.075);
+    box-shadow:
+        0 0 0 1px rgba(117, 240, 255, 0.3),
+        0 0 28px rgba(117, 240, 255, 0.2);
+}
+
+.nightScoreboardCard.awarded::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg,
+            rgba(117, 240, 255, 0.34),
+            rgba(117, 240, 255, 0.12));
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: awarded-card-sweep 960ms ease forwards;
+}
+
+.nightScoreboardCard.awarded.settled::after {
+    animation: none;
+    transform: scaleX(1);
+    opacity: 1;
+}
+
+.nightScoreboardCard.awarded.resetting {
+    scale: 1;
+    border-color: rgba(255, 255, 255, 0.11);
+    box-shadow: none;
+}
+
+.nightScoreboardCard.awarded.resetting::after {
+    transform-origin: right;
+    animation: awarded-card-reset 900ms ease forwards;
+}
+
+.nightScoreboardCard.podiumFirst {
+    scale: 1.04;
+    border-color: rgba(255, 214, 79, 0.82);
+    background: rgba(255, 214, 79, 0.16);
+    box-shadow: 0 0 24px rgba(255, 214, 79, 0.2);
+}
+
+.nightScoreboardCard.podiumSecond {
+    scale: 1.028;
+    border-color: rgba(222, 231, 241, 0.76);
+    background: rgba(222, 231, 241, 0.13);
+    box-shadow: 0 0 22px rgba(222, 231, 241, 0.16);
+}
+
+.nightScoreboardCard.podiumThird {
+    scale: 1.018;
+    border-color: rgba(214, 142, 73, 0.78);
+    background: rgba(214, 142, 73, 0.15);
+    box-shadow: 0 0 20px rgba(214, 142, 73, 0.16);
+}
+
+.nightScoreboardCard.awarded.podiumFirst,
+.nightScoreboardCard.awarded.podiumSecond,
+.nightScoreboardCard.awarded.podiumThird {
+    box-shadow:
+        0 0 0 1px rgba(117, 240, 255, 0.36),
+        0 0 30px rgba(117, 240, 255, 0.2);
+}
+
+.nightScoreboardCard.active {
+    z-index: 2;
+    border-color: rgba(117, 240, 255, 0.78);
+    box-shadow:
+        0 0 0 1px rgba(117, 240, 255, 0.24),
+        0 0 26px rgba(117, 240, 255, 0.18);
+    animation: active-night-pulse 1800ms ease-in-out infinite;
+}
+
+.nightScoreboardCard.completed::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: rgba(0, 0, 0, 0.28);
+    transform-origin: left;
+    animation: completed-sweep 3600ms ease forwards;
+}
+
+.nightScoreboardCard.winner {
+    z-index: 3;
+    border-color: rgba(255, 214, 79, 0.72);
+    background: rgba(255, 214, 79, 0.16);
+    box-shadow: 0 0 34px rgba(255, 214, 79, 0.18);
+    scale: 1.045;
+}
+
+.nightScoreboardCard>* {
+    position: relative;
+    z-index: 1;
+}
+
+.nightScoreboardCard.podiumFirst .nightRank {
+    color: #ffe17a;
+    background: rgba(255, 214, 79, 0.16);
+}
+
+.nightScoreboardCard.podiumSecond .nightRank {
+    color: #e4edf7;
+    background: rgba(222, 231, 241, 0.13);
+}
+
+.nightScoreboardCard.podiumThird .nightRank {
+    color: #e2a66d;
+    background: rgba(214, 142, 73, 0.14);
+}
+
+.nightScoreboard {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    align-items: start;
+    min-height: 0;
+    overflow: visible;
+    padding: 8px 10px 10px;
+}
+
+.nightScoreboard>div {
+    display: grid;
+    gap: 12px;
+    overflow: visible;
+}
+
+/*===========================================================
+                MOBILE PORTRAIT MODE
+  ===========================================================*/
+@media (max-width: 760px) and (orientation: portrait) {
+
+    .nightScoreboard {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px;
+        padding: 0;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .nightScoreboard>div {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+}
+
+/* =========================================================
+   Mobile / Responsive Rules
+   ========================================================= */
+
+/* @media (max-width: 1280px) and (orientation: landscape) {
+    .resultsNightStage {
+        grid-template-columns: 1fr;
+    }
+
+    .nightScoreboard {
+        padding-inline: 6px;
+    }
+} */
+
+/*===========================================================
+                MOBILE LANDSCAPE MODE
+  ===========================================================*/
+
+@media (max-width: 950px) and (orientation: landscape) {
+
+    .resultsNight {
+        grid-template-rows: minmax(0, 1fr);
+        gap: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .resultsNightStage {
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: 6px;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .resultsNightMediaColumn {
+        gap: 8px;
+    }
+
+    .resultsNightVideo {
+        min-height: 0;
+    }
+
+    .resultsNightVideo iframe,
+    .resultsNightVideo video,
+    .resultsNightVideo>div {
+        height: clamp(120px, 36svh, 210px);
+        min-height: 0;
+    }
+
+    .resultsNightHeader {
+        display: none;
+    }
+
+    .resultsNightHeader {
+        flex-wrap: nowrap;
+        align-items: center;
+        min-height: 38px;
+        padding: 0;
+        background: transparent;
+    }
+
+    .resultsNightHeader>strong {
+        font-size: 0.78rem;
+        white-space: nowrap;
+    }
+
+    .resultsNightActions {
+        flex-wrap: nowrap;
+        gap: 4px;
+    }
+
+    .resultsNightActions .primaryButton,
+    .resultsNightActions .secondaryButton {
+        min-height: 28px;
+        padding-inline: 6px;
+        font-size: 0.72rem;
+        white-space: nowrap;
+    }
+
+    .resultsNightStage {
+        grid-template-columns: minmax(250px, 0.35fr) minmax(430px, 0.65fr);
+        gap: 8px;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .resultsNightHeader,
+    .resultsNightNotice {
+        padding: 3px 8px;
+    }
+
+    .resultsNightVideo {
+        min-height: 0;
+    }
+
+    .resultsNightVideo iframe,
+    .resultsNightVideo video,
+    .resultsNightVideo>div {
+        height: clamp(120px, 36dvh, 210px);
+        min-height: 0;
+    }
+
+    .predictionPanel.resultsNightActive {
+        padding: 4px;
+    }
+
+    .nightScoreboard {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 4px;
+        align-items: stretch;
+        min-height: 0;
+        height: 100%;
+        overflow: visible;
+        max-height: none;
+        padding: 1px 5px 1px 2px;
+    }
+
+    .nightScoreboard>div {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(9, minmax(0, 1fr));
+        display: grid;
+        gap: 4px;
+        min-height: 0;
+        overflow: visible;
+    }
+
+    .nightScoreboardCard {
+        grid-template-columns: 21px 13px minmax(0, 1fr) 22px;
+        gap: 4px;
+        min-height: 0;
+        height: 100%;
+        padding: 1px 5px 1px 0;
+        border-radius: 6px;
+        overflow: visible;
+    }
+
+    .nightScoreboardCard > :nth-child(2) {
+        justify-self: center;
+        width: 13px;
+        max-width: 13px;
+        height: 13px;
+        max-height: 13px;
+        object-fit: contain;
+        font-size: 0.68rem;
+        line-height: 1;
+    }
+
+    .nightScoreboardCard small {
+        display: none;
+    }
+
+    .nightCountry,
+    .nightCountry strong {
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;
+        line-height: 1;
+    }
+
+    .nightCountry strong {
+        font-size: 0.58rem;
+    }
+
+    .nightCountry {
+        font-size: 0.58rem;
+    }
+
+    .nightScoreWrap {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: auto;
+        min-width: 22px;
+        padding-left: 0;
+        overflow: visible;
+    }
+
+    .nightScore {
+        min-width: 2ch;
+        font-size: 0.66rem;
+        line-height: 1;
+    }
+
+    .nightScoreboard .nightScoreWrap .nightScore {
+        overflow: hidden;
+    }
+
+    .nightScoreboard .nightScoreWrap .scoreRoller,
+    .nightScoreboard .nightScoreWrap .scoreRoller span {
+        overflow: hidden;
+        text-overflow: clip;
+    }
+
+    .scoreRoller span {
+        text-align: right;
+    }
+
+    .nightRank {
+        align-self: center;
+        justify-self: center;
+        display: grid;
+        place-items: center;
+        width: 17px;
+        min-width: 17px;
+        height: 17px;
+        margin-block: 0;
+        padding: 0;
+        border-right: 0;
+        border-radius: 4px;
+        font-size: 0.52rem;
+        line-height: 1;
+    }
+
+    .nightScoreboardCard.awarded {
+        z-index: 8;
+        scale: 1.012;
+    }
+
+    .nightScoreboardCard.podiumFirst,
+    .nightScoreboardCard.podiumSecond,
+    .nightScoreboardCard.podiumThird,
+    .nightScoreboardCard.winner {
+        scale: 1.006;
+    }
+
+    .nightScoreboardCard.awarded.resetting {
+        scale: 1;
+        animation: none;
+    }
+
+    .nightAward {
+        top: -0.55rem;
+        right: 0;
+        z-index: 10;
+        font-size: 0.62rem;
+        line-height: 1;
+        text-shadow:
+            0 1px 4px rgba(0, 0, 0, 0.85),
+            0 0 8px rgba(117, 240, 255, 0.55);
+        pointer-events: none;
+    }
+}

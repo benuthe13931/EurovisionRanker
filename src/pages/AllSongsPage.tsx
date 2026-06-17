@@ -1,4 +1,4 @@
-import { RotateCcw, Scale } from "lucide-react";
+import { ListOrdered, RotateCcw } from "lucide-react";
 import {
   type CSSProperties,
   useEffect,
@@ -168,15 +168,17 @@ export default function AllSongsPage({
                 type="button"
                 onClick={() => setComparisonOpen(true)}
               >
-                <Scale size={17} /> Rank by Comparison
+                <ListOrdered size={17} /> Head-to-Head Ranking
               </button>
             ) : null}
             <button
-              className="secondaryButton"
+              className="secondaryButton iconOnlyAction"
               type="button"
+              aria-label="Reset ranking"
+              title="Reset ranking"
               onClick={handleReset}
             >
-              <RotateCcw size={17} /> Reset Ranking
+              <RotateCcw size={17} />
             </button>
           </div>
         </div>

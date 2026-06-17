@@ -10,13 +10,18 @@ export default function HomePage() {
     >
       <section className="contentColumn homeGrid">
         <div className="pageHeader">
-          <p className="eyebrow">Private local ranking app</p>
           <h1>Eurovision Ranker</h1>
           <p>
             Rank songs by contest year, keep favorites, or build a dedicated Global Ranking with
             drag-and-drop and comparison insertion.
           </p>
         </div>
+
+        <Link className="featurePanel yearPanel" to="/years">
+          <span>{years.length} contests</span>
+          <h2>Years</h2>
+          <p>Rank songs from a specific contest year.</p>
+        </Link>
 
         <Link className="featurePanel allSongsPanel" to="/global-rankings">
           <span>{allSongs.length} songs</span>
@@ -35,16 +40,6 @@ export default function HomePage() {
           <h2>Trivia</h2>
           <p>Test song, country, and year recognition from the preview clips.</p>
         </Link>
-
-        <div className="yearGrid">
-          {years.map((year) => (
-            <Link className="yearCard" to={`/year/${year.year}`} key={year.year}>
-              <span>{year.hostCity}, {year.country}</span>
-              <h2>{year.year}</h2>
-              <p>{year.songs.length} songs to rank</p>
-            </Link>
-          ))}
-        </div>
       </section>
     </main>
   );

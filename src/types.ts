@@ -66,6 +66,11 @@ export type ResultCountryInput = {
   assetsPointsAnnouncedAt?: number | null;
 };
 
+export type JuryVote = {
+  country: string;
+  points: number;
+};
+
 export type YearResultData = {
   year: number;
   livestreamUrl?: string;
@@ -120,6 +125,15 @@ export type ComparisonStatus = {
   algorithmVersion?: string | null;
   createdAt?: string;
   updatedAt?: string;
+};
+
+export type ResultDelegation = {
+  id: string;
+  country: string;
+  countryCode?: string;
+  flagEmoji?: string;
+  flagImageUrl?: string;
+  result: ResultCountryInput;
 };
 
 export type GlobalInsertedYear = {

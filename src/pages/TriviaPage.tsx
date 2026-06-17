@@ -1,4 +1,6 @@
 import { type CSSProperties, useEffect, useState } from "react";
+import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 import ActiveQuizHeader from "../components/trivia/ActiveQuizHeader";
 import QuizQuestionCard from "../components/trivia/QuizQuestionCard";
 import TriviaResults from "../components/trivia/TriviaResults";
@@ -435,7 +437,9 @@ export default function TriviaPage() {
     >
       <section className="contentColumn triviaShell">
         <div className="pageHeader">
-          <p className="eyebrow">Test your knowledge</p>
+          <Link className="backButton" to="/">
+            <ArrowLeft size={16} /> Back
+          </Link>
           <h1>Eurovision Trivia</h1>
           <p>Build a quiz from any year, country, or the full Eurovision dataset.</p>
         </div>

@@ -1,0 +1,138 @@
+/*===========================================================
+                    GENERAL STYLES
+  ===========================================================*/
+.juryAwardPanel {
+  padding: 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  display: grid;
+  gap: 10px;
+}
+
+.juryAwardPanel h3 {
+  margin: 0;
+  opacity: 0;
+  transform: translateX(-18px);
+  animation: jury-vote-in 420ms ease forwards;
+}
+
+.juryAwardPanel strong {
+  min-width: 24px;
+  color: #75f0ff;
+}
+
+.juryAwardPanel span {
+  display: flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 8px;
+  background: rgba(7, 7, 12, 0.48);
+  opacity: 0;
+  transform: translateX(-18px);
+  animation: jury-vote-in 420ms ease forwards;
+  animation-delay: var(--vote-delay, 0ms);
+}
+
+.juryAwardPanel>div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.juryAwardPanel>div>div {
+  display: grid;
+  gap: 6px;
+}
+
+.juryAwardPanel.exiting span {
+  opacity: 1;
+  transform: translateX(0);
+  animation: jury-vote-out 650ms ease forwards;
+  animation-delay: var(--vote-exit-delay, 0ms);
+}
+
+
+.juryAwardPanel.exiting h3 {
+  animation: jury-panel-title-out 650ms ease forwards;
+  animation-delay: 280ms;
+}
+
+@keyframes jury-vote-in {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes jury-vote-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(72px);
+  }
+}
+
+@keyframes jury-panel-title-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(72px);
+  }
+}
+
+
+/*===========================================================
+                MOBILE PORTRAIT MODE
+  ===========================================================*/
+@media (max-width: 760px) and (orientation: portrait) {
+
+  .juryAwardPanel {
+    padding: 7px 8px;
+  }
+
+  .juryAwardPanel>div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .juryAwardPanel span {
+    min-height: 24px;
+    padding: 3px 5px;
+    font-size: 0.68rem;
+  }
+}
+
+/*===========================================================
+                MOBILE LANDSCAPE MODE
+  ===========================================================*/
+
+@media (max-width: 950px) and (orientation: landscape) {
+  .juryAwardPanel {
+    padding: 6px 8px;
+    gap: 3px;
+  }
+
+  .juryAwardPanel strong {
+    min-width: 20px;
+  }
+
+  .juryAwardPanel>div {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .juryAwardPanel span {
+    min-height: 22px;
+    padding: 2px 5px;
+    font-size: 0.62rem;
+  }
+}

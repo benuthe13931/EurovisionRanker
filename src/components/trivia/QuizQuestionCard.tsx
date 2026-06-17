@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Search, X } from "lucide-react";
 import QuizMediaPlayer from "../QuizMediaPlayer";
 import {
   gradeChoice,
@@ -66,6 +67,8 @@ export default function QuizQuestionCard({
   const [graded, setGraded] = useState<GradedAnswer | null>(savedGraded);
   const [yearFilter, setYearFilter] = useState("all");
   const [countryFilter, setCountryFilter] = useState("all");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const focusedPart = useRef<AnswerPartKey | null>(question.answerParts[0]?.key ?? null);
   const typing = isTypingFormat(question.answerFormat);
   const largeChoiceSet = !typing && question.choices.length > 40;
@@ -94,13 +97,34 @@ export default function QuizQuestionCard({
     ];
   }, [question.choices]);
   const filteredChoices = useMemo(
-    () =>
-      question.choices.filter(
-        (choice) =>
+    () => {
+      const tokens = searchQuery
+        .trim()
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(Boolean);
+
+      return question.choices.filter((choice) => {
+        const haystack = [
+          choice.title,
+          choice.artist,
+          choice.country,
+          choice.countryCode,
+          choice.year,
+          choice.label,
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+
+        return (
           (yearFilter === "all" || String(choice.year) === yearFilter) &&
-          (countryFilter === "all" || choice.country === countryFilter),
-      ),
-    [countryFilter, question.choices, yearFilter],
+          (countryFilter === "all" || choice.country === countryFilter) &&
+          tokens.every((token) => haystack.includes(token))
+        );
+      });
+    },
+    [countryFilter, question.choices, searchQuery, yearFilter],
   );
   const characters = specialCharactersForQuestion(question);
 
@@ -109,6 +133,8 @@ export default function QuizQuestionCard({
     setGraded(savedGraded);
     setYearFilter("all");
     setCountryFilter("all");
+    setSearchOpen(false);
+    setSearchQuery("");
     focusedPart.current = question.answerParts[0]?.key ?? null;
   }, [question.id, question.answerParts, savedGraded]);
 
@@ -197,7 +223,32 @@ export default function QuizQuestionCard({
                 value={countryFilter}
                 onChange={setCountryFilter}
               />
+              <button
+                aria-expanded={searchOpen}
+                aria-label={searchOpen ? "Close answer search" : "Search answers"}
+                className="answerSearchToggle"
+                type="button"
+                onClick={() => {
+                  setSearchOpen((current) => !current);
+                  if (searchOpen) setSearchQuery("");
+                }}
+              >
+                {searchOpen ? <X size={17} /> : <Search size={17} />}
+              </button>
               <span>{filteredChoices.length} choices</span>
+              {searchOpen ? (
+                <label className="answerSearchField">
+                  <Search size={17} />
+                  <span className="srOnly">Search active answer choices</span>
+                  <input
+                    autoFocus
+                    value={searchQuery}
+                    onChange={(event) => setSearchQuery(event.target.value)}
+                    placeholder="Search title, artist, country, or year"
+                    type="search"
+                  />
+                </label>
+              ) : null}
             </div>
           ) : null}
           <div className={`multipleChoiceGrid ${largeChoiceSet ? "database" : ""}`}>

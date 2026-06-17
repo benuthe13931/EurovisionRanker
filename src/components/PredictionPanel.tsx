@@ -18,15 +18,30 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { Check, LockKeyhole, LockKeyholeOpen, RotateCcw, X } from "lucide-react";
 import {
-  type CSSProperties,
   memo,
   useEffect,
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
 } from "react";
 import { createPortal } from "react-dom";
 import { resultsByYear } from "../data/results";
+import { JuryAwardPanel } from "../features/grandFinalResultsNight/components/JuryAwardPanel";
+//import { ResultNightScoreboard } from "../features/grandFinalResultsNight/components/ResultNightScoreboard";
+import { ResultsNightHeader } from "../features/grandFinalResultsNight/components/ResultsNightHeader";
+import "../features/grandFinalResultsNight/styles/GrandFinalResultsNight.css";
+import "../features/grandFinalResultsNight/styles/JuryAwardPanel.css";
+import "../features/grandFinalResultsNight/styles/ScoreboardCards.css";
+import { ActiveResultVideo, AwardAnimation, EurovisionNightPhase, FinalistResult, ScoreboardSnapshot } from "../features/grandFinalResultsNight/types/PredictionsResultsNightProps";
+import { useResponsive } from "../hooks/useDisplayType";
+import type {
+  JuryVote,
+  PredictionState,
+  ResultDelegation,
+  Song,
+  YearResultData
+} from "../types";
 import type { ContestStage, ContestStageKey } from "../utils/contestStages";
 import {
   isAutoQualifier,
@@ -40,12 +55,6 @@ import {
   loadPrediction,
   savePrediction,
 } from "../utils/storage";
-import type {
-  PredictionState,
-  ResultCountryInput,
-  Song,
-  YearResultData,
-} from "../types";
 import FlagEmoji from "./FlagEmoji";
 
 type PredictionPanelProps = {
@@ -53,63 +62,29 @@ type PredictionPanelProps = {
   songs: Song[];
 };
 
-type ResultDelegation = {
-  id: string;
-  country: string;
-  countryCode?: string;
-  flagEmoji?: string;
-  flagImageUrl?: string;
-  result: ResultCountryInput;
-};
-
-type FinalistResult = Song & {
-  result: ResultCountryInput;
-  actualPlacement: number;
-};
-
-type AwardAnimation = {
-  songId: string;
-  points: number;
-  delay: number;
-};
-
-type JuryVote = {
-  country: string;
-  points: number;
-};
-
-type EurovisionNightPhase =
-  | "ready"
-  | "jury"
-  | "jury-complete"
-  | "televote-intro"
-  | "televote"
-  | "winner";
-
-type ScoreboardSnapshot = Record<string, number>;
 type FinalsRevealProgress = NonNullable<PredictionState["finalsRevealProgress"]>;
 
 type VideoSyncState =
   | {
-      kind: "jury";
-      twelvePointVote?: JuryVote;
-      twelveRecipientId?: string;
-      twelvePointTimestamp?: number;
-      delegationEndTime?: number;
-      lowerAwards: AwardAnimation[];
-      lowerVotes: JuryVote[];
-      firedLowerAwards: boolean;
-      firedTwelve: boolean;
-      firedEnd: boolean;
-      finishOnVideoEnd?: boolean;
-    }
+    kind: "jury";
+    twelvePointVote?: JuryVote;
+    twelveRecipientId?: string;
+    twelvePointTimestamp?: number;
+    delegationEndTime?: number;
+    lowerAwards: AwardAnimation[];
+    lowerVotes: JuryVote[];
+    firedLowerAwards: boolean;
+    firedTwelve: boolean;
+    firedEnd: boolean;
+    finishOnVideoEnd?: boolean;
+  }
   | {
-      kind: "televote";
-      firedSongIds: Set<string>;
-      firedEnd: boolean;
-      endTimestamp?: number;
-      useAssetTimestamps?: boolean;
-    };
+    kind: "televote";
+    firedSongIds: Set<string>;
+    firedEnd: boolean;
+    endTimestamp?: number;
+    useAssetTimestamps?: boolean;
+  };
 
 type YouTubePlayer = {
   getCurrentTime: () => number;
@@ -117,19 +92,6 @@ type YouTubePlayer = {
   playVideo: () => void;
   pauseVideo: () => void;
   destroy: () => void;
-};
-
-type ActiveResultVideo = {
-  title: string;
-  url: string;
-  source: "asset" | "youtube";
-  start?: number;
-  end?: number;
-  key: string;
-  syncTwelvePointTimestamp?: number;
-  syncDelegationEndTime?: number;
-  syncTelevoteEndTimestamp?: number;
-  fallback?: Omit<ActiveResultVideo, "fallback">;
 };
 
 type YouTubeApi = {
@@ -253,7 +215,7 @@ function totalScoreSnapshot(songs: FinalistResult[]) {
     songs.map((song) => [
       song.id,
       song.result.totalPoints ??
-        (song.result.juryPoints ?? 0) + (song.result.televotePoints ?? 0),
+      (song.result.juryPoints ?? 0) + (song.result.televotePoints ?? 0),
     ]),
   );
 }
@@ -287,12 +249,6 @@ function votingDelegations(
       if (typeof bOrder === "number") return 1;
       return a.country.localeCompare(b.country);
     });
-}
-
-function juryVotesForDisplay(delegation?: ResultDelegation, hideTwelve = false) {
-  return [...(delegation?.result.jury?.votesAwarded ?? [])]
-    .filter((vote) => vote.points > 0 && (!hideTwelve || vote.points !== 12))
-    .sort((a, b) => b.points - a.points);
 }
 
 function juryVotesForCascade(delegation?: ResultDelegation) {
@@ -379,8 +335,8 @@ function hasJuryAssetTimestamps(delegation?: ResultDelegation) {
   const jury = delegation?.result.jury;
   return Boolean(
     typeof timestampSeconds(jury?.assetsTwelvePointAnnouncementStartTime) ===
-      "number" &&
-      typeof timestampSeconds(jury?.assetsTwelvePointTimestamp) === "number",
+    "number" &&
+    typeof timestampSeconds(jury?.assetsTwelvePointTimestamp) === "number",
   );
 }
 
@@ -460,8 +416,8 @@ function placementMetrics(
     currentAccuracy:
       diffs.length > 0
         ? Math.round(
-            (diffs.filter((diff) => diff === 0).length / diffs.length) * 100,
-          )
+          (diffs.filter((diff) => diff === 0).length / diffs.length) * 100,
+        )
         : 0,
     top5: revealedTop5.filter((song) => predictedTop5.has(song.id)).length,
     top10: revealedTop10.filter((song) => predictedTop10.has(song.id)).length,
@@ -905,33 +861,33 @@ function PredictionStagePanel({
             <div>
               {state.revealedSongIds.length
                 ? state.revealedSongIds.map((songId) => {
-                    const song = semiSongs.find((item) => item.id === songId);
-                    if (!song) return null;
-                    const correct = selectedIds.has(song.id);
-                    const missed = !selectedIds.has(song.id);
-                    return (
-                      <span
-                        className={[
-                          "revealedQualifier",
-                          justLandedSongId === song.id ? "landed" : "",
-                          correct ? "correct" : "",
-                          missed ? "missed" : "",
-                        ]
-                          .filter(Boolean)
-                          .join(" ")}
-                        key={song.id}
-                      >
-                        {correct ? <Check size={16} /> : null}
-                        {missed ? <X size={16} /> : null}
-                        <FlagEmoji
-                          alt=""
-                          code={song.countryCode}
-                          src={song.flagEmoji}
-                        />
-                        {song.country}
-                      </span>
-                    );
-                  })
+                  const song = semiSongs.find((item) => item.id === songId);
+                  if (!song) return null;
+                  const correct = selectedIds.has(song.id);
+                  const missed = !selectedIds.has(song.id);
+                  return (
+                    <span
+                      className={[
+                        "revealedQualifier",
+                        justLandedSongId === song.id ? "landed" : "",
+                        correct ? "correct" : "",
+                        missed ? "missed" : "",
+                      ]
+                        .filter(Boolean)
+                        .join(" ")}
+                      key={song.id}
+                    >
+                      {correct ? <Check size={16} /> : null}
+                      {missed ? <X size={16} /> : null}
+                      <FlagEmoji
+                        alt=""
+                        code={song.countryCode}
+                        src={song.flagEmoji}
+                      />
+                      {song.country}
+                    </span>
+                  );
+                })
                 : null}
               {!state.revealedSongIds.length && !nextRevealSong ? (
                 <p>No qualifiers revealed yet.</p>
@@ -953,27 +909,27 @@ function PredictionStagePanel({
           </div>
           {flyingSong && flyingStyle
             ? createPortal(
-                <span
-                  className="flyingQualifier"
-                  style={
-                    {
-                      "--from-x": `${flyingStyle.fromX}px`,
-                      "--from-y": `${flyingStyle.fromY}px`,
-                      "--to-x": `${flyingStyle.toX}px`,
-                      "--to-y": `${flyingStyle.toY}px`,
-                      "--fly-width": `${flyingStyle.width}px`,
-                    } as CSSProperties
-                  }
-                >
-                  <FlagEmoji
-                    alt=""
-                    code={flyingSong.countryCode}
-                    src={flyingSong.flagEmoji}
-                  />
-                  {flyingSong.country}
-                </span>,
-                document.body,
-              )
+              <span
+                className="flyingQualifier"
+                style={
+                  {
+                    "--from-x": `${flyingStyle.fromX}px`,
+                    "--from-y": `${flyingStyle.fromY}px`,
+                    "--to-x": `${flyingStyle.toX}px`,
+                    "--to-y": `${flyingStyle.toY}px`,
+                    "--fly-width": `${flyingStyle.width}px`,
+                  } as CSSProperties
+                }
+              >
+                <FlagEmoji
+                  alt=""
+                  code={flyingSong.countryCode}
+                  src={flyingSong.flagEmoji}
+                />
+                {flyingSong.country}
+              </span>,
+              document.body,
+            )
             : null}
         </div>
       )}
@@ -1515,8 +1471,40 @@ function ResultNightScoreboard({
   winnerSongId?: string;
   registerCard: (songId: string, node: HTMLElement | null) => void;
 }) {
-  const [leftColumn, rightColumn] = splitScoreboard(songs);
+  const { isMobile } = useResponsive();
+
   const awardBySongId = new Map(awards.map((award) => [award.songId, award]));
+
+  function scoreboardDesktop(songs: FinalistResult[]) {
+    const splitIndex = Math.ceil(songs.length / 2);
+    const [leftColumn, rightColumn] = [songs.slice(0, splitIndex), songs.slice(splitIndex)];
+    return (
+      <div className="nightScoreboard">
+        <div>{leftColumn.map((song, index) => renderCard(song, index))}</div>
+        <div>
+          {rightColumn.map((song, index) =>
+            renderCard(song, leftColumn.length + index),
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  function scoreboardMobile(songs: FinalistResult[]) {
+    const splitIndex = Math.ceil(songs.length / 3);
+    const [leftColumn, centerColumn, rightColumn] = [songs.slice(0, splitIndex), songs.slice(splitIndex, splitIndex * 2), songs.slice(splitIndex * 2)];
+    return (
+      <div className="nightScoreboard">
+        <div>{leftColumn.map((song, index) => renderCard(song, index))}</div>
+        <div>{centerColumn.map((song, index) => renderCard(song, leftColumn.length + index))}</div>
+        <div>
+          {rightColumn.map((song, index) =>
+            renderCard(song, leftColumn.length + centerColumn.length + index),
+          )}
+        </div>
+      </div>
+    );
+  }
 
   function renderCard(song: FinalistResult, index: number) {
     const award = awardBySongId.get(song.id);
@@ -1583,71 +1571,7 @@ function ResultNightScoreboard({
   }
 
   return (
-    <div className="nightScoreboard">
-      <div>{leftColumn.map((song, index) => renderCard(song, index))}</div>
-      <div>
-        {rightColumn.map((song, index) =>
-          renderCard(song, leftColumn.length + index),
-        )}
-      </div>
-    </div>
-  );
-}
-
-function JuryAwardPanel({
-  delegation,
-  hideTwelve,
-  visibleVotes,
-  exiting = false,
-}: {
-  delegation?: ResultDelegation;
-  hideTwelve?: boolean;
-  visibleVotes?: JuryVote[];
-  exiting?: boolean;
-}) {
-  const votes = [...(visibleVotes ?? juryVotesForDisplay(delegation, hideTwelve))]
-    .sort((a, b) => b.points - a.points);
-  const left = votes.slice(0, Math.ceil(votes.length / 2));
-  const right = votes.slice(Math.ceil(votes.length / 2));
-
-  if (!delegation) return null;
-
-  return (
-    <section className={exiting ? "juryAwardPanel exiting" : "juryAwardPanel"}>
-      <h3>{delegation.country} has awarded:</h3>
-      <div>
-        <div>
-          {left.map((vote, index) => (
-            <span
-              key={`${vote.country}-${vote.points}`}
-              style={
-                {
-                  "--vote-delay": `${index * JURY_AWARD_STAGGER_MS}ms`,
-                  "--vote-exit-delay": `${index * 35}ms`,
-                } as CSSProperties
-              }
-            >
-              <strong>{vote.points}</strong> points to {vote.country}
-            </span>
-          ))}
-        </div>
-        <div>
-          {right.map((vote, index) => (
-            <span
-              key={`${vote.country}-${vote.points}`}
-              style={
-                {
-                  "--vote-delay": `${(left.length + index) * JURY_AWARD_STAGGER_MS}ms`,
-                  "--vote-exit-delay": `${(left.length + index) * 35}ms`,
-                } as CSSProperties
-              }
-            >
-              <strong>{vote.points}</strong> points to {vote.country}
-            </span>
-          ))}
-        </div>
-      </div>
-    </section>
+    isMobile ? scoreboardMobile(songs) : scoreboardDesktop(songs)
   );
 }
 
@@ -1796,9 +1720,9 @@ const YouTubeResultNightVideo = memo(function YouTubeResultNightVideo({
           origin: window.location.origin,
           ...(typeof start === "number"
             ? {
-                start: Math.max(0, Math.floor(start)),
-                t: `${Math.max(0, Math.floor(start))}s`,
-              }
+              start: Math.max(0, Math.floor(start)),
+              t: `${Math.max(0, Math.floor(start))}s`,
+            }
             : {}),
         },
         events: {
@@ -2051,18 +1975,18 @@ function EurovisionResultsNight({
   );
   const [centerTelevote, setCenterTelevote] = useState<
     | {
-        points: number;
-        flying: boolean;
-        target?: { x: number; y: number };
-      }
+      points: number;
+      flying: boolean;
+      target?: { x: number; y: number };
+    }
     | undefined
   >();
   const [centerTwelve, setCenterTwelve] = useState<
     | {
-        visible: boolean;
-        flying: boolean;
-        target?: { x: number; y: number };
-      }
+      visible: boolean;
+      flying: boolean;
+      target?: { x: number; y: number };
+    }
     | undefined
   >();
   const [activeVideo, setActiveVideo] = useState<ActiveResultVideo | undefined>();
@@ -2072,9 +1996,9 @@ function EurovisionResultsNight({
   const videoSyncRef = useRef<VideoSyncState | undefined>(undefined);
   const activeJuryIndexRef = useRef(initialProgressRef.current?.juryIndex ?? 0);
   const scoresRef = useRef(scores);
-  const videoTimeHandlerRef = useRef<(currentTime: number) => void>(() => {});
-  const videoEndedHandlerRef = useRef<() => void>(() => {});
-  const videoErrorHandlerRef = useRef<() => void>(() => {});
+  const videoTimeHandlerRef = useRef<(currentTime: number) => void>(() => { });
+  const videoEndedHandlerRef = useRef<() => void>(() => { });
+  const videoErrorHandlerRef = useRef<() => void>(() => { });
 
   const scoreboardSongs = useMemo(() => {
     if (frozenOrderIds) {
@@ -2173,8 +2097,8 @@ function EurovisionResultsNight({
     const lowerAwardsMergeStartDelay =
       awardsToSchedule.length > 0
         ? startDelay +
-          Math.max(0, awardsToSchedule.length - 1) * JURY_AWARD_STAGGER_MS +
-          JURY_AWARD_MERGE_PAUSE_MS
+        Math.max(0, awardsToSchedule.length - 1) * JURY_AWARD_STAGGER_MS +
+        JURY_AWARD_MERGE_PAUSE_MS
         : startDelay;
 
     schedule(() => {
@@ -2291,9 +2215,9 @@ function EurovisionResultsNight({
       ?.getBoundingClientRect();
     return scoreNode
       ? {
-          x: scoreNode.left + scoreNode.width / 2,
-          y: scoreNode.top + scoreNode.height / 2,
-        }
+        x: scoreNode.left + scoreNode.width / 2,
+        y: scoreNode.top + scoreNode.height / 2,
+      }
       : undefined;
   }
 
@@ -2586,7 +2510,7 @@ function EurovisionResultsNight({
         ? assetTwelveAnnouncementStart
         : 0
       : juryVideoSegment === "twelve-point" &&
-          typeof livestreamTwelveAnnouncementStart === "number"
+        typeof livestreamTwelveAnnouncementStart === "number"
         ? livestreamTwelveAnnouncementStart
         : livestreamDelegationStart;
     const twelveAt = useAssetVideo ? assetTwelveAt : livestreamTwelveAt;
@@ -2604,10 +2528,10 @@ function EurovisionResultsNight({
         const recipient = pointsRecipient(vote.country);
         return recipient
           ? {
-              songId: recipient.id,
-              points: vote.points,
-              delay: 0,
-            }
+            songId: recipient.id,
+            points: vote.points,
+            delay: 0,
+          }
           : null;
       })
       .filter((award): award is AwardAnimation => Boolean(award));
@@ -2629,25 +2553,25 @@ function EurovisionResultsNight({
         : resultData?.livestreamUrl;
       const fallbackVideo =
         useAssetVideo &&
-        resultData?.livestreamUrl &&
-        typeof livestreamDelegationStart === "number"
+          resultData?.livestreamUrl &&
+          typeof livestreamDelegationStart === "number"
           ? {
-              title: `${delegation.country} jury votes`,
-              url: resultData.livestreamUrl,
-              source: "youtube" as const,
-              start:
-                juryVideoSegment === "twelve-point" &&
+            title: `${delegation.country} jury votes`,
+            url: resultData.livestreamUrl,
+            source: "youtube" as const,
+            start:
+              juryVideoSegment === "twelve-point" &&
                 typeof livestreamTwelveAnnouncementStart === "number"
-                  ? livestreamTwelveAnnouncementStart
-                  : livestreamDelegationStart,
-              end: livestreamEnd,
-              key: `${delegation.id}-youtube-fallback-${targetJuryIndex}-${Date.now()}`,
-              syncTwelvePointTimestamp:
-                typeof livestreamTwelveAt === "number"
-                  ? Math.max(0, livestreamTwelveAt - 0.1)
-                  : undefined,
-              syncDelegationEndTime: livestreamEnd,
-            }
+                ? livestreamTwelveAnnouncementStart
+                : livestreamDelegationStart,
+            end: livestreamEnd,
+            key: `${delegation.id}-youtube-fallback-${targetJuryIndex}-${Date.now()}`,
+            syncTwelvePointTimestamp:
+              typeof livestreamTwelveAt === "number"
+                ? Math.max(0, livestreamTwelveAt - 0.1)
+                : undefined,
+            syncDelegationEndTime: livestreamEnd,
+          }
           : undefined;
       const twelveRecipient = twelvePointVote
         ? pointsRecipient(twelvePointVote.country)
@@ -2816,10 +2740,10 @@ function EurovisionResultsNight({
     const lowerPointCompletionDelay =
       nextAwards.length > 0
         ? lowerAwardsMergeStartDelay +
-          (nextAwards.length - 1) * JURY_AWARD_MERGE_STAGGER_MS +
-          JURY_AWARD_REMOVE_AFTER_MERGE_MS +
-          SCORE_RESHUFFLE_MS +
-          500
+        (nextAwards.length - 1) * JURY_AWARD_MERGE_STAGGER_MS +
+        JURY_AWARD_REMOVE_AFTER_MERGE_MS +
+        SCORE_RESHUFFLE_MS +
+        500
         : 0;
     const completionDelay = Math.max(
       videoCompletionDelay,
@@ -2861,9 +2785,9 @@ function EurovisionResultsNight({
     const youtubeStart =
       typeof begin === "number"
         ? Math.max(
-            begin,
-            (timestampSeconds(startingSong?.result.pointsAnnouncedAt) ?? begin) - 4,
-          )
+          begin,
+          (timestampSeconds(startingSong?.result.pointsAnnouncedAt) ?? begin) - 4,
+        )
         : undefined;
     const firedSongIds = new Set(
       televoteSongs.slice(0, televoteIndex).map((song) => song.id),
@@ -2871,14 +2795,14 @@ function EurovisionResultsNight({
     const youtubeFallback =
       resultData.livestreamUrl && typeof begin === "number"
         ? {
-            title: "Televote Results",
-            url: resultData.livestreamUrl,
-            source: "youtube" as const,
-            start: youtubeStart ?? begin,
-            end,
-            key: `televote-youtube-fallback-${Date.now()}`,
-            syncTelevoteEndTimestamp: end,
-          }
+          title: "Televote Results",
+          url: resultData.livestreamUrl,
+          source: "youtube" as const,
+          start: youtubeStart ?? begin,
+          end,
+          key: `televote-youtube-fallback-${Date.now()}`,
+          syncTelevoteEndTimestamp: end,
+        }
         : undefined;
 
     if (hasAssetTelevoteTimestamps) {
@@ -2983,122 +2907,39 @@ function EurovisionResultsNight({
     runTelevoteAnimation(song, televoteIndex);
   }
 
-  const progressText =
-    phase === "jury"
-      ? `Jury delegation ${Math.min(juryIndex + 1, juryDelegations.length)} / ${juryDelegations.length}`
-      : phase === "televote"
-        ? `Televote ${Math.max(
-            1,
-            activeTelevoteSongId
-              ? televoteSongs.findIndex((song) => song.id === activeTelevoteSongId) + 1
-              : completedTelevoteIds.size,
-          )} / ${televoteSongs.length}`
-        : "Scoreboard ready";
   const hideJuryTwelveInPanel =
     phase === "jury" &&
     useResultsVideo &&
     juryVideoSegment === "twelve-point";
 
+  const handleSaveAndExit = () => {
+    saveProgress(phase, juryIndex, televoteIndex);
+    onSaveExit();
+  };
   return (
     <div className="resultsNight">
-      <div className="resultsNightHeader">
-        <div>
-          <h3>Eurovision Results Night</h3>
-          <p>{progressText}</p>
-        </div>
-        <div className="resultsNightActions">
-          {phase !== "ready" ? (
-            <button
-              className="secondaryButton"
-              type="button"
-              onClick={() => {
-                saveProgress(phase, juryIndex, televoteIndex);
-                onSaveExit();
-              }}
-            >
-              Save & Exit
-            </button>
-          ) : null}
-          {(phase === "jury" || phase === "jury-complete") && hasTelevote ? (
-            <button
-              className="secondaryButton"
-              type="button"
-              onClick={skipToTelevote}
-            >
-              Skip to Televote
-            </button>
-          ) : null}
-          {phase === "ready" ? (
-            <button
-              className="primaryButton"
-              type="button"
-              onClick={startVoting}
-            >
-              Begin Voting
-            </button>
-          ) : null}
-          {phase === "jury" ? (
-            <button
-              className="primaryButton"
-              type="button"
-              disabled={animating}
-              onClick={() => processNextJuryDelegation()}
-            >
-              {animating ? "Counting Points" : "Next Delegation"}
-            </button>
-          ) : null}
-          {phase === "jury-complete" ? (
-            <button
-              className="primaryButton"
-              type="button"
-              onClick={continueAfterJury}
-            >
-              Continue
-            </button>
-          ) : null}
-          {phase === "televote-intro" ? (
-            <button
-              className="primaryButton"
-              type="button"
-              onClick={beginTelevote}
-            >
-              Begin Televote Results
-            </button>
-          ) : null}
-          {phase === "televote" && !televoteVideoEnabled ? (
-            <button
-              className="primaryButton"
-              type="button"
-              disabled={animating}
-              onClick={processNextTelevote}
-            >
-              {animating ? "Updating Score" : "Next Televote"}
-            </button>
-          ) : null}
-          {phase === "televote" &&
-          televoteVideoEnabled &&
-          !activeVideo &&
-          currentTelevoteSong ? (
-            <button
-              className="primaryButton"
-              type="button"
-              disabled={animating}
-              onClick={beginTelevote}
-            >
-              Continue Televote Results
-            </button>
-          ) : null}
-          {phase === "winner" ? (
-            <button
-              className="primaryButton"
-              type="button"
-              onClick={onShowSummary}
-            >
-              Show Statistics
-            </button>
-          ) : null}
-        </div>
-      </div>
+      <ResultsNightHeader
+        phase={phase}
+        juryIndex={juryIndex}
+        juryDelegations={juryDelegations}
+        activeTelevoteSongId={activeTelevoteSongId}
+        televoteSongs={televoteSongs}
+        completedTelevoteIds={completedTelevoteIds}
+        onSaveExit={handleSaveAndExit}
+        hasTelevote={hasTelevote}
+        skipToTelevote={skipToTelevote}
+        startVoting={startVoting}
+        animating={animating}
+        processNextJuryDelegation={processNextJuryDelegation}
+        autoAdvanceJury={autoAdvanceJury}
+        continueAfterJury={continueAfterJury}
+        beginTelevote={beginTelevote}
+        televoteVideoEnabled={televoteVideoEnabled}
+        processNextTelevote={processNextTelevote}
+        activeVideo={activeVideo}
+        currentTelevoteSong={currentTelevoteSong}
+        onShowSummary={onShowSummary}
+      />
 
       <div className="resultsNightStage">
         <div className="resultsNightMediaColumn">
@@ -3266,9 +3107,9 @@ function PlacementPredictionPanel({
         setResumePromptOpen(
           Boolean(
             nextState.revealMode === "eurovision-night" &&
-              nextState.revealStartedAt &&
-              nextState.finalsRevealProgress &&
-              !nextState.summaryViewedAt,
+            nextState.revealStartedAt &&
+            nextState.finalsRevealProgress &&
+            !nextState.summaryViewedAt,
           ),
         );
         setDataError("");
@@ -3332,7 +3173,7 @@ function PlacementPredictionPanel({
     const timeout = window.setTimeout(
       () => setInstantAnimationComplete(true),
       Math.max(0, officialResults.length - 1) * INSTANT_REVEAL_STEP_MS +
-        INSTANT_REVEAL_SETTLE_MS,
+      INSTANT_REVEAL_SETTLE_MS,
     );
     return () => window.clearTimeout(timeout);
   }, [
@@ -3552,7 +3393,10 @@ function PlacementPredictionPanel({
 
       {dataError ? <div className="dataError">{dataError}</div> : null}
 
-      {state.lockedAt && hasOfficialResults ? (
+      {state.lockedAt &&
+        hasOfficialResults &&
+        !state.revealStartedAt &&
+        !(resumePromptOpen && resumeProgress) ? (
         <div className="revealControlStrip">
           <div>
             <span>Reveal Mode</span>
@@ -3679,8 +3523,7 @@ function PlacementPredictionPanel({
           <section className="resumeRevealPrompt">
             <h3>Resume Final Reveal?</h3>
             <p>
-              You have a saved Eurovision Results Night in progress. Pick up
-              where you left off, or restart the reveal from the beginning.
+              You have a saved Eurovision Results Night in progress.
             </p>
             <div>
               <button
@@ -3691,7 +3534,7 @@ function PlacementPredictionPanel({
                 Resume
               </button>
               <button
-                className="secondaryButton"
+                className="primaryButton"
                 type="button"
                 onClick={() => {
                   void persist({
@@ -3705,7 +3548,7 @@ function PlacementPredictionPanel({
                 Start Over
               </button>
               <button
-                className="secondaryButton"
+                className="primaryButton"
                 type="button"
                 onClick={() => {
                   setResumePromptOpen(false);

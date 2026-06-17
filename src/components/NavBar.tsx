@@ -8,9 +8,12 @@ import {
   ListMusic,
   LogIn,
   LogOut,
+  Menu,
+  ChevronDown,
   Sparkles,
   Trophy,
   User,
+  X,
 } from "lucide-react";
 import { type FormEvent, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -28,6 +31,9 @@ type AuthMode = "login" | "signup";
 export default function NavBar() {
   const [activeProfile, setActiveProfile] = useState(() => loadActiveProfile());
   const [authOpen, setAuthOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [rankMenuOpen, setRankMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [authMode, setAuthMode] = useState<AuthMode>("login");
   const [displayName, setDisplayName] = useState("");
   const [username, setUsername] = useState("");
@@ -57,6 +63,17 @@ export default function NavBar() {
       window.removeEventListener("profile:changed", syncProfile);
       window.removeEventListener("auth:open", openRequestedAuth);
     };
+  }, []);
+
+  useEffect(() => {
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setMobileMenuOpen(false);
+      if (event.key === "Escape") setRankMenuOpen(false);
+      if (event.key === "Escape") setProfileMenuOpen(false);
+    }
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
   }, []);
 
   function openAuth(mode: AuthMode) {
@@ -96,7 +113,109 @@ export default function NavBar() {
   function handleLogout() {
     logoutProfile();
     setActiveProfile(null);
+    setMobileMenuOpen(false);
+    setProfileMenuOpen(false);
     window.setTimeout(() => window.location.reload(), 100);
+  }
+
+  function closeMobileMenu() {
+    setMobileMenuOpen(false);
+    setRankMenuOpen(false);
+    setProfileMenuOpen(false);
+  }
+
+  function openAuthFromNav(mode: AuthMode) {
+    closeMobileMenu();
+    openAuth(mode);
+  }
+
+  function navItems(className: string) {
+    return (
+      <div className={className}>
+        {activeProfile ? (
+          <div className="navMenuGroup navProfileGroup">
+            <button
+              className="navAction navProfileButton"
+              type="button"
+              aria-expanded={profileMenuOpen}
+              onClick={() => {
+                setProfileMenuOpen((current) => !current);
+                setRankMenuOpen(false);
+              }}
+            >
+              <User size={14} /> {activeProfile.name}
+              <ChevronDown size={14} />
+            </button>
+            {profileMenuOpen ? (
+              <div className="navSubmenu">
+                <NavLink to="/favorites" onClick={closeMobileMenu}>
+                  <Heart size={16} /> Favorites
+                </NavLink>
+                <button className="navAction" type="button" onClick={handleLogout}>
+                  <LogOut size={15} /> Logout
+                </button>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+        <NavLink to="/" end onClick={closeMobileMenu}>
+          <Home size={16} /> Home
+        </NavLink>
+        <div className="navMenuGroup navRankGroup">
+          <button
+            className="navAction"
+            type="button"
+            aria-expanded={rankMenuOpen}
+            onClick={() => {
+              setRankMenuOpen((current) => !current);
+              setProfileMenuOpen(false);
+            }}
+          >
+            <ListMusic size={16} /> Rank By <ChevronDown size={14} />
+          </button>
+          {rankMenuOpen ? (
+            <div className="navSubmenu">
+              <NavLink to="/years" onClick={closeMobileMenu}>
+                <CalendarDays size={16} /> Year
+              </NavLink>
+              <NavLink to="/countries" onClick={closeMobileMenu}>
+                <Flag size={16} /> Country
+              </NavLink>
+              <NavLink to="/global-rankings" onClick={closeMobileMenu}>
+                <ListMusic size={16} /> Global
+              </NavLink>
+            </div>
+          ) : null}
+        </div>
+        <NavLink
+          to="/trivia"
+          onClick={() => {
+            closeMobileMenu();
+            window.dispatchEvent(new Event("trivia:setup"));
+          }}
+        >
+          <Sparkles size={16} /> Trivia
+        </NavLink>
+        {!activeProfile ? (
+          <>
+            <button
+              className="navAction"
+              type="button"
+              onClick={() => openAuthFromNav("login")}
+            >
+              <LogIn size={15} /> Login
+            </button>
+            <button
+              className="navAction"
+              type="button"
+              onClick={() => openAuthFromNav("signup")}
+            >
+              <User size={15} /> Sign Up
+            </button>
+          </>
+        ) : null}
+      </div>
+    );
   }
 
   return (
@@ -108,61 +227,28 @@ export default function NavBar() {
           </span>
           <span>ESC Ranker</span>
         </NavLink>
-        <div className="navLinks">
-          <NavLink to="/" end>
-            <Home size={16} /> Home
-          </NavLink>
-          <NavLink to="/years">
-            <CalendarDays size={16} /> Years
-          </NavLink>
-          <NavLink to="/global-rankings">
-            <ListMusic size={16} /> Global Rankings
-          </NavLink>
-          <NavLink to="/countries">
-            <Flag size={16} /> Countries
-          </NavLink>
-          <NavLink to="/favorites">
-            <Heart size={16} /> Favorites
-          </NavLink>
-          <NavLink
-            to="/trivia"
-            onClick={() => window.dispatchEvent(new Event("trivia:setup"))}
-          >
-            <Sparkles size={16} /> Trivia
-          </NavLink>
-          {activeProfile ? (
-            <>
-              <span className="navBadge">
-                <User size={14} /> {activeProfile.name}
-              </span>
-              <button
-                className="navAction"
-                type="button"
-                onClick={handleLogout}
-              >
-                <LogOut size={15} /> Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                className="navAction"
-                type="button"
-                onClick={() => openAuth("login")}
-              >
-                <LogIn size={15} /> Login
-              </button>
-              <button
-                className="navAction"
-                type="button"
-                onClick={() => openAuth("signup")}
-              >
-                <User size={15} /> Sign Up
-              </button>
-            </>
-          )}
-        </div>
+        {navItems("navLinks")}
+        <button
+          aria-expanded={mobileMenuOpen}
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          className="mobileMenuButton"
+          type="button"
+          onClick={() => setMobileMenuOpen((current) => !current)}
+        >
+          {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+        </button>
       </nav>
+      {mobileMenuOpen ? (
+        <div className="mobileNavOverlay">
+          <button
+            className="mobileNavScrim"
+            type="button"
+            aria-label="Close menu"
+            onClick={closeMobileMenu}
+          />
+          {navItems("mobileNavMenu")}
+        </div>
+      ) : null}
       {authOpen ? (
         <div
           className="authOverlay"

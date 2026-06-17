@@ -1,0 +1,261 @@
+.resultsNight {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 12px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.resultsNightStage {
+    display: grid;
+    grid-template-columns: minmax(460px, 1fr) minmax(620px, 1.15fr);
+    gap: 22px;
+    align-items: stretch;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.resultsNightMediaColumn {
+    display: grid;
+    grid-template-rows: minmax(0, auto) auto auto;
+    align-content: start;
+    gap: 12px;
+    min-width: 0;
+    min-height: 0;
+}
+
+.resultsNightHeader,
+.resultsNightNotice,
+.winnerReveal {
+    padding: 14px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.resultsNightHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    min-height: 44px;
+    padding: 6px 10px;
+}
+
+.resultsNightHeader>strong {
+    color: rgba(247, 242, 255, 0.92);
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+
+.resultsNightHeader h3,
+.resultsNightNotice h3 {
+    margin: 0;
+}
+
+.resultsNightHeader p,
+.resultsNightNotice p {
+    margin: 0;
+    margin-top: 4px;
+    color: rgba(247, 242, 255, 0.62);
+}
+
+.resultsNightActions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.resultsNightActions .primaryButton,
+.resultsNightActions .secondaryButton {
+    min-height: 32px;
+    padding-inline: 10px;
+    font-size: 0.8rem;
+}
+
+.resultsNightVideo {
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: #05050a;
+    contain: layout paint style;
+    isolation: isolate;
+    transform: translateZ(0);
+}
+
+.resultsNightVideo iframe,
+.resultsNightVideo video,
+.resultsNightVideo>div {
+    display: block;
+    width: 100%;
+    height: clamp(220px, 28vw, 420px);
+    border: 0;
+    object-fit: contain;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+.predictionsShell {
+    display: grid;
+    gap: 16px;
+}
+
+.predictionPanel {
+    display: grid;
+    gap: 16px;
+    padding: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: rgba(10, 10, 18, 0.68);
+    box-shadow: 0 18px 46px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(18px);
+}
+
+.predictionPanel.resultsNightActive {
+    padding: 12px;
+    height: calc(100dvh - var(--app-nav-height) - 24px);
+}
+
+.predictionHeader,
+.predictionFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.contentColumn:has(.resultsNightActive) {
+    width: min(1600px, 100%);
+}
+
+.pageShell:has(.resultsNightActive) {
+    min-height: calc(100dvh - var(--app-nav-height) - 24px);
+    overflow: hidden;
+    padding-block: 12px 0;
+}
+
+.contentColumn:has(.resultsNightActive),
+.stageContent:has(.resultsNightActive),
+.predictionsShell:has(.resultsNightActive) {
+    min-height: 0;
+}
+
+.stageContent:has(.resultsNightActive)>.yearModeTabs,
+.predictionsShell:has(.resultsNightActive)>.stageTabs,
+.resultsNightActive>.predictionHeader {
+    display: none;
+}
+
+.stageContent:has(.resultsNightActive)>.pageHeader {
+    display: none;
+}
+
+.stageContent:has(.resultsNightActive)>.pageHeader h1 {
+    margin: 0;
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+}
+
+.stageContent:has(.resultsNightActive)>.pageHeader p {
+    display: none;
+}
+
+.resumeRevealPrompt {
+    display: grid;
+    gap: 14px;
+    padding: 20px;
+    border: 1px solid rgba(117, 240, 255, 0.28);
+    border-radius: 8px;
+    background: rgba(8, 18, 34, 0.72);
+}
+
+.resumeRevealPrompt h3 {
+    color: #f8fbff;
+    font-size: 1.15rem;
+    margin: 0;
+}
+
+.resumeRevealPrompt p {
+    margin: 0;
+    color: #b8c7dd;
+}
+
+.resumeRevealPrompt div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    overflow: hidden;
+}
+
+/*===========================================================
+                MOBILE PORTRAIT MODE
+  ===========================================================*/
+@media (max-width: 760px) and (orientation: portrait) {
+    .resumeRevealPrompt {
+        display: grid;
+        gap: 14px;
+        padding: 20px;
+        border: 1px solid rgba(117, 240, 255, 0.28);
+        border-radius: 8px;
+        background: rgba(8, 18, 34, 0.72);
+    }
+
+    .resumeRevealPrompt div {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        overflow: hidden;
+    }
+}
+
+/*===========================================================
+                MOBILE LANDSCAPE MODE
+  ===========================================================*/
+
+@media (max-width: 950px) and (orientation: landscape) {
+    .contentColumn:has(.resumeRevealPrompt) {
+        width: fit-content;
+    }
+
+    .pageShell:has(.resultsNightActive) {
+        overflow: hidden;
+        padding-block: 6px 0;
+    }
+
+    .pageShell {
+        position: relative;
+        min-height: calc(100vh - 65px);
+        padding: 52px 20px 80px;
+        isolation: isolate;
+    }
+
+    .resumeRevealPrompt {
+        display: grid;
+        gap: 14px;
+        padding: 20px;
+        border: 1px solid rgba(117, 240, 255, 0.28);
+        border-radius: 8px;
+        background: rgba(8, 18, 34, 0.72);
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .resumeRevealPrompt div {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow: hidden;
+    }
+
+    .resumeRevealPrompt button {
+        flex: 1;
+    }
+
+    .resultsNightMediaColumn {
+        display: grid;
+        grid-template-rows: minmax(0, auto) auto auto;
+        gap: 12px;
+        min-width: 0;
+        min-height: 0;
+    }
+}

@@ -1,4 +1,4 @@
-import { RotateCcw, X } from "lucide-react";
+import { LogOut, RotateCcw, X } from "lucide-react";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import type { ComparisonState, Song } from "../types";
@@ -63,18 +63,7 @@ export function ComparisonOverlayChoiceCard({
   const isActiveInline = activeSongId === song.id && activePreviewMode === "inline";
 
   return (
-    <section
-      className="overlayCompareCard"
-      role="button"
-      tabIndex={0}
-      onClick={onPick}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          onPick();
-        }
-      }}
-    >
+    <section className="overlayCompareCard">
       <div className="compareCardTop">
         <ComparisonFlagBadge song={song} />
         <span className="choiceBadge">{badge}</span>
@@ -118,7 +107,7 @@ export function ComparisonOverlayChoiceCard({
         <div className="compareIconRow" onClick={(event) => event.stopPropagation()}>
           <AudioButton songId={song.id} url={song.previewVideoUrl ?? ""} mode="inline" />
         </div>
-        <button
+          <button
           className="pickButton"
           type="button"
           onClick={(event) => {
@@ -126,7 +115,7 @@ export function ComparisonOverlayChoiceCard({
             onPick();
           }}
         >
-          Pick this song
+          Choose this song
         </button>
       </div>
     </section>
@@ -256,7 +245,7 @@ export default function ComparisonOverlay({
     });
     await createRankingSnapshot(rankingKey, nextRanking.map((song) => song.id), {
       name: `Comparison Rankings - ${completedAtText}`,
-      notes: `This snapshot was automatically created as a result of the comparison results determined by the 'Rank By Comparison' tool on ${completedAtText}.`,
+      notes: `This snapshot was automatically created from the Head-to-Head Ranking results on ${completedAtText}.`,
     });
     await clearComparison(comparisonKey);
     onComplete?.();
@@ -338,8 +327,8 @@ export default function ComparisonOverlay({
       <div className="comparisonLayer">
         <header className="overlayHeader">
           <div className="overlayTitle">
-            <h1>Rank by Comparison</h1>
-            <p>Use ← or → or click Pick. Result applied to your drag-and-drop list.</p>
+            <h1>Head-to-Head Ranking</h1>
+            <p className="desktopOnly">Use arrow keys or choose a song. Result applied to your drag-and-drop list.</p>
           </div>
           <div className="overlayProgress" aria-label="Comparison progress">
             <span style={{ width: `${progressPercent}%` }} />
@@ -356,8 +345,8 @@ export default function ComparisonOverlay({
             >
               <RotateCcw size={15} /> Reset
             </button>
-            <button className="overlayReset" type="button" onClick={saveAndExit}>
-              Save and Exit
+            <button className="overlayReset overlaySaveExit" type="button" onClick={saveAndExit}>
+              <LogOut size={15} /> Save and Exit
             </button>
             <button className="overlayClose" type="button" onClick={closeComparison} aria-label="Close comparison">
               <X size={18} />

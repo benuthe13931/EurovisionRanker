@@ -1,4 +1,4 @@
-import { ArrowLeft, CheckCircle, RotateCcw, Scale } from "lucide-react";
+import { ArrowLeft, CheckCircle, ListOrdered, RotateCcw } from "lucide-react";
 import {
   type CSSProperties,
   useEffect,
@@ -395,26 +395,28 @@ export default function YearPage() {
                     onClick={requestComparison}
                     title={
                       comparisonCompletedAt && !hasUnfinishedComparison
-                        ? `Rank by Comparison completed ${new Date(
+                        ? `Head-to-Head Ranking completed ${new Date(
                             comparisonCompletedAt,
                           ).toLocaleString()}`
                         : undefined
                     }
                   >
-                    <Scale size={17} />{" "}
+                    <ListOrdered size={17} />{" "}
                     {hasUnfinishedComparison
-                      ? "Continue Rank by Comparison"
-                      : "Rank by Comparison"}
+                      ? "Continue Head-to-Head"
+                      : "Rank Head-to-Head"}
                     {comparisonCompletedAt && !hasUnfinishedComparison ? (
                       <CheckCircle size={16} />
                     ) : null}
                   </button>
                   <button
-                    className="secondaryButton"
+                    className="secondaryButton iconOnlyAction resetAction"
                     type="button"
+                    aria-label="Reset"
+                    title="Reset"
                     onClick={handleReset}
                   >
-                    <RotateCcw size={17} /> Reset
+                    <RotateCcw size={17} />
                   </button>
                   <RankingSnapshotControls
                     rankingKey={rankingKey}

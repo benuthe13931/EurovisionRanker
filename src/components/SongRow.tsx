@@ -49,16 +49,17 @@ export default function SongRow({
           <div />
         </div>
       ) : null}
-      <button
-        className="dragHandle"
-        type="button"
-        {...attributes}
-        {...listeners}
-        aria-label="Drag song"
-        disabled={readOnly}
-      >
-        <GripVertical size={19} />
-      </button>
+      {!readOnly ? (
+        <button
+          className="dragHandle"
+          type="button"
+          {...attributes}
+          {...listeners}
+          aria-label="Drag song"
+        >
+          <GripVertical size={19} />
+        </button>
+      ) : null}
       <span className={`rankPill rank-${rank <= 3 ? rank : "default"}`}>{rank}</span>
       <span
         className={`flagBadge ${hasCustomFlag ? "customFlagBadge" : "fallbackFlagBadge"}`}

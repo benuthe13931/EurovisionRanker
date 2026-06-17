@@ -2,12 +2,14 @@ import {
   AlertTriangle,
   Check,
   Eye,
+  ArrowLeft,
   X,
   Info,
+  ListOrdered,
   ListRestart,
+  LogOut,
   Plus,
   RotateCcw,
-  Scale,
   Trash2,
 } from "lucide-react";
 import {
@@ -430,7 +432,7 @@ export default function GlobalRankingsPage() {
       });
       await createRankingSnapshot("global", nextState.sortedIds, {
         name: `Comparison Rankings - ${completedAtText}`,
-        notes: `This snapshot was automatically created as a result of the comparison results determined by the 'Rank By Comparison' tool on ${completedAtText}.`,
+        notes: `This snapshot was automatically created from the Head-to-Head Ranking results on ${completedAtText}.`,
       });
       await clearComparison(nextState.key);
       setInProgressYears((current) => {
@@ -585,11 +587,12 @@ export default function GlobalRankingsPage() {
     >
       <section className="contentColumn">
         <div className="pageHeader">
-          <p className="eyebrow">Cross-year leaderboard</p>
+          <Link className="backButton" to="/">
+            <ArrowLeft size={16} /> Back
+          </Link>
           <h1>Global Rankings</h1>
           <p>
-            Build one master ranking from the years you have inserted. Year pages remain the source
-            for insertion order, while this page becomes the authority after songs are added.
+            Build your overall Eurovision ranking across loaded contest years.
           </p>
         </div>
 
@@ -626,12 +629,14 @@ export default function GlobalRankingsPage() {
               </button>
             ) : null}
             <button
-              className="secondaryButton"
+              className="secondaryButton iconOnlyAction resetAction"
               type="button"
               disabled={!hasGlobalRankings}
+              aria-label="Reset"
+              title="Reset"
               onClick={() => setResetStep(1)}
             >
-              <Trash2 size={17} /> Reset
+              <Trash2 size={17} />
             </button>
             {view === "rankings" && hasGlobalRankings ? (
               <RankingSnapshotControls
@@ -669,12 +674,6 @@ export default function GlobalRankingsPage() {
 
         {view === "rankings" && hasGlobalRankings ? (
           <section className="globalRankingsPanel">
-            <div className="toolbar">
-              <span className="countLine">Current Global Ranking order</span>
-              <button className="secondaryButton" type="button" onClick={() => setView("landing")}>
-                Back to Years
-              </button>
-            </div>
             <RankingList
               songs={currentSongs}
               favorites={favorites}
@@ -691,7 +690,7 @@ export default function GlobalRankingsPage() {
                 <div className="globalYearGrid">
                   {inProgressYearList.map((year) => (
                     <div className="globalYearButton inProgress" key={year.year}>
-                      <Scale size={16} />
+                      <ListOrdered size={16} />
                       <span>{year.year}</span>
                       <small>Comparison saved</small>
                       <div className="globalYearActions">
@@ -922,13 +921,13 @@ export default function GlobalRankingsPage() {
                 title="Two songs will be shown side-by-side. Select the song you prefer. The system will gradually determine where songs from the selected year belong within your existing Global Rankings. You may optionally preview each song before deciding."
                 onClick={() => void startComparison(flow.year, flow.rerank)}
               >
-                <Scale size={17} /> Rank By Comparison
+                <ListOrdered size={17} /> Rank Head-to-Head
               </button>
             </>
           }
         >
           <p className="globalInfoLine">
-            <Info size={16} /> Rank By Comparison is recommended for large Global Rankings.
+            <Info size={16} /> Head-to-Head Ranking is recommended for large Global Rankings.
           </p>
         </Modal>
       ) : null}
@@ -1032,7 +1031,7 @@ export default function GlobalRankingsPage() {
             <header className="overlayHeader">
               <div className="overlayTitle">
                 <h1>Insert {comparisonRun.year.year}</h1>
-                <p>Use ← or → or click Pick. Results save into Global Rankings.</p>
+                <p className="desktopOnly">Use arrow keys or choose a song. Results save into Global Rankings.</p>
               </div>
               <div className="overlayProgress" aria-label="Comparison progress">
                 <span
@@ -1068,11 +1067,11 @@ export default function GlobalRankingsPage() {
                   <RotateCcw size={15} /> Reset
                 </button>
                 <button
-                  className="overlayReset"
+                  className="overlayReset overlaySaveExit"
                   type="button"
                   onClick={saveGlobalComparisonAndExit}
                 >
-                  Save and Exit
+                  <LogOut size={15} /> Save and Exit
                 </button>
                 <button
                   className="overlayClose"

@@ -1,6 +1,6 @@
 import { type CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import FlagEmoji from "../components/FlagEmoji";
+import { ArrowLeft } from "lucide-react";
 import { allSongsBackground, countries } from "../data/years";
 
 export default function CountriesPage() {
@@ -11,7 +11,9 @@ export default function CountriesPage() {
     >
       <section className="contentColumn homeGrid">
         <div className="pageHeader">
-          <p className="eyebrow">Country leaderboards</p>
+          <Link className="backButton" to="/">
+            <ArrowLeft size={16} /> Back
+          </Link>
           <h1>Countries</h1>
           <p>Rank every entry from a country across all loaded contest years.</p>
         </div>
@@ -19,12 +21,17 @@ export default function CountriesPage() {
         <div className="yearGrid">
           {countries.map((country) => (
             <Link className="yearCard countryCard" to={`/country/${country.slug}`} key={country.slug}>
-              <span>
-                <FlagEmoji alt="" code={country.countryCode} src={country.flagEmoji} />{" "}
-                {country.countryCode}
+              <span className="countryCardFlag">
+                <img
+                  src={country.flagImageUrl ?? country.flagEmoji}
+                  alt=""
+                  loading="lazy"
+                />
               </span>
-              <h2>{country.country}</h2>
-              <p>{country.songs.length} songs to rank</p>
+              <span className="countryCardText">
+                <strong>{country.country}</strong>
+                <small>{country.songs.length} songs to rank</small>
+              </span>
             </Link>
           ))}
         </div>
