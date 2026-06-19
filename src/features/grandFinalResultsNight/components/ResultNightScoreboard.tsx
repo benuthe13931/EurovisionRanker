@@ -18,6 +18,7 @@ type ResultNightScoreboardProps = {
     settledHighlightSongIds: Set<string>;
     resettingSongIds: Set<string>;
     slowRollingSongId?: string;
+    slowRollingDurationMs?: number;
     completedSongIds: Set<string>;
     winnerSongId?: string;
     registerCard: (songId: string, node: HTMLElement | null) => void;
@@ -97,6 +98,7 @@ export function ResultNightScoreboard({
     settledHighlightSongIds,
     resettingSongIds,
     slowRollingSongId,
+    slowRollingDurationMs = 1500,
     completedSongIds,
     winnerSongId,
     registerCard,
@@ -138,7 +140,13 @@ export function ResultNightScoreboard({
                         value={scores[song.id] ?? 0}
                         active={Boolean(award)}
                         songId={song.id}
-                        rollDuration={slowRollingSongId === song.id || award ? 1500 : 600}
+                        rollDuration={
+                            slowRollingSongId === song.id
+                                ? slowRollingDurationMs
+                                : award
+                                    ? 1500
+                                    : 600
+                        }
                     />
                     {award ? (
                         <em
@@ -146,7 +154,7 @@ export function ResultNightScoreboard({
                             style={
                                 {
                                     "--award-delay": `${award.delay}ms`,
-                                    "--award-flight-duration": `${award.flightDuration ?? 900}ms`,
+                                    "--award-flight-duration": `${award.flightDuration ?? 2600}ms`,
                                 } as CSSProperties
                             }
                         >

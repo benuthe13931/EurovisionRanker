@@ -126,9 +126,9 @@ const INSTANT_REVEAL_SETTLE_MS = 900;
 const RESULTS_VIDEO_LEAD_IN_MS = 1000;
 const YOUTUBE_PLAYER_PLAYING = 1;
 const RESULTS_VIDEO_PREROLL_MS = 500;
-const JURY_AWARD_STAGGER_MS = 100;
-const JURY_AWARD_ANIMATION_MS = 2400;
-const JURY_AWARD_SCORE_IMPACT_MS = 1560;
+const JURY_AWARD_STAGGER_MS = 600;
+const JURY_AWARD_ANIMATION_MS = 2600;
+const JURY_AWARD_SCORE_IMPACT_MS = 2080;
 const JURY_AWARD_MERGE_STAGGER_MS = JURY_AWARD_STAGGER_MS;
 const JURY_AWARD_REMOVE_AFTER_MERGE_MS = 320;
 const JURY_SCORE_APPLY_MS = 9000;
@@ -138,9 +138,25 @@ const TELEVOTE_REVEAL_GROW_MS = 2600;
 const TELEVOTE_REVEAL_HOLD_MS = 1000;
 const TELEVOTE_REVEAL_FLIGHT_MS = 900;
 const SCORE_RESHUFFLE_MS = 4200;
+const DEFAULT_SLOW_SCORE_ROLL_MS = 1500;
+const TELEVOTE_SCORE_ROLL_MIN_MS = 1900;
+const TELEVOTE_SCORE_ROLL_MAX_MS = 5400;
+const TELEVOTE_SCORE_ROLL_REFERENCE_POINTS = 360;
 
 function smoothScoreProgress(progress: number) {
   return 1 - Math.pow(1 - progress, 5);
+}
+
+function televoteScoreRollDuration(points: number) {
+  const clampedPoints = Math.min(
+    Math.max(points, 0),
+    TELEVOTE_SCORE_ROLL_REFERENCE_POINTS,
+  );
+  const progress = clampedPoints / TELEVOTE_SCORE_ROLL_REFERENCE_POINTS;
+  return Math.round(
+    TELEVOTE_SCORE_ROLL_MIN_MS +
+    (TELEVOTE_SCORE_ROLL_MAX_MS - TELEVOTE_SCORE_ROLL_MIN_MS) * progress,
+  );
 }
 
 function emptyPredictionState(key: string): PredictionState {
@@ -1842,6 +1858,7 @@ function ResultNightScoreboard({
   settledHighlightSongIds,
   resettingSongIds,
   slowRollingSongId,
+  slowRollingDurationMs = DEFAULT_SLOW_SCORE_ROLL_MS,
   completedSongIds,
   winnerSongId,
   registerCard,
@@ -1854,6 +1871,7 @@ function ResultNightScoreboard({
   settledHighlightSongIds: Set<string>;
   resettingSongIds: Set<string>;
   slowRollingSongId?: string;
+  slowRollingDurationMs?: number;
   completedSongIds: Set<string>;
   winnerSongId?: string;
   registerCard: (songId: string, node: HTMLElement | null) => void;
@@ -1927,7 +1945,13 @@ function ResultNightScoreboard({
             value={scores[song.id] ?? 0}
             active={Boolean(award)}
             songId={song.id}
-            rollDuration={slowRollingSongId === song.id || award ? 1500 : 600}
+            rollDuration={
+              slowRollingSongId === song.id
+                ? slowRollingDurationMs
+                : award
+                  ? DEFAULT_SLOW_SCORE_ROLL_MS
+                  : 600
+            }
           />
           {award ? (
             <em
@@ -1935,7 +1959,7 @@ function ResultNightScoreboard({
               style={
                 {
                   "--award-delay": `${award.delay}ms`,
-                  "--award-flight-duration": `${award.flightDuration ?? 900}ms`,
+                  "--award-flight-duration": `${award.flightDuration ?? 2600}ms`,
                 } as CSSProperties
               }
             >
@@ -2366,6 +2390,9 @@ function EurovisionResultsNight({
     string | undefined
   >();
   const [slowRollingSongId, setSlowRollingSongId] = useState<string | undefined>();
+  const [slowRollingDurationMs, setSlowRollingDurationMs] = useState(
+    DEFAULT_SLOW_SCORE_ROLL_MS,
+  );
   const [completedTelevoteIds, setCompletedTelevoteIds] = useState<Set<string>>(
     () => new Set(),
   );
@@ -2673,6 +2700,7 @@ function EurovisionResultsNight({
     setResettingSongIds(new Set());
     setCenterTwelve(undefined);
     setSlowRollingSongId(undefined);
+    setSlowRollingDurationMs(DEFAULT_SLOW_SCORE_ROLL_MS);
     setFrozenOrderIds(undefined);
     setAnimating(false);
     setJuryIndex(juryDelegations.length);
@@ -2689,6 +2717,7 @@ function EurovisionResultsNight({
     setResettingSongIds(new Set(highlightedSongIds));
     setCenterTwelve(undefined);
     setSlowRollingSongId(undefined);
+    setSlowRollingDurationMs(DEFAULT_SLOW_SCORE_ROLL_MS);
     setFrozenOrderIds(undefined);
     setActiveVideo(undefined);
     schedule(() => {
@@ -2744,6 +2773,7 @@ function EurovisionResultsNight({
           (current[twelveRecipientId] ?? 0) + twelvePointVote.points,
       }));
       schedule(() => setSlowRollingSongId(undefined), 1600);
+      schedule(() => setSlowRollingDurationMs(DEFAULT_SLOW_SCORE_ROLL_MS), 1600);
     }, TWELVE_POINT_HOLD_MS + TWELVE_POINT_FLIGHT_MS - 950);
 
     schedule(() => {
@@ -3080,6 +3110,7 @@ function EurovisionResultsNight({
           return next;
         });
         schedule(() => setSlowRollingSongId(undefined), 1600);
+        schedule(() => setSlowRollingDurationMs(DEFAULT_SLOW_SCORE_ROLL_MS), 1600);
       }, twelveScoreApplyDelay);
 
       schedule(() => {
@@ -3111,6 +3142,7 @@ function EurovisionResultsNight({
             (current[twelveRecipient.id] ?? 0) + twelvePointVote.points,
         }));
         schedule(() => setSlowRollingSongId(undefined), 1600);
+        schedule(() => setSlowRollingDurationMs(DEFAULT_SLOW_SCORE_ROLL_MS), 1600);
         releaseFrozenScoreboard();
         resetAwardedHighlightsAfterShuffle(new Set([twelveRecipient.id]));
       }, fallbackTwelveApplyDelay);
@@ -3272,7 +3304,9 @@ function EurovisionResultsNight({
 
     schedule(() => {
       setCenterTelevote(undefined);
-      setAwards([{ songId: song.id, points, delay: 0 }]);
+      const rollDuration = televoteScoreRollDuration(points);
+      setSlowRollingDurationMs(rollDuration);
+      setSlowRollingSongId(song.id);
       setHighlightedSongIds(new Set([song.id]));
       schedule(() => {
         setSettledHighlightSongIds((current) => new Set(current).add(song.id));
@@ -3281,6 +3315,10 @@ function EurovisionResultsNight({
         ...current,
         [song.id]: (current[song.id] ?? 0) + points,
       }));
+      schedule(() => {
+        setSlowRollingSongId(undefined);
+        setSlowRollingDurationMs(DEFAULT_SLOW_SCORE_ROLL_MS);
+      }, rollDuration + 120);
     }, scoreApplyDelay);
 
     schedule(() => {
@@ -3405,6 +3443,7 @@ function EurovisionResultsNight({
           settledHighlightSongIds={settledHighlightSongIds}
           resettingSongIds={resettingSongIds}
           slowRollingSongId={slowRollingSongId}
+          slowRollingDurationMs={slowRollingDurationMs}
           completedSongIds={completedTelevoteIds}
           winnerSongId={phase === "winner" ? winner?.id : undefined}
           registerCard={registerCard}

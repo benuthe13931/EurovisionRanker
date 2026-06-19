@@ -120,19 +120,19 @@
     pointer-events: none;
     transform-origin: center;
     transform: translate(-50%, 0.64em);
-    animation: local-award-pocket var(--award-flight-duration, 2400ms) linear forwards;
+    animation: local-award-pocket var(--award-flight-duration, 2600ms) linear forwards;
     animation-delay: var(--award-delay, 0ms);
 }
 
 .nightLock {
     position: absolute;
     top: 50%;
-    right: calc(100% + 4px);
+    right: calc(140% + 4px);
     z-index: 600;
     display: grid;
     place-items: center;
-    width: 20px;
-    height: 20px;
+    width: 35px;
+    height: 35px;
     color: rgba(255, 255, 255, 0.92);
     opacity: 0;
     pointer-events: none;
@@ -142,6 +142,8 @@
 
 .nightLock svg {
     grid-area: 1 / 1;
+    width: 25px;
+    height: 25px;
 }
 
 .nightLockOpen {
@@ -291,8 +293,7 @@
     inset: 0;
     z-index: 0;
     background: rgba(0, 0, 0, 0.28);
-    transform-origin: left;
-    animation: completed-sweep 3600ms ease forwards;
+    transform: scaleX(1);
 }
 
 .nightScoreboardCard.winner {
@@ -351,15 +352,172 @@
 
     .nightScoreboard {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 4px;
-        padding: 0;
+        grid-template-rows: repeat(13, minmax(0, 1fr));
+        grid-auto-flow: column;
+        align-items: stretch;
+        height: 100%;
+        max-height: none;
+        gap: 6px 10px;
+        padding: 6px;
         min-height: 0;
-        overflow: hidden;
+        overflow: visible;
     }
 
     .nightScoreboard>div {
-        grid-template-columns: 1fr;
+        display: contents;
+    }
+
+    .nightScoreboardCard {
+        grid-template-columns: 20px 16px minmax(0, 1fr) 31px;
+        align-content: center;
         gap: 4px;
+        height: 100%;
+        min-height: 0;
+        padding: 1px 2px 1px 0;
+        border-radius: 24px;
+        overflow: visible;
+    }
+
+    .nightRank {
+        width: 20px;
+        min-width: 20px;
+        height: 24px;
+        margin-block: -2px;
+        border-radius: 24px 0 0 24px;
+        font-size: 0.6rem;
+    }
+
+    .nightScoreboardCard>*:not(.nightAward) {
+        min-width: 0;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .nightScoreboardCard>.nightScoreWrap {
+        overflow: visible;
+    }
+
+    .nightScoreboardCard> :nth-child(2) {
+        justify-self: center;
+        width: 16px;
+        max-width: 16px;
+        height: 16px;
+        max-height: 16px;
+        object-fit: contain;
+        font-size: 0.76rem;
+        line-height: 1;
+    }
+
+    .nightScoreboardCard small {
+        display: block;
+    }
+
+    .nightCountry,
+    .nightCountry strong {
+        display: block;
+        min-width: 0;
+        min-height: 0;
+        overflow: hidden;
+        font-size: clamp(0.5rem, 1.45dvh, 0.62rem);
+        line-height: 1.25;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .nightCountry small {
+        font-size: clamp(0.4rem, 1.08dvh, 0.48rem);
+        line-height: 1.12;
+    }
+
+    .nightScoreWrap {
+        align-items: center;
+        justify-content: center;
+        min-width: 24px;
+        min-height: 0;
+        margin-top: 1px;
+        padding-top: 0;
+    }
+
+    .nightScoreWrap strong,
+    .nightScoreWrap span {
+        overflow: hidden;
+        font-size: clamp(0.54rem, 1.55dvh, 0.66rem);
+        line-height: 1;
+        text-overflow: clip;
+        white-space: nowrap;
+    }
+
+    .nightScore {
+        min-width: 2.4ch;
+        font-size: clamp(0.54rem, 1.55dvh, 0.66rem);
+    }
+
+    .nightScoreboard .nightScoreWrap .nightScore {
+        overflow: hidden;
+    }
+
+    .nightScoreboard .nightScoreWrap .scoreRoller,
+    .nightScoreboard .nightScoreWrap .scoreRoller span {
+        overflow: hidden;
+        text-overflow: clip;
+    }
+
+    .nightAward {
+        font-size: clamp(0.54rem, 1.55dvh, 0.66rem);
+        line-height: 1;
+        text-shadow:
+            0 1px 4px rgba(0, 0, 0, 0.85),
+            0 0 8px rgba(117, 240, 255, 0.55);
+    }
+
+    .nightLock {
+        top: calc(50% - 1px);
+        right: calc(110% + 2px);
+        width: 12px;
+        height: 12px;
+        transform: translate(9px, -50%) scale(0);
+        animation-name: night-lock-hit-portrait;
+    }
+
+    .nightLock svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .nightLockRays {
+        width: 13px;
+        height: 13px;
+        transform: translateY(-5px);
+        animation-name: lock-rays-click-compact;
+    }
+
+    .nightLockRays::before,
+    .nightLockRays::after {
+        top: 1px;
+        width: 1px;
+        height: 3px;
+    }
+
+    .nightLockRays::before {
+        left: 3px;
+    }
+
+    .nightLockRays::after {
+        right: 3px;
+    }
+
+    .nightScoreboardCard.awarded,
+    .nightScoreboardCard.awarded.podiumFirst,
+    .nightScoreboardCard.awarded.podiumSecond,
+    .nightScoreboardCard.awarded.podiumThird {
+        scale: 1.006;
+    }
+
+    .nightScoreboardCard.podiumFirst,
+    .nightScoreboardCard.podiumSecond,
+    .nightScoreboardCard.podiumThird,
+    .nightScoreboardCard.winner {
+        scale: 1.002;
     }
 }
 
@@ -538,9 +696,20 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: clip;
-        line-height: 1;
+        line-height: 1.05;
         display: block;
-        font-size: clamp(0.46rem, 1.55svh, 0.56rem);
+        font-size: clamp(0.42rem, 1.42svh, 0.52rem);
+    }
+
+    .nightCountry small {
+        display: block;
+        min-width: 0;
+        overflow: hidden;
+        color: rgba(247, 242, 255, 0.48);
+        font-size: clamp(0.34rem, 1.05svh, 0.42rem);
+        line-height: 1.1;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .nightScoreWrap {
@@ -584,7 +753,7 @@
     }
 
     .nightAward {
-        top: 50%;
+        top: 70%;
         left: 50%;
         z-index: 1200;
         font-size: clamp(0.5rem, 1.7svh, 0.62rem);
@@ -593,6 +762,42 @@
             0 1px 4px rgba(0, 0, 0, 0.85),
             0 0 8px rgba(117, 240, 255, 0.55);
         pointer-events: none;
+    }
+
+    .nightLock {
+        top: calc(70% - 8px);
+        right: calc(165% + 2px);
+        width: 13px;
+        height: 13px;
+        transform: translate(10px, -50%) scale(0);
+        animation-name: night-lock-hit-landscape;
+    }
+
+    .nightLock svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .nightLockRays {
+        width: 14px;
+        height: 14px;
+        transform: translateY(-6px);
+        animation-name: lock-rays-click-compact;
+    }
+
+    .nightLockRays::before,
+    .nightLockRays::after {
+        top: 1px;
+        width: 1px;
+        height: 3px;
+    }
+
+    .nightLockRays::before {
+        left: 4px;
+    }
+
+    .nightLockRays::after {
+        right: 4px;
     }
 }
 
@@ -801,6 +1006,40 @@
     }
 }
 
+@keyframes night-lock-hit-portrait {
+    0% {
+        opacity: 0;
+        transform: translate(9px, -50%) scale(0);
+    }
+
+    58% {
+        opacity: 1;
+        transform: translate(1px, -50%) scale(1.12);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, -50%) scale(1);
+    }
+}
+
+@keyframes night-lock-hit-landscape {
+    0% {
+        opacity: 0;
+        transform: translate(10px, -50%) scale(0);
+    }
+
+    58% {
+        opacity: 1;
+        transform: translate(1px, -50%) scale(1.12);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, -50%) scale(1);
+    }
+}
+
 @keyframes televote-jackpot-grow {
     0% {
         opacity: 0;
@@ -903,6 +1142,23 @@
     }
 }
 
+@keyframes lock-rays-click-compact {
+    0% {
+        opacity: 0;
+        transform: translateY(-1px) scale(0.7);
+    }
+
+    45% {
+        opacity: 1;
+        transform: translateY(-3px) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-4px) scale(1.04);
+    }
+}
+
 @keyframes televote-score-fly {
     0% {
         opacity: 1;
@@ -911,8 +1167,8 @@
 
     100% {
         opacity: 0;
-        transform: translate(calc(var(--target-x) - 50vw),
-                calc(var(--target-y) - 50vh)) scale(0.16);
+        transform: translate(calc(-50% + var(--target-x) - 50vw),
+                calc(-50% + var(--target-y) - 50vh)) scale(0.16);
     }
 }
 

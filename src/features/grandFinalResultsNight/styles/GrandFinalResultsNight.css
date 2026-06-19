@@ -190,6 +190,142 @@
                 MOBILE PORTRAIT MODE
   ===========================================================*/
 @media (max-width: 760px) and (orientation: portrait) {
+    .pageShell:has(.resultsNightActive) {
+        height: calc(100dvh - var(--mobile-nav-height, var(--app-nav-height, 64px)) - 4px);
+        min-height: 0;
+        padding: 4px 6px 0;
+        overflow: hidden;
+    }
+
+    .contentColumn:has(.resultsNightActive),
+    .stageContent:has(.resultsNightActive),
+    .predictionsShell:has(.resultsNightActive) {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .predictionPanel.resultsNightActive {
+        height: 100%;
+        padding: 4px;
+        gap: 4px;
+        overflow: hidden;
+    }
+
+    .resultsNight {
+        height: 100%;
+        min-width: 0;
+        gap: 4px;
+        overflow: hidden;
+    }
+
+    .resultsNightHeader {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 4px;
+        min-height: 0;
+        padding: 4px 5px;
+        border-radius: 7px;
+    }
+
+    .resultsNightHeader>strong {
+        min-width: 0;
+        overflow: hidden;
+        color: rgba(247, 242, 255, 0.9);
+        font-size: 0.66rem;
+        line-height: 1.5;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .resultsNightActions {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 4px;
+        justify-content: stretch;
+    }
+
+    .resultsNightActions .primaryButton,
+    .resultsNightActions .secondaryButton {
+        min-height: 24px;
+        min-width: 0;
+        padding: 0 4px;
+        border-radius: 6px;
+        font-size: 0.56rem;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .resultsNightActions .primaryButton {
+        grid-column: 4;
+        justify-self: end;
+        width: max-content;
+        min-width: max-content;
+        white-space: nowrap;
+        padding-inline: 14px;
+    }
+
+
+    .resultsNightActions .secondaryButton:first-child {
+        font-size: 0;
+    }
+
+    .resultsNightActions .secondaryButton:first-child::after {
+        content: "Back";
+        font-size: 0.56rem;
+        line-height: 1;
+    }
+
+    .resultsNightStage {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: 4px;
+        min-width: 0;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .resultsNightMediaColumn {
+        display: grid;
+        grid-template-rows: auto auto;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        min-height: 0;
+        gap: 4px;
+        overflow: hidden;
+    }
+
+    .resultsNightVideo {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        min-height: 0;
+        border-radius: 7px;
+        overflow: hidden;
+    }
+
+    .resultsNightVideo iframe,
+    .resultsNightVideo video,
+    .resultsNightVideo>div {
+        width: 100%;
+        max-width: 100%;
+        height: clamp(118px, 24dvh, 190px);
+        min-height: 0;
+        object-fit: contain;
+    }
+
+    .resultsNightNotice,
+    .winnerReveal {
+        padding: 6px 8px;
+        border-radius: 7px;
+        font-size: 0.72rem;
+        line-height: 1.2;
+    }
+
     .resumeRevealPrompt {
         display: grid;
         gap: 14px;
