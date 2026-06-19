@@ -2,7 +2,12 @@ import { LockKeyhole, LockKeyholeOpen } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import FlagEmoji from "../../../components/FlagEmoji";
 import { useResponsive } from "../../../hooks/useDisplayType";
+import "../styles/ScoreboardCards.css";
 import { AwardAnimation, FinalistResult, ScoreboardSnapshot } from "../types/PredictionsResultsNightProps";
+
+function smoothScoreProgress(progress: number) {
+    return 1 - Math.pow(1 - progress, 5);
+}
 
 type ResultNightScoreboardProps = {
     songs: FinalistResult[];
@@ -22,7 +27,7 @@ function AnimatedScore({
     value,
     active,
     songId,
-    rollDuration = 400,
+    rollDuration = 600,
 }: {
     value: number;
     active?: boolean;
@@ -48,7 +53,7 @@ function AnimatedScore({
 
         function tick(now: number) {
             const progress = Math.min((now - startedAt) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
+            const eased = smoothScoreProgress(progress);
             const nextValue = Math.round(start + (end - start) * eased);
             displayValueRef.current = nextValue;
             setDisplayValue(nextValue);
@@ -133,12 +138,17 @@ export function ResultNightScoreboard({
                         value={scores[song.id] ?? 0}
                         active={Boolean(award)}
                         songId={song.id}
-                        rollDuration={slowRollingSongId === song.id ? 1000 : 400}
+                        rollDuration={slowRollingSongId === song.id || award ? 1500 : 600}
                     />
                     {award ? (
                         <em
                             className="nightAward"
-                            style={{ "--award-delay": `${award.delay}ms` } as CSSProperties}
+                            style={
+                                {
+                                    "--award-delay": `${award.delay}ms`,
+                                    "--award-flight-duration": `${award.flightDuration ?? 900}ms`,
+                                } as CSSProperties
+                            }
                         >
                             +{award.points}
                         </em>

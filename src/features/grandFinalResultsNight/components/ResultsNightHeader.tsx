@@ -8,10 +8,10 @@ type ResultsNightHeaderProps = {
     activeTelevoteSongId?: string | null;
     televoteSongs: FinalistResult[];
     completedTelevoteIds: Set<string>;
+    onBackToSetup: () => void;
     onSaveExit: () => void;
     hasTelevote: boolean;
     skipToTelevote: () => void;
-    startVoting: () => void;
     animating: boolean;
     processNextJuryDelegation: () => void;
     autoAdvanceJury: boolean;
@@ -21,6 +21,7 @@ type ResultsNightHeaderProps = {
     processNextTelevote: () => void;
     activeVideo?: ActiveResultVideo | undefined;
     currentTelevoteSong: FinalistResult;
+    showStatisticsAction: boolean;
     onShowSummary: () => void;
 }
 export function ResultsNightHeader({
@@ -30,10 +31,10 @@ export function ResultsNightHeader({
     activeTelevoteSongId,
     televoteSongs,
     completedTelevoteIds,
+    onBackToSetup,
     onSaveExit,
     hasTelevote,
     skipToTelevote,
-    startVoting,
     animating,
     processNextJuryDelegation,
     autoAdvanceJury,
@@ -43,6 +44,7 @@ export function ResultsNightHeader({
     processNextTelevote,
     activeVideo,
     currentTelevoteSong,
+    showStatisticsAction,
     onShowSummary
 }: ResultsNightHeaderProps) {
 
@@ -56,7 +58,7 @@ export function ResultsNightHeader({
                         ? televoteSongs.findIndex((song) => song.id === activeTelevoteSongId) + 1
                         : completedTelevoteIds.size,
                 )} / ${televoteSongs.length}`
-                : "Scoreboard ready";
+                : "Preparing results";
 
     return (
         <div className="resultsNightHeader">
@@ -66,9 +68,9 @@ export function ResultsNightHeader({
                     <button
                         className="secondaryButton"
                         type="button"
-                        onClick={onSaveExit}
+                        onClick={onBackToSetup}
                     >
-                        Back
+                        Back to Results Setup
                     </button>
                 ) : null}
                 {phase !== "ready" ? (
@@ -87,15 +89,6 @@ export function ResultsNightHeader({
                         onClick={skipToTelevote}
                     >
                         Skip to Televote
-                    </button>
-                ) : null}
-                {phase === "ready" ? (
-                    <button
-                        className="primaryButton"
-                        type="button"
-                        onClick={startVoting}
-                    >
-                        Begin Voting
                     </button>
                 ) : null}
                 {phase === "jury" && !autoAdvanceJury ? (
@@ -149,7 +142,7 @@ export function ResultsNightHeader({
                         Continue Televote Results
                     </button>
                 ) : null}
-                {phase === "winner" ? (
+                {phase === "winner" && showStatisticsAction ? (
                     <button
                         className="primaryButton"
                         type="button"

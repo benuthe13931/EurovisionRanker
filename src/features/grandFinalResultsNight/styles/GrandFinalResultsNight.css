@@ -141,7 +141,7 @@
 }
 
 .stageContent:has(.resultsNightActive)>.yearModeTabs,
-.predictionsShell:has(.resultsNightActive)>.stageTabs,
+.predictionsShell:has(.resultsNightActive) .stageTabs,
 .resultsNightActive>.predictionHeader {
     display: none;
 }

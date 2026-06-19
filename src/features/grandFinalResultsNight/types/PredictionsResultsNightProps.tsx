@@ -32,4 +32,5 @@ export type AwardAnimation = {
     songId: string;
     points: number;
     delay: number;
+    flightDuration?: number;
 };

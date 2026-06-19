@@ -1,7 +1,7 @@
 .nightScoreboardCard {
     position: relative;
     display: grid;
-    grid-template-columns: 44px 24px minmax(0, 1fr) 64px;
+    grid-template-columns: 44px 44px minmax(0, 1fr) 64px;
     align-items: center;
     gap: 10px;
     min-height: 50px;
@@ -19,6 +19,191 @@
     transform: translateZ(0);
     backface-visibility: hidden;
     will-change: transform, scale;
+}
+
+.nightScoreboardCard>img,
+.nightScoreboardCard>.emojiFlag,
+.nightScoreboardCard>span:not(.nightRank):not(.nightCountry):not(.nightScoreWrap) {
+    justify-self: center;
+    width: 34px;
+    max-width: 34px;
+    height: 25px;
+    max-height: 25px;
+    object-fit: contain;
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+.nightCountry {
+    display: grid;
+    min-width: 0;
+}
+
+.nightCountry strong,
+.nightCountry small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nightCountry small {
+    color: rgba(247, 242, 255, 0.55);
+    font-size: 0.72rem;
+}
+
+.nightScoreWrap {
+    position: relative;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 34px;
+    padding-top: 2px;
+    overflow: visible;
+}
+
+.nightScore {
+    position: relative;
+    display: inline-grid;
+    align-items: center;
+    justify-items: end;
+    min-width: 3ch;
+    min-height: 1.1em;
+    color: #fff;
+    font-size: 1.18rem;
+    line-height: 1.05;
+    font-variant-numeric: tabular-nums;
+    transform-origin: center;
+    overflow: hidden;
+}
+
+.nightScore.impact {
+    animation: none;
+}
+
+.scoreRoller {
+    display: grid;
+    grid-template-rows: 1em 1em;
+    transform: translateY(-1em);
+}
+
+.scoreRoller span {
+    display: block;
+    text-align: right;
+}
+
+.nightScore.rolling .scoreRoller {
+    animation: score-roll var(--score-roll-duration, 600ms) cubic-bezier(0.05, 0.82, 0.16, 1) both;
+}
+
+.nightScore:not(.rolling) .scoreRoller {
+    transform: translateY(-1em);
+}
+
+.nightAward {
+    position: absolute;
+    z-index: 1200;
+    top: 50%;
+    left: 50%;
+    min-width: 3ch;
+    color: #75f0ff;
+    font-style: normal;
+    font-weight: 950;
+    font-size: 1.18rem;
+    line-height: 1.05;
+    text-align: right;
+    opacity: 0;
+    text-shadow:
+        0 1px 4px rgba(0, 0, 0, 0.85),
+        0 0 12px rgba(117, 240, 255, 0.72);
+    pointer-events: none;
+    transform-origin: center;
+    transform: translate(-50%, 0.64em);
+    animation: local-award-pocket var(--award-flight-duration, 2400ms) linear forwards;
+    animation-delay: var(--award-delay, 0ms);
+}
+
+.nightLock {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 4px);
+    z-index: 600;
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    color: rgba(255, 255, 255, 0.92);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(18px, -50%) scale(0);
+    animation: night-lock-hit 720ms cubic-bezier(0.16, 0.84, 0.26, 1) forwards;
+}
+
+.nightLock svg {
+    grid-area: 1 / 1;
+}
+
+.nightLockOpen {
+    animation: lock-open-vanish 520ms ease forwards;
+}
+
+.nightLockClosed {
+    opacity: 0;
+    transform-origin: center;
+    animation: lock-closed-click 520ms ease forwards;
+}
+
+.nightLockRays {
+    grid-area: 1 / 1;
+    position: relative;
+    width: 22px;
+    height: 22px;
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: lock-rays-click 420ms ease 320ms forwards;
+}
+
+.nightLockRays::before,
+.nightLockRays::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    width: 2px;
+    height: 4px;
+    border-radius: 999px;
+    background: currentColor;
+    transform-origin: bottom center;
+}
+
+.nightLockRays::before {
+    left: 5px;
+    transform: rotate(-38deg);
+}
+
+.nightLockRays::after {
+    right: 5px;
+    transform: rotate(38deg);
+}
+
+.nightRank {
+    align-self: stretch;
+    display: grid;
+    place-items: center;
+    min-width: 52px;
+    margin-block: -8px;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px 0 0 8px;
+    color: #fff;
+    background:
+        linear-gradient(135deg,
+            rgba(255, 67, 209, 0.44),
+            rgba(53, 214, 255, 0.38)),
+        rgba(255, 255, 255, 0.045);
+    font-size: 1.38rem;
+    font-weight: 950;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
 }
 
 .nightScoreboardCard.awarded {
@@ -123,6 +308,11 @@
     z-index: 1;
 }
 
+.nightScoreboardCard>.nightScoreWrap {
+    z-index: 4;
+    overflow: visible;
+}
+
 .nightScoreboardCard.podiumFirst .nightRank {
     color: #ffe17a;
     background: rgba(255, 214, 79, 0.16);
@@ -194,10 +384,19 @@
 @media (max-width: 950px) and (orientation: landscape) {
 
     .resultsNight {
-        grid-template-rows: minmax(0, 1fr);
-        gap: 0;
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: 4px;
         height: 100%;
         overflow: hidden;
+    }
+
+    .nightRank {
+        width: 18px;
+        min-width: 18px;
+        margin-block: 8px;
+        height: 25px;
+        border-radius: 25px 0 0 25px;
+        font-size: 0.55rem;
     }
 
     .resultsNightStage {
@@ -223,15 +422,11 @@
     }
 
     .resultsNightHeader {
-        display: none;
-    }
-
-    .resultsNightHeader {
         flex-wrap: nowrap;
         align-items: center;
         min-height: 38px;
-        padding: 0;
-        background: transparent;
+        padding: 3px 6px;
+        background: rgba(255, 255, 255, 0.06);
     }
 
     .resultsNightHeader>strong {
@@ -282,7 +477,7 @@
     .nightScoreboard {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 4px;
+        gap: 5px;
         align-items: stretch;
         min-height: 0;
         height: 100%;
@@ -295,27 +490,38 @@
         grid-template-columns: 1fr;
         grid-template-rows: repeat(9, minmax(0, 1fr));
         display: grid;
-        gap: 4px;
+        gap: 5px;
         min-height: 0;
         overflow: visible;
     }
 
     .nightScoreboardCard {
-        grid-template-columns: 21px 13px minmax(0, 1fr) 22px;
-        gap: 4px;
+        grid-template-columns: 18px 12px minmax(0, 1fr) 28px;
+        gap: 5px;
         min-height: 0;
         height: 100%;
-        padding: 1px 5px 1px 0;
-        border-radius: 6px;
+        padding: 1px 1px 1px 0;
+        border-radius: 25px;
+        overflow: visible;
+        align-content: center;
+    }
+
+    .nightScoreboardCard>*:not(.nightAward) {
+        min-width: 0;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .nightScoreboardCard>.nightScoreWrap {
         overflow: visible;
     }
 
-    .nightScoreboardCard > :nth-child(2) {
+    .nightScoreboardCard> :nth-child(2) {
         justify-self: center;
-        width: 13px;
-        max-width: 13px;
-        height: 13px;
-        max-height: 13px;
+        width: 12px;
+        max-width: 12px;
+        height: 12px;
+        max-height: 12px;
         object-fit: contain;
         font-size: 0.68rem;
         line-height: 1;
@@ -328,34 +534,36 @@
     .nightCountry,
     .nightCountry strong {
         min-width: 0;
+        min-height: 10px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: clip;
         line-height: 1;
-    }
-
-    .nightCountry strong {
-        font-size: 0.58rem;
-    }
-
-    .nightCountry {
-        font-size: 0.58rem;
+        display: block;
+        font-size: clamp(0.46rem, 1.55svh, 0.56rem);
     }
 
     .nightScoreWrap {
         display: flex;
         align-items: center;
-        justify-content: flex-end;
-        width: auto;
-        min-width: 22px;
-        padding-left: 0;
-        overflow: visible;
+        min-width: 20px;
+        min-height: 0;
+        padding-top: 0;
+        justify-content: center;
+        margin-top: 8px;
+    }
+
+    .nightScoreWrap strong,
+    .nightScoreWrap span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;
+        font-size: clamp(0.5rem, 1.7svh, 0.62rem);
+        line-height: 1;
     }
 
     .nightScore {
-        min-width: 2ch;
-        font-size: 0.66rem;
-        line-height: 1;
+        font-size: clamp(0.5rem, 1.7svh, 0.62rem);
     }
 
     .nightScoreboard .nightScoreWrap .nightScore {
@@ -368,31 +576,6 @@
         text-overflow: clip;
     }
 
-    .scoreRoller span {
-        text-align: right;
-    }
-
-    .nightRank {
-        align-self: center;
-        justify-self: center;
-        display: grid;
-        place-items: center;
-        width: 17px;
-        min-width: 17px;
-        height: 17px;
-        margin-block: 0;
-        padding: 0;
-        border-right: 0;
-        border-radius: 4px;
-        font-size: 0.52rem;
-        line-height: 1;
-    }
-
-    .nightScoreboardCard.awarded {
-        z-index: 8;
-        scale: 1.012;
-    }
-
     .nightScoreboardCard.podiumFirst,
     .nightScoreboardCard.podiumSecond,
     .nightScoreboardCard.podiumThird,
@@ -400,20 +583,381 @@
         scale: 1.006;
     }
 
-    .nightScoreboardCard.awarded.resetting {
-        scale: 1;
-        animation: none;
-    }
-
     .nightAward {
-        top: -0.55rem;
-        right: 0;
-        z-index: 10;
-        font-size: 0.62rem;
+        top: 50%;
+        left: 50%;
+        z-index: 1200;
+        font-size: clamp(0.5rem, 1.7svh, 0.62rem);
         line-height: 1;
         text-shadow:
             0 1px 4px rgba(0, 0, 0, 0.85),
             0 0 8px rgba(117, 240, 255, 0.55);
         pointer-events: none;
+    }
+}
+
+.centerTelevoteScore {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10001;
+    color: #fff;
+    font-size: clamp(3.4rem, 10vw, 8rem);
+    font-weight: 950;
+    line-height: 1;
+    text-shadow:
+        0 20px 55px rgba(0, 0, 0, 0.58),
+        0 0 30px rgba(117, 240, 255, 0.28);
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(1);
+    transform-origin: center;
+    animation: televote-jackpot-grow 2600ms cubic-bezier(0.12, 0.86, 0.2, 1) forwards;
+}
+
+.centerTelevoteScore span {
+    display: block;
+    transform-origin: center;
+    animation:
+        televote-jackpot-shake 84ms cubic-bezier(0.5, 0.05, 0.5, 0.95) 30 alternate,
+        televote-jackpot-settle 120ms ease-out 2520ms forwards;
+}
+
+.centerTelevoteScore.flying {
+    animation: televote-score-fly 900ms cubic-bezier(0.16, 0.84, 0.26, 1) forwards;
+}
+
+.centerTelevoteScore.flying span {
+    animation: none;
+}
+
+.centerStaticAward {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10001;
+    color: #75f0ff;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-size: clamp(3.2rem, 9vw, 7.2rem);
+    font-weight: 950;
+    line-height: 1;
+    text-shadow:
+        0 20px 55px rgba(0, 0, 0, 0.58),
+        0 0 34px rgba(255, 214, 79, 0.35);
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(1);
+    animation: static-award-anticipation 500ms ease both;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+}
+
+.centerStaticAward.flying {
+    animation: static-award-fly 2400ms cubic-bezier(0.16, 0.84, 0.26, 1) forwards;
+}
+
+.winnerReveal {
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255, 214, 79, 0.42);
+    background: rgba(255, 214, 79, 0.12);
+    animation: winner-reveal 720ms ease both;
+}
+
+.winnerReveal span {
+    color: #ffe66b;
+    font-size: 0.82rem;
+    font-weight: 950;
+    text-transform: uppercase;
+}
+
+.winnerReveal strong {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.55rem;
+}
+
+@keyframes local-award-pocket {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 0.58em) scale(1);
+        animation-timing-function: cubic-bezier(0.12, 0.86, 0.2, 1);
+    }
+
+    14% {
+        opacity: 1;
+        transform: translate(-50%, 0.22em) scale(1);
+        animation-timing-function: linear;
+    }
+
+    48% {
+        opacity: 1;
+        transform: translate(-50%, 0.22em) scale(1);
+        animation-timing-function: cubic-bezier(0.05, 0.82, 0.16, 1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.12);
+    }
+}
+
+@keyframes awarded-card-sweep {
+    0% {
+        opacity: 0.8;
+        transform: scaleX(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+@keyframes awarded-card-reset {
+    0% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+}
+
+@keyframes score-impact {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    18% {
+        transform: rotate(-45deg);
+    }
+
+    36% {
+        transform: rotate(42deg);
+    }
+
+    54% {
+        transform: rotate(-28deg);
+    }
+
+    72% {
+        transform: rotate(18deg);
+    }
+}
+
+@keyframes score-roll {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-1em);
+    }
+}
+
+@keyframes active-night-pulse {
+
+    0%,
+    100% {
+        scale: 1;
+    }
+
+    50% {
+        scale: 1.024;
+    }
+}
+
+@keyframes completed-sweep {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes night-lock-hit {
+    0% {
+        opacity: 0;
+        transform: translate(18px, -50%) scale(0);
+    }
+
+    58% {
+        opacity: 1;
+        transform: translate(2px, -50%) scale(1.18);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, -50%) scale(1);
+    }
+}
+
+@keyframes televote-jackpot-grow {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.06);
+    }
+
+    10% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.18);
+    }
+
+    24% {
+        transform: translate(-50%, -50%) scale(0.36);
+    }
+
+    48% {
+        transform: translate(-50%, -50%) scale(0.72);
+    }
+
+    60% {
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+
+    72% {
+        transform: translate(-50%, -50%) scale(1.08);
+    }
+
+    88% {
+        transform: translate(-50%, -50%) scale(1.04);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes televote-jackpot-shake {
+    from {
+        transform: rotate(-10deg);
+    }
+
+    to {
+        transform: rotate(10deg);
+    }
+}
+
+@keyframes televote-jackpot-settle {
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes lock-open-vanish {
+
+    0%,
+    54% {
+        opacity: 1;
+    }
+
+    55%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes lock-closed-click {
+
+    0%,
+    50% {
+        opacity: 0;
+        transform: translateY(-2px) scale(0.82);
+    }
+
+    64% {
+        opacity: 1;
+        transform: translateY(1px) scale(1.12);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes lock-rays-click {
+    0% {
+        opacity: 0;
+        transform: translateY(-2px) scale(0.7);
+    }
+
+    45% {
+        opacity: 1;
+        transform: translateY(-4px) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-6px) scale(1.08);
+    }
+}
+
+@keyframes televote-score-fly {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(calc(var(--target-x) - 50vw),
+                calc(var(--target-y) - 50vh)) scale(0.16);
+    }
+}
+
+@keyframes static-award-anticipation {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes static-award-fly {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    18% {
+        transform: translate(-50%, -50%) scale(0.82);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--target-x)),
+                calc(-50% + var(--target-y))) scale(0.12);
+    }
+}
+
+@keyframes winner-reveal {
+    from {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1.03);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
 }

@@ -60,6 +60,10 @@ import FlagEmoji from "./FlagEmoji";
 type PredictionPanelProps = {
   year: string;
   songs: Song[];
+  mode?: "predictions" | "results";
+  initialStageKey?: ContestStageKey;
+  onOpenResults?: (stageKey: ContestStageKey) => void;
+  onOpenPredictions?: (stageKey: ContestStageKey) => void;
 };
 
 type FinalsRevealProgress = NonNullable<PredictionState["finalsRevealProgress"]>;
@@ -123,9 +127,10 @@ const RESULTS_VIDEO_LEAD_IN_MS = 1000;
 const YOUTUBE_PLAYER_PLAYING = 1;
 const RESULTS_VIDEO_PREROLL_MS = 500;
 const JURY_AWARD_STAGGER_MS = 100;
-const JURY_AWARD_MERGE_PAUSE_MS = 2500;
-const JURY_AWARD_MERGE_STAGGER_MS = 200;
-const JURY_AWARD_REMOVE_AFTER_MERGE_MS = 300;
+const JURY_AWARD_ANIMATION_MS = 2400;
+const JURY_AWARD_SCORE_IMPACT_MS = 1560;
+const JURY_AWARD_MERGE_STAGGER_MS = JURY_AWARD_STAGGER_MS;
+const JURY_AWARD_REMOVE_AFTER_MERGE_MS = 320;
 const JURY_SCORE_APPLY_MS = 9000;
 const TWELVE_POINT_HOLD_MS = 1000;
 const TWELVE_POINT_FLIGHT_MS = 2400;
@@ -134,6 +139,10 @@ const TELEVOTE_REVEAL_HOLD_MS = 1000;
 const TELEVOTE_REVEAL_FLIGHT_MS = 900;
 const SCORE_RESHUFFLE_MS = 4200;
 
+function smoothScoreProgress(progress: number) {
+  return 1 - Math.pow(1 - progress, 5);
+}
+
 function emptyPredictionState(key: string): PredictionState {
   return {
     key,
@@ -141,6 +150,26 @@ function emptyPredictionState(key: string): PredictionState {
     revealedSongIds: [],
     updatedAt: new Date().toISOString(),
   };
+}
+
+function stripRevealState(state: PredictionState): PredictionState {
+  return {
+    ...state,
+    revealMode: undefined,
+    useResultsVideo: undefined,
+    juryVideoSegment: undefined,
+    autoAdvanceJury: undefined,
+    revealStartedAt: undefined,
+    revealOrderIds: undefined,
+    revealedSongIds: [],
+    finalsRevealProgress: undefined,
+    summaryViewedAt: undefined,
+    updatedAt: new Date().toISOString(),
+  };
+}
+
+function savedRevealSessionKey(predictionKey: string) {
+  return `eurovision-ranker:saved-reveal-session:${predictionKey}`;
 }
 
 function orderedQualifiers(qualifiers: Song[]) {
@@ -197,6 +226,8 @@ function scoreSort(
 ) {
   const scoreDiff = (scores[b.id] ?? 0) - (scores[a.id] ?? 0);
   if (scoreDiff !== 0) return scoreDiff;
+  const countryDiff = b.country.localeCompare(a.country);
+  if (countryDiff !== 0) return countryDiff;
   return a.actualPlacement - b.actualPlacement;
 }
 
@@ -329,6 +360,22 @@ function juryAssetVideoUrl(year: number, country: string) {
 
 function televoteAssetVideoUrl(year: number) {
   return `/assets/televote/${year}-televote.webm`;
+}
+
+function semiFinalAssetVideoUrl(year: number, stageKey: ContestStageKey) {
+  return `/assets/semifinals/${year}-${stageKey}.webm`;
+}
+
+function qualifierTimestampSeconds(song: Song) {
+  const timedSong = song as Song & {
+    assetsQualifiedAnnouncedAt?: number | null;
+    qualifiedAnnouncedAt?: number | null;
+  };
+
+  return (
+    timestampSeconds(timedSong.assetsQualifiedAnnouncedAt) ??
+    timestampSeconds(timedSong.qualifiedAnnouncedAt)
+  );
 }
 
 function hasJuryAssetTimestamps(delegation?: ResultDelegation) {
@@ -464,10 +511,16 @@ function PredictionStagePanel({
   year,
   stage,
   songs,
+  mode = "predictions",
+  onOpenResults,
+  onOpenPredictions,
 }: {
   year: string;
   stage: ContestStage;
   songs: Song[];
+  mode?: "predictions" | "results";
+  onOpenResults?: (stageKey: ContestStageKey) => void;
+  onOpenPredictions?: (stageKey: ContestStageKey) => void;
 }) {
   const predictionKey = predictionKeyForStage(year, stage.key);
   const semiSongs = useMemo(
@@ -496,6 +549,10 @@ function PredictionStagePanel({
   );
   const [dataError, setDataError] = useState("");
   const [resultsWarningOpen, setResultsWarningOpen] = useState(false);
+  const [predictionPromptOpen, setPredictionPromptOpen] = useState(false);
+  const [selectedRevealMode, setSelectedRevealMode] =
+    useState<NonNullable<PredictionState["revealMode"]>>("step");
+  const [selectedUseResultsVideo, setSelectedUseResultsVideo] = useState(false);
   const [flyingSongId, setFlyingSongId] = useState<string | null>(null);
   const [justLandedSongId, setJustLandedSongId] = useState<string | null>(null);
   const [flyingStyle, setFlyingStyle] = useState<{
@@ -515,12 +572,20 @@ function PredictionStagePanel({
     setJustLandedSongId(null);
     setFlyingStyle(null);
     setResultsWarningOpen(false);
+    setPredictionPromptOpen(false);
 
     async function loadSaved() {
       try {
         const saved = await loadPrediction(predictionKey);
         if (!active) return;
-        setState(saved ?? emptyPredictionState(predictionKey));
+        const nextState = saved ?? emptyPredictionState(predictionKey);
+        if (nextState.revealStartedAt) {
+          const predictionOnlyState = stripRevealState(nextState);
+          setState(predictionOnlyState);
+          void savePrediction(predictionOnlyState).catch(() => undefined);
+        } else {
+          setState(nextState);
+        }
         setDataError("");
       } catch (error) {
         if (!active) return;
@@ -537,18 +602,19 @@ function PredictionStagePanel({
   }, [predictionKey]);
 
   const selectedIds = new Set(state.selectedSongIds);
+  const hasLockedPrediction = Boolean(
+    state.lockedAt && state.selectedSongIds.length > 0,
+  );
   const revealedIds = new Set(state.revealedSongIds);
   const predictedAndQualified = officialQualifiers.filter((song) =>
     selectedIds.has(song.id),
-  );
-  const revealedCorrect = officialQualifiers.filter(
-    (song) => revealedIds.has(song.id) && selectedIds.has(song.id),
   );
   const revealOrderIds = state.revealOrderIds ?? [];
   const revealComplete =
     Boolean(state.revealStartedAt) &&
     state.revealedSongIds.length >= PREDICTION_SIZE;
-  const summaryVisible = revealComplete && Boolean(state.summaryViewedAt);
+  const summaryVisible =
+    revealComplete && (Boolean(state.summaryViewedAt) || !hasLockedPrediction);
   const nextRevealId = revealOrderIds.find((id) => !revealedIds.has(id));
   const nextRevealSong = nextRevealId
     ? semiSongs.find((song) => song.id === nextRevealId)
@@ -556,6 +622,13 @@ function PredictionStagePanel({
   const flyingSong = flyingSongId
     ? semiSongs.find((song) => song.id === flyingSongId)
     : undefined;
+  const hasSemiVideoTimestamps = officialQualifiers.some(
+    (song) => typeof qualifierTimestampSeconds(song) === "number",
+  );
+  const useSemiVideoReveal =
+    mode === "results" &&
+    state.revealMode === "eurovision-night" &&
+    Boolean(state.useResultsVideo);
 
   async function persist(nextState: PredictionState) {
     setState(nextState);
@@ -594,34 +667,58 @@ function PredictionStagePanel({
     });
   }
 
+  function unlockPrediction() {
+    void persist({
+      ...state,
+      lockedAt: undefined,
+      revealMode: undefined,
+      revealStartedAt: undefined,
+      revealOrderIds: undefined,
+      revealedSongIds: [],
+      summaryViewedAt: undefined,
+      updatedAt: new Date().toISOString(),
+    });
+  }
+
   function startReveal() {
     if (!hasOfficialResults) return;
+    if (
+      !state.lockedAt &&
+      localStorage.getItem("eurovision-ranker:skip-prediction-first-prompt") !==
+      "true"
+    ) {
+      setPredictionPromptOpen(true);
+      setResultsWarningOpen(false);
+      return;
+    }
+
+    commitReveal();
+  }
+
+  function commitReveal() {
     const nextRevealOrder =
       state.revealOrderIds ??
       orderedQualifiers(officialQualifiers).map((song) => song.id);
 
     void persist({
       ...state,
+      revealMode: selectedRevealMode,
+      useResultsVideo:
+        selectedRevealMode === "eurovision-night" && selectedUseResultsVideo,
       revealStartedAt: state.revealStartedAt ?? new Date().toISOString(),
       revealOrderIds: nextRevealOrder,
-      revealedSongIds: state.revealedSongIds ?? [],
+      revealedSongIds:
+        selectedRevealMode === "instant"
+          ? nextRevealOrder
+          : state.revealedSongIds ?? [],
       updatedAt: new Date().toISOString(),
     });
     setResultsWarningOpen(false);
+    setPredictionPromptOpen(false);
   }
 
-  function revealNextQualifier() {
+  function revealQualifier(nextId: string) {
     if (flyingSongId) return;
-    if (revealComplete) {
-      void persist({
-        ...state,
-        summaryViewedAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      });
-      return;
-    }
-    const nextId = revealOrderIds.find((id) => !revealedIds.has(id));
-    if (!nextId) return;
     const sourceNode = sourceRefs.current.get(nextId);
     const targetNode = nextLandingRef.current;
     const sourceRect = sourceNode?.getBoundingClientRect();
@@ -656,6 +753,44 @@ function PredictionStagePanel({
       revealedSongIds: [...state.revealedSongIds, nextId],
       updatedAt: new Date().toISOString(),
     });
+  }
+
+  function revealNextQualifier() {
+    if (flyingSongId) return;
+    if (revealComplete) {
+      void persist({
+        ...state,
+        summaryViewedAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      });
+      return;
+    }
+    const nextId = revealOrderIds.find((id) => !revealedIds.has(id));
+    if (!nextId) return;
+    revealQualifier(nextId);
+  }
+
+  function revealDueVideoQualifier(currentTime: number) {
+    if (!useSemiVideoReveal || flyingSongId || revealComplete) return;
+    const dueSong = revealOrderIds
+      .map((id) => semiSongs.find((song) => song.id === id))
+      .find((song) => {
+        if (!song || revealedIds.has(song.id)) return false;
+        const timestamp = qualifierTimestampSeconds(song);
+        return typeof timestamp === "number" && currentTime >= timestamp;
+      });
+
+    if (dueSong) revealQualifier(dueSong.id);
+  }
+
+  function resetRevealState() {
+    const nextState = stripRevealState(state);
+    void persist(nextState);
+    setFlyingSongId(null);
+    setJustLandedSongId(null);
+    setFlyingStyle(null);
+    setResultsWarningOpen(false);
+    setPredictionPromptOpen(false);
   }
 
   async function resetPrediction() {
@@ -693,26 +828,71 @@ function PredictionStagePanel({
     <section className="predictionPanel">
       <div className="predictionHeader">
         <div>
-          <h2>{stage.label} Predictions</h2>
+          <h2>
+            {mode === "results"
+              ? `${stage.label} Results`
+              : `${stage.label} Predictions`}
+          </h2>
           <p>
-            Pick exactly {PREDICTION_SIZE} qualifiers. Auto-qualified entries
-            are excluded from predictions.
+            {mode === "results"
+              ? "Choose how to reveal the official qualifiers."
+              : `Pick exactly ${PREDICTION_SIZE} qualifiers. Auto-qualified entries are excluded from predictions.`}
           </p>
         </div>
-        {state.lockedAt ? (
-          <button
-            className="secondaryButton"
-            type="button"
-            onClick={resetPrediction}
-          >
-            <RotateCcw size={16} /> Reset
-          </button>
+        {state.lockedAt && mode === "predictions" ? (
+          <div className="placementHeaderActions">
+            <button
+              className="secondaryButton"
+              type="button"
+              onClick={unlockPrediction}
+            >
+              <LockKeyholeOpen size={16} /> Change Predictions
+            </button>
+            <button
+              className="secondaryButton"
+              type="button"
+              onClick={resetPrediction}
+            >
+              <RotateCcw size={16} /> Reset
+            </button>
+          </div>
         ) : null}
       </div>
 
       {dataError ? <div className="dataError">{dataError}</div> : null}
 
-      {!state.lockedAt ? (
+      {mode === "results" && !state.revealStartedAt ? (
+        <div className="revealSetupPanel">
+          {hasOfficialResults ? (
+            <>
+              <RevealModeFields
+                selectedMode={selectedRevealMode}
+                onSelectedModeChange={setSelectedRevealMode}
+                useResultsVideo={selectedUseResultsVideo}
+                onUseResultsVideoChange={setSelectedUseResultsVideo}
+                juryVideoSegment="twelve-point"
+                onJuryVideoSegmentChange={() => undefined}
+                autoAdvanceJury={false}
+                onAutoAdvanceJuryChange={() => undefined}
+                showGrandFinalOptions={false}
+              />
+              <div className="predictionFooter">
+                <button
+                  className="primaryButton"
+                  type="button"
+                  onClick={() => setResultsWarningOpen(true)}
+                >
+                  View Results
+                </button>
+              </div>
+            </>
+          ) : (
+            <span className="predictionNote">
+              Official results are not available for this semi-final yet.
+            </span>
+          )}
+        </div>
+      ) : mode === "predictions" && !state.lockedAt ? (
         <>
           <div className="predictionCounter">
             Selected: {state.selectedSongIds.length} / {PREDICTION_SIZE}
@@ -752,20 +932,40 @@ function PredictionStagePanel({
             </button>
           </div>
         </>
-      ) : !state.revealStartedAt ? (
+      ) : mode === "predictions" ? (
         <div className="predictionLocked">
           <h3>Prediction locked</h3>
           <p>
-            Your picks are saved. Results stay hidden until you choose to reveal
-            them.
+            Your picks are saved. Open Results when you are ready to reveal the
+            official qualifiers and see how you did.
           </p>
+          <div className="predictionCounter">
+            Selected: {state.selectedSongIds.length} / {PREDICTION_SIZE}
+          </div>
+          <div className="predictionGrid compactPredictionGrid">
+            {semiSongs
+              .filter((song) => selectedIds.has(song.id))
+              .map((song) => (
+                <span key={song.id} className="predictionSong selected">
+                  <FlagEmoji
+                    alt=""
+                    code={song.countryCode}
+                    src={song.flagEmoji}
+                  />
+                  <span>
+                    <strong>{song.country}</strong>
+                    <small>{song.artist}</small>
+                  </span>
+                </span>
+              ))}
+          </div>
           {hasOfficialResults ? (
             <button
               className="primaryButton"
               type="button"
-              onClick={() => setResultsWarningOpen(true)}
+              onClick={() => onOpenResults?.(stage.key)}
             >
-              View Qualification Results
+              Go To {stage.label} Results
             </button>
           ) : (
             <span className="predictionNote">
@@ -775,96 +975,163 @@ function PredictionStagePanel({
         </div>
       ) : summaryVisible ? (
         <div className="predictionSummary">
-          <h3>Prediction Accuracy</h3>
-          <strong>
-            {predictedAndQualified.length} / {PREDICTION_SIZE} Correct
-          </strong>
-          <span>
-            {Math.round((predictedAndQualified.length / PREDICTION_SIZE) * 100)}
-            % Accuracy
-          </span>
-          <div className="predictionSummaryGrid">
-            <PredictionResultList
-              title="Predicted and Qualified"
-              songs={semiSongs.filter(
-                (song) => selectedIds.has(song.id) && isOfficialQualifier(song),
-              )}
-            />
-            <PredictionResultList
-              title="Predicted but Eliminated"
-              songs={semiSongs.filter(
-                (song) =>
-                  selectedIds.has(song.id) && song.qualifiedForFinal === false,
-              )}
-            />
-            <PredictionResultList
-              title="Not Predicted but Qualified"
-              songs={semiSongs.filter(
-                (song) =>
-                  !selectedIds.has(song.id) && isOfficialQualifier(song),
-              )}
-            />
-            <PredictionResultList
-              title="Not Qualified"
-              songs={semiSongs.filter(
-                (song) => song.qualifiedForFinal === false,
-              )}
-            />
+          <div className="resultsDetailActions">
+            <button
+              className="secondaryButton"
+              type="button"
+              onClick={resetRevealState}
+            >
+              Back to Results Setup
+            </button>
           </div>
+          {hasLockedPrediction ? (
+            <>
+              <h3>Prediction Accuracy</h3>
+              <strong>
+                {predictedAndQualified.length} / {PREDICTION_SIZE} Correct
+              </strong>
+              <span>
+                {Math.round(
+                  (predictedAndQualified.length / PREDICTION_SIZE) * 100,
+                )}
+                % Accuracy
+              </span>
+              <div className="predictionSummaryGrid">
+                <PredictionResultList
+                  title="Predicted and Qualified"
+                  songs={semiSongs.filter(
+                    (song) =>
+                      selectedIds.has(song.id) && isOfficialQualifier(song),
+                  )}
+                />
+                <PredictionResultList
+                  title="Predicted but Eliminated"
+                  songs={semiSongs.filter(
+                    (song) =>
+                      selectedIds.has(song.id) &&
+                      song.qualifiedForFinal === false,
+                  )}
+                />
+                <PredictionResultList
+                  title="Not Predicted but Qualified"
+                  songs={semiSongs.filter(
+                    (song) =>
+                      !selectedIds.has(song.id) && isOfficialQualifier(song),
+                  )}
+                />
+                <PredictionResultList
+                  title="Not Qualified"
+                  songs={semiSongs.filter(
+                    (song) => song.qualifiedForFinal === false,
+                  )}
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <h3>Qualification Results</h3>
+              <div className="predictionSummaryGrid">
+                <PredictionResultList
+                  title="Qualified"
+                  songs={semiSongs.filter(isOfficialQualifier)}
+                />
+                <PredictionResultList
+                  title="Didn't Qualify"
+                  songs={semiSongs.filter(
+                    (song) => song.qualifiedForFinal === false,
+                  )}
+                />
+              </div>
+            </>
+          )}
         </div>
       ) : (
         <div className="predictionReveal">
-          <div className="predictionScore">
-            Correct Predictions: {revealedCorrect.length} / {PREDICTION_SIZE}
+          <div className="resultsDetailActions">
+            <button
+              className="secondaryButton"
+              type="button"
+              onClick={resetRevealState}
+            >
+              Back to Results Setup
+            </button>
           </div>
+          {useSemiVideoReveal ? (
+            <div className="semiResultsVideo">
+              <video
+                controls
+                src={semiFinalAssetVideoUrl(Number(year), stage.key)}
+                onTimeUpdate={(event) =>
+                  revealDueVideoQualifier(event.currentTarget.currentTime)
+                }
+              />
+              {!hasSemiVideoTimestamps ? (
+                <p className="predictionNote">
+                  No timestamp data is available yet, so use the reveal button
+                  below.
+                </p>
+              ) : null}
+            </div>
+          ) : null}
           {randomRevealOrder ? (
             <p className="predictionNote">Qualifiers shown in random order.</p>
           ) : null}
           <div className="revealCountryCard">
-            {semiSongs.map((song) => {
-              const revealed = revealedIds.has(song.id);
-              if (revealed) return null;
-              return (
-                <span
-                  key={song.id}
-                  ref={(node) => {
-                    if (node) sourceRefs.current.set(song.id, node);
-                    else sourceRefs.current.delete(song.id);
-                  }}
-                  className={[
-                    "revealPill",
-                    flyingSongId === song.id ? "flyingSource" : "",
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
-                >
-                  <FlagEmoji
-                    alt=""
-                    code={song.countryCode}
-                    src={song.flagEmoji}
-                  />
-                  {song.country}
-                </span>
-              );
-            })}
+            <h3>Remaining</h3>
+            <div>
+              {semiSongs.map((song) => {
+                const revealed = revealedIds.has(song.id);
+                if (revealed) return null;
+                return (
+                  <span
+                    key={song.id}
+                    ref={(node) => {
+                      if (node) sourceRefs.current.set(song.id, node);
+                      else sourceRefs.current.delete(song.id);
+                    }}
+                    className={[
+                      "revealPill",
+                      flyingSongId === song.id ? "flyingSource" : "",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                  >
+                    <FlagEmoji
+                      alt=""
+                      code={song.countryCode}
+                      src={song.flagEmoji}
+                    />
+                    {song.country}
+                  </span>
+                );
+              }
+              )}
+            </div>
           </div>
-          <button
-            className="primaryButton"
-            type="button"
-            disabled={Boolean(flyingSongId)}
-            onClick={revealNextQualifier}
-          >
-            {revealComplete ? "See Final Statistics" : "Reveal Next Qualifier"}
-          </button>
+          {(!useSemiVideoReveal || !hasSemiVideoTimestamps || revealComplete) &&
+            (hasLockedPrediction || !revealComplete) ? (
+            <button
+              className="primaryButton"
+              type="button"
+              disabled={Boolean(flyingSongId)}
+              onClick={revealNextQualifier}
+            >
+              {revealComplete
+                ? "See Final Statistics"
+                : "Reveal Next Qualifier"}
+            </button>
+          ) : null}
           <div className="revealedQualifiers">
-            <h3>Already Revealed Qualifiers</h3>
+            <h3>Qualified</h3>
             <div>
               {state.revealedSongIds.length
                 ? state.revealedSongIds.map((songId) => {
                   const song = semiSongs.find((item) => item.id === songId);
                   if (!song) return null;
-                  const correct = selectedIds.has(song.id);
-                  const missed = !selectedIds.has(song.id);
+                  const correct =
+                    hasLockedPrediction && selectedIds.has(song.id);
+                  const missed =
+                    hasLockedPrediction && !selectedIds.has(song.id);
                   return (
                     <span
                       className={[
@@ -959,6 +1226,62 @@ function PredictionStagePanel({
                 onClick={startReveal}
               >
                 Continue
+              </button>
+            </div>
+          </section>
+        </div>
+      ) : null}
+      {predictionPromptOpen ? (
+        <div
+          className="spoilerModal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="semi-prediction-first-title"
+        >
+          <div className="spoilerBackdrop" />
+          <section className="spoilerDialog">
+            <h2 id="semi-prediction-first-title">
+              Want to Make Predictions First?
+            </h2>
+            <p>
+              If you make predictions before viewing results, the app can show
+              accuracy statistics after the reveal.
+            </p>
+            <label className="spoilerCheckbox">
+              <input
+                type="checkbox"
+                onChange={(event) => {
+                  if (event.target.checked) {
+                    localStorage.setItem(
+                      "eurovision-ranker:skip-prediction-first-prompt",
+                      "true",
+                    );
+                  } else {
+                    localStorage.removeItem(
+                      "eurovision-ranker:skip-prediction-first-prompt",
+                    );
+                  }
+                }}
+              />
+              Don't show this again
+            </label>
+            <div className="spoilerActions">
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={() => {
+                  setPredictionPromptOpen(false);
+                  onOpenPredictions?.(stage.key);
+                }}
+              >
+                Take Me To Predictions
+              </button>
+              <button
+                className="primaryButton"
+                type="button"
+                onClick={commitReveal}
+              >
+                Continue To Results
               </button>
             </div>
           </section>
@@ -1120,52 +1443,70 @@ function PlacementRevealCard({
   song,
   predictedPlace,
   revealIndex,
+  revealed,
 }: {
   song: FinalistResult;
-  predictedPlace: number;
+  predictedPlace?: number;
   revealIndex: number;
+  revealed: boolean;
 }) {
-  const difference = predictedPlace - song.actualPlacement;
+  const hasPredictionComparison = typeof predictedPlace === "number";
+  const difference = hasPredictionComparison
+    ? predictedPlace - song.actualPlacement
+    : 0;
   const absoluteDifference = Math.abs(difference);
   const differenceClass =
-    difference === 0
-      ? "exact"
-      : difference > 0
-        ? "underestimated"
-        : "overestimated";
+    !hasPredictionComparison
+      ? ""
+      : difference === 0
+        ? "exact"
+        : difference > 0
+          ? "underestimated"
+          : "overestimated";
 
   return (
     <section
       className={[
         "placementRevealCard",
         `place-${song.actualPlacement}`,
+        revealed ? "revealed" : "unrevealed",
         differenceClass,
       ]
         .filter(Boolean)
         .join(" ")}
       style={{ "--reveal-index": revealIndex } as CSSProperties}
     >
-      <span className="placementRevealPlace">
-        {ordinal(song.actualPlacement)} Place
-      </span>
-      <div className="placementRevealIdentity">
-        <FlagEmoji alt="" code={song.countryCode} src={song.flagEmoji} />
-        <div>
-          <h3>{song.country}</h3>
-          <p>
-            {song.artist} / {song.title}
-          </p>
-        </div>
+      <div className="placementRevealFace placementRevealFront">
+        <span className="placementRevealPlace">
+          {ordinal(song.actualPlacement)} Place
+        </span>
+        <strong>Awaiting reveal</strong>
       </div>
-      <div className="placementComparison">
-        <strong>Predicted: {ordinal(predictedPlace)}</strong>
-        <strong>Actual: {ordinal(song.actualPlacement)}</strong>
-        <strong>
-          Difference:{" "}
-          {difference === 0
-            ? "Exact"
-            : `${difference > 0 ? "-" : "+"}${absoluteDifference}`}
-        </strong>
+      <div className="placementRevealFace placementRevealBack">
+        <span className="placementRevealPlace">
+          {ordinal(song.actualPlacement)} Place
+        </span>
+        <div className="placementRevealIdentity">
+          <FlagEmoji alt="" code={song.countryCode} src={song.flagEmoji} />
+          <div>
+            <h3>{song.country}</h3>
+            <p>
+              {song.artist} / {song.title}
+            </p>
+          </div>
+        </div>
+        {hasPredictionComparison ? (
+          <div className="placementComparison">
+            <strong>Predicted: {ordinal(predictedPlace)}</strong>
+            <strong>Actual: {ordinal(song.actualPlacement)}</strong>
+            <strong>
+              Difference:{" "}
+              {difference === 0
+                ? "Exact"
+                : `${difference > 0 ? "-" : "+"}${absoluteDifference}`}
+            </strong>
+          </div>
+        ) : null}
       </div>
     </section>
   );
@@ -1181,11 +1522,13 @@ function PlacementScoreboard({
   revealedIds,
   predictedPlaceById,
   revealOrderIds,
+  showPredictionComparison,
 }: {
   songs: FinalistResult[];
   revealedIds: Set<string>;
   predictedPlaceById: Map<string, number>;
   revealOrderIds: string[];
+  showPredictionComparison: boolean;
 }) {
   const [leftColumn, rightColumn] = splitScoreboard(songs);
   const revealIndexById = new Map(
@@ -1194,27 +1537,16 @@ function PlacementScoreboard({
 
   function renderCard(song: FinalistResult) {
     const revealed = revealedIds.has(song.id);
-    return revealed ? (
+    return (
       <PlacementRevealCard
         key={song.id}
         song={song}
-        predictedPlace={predictedPlaceById.get(song.id) ?? songs.length}
+        predictedPlace={
+          showPredictionComparison ? predictedPlaceById.get(song.id) : undefined
+        }
         revealIndex={revealIndexById.get(song.id) ?? 0}
+        revealed={revealed}
       />
-    ) : (
-      <section
-        key={song.id}
-        className={[
-          "placementRevealCard",
-          "unrevealed",
-          `place-${song.actualPlacement}`,
-        ].join(" ")}
-      >
-        <span className="placementRevealPlace">
-          {ordinal(song.actualPlacement)} Place
-        </span>
-        <strong>Awaiting reveal</strong>
-      </section>
     );
   }
 
@@ -1258,8 +1590,6 @@ function RevealModeModal({
   const [autoAdvanceJury, setAutoAdvanceJury] = useState(
     initialAutoAdvanceJury,
   );
-  const showVideoOptions = selectedMode === "eurovision-night";
-
   return (
     <div
       className="spoilerModal"
@@ -1270,91 +1600,17 @@ function RevealModeModal({
       <div className="spoilerBackdrop" />
       <section className="spoilerDialog revealModeDialog">
         <h2 id="reveal-mode-title">Choose Reveal Experience</h2>
-        <label className="revealModeOption">
-          <input
-            type="radio"
-            name="reveal-mode"
-            checked={selectedMode === "instant"}
-            onChange={() => setSelectedMode("instant")}
-          />
-          <span>
-            <strong>Instant Results</strong>
-            <small>Immediately reveal all placements and statistics.</small>
-          </span>
-        </label>
-        <label className="revealModeOption">
-          <input
-            type="radio"
-            name="reveal-mode"
-            checked={selectedMode === "step"}
-            onChange={() => setSelectedMode("step")}
-          />
-          <span>
-            <strong>Step-by-Step Reveal</strong>
-            <small>Reveal placements individually with suspense.</small>
-          </span>
-        </label>
-        <label className="revealModeOption">
-          <input
-            type="radio"
-            name="reveal-mode"
-            checked={selectedMode === "eurovision-night"}
-            onChange={() => setSelectedMode("eurovision-night")}
-          />
-          <span>
-            <strong>Eurovision Results Night</strong>
-            <small>Recreate the jury and televote scoreboard sequence.</small>
-          </span>
-        </label>
-        {showVideoOptions ? (
-          <div className="revealVideoOptions">
-            <label className="revealModeOption compact">
-              <input
-                type="checkbox"
-                checked={useResultsVideo}
-                onChange={(event) => setUseResultsVideo(event.target.checked)}
-              />
-              <span>
-                <strong>Use Livestream Video</strong>
-                <small>Sync available jury and televote timestamps.</small>
-              </span>
-            </label>
-            {useResultsVideo ? (
-              <fieldset className="revealSegmentOptions">
-                <legend>Jury video length</legend>
-                <label>
-                  <input
-                    type="radio"
-                    name="jury-video-segment"
-                    checked={juryVideoSegment === "twelve-point"}
-                    onChange={() => setJuryVideoSegment("twelve-point")}
-                  />
-                  <span>12-point moment only</span>
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="jury-video-segment"
-                    checked={juryVideoSegment === "full-call"}
-                    onChange={() => setJuryVideoSegment("full-call")}
-                  />
-                  <span>Whole delegation call</span>
-                </label>
-              </fieldset>
-            ) : null}
-            <label className="revealModeOption compact">
-              <input
-                type="checkbox"
-                checked={autoAdvanceJury}
-                onChange={(event) => setAutoAdvanceJury(event.target.checked)}
-              />
-              <span>
-                <strong>Auto-Advance Jury</strong>
-                <small>Automatically continue to the next delegation.</small>
-              </span>
-            </label>
-          </div>
-        ) : null}
+        <RevealModeFields
+          selectedMode={selectedMode}
+          onSelectedModeChange={setSelectedMode}
+          useResultsVideo={useResultsVideo}
+          onUseResultsVideoChange={setUseResultsVideo}
+          juryVideoSegment={juryVideoSegment}
+          onJuryVideoSegmentChange={setJuryVideoSegment}
+          autoAdvanceJury={autoAdvanceJury}
+          onAutoAdvanceJuryChange={setAutoAdvanceJury}
+          showGrandFinalOptions
+        />
         <div className="spoilerActions">
           <button className="secondaryButton" type="button" onClick={onCancel}>
             Cancel
@@ -1381,11 +1637,142 @@ function RevealModeModal({
   );
 }
 
+function RevealModeFields({
+  selectedMode,
+  onSelectedModeChange,
+  useResultsVideo,
+  onUseResultsVideoChange,
+  juryVideoSegment,
+  onJuryVideoSegmentChange,
+  autoAdvanceJury,
+  onAutoAdvanceJuryChange,
+  showGrandFinalOptions,
+}: {
+  selectedMode: NonNullable<PredictionState["revealMode"]>;
+  onSelectedModeChange: (
+    mode: NonNullable<PredictionState["revealMode"]>,
+  ) => void;
+  useResultsVideo: boolean;
+  onUseResultsVideoChange: (useVideo: boolean) => void;
+  juryVideoSegment: NonNullable<PredictionState["juryVideoSegment"]>;
+  onJuryVideoSegmentChange: (
+    segment: NonNullable<PredictionState["juryVideoSegment"]>,
+  ) => void;
+  autoAdvanceJury: boolean;
+  onAutoAdvanceJuryChange: (autoAdvance: boolean) => void;
+  showGrandFinalOptions: boolean;
+}) {
+  const showVideoOptions = selectedMode === "eurovision-night";
+  const optionName = showGrandFinalOptions
+    ? "grand-final-reveal-mode"
+    : "semi-final-reveal-mode";
+
+  return (
+    <>
+      <label className="revealModeOption">
+        <input
+          type="radio"
+          name={optionName}
+          checked={selectedMode === "instant"}
+          onChange={() => onSelectedModeChange("instant")}
+        />
+        <span>
+          <strong>Instant Results</strong>
+          <small>Immediately reveal all placements and statistics.</small>
+        </span>
+      </label>
+      <label className="revealModeOption">
+        <input
+          type="radio"
+          name={optionName}
+          checked={selectedMode === "step"}
+          onChange={() => onSelectedModeChange("step")}
+        />
+        <span>
+          <strong>Step-by-Step Reveal</strong>
+          <small>Reveal placements individually with suspense.</small>
+        </span>
+      </label>
+      <label className="revealModeOption">
+        <input
+          type="radio"
+          name={optionName}
+          checked={selectedMode === "eurovision-night"}
+          onChange={() => onSelectedModeChange("eurovision-night")}
+        />
+        <span>
+          <strong>Eurovision Results Night</strong>
+          <small>
+            {showGrandFinalOptions
+              ? "Recreate the jury and televote scoreboard sequence."
+              : "Reveal qualifiers with the results-night presentation."}
+          </small>
+        </span>
+      </label>
+      {showVideoOptions ? (
+        <div className="revealVideoOptions">
+          <label className="revealModeOption compact">
+            <input
+              type="checkbox"
+              checked={useResultsVideo}
+              onChange={(event) =>
+                onUseResultsVideoChange(event.target.checked)
+              }
+            />
+            <span>
+              <strong>Use Live Stream Video</strong>
+              <small>Sync available timestamps during the reveal.</small>
+            </span>
+          </label>
+          {showGrandFinalOptions && useResultsVideo ? (
+            <fieldset className="revealSegmentOptions">
+              <legend>Jury video length</legend>
+              <label>
+                <input
+                  type="radio"
+                  name="jury-video-segment"
+                  checked={juryVideoSegment === "twelve-point"}
+                  onChange={() => onJuryVideoSegmentChange("twelve-point")}
+                />
+                <span>12 Point Moment Only</span>
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="jury-video-segment"
+                  checked={juryVideoSegment === "full-call"}
+                  onChange={() => onJuryVideoSegmentChange("full-call")}
+                />
+                <span>Full Delegation Call</span>
+              </label>
+            </fieldset>
+          ) : null}
+          {showGrandFinalOptions ? (
+            <label className="revealModeOption compact">
+              <input
+                type="checkbox"
+                checked={autoAdvanceJury}
+                onChange={(event) =>
+                  onAutoAdvanceJuryChange(event.target.checked)
+                }
+              />
+              <span>
+                <strong>Auto Advance Jury</strong>
+                <small>Automatically continue to the next delegation.</small>
+              </span>
+            </label>
+          ) : null}
+        </div>
+      ) : null}
+    </>
+  );
+}
+
 function AnimatedScore({
   value,
   active,
   songId,
-  rollDuration = 400,
+  rollDuration = 600,
 }: {
   value: number;
   active?: boolean;
@@ -1411,7 +1798,7 @@ function AnimatedScore({
 
     function tick(now: number) {
       const progress = Math.min((now - startedAt) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
+      const eased = smoothScoreProgress(progress);
       const nextValue = Math.round(start + (end - start) * eased);
       displayValueRef.current = nextValue;
       setDisplayValue(nextValue);
@@ -1530,7 +1917,7 @@ function ResultNightScoreboard({
           .join(" ")}
       >
         <span className="nightRank">{index + 1}</span>
-        <FlagEmoji alt="" code={song.countryCode} src={song.flagEmoji} />
+        <img alt="" src={song.flagImageUrl} />
         <span className="nightCountry">
           <strong>{song.country}</strong>
           <small>{song.title}</small>
@@ -1540,12 +1927,17 @@ function ResultNightScoreboard({
             value={scores[song.id] ?? 0}
             active={Boolean(award)}
             songId={song.id}
-            rollDuration={slowRollingSongId === song.id ? 1000 : 400}
+            rollDuration={slowRollingSongId === song.id || award ? 1500 : 600}
           />
           {award ? (
             <em
               className="nightAward"
-              style={{ "--award-delay": `${award.delay}ms` } as CSSProperties}
+              style={
+                {
+                  "--award-delay": `${award.delay}ms`,
+                  "--award-flight-duration": `${award.flightDuration ?? 900}ms`,
+                } as CSSProperties
+              }
             >
               +{award.points}
             </em>
@@ -1909,7 +2301,9 @@ function EurovisionResultsNight({
   autoAdvanceJury,
   initialProgress,
   onProgressChange,
+  onBackToSetup,
   onSaveExit,
+  showStatisticsAction,
   onShowSummary,
 }: {
   songs: FinalistResult[];
@@ -1920,7 +2314,9 @@ function EurovisionResultsNight({
   autoAdvanceJury: boolean;
   initialProgress?: FinalsRevealProgress;
   onProgressChange: (progress: FinalsRevealProgress) => void;
+  onBackToSetup: () => void;
   onSaveExit: () => void;
+  showStatisticsAction: boolean;
   onShowSummary: () => void;
 }) {
   const juryDelegations = useMemo(
@@ -2053,6 +2449,12 @@ function EurovisionResultsNight({
     };
   }, []);
 
+  useEffect(() => {
+    if (!initialProgressRef.current && phase === "ready") {
+      startVoting();
+    }
+  }, []);
+
   function saveProgress(
     nextPhase: EurovisionNightPhase,
     nextJuryIndex = juryIndex,
@@ -2082,9 +2484,21 @@ function EurovisionResultsNight({
     schedule(() => {
       setResettingSongIds(new Set(songIds));
       schedule(() => {
-        setHighlightedSongIds(new Set());
-        setSettledHighlightSongIds(new Set());
-        setResettingSongIds(new Set());
+        setHighlightedSongIds((current) => {
+          const next = new Set(current);
+          songIds.forEach((songId) => next.delete(songId));
+          return next;
+        });
+        setSettledHighlightSongIds((current) => {
+          const next = new Set(current);
+          songIds.forEach((songId) => next.delete(songId));
+          return next;
+        });
+        setResettingSongIds((current) => {
+          const next = new Set(current);
+          songIds.forEach((songId) => next.delete(songId));
+          return next;
+        });
       }, 950);
     }, SCORE_RESHUFFLE_MS + 500);
   }
@@ -2096,9 +2510,7 @@ function EurovisionResultsNight({
   ) {
     const lowerAwardsMergeStartDelay =
       awardsToSchedule.length > 0
-        ? startDelay +
-        Math.max(0, awardsToSchedule.length - 1) * JURY_AWARD_STAGGER_MS +
-        JURY_AWARD_MERGE_PAUSE_MS
+        ? startDelay + JURY_AWARD_SCORE_IMPACT_MS
         : startDelay;
 
     schedule(() => {
@@ -2108,6 +2520,7 @@ function EurovisionResultsNight({
         ...awardsToSchedule.map((award, index) => ({
           ...award,
           delay: index * JURY_AWARD_STAGGER_MS,
+          flightDuration: JURY_AWARD_ANIMATION_MS,
         })),
       ]);
     }, startDelay);
@@ -2330,12 +2743,17 @@ function EurovisionResultsNight({
         [twelveRecipientId]:
           (current[twelveRecipientId] ?? 0) + twelvePointVote.points,
       }));
-      schedule(() => setSlowRollingSongId(undefined), 900);
+      schedule(() => setSlowRollingSongId(undefined), 1600);
     }, TWELVE_POINT_HOLD_MS + TWELVE_POINT_FLIGHT_MS - 950);
 
     schedule(() => {
       releaseFrozenScoreboard();
-      resetAwardedHighlightsAfterShuffle(new Set([twelveRecipientId]));
+      resetAwardedHighlightsAfterShuffle(
+        new Set([
+          ...sync.lowerAwards.map((award) => award.songId),
+          twelveRecipientId,
+        ]),
+      );
     }, TWELVE_POINT_HOLD_MS + TWELVE_POINT_FLIGHT_MS + 400);
   }
 
@@ -2389,16 +2807,8 @@ function EurovisionResultsNight({
           !sync.firedSongIds.has(entry.song.id),
       )
       .sort((a, b) => (a.announcedAt ?? 0) - (b.announcedAt ?? 0));
-    const nextWaitingEntry = pendingTelevoteEntries.find(
-      (entry) => (entry.announcedAt ?? 0) >= currentTime,
-    );
-
-    if (nextWaitingEntry && activeTelevoteSongId !== nextWaitingEntry.song.id) {
-      setActiveTelevoteSongId(nextWaitingEntry.song.id);
-    }
-
     const dueTelevoteSongs = pendingTelevoteEntries.filter(
-      (entry) => currentTime >= Math.max(0, (entry.announcedAt ?? 0)),
+      (entry) => currentTime >= Math.max(0, (entry.announcedAt ?? 0) + 1.5),
     );
 
     dueTelevoteSongs.slice(0, 1).forEach(({ song, index }) => {
@@ -2669,7 +3079,7 @@ function EurovisionResultsNight({
             (next[twelveRecipient.id] ?? 0) + twelvePointVote.points;
           return next;
         });
-        schedule(() => setSlowRollingSongId(undefined), 900);
+        schedule(() => setSlowRollingSongId(undefined), 1600);
       }, twelveScoreApplyDelay);
 
       schedule(() => {
@@ -2700,7 +3110,7 @@ function EurovisionResultsNight({
           [twelveRecipient.id]:
             (current[twelveRecipient.id] ?? 0) + twelvePointVote.points,
         }));
-        schedule(() => setSlowRollingSongId(undefined), 900);
+        schedule(() => setSlowRollingSongId(undefined), 1600);
         releaseFrozenScoreboard();
         resetAwardedHighlightsAfterShuffle(new Set([twelveRecipient.id]));
       }, fallbackTwelveApplyDelay);
@@ -2925,10 +3335,10 @@ function EurovisionResultsNight({
         activeTelevoteSongId={activeTelevoteSongId}
         televoteSongs={televoteSongs}
         completedTelevoteIds={completedTelevoteIds}
+        onBackToSetup={onBackToSetup}
         onSaveExit={handleSaveAndExit}
         hasTelevote={hasTelevote}
         skipToTelevote={skipToTelevote}
-        startVoting={startVoting}
         animating={animating}
         processNextJuryDelegation={processNextJuryDelegation}
         autoAdvanceJury={autoAdvanceJury}
@@ -2938,6 +3348,7 @@ function EurovisionResultsNight({
         processNextTelevote={processNextTelevote}
         activeVideo={activeVideo}
         currentTelevoteSong={currentTelevoteSong}
+        showStatisticsAction={showStatisticsAction}
         onShowSummary={onShowSummary}
       />
 
@@ -3019,12 +3430,19 @@ function PlacementPredictionPanel({
   year,
   stage,
   songs,
+  mode = "predictions",
+  onOpenResults,
+  onOpenPredictions,
 }: {
   year: string;
   stage: ContestStage;
   songs: Song[];
+  mode?: "predictions" | "results";
+  onOpenResults?: (stageKey: ContestStageKey) => void;
+  onOpenPredictions?: (stageKey: ContestStageKey) => void;
 }) {
   const predictionKey = predictionKeyForStage(year, stage.key);
+  const revealSessionKey = savedRevealSessionKey(predictionKey);
   const finalists = useMemo(
     () =>
       Number(year) <= 2003 ? songs : songsForContestStage(songs, "grand-final"),
@@ -3088,6 +3506,21 @@ function PlacementPredictionPanel({
   const [dataError, setDataError] = useState("");
   const [revealModeOpen, setRevealModeOpen] = useState(false);
   const [resumePromptOpen, setResumePromptOpen] = useState(false);
+  const [predictionPromptOpen, setPredictionPromptOpen] = useState(false);
+  const [pendingRevealOptions, setPendingRevealOptions] = useState<{
+    mode: NonNullable<PredictionState["revealMode"]>;
+    useResultsVideo: boolean;
+    juryVideoSegment: NonNullable<PredictionState["juryVideoSegment"]>;
+    autoAdvanceJury: boolean;
+  } | null>(null);
+  const [showFinalResultsWarning, setShowFinalResultsWarning] = useState(false);
+  const [viewingFinalResults, setViewingFinalResults] = useState(false);
+  const [selectedRevealMode, setSelectedRevealMode] =
+    useState<NonNullable<PredictionState["revealMode"]>>("instant");
+  const [selectedUseResultsVideo, setSelectedUseResultsVideo] = useState(true);
+  const [selectedJuryVideoSegment, setSelectedJuryVideoSegment] =
+    useState<NonNullable<PredictionState["juryVideoSegment"]>>("twelve-point");
+  const [selectedAutoAdvanceJury, setSelectedAutoAdvanceJury] = useState(false);
   const [instantAnimationComplete, setInstantAnimationComplete] =
     useState(false);
 
@@ -3096,22 +3529,35 @@ function PlacementPredictionPanel({
     setState(emptyPredictionState(predictionKey));
     setRevealModeOpen(false);
     setResumePromptOpen(false);
+    setPredictionPromptOpen(false);
+    setPendingRevealOptions(null);
+    setShowFinalResultsWarning(false);
+    setViewingFinalResults(false);
     setInstantAnimationComplete(false);
 
     async function loadSaved() {
       try {
         const saved = await loadPrediction(predictionKey);
         if (!active) return;
-        const nextState = saved ?? emptyPredictionState(predictionKey);
+        const loadedState = saved ?? emptyPredictionState(predictionKey);
+        const hasExplicitSavedSession =
+          mode === "results" &&
+          localStorage.getItem(revealSessionKey) === "true" &&
+          loadedState.revealMode === "eurovision-night" &&
+          Boolean(loadedState.revealStartedAt) &&
+          Boolean(loadedState.finalsRevealProgress) &&
+          !loadedState.summaryViewedAt;
+        const nextState =
+          loadedState.revealStartedAt && !hasExplicitSavedSession
+            ? stripRevealState(loadedState)
+            : loadedState;
+
         setState(nextState);
-        setResumePromptOpen(
-          Boolean(
-            nextState.revealMode === "eurovision-night" &&
-            nextState.revealStartedAt &&
-            nextState.finalsRevealProgress &&
-            !nextState.summaryViewedAt,
-          ),
-        );
+        setResumePromptOpen(hasExplicitSavedSession);
+        if (loadedState !== nextState) {
+          localStorage.removeItem(revealSessionKey);
+          void savePrediction(nextState).catch(() => undefined);
+        }
         setDataError("");
       } catch (error) {
         if (!active) return;
@@ -3125,7 +3571,7 @@ function PlacementPredictionPanel({
     return () => {
       active = false;
     };
-  }, [predictionKey]);
+  }, [mode, predictionKey, revealSessionKey]);
 
   const finalistById = new Map(finalists.map((song) => [song.id, song]));
   const predictedSongs = [
@@ -3139,6 +3585,10 @@ function PlacementPredictionPanel({
   const predictedBottom5 = predictedSongs.slice(-5);
   const predictedWinner = predictedSongs[0];
   const revealedIds = state.revealedSongIds ?? [];
+  const hasLockedPrediction = Boolean(
+    state.lockedAt && state.selectedSongIds.length > 0,
+  );
+  const metricsPredictedIds = hasLockedPrediction ? predictedIds : [];
   const revealedSet = new Set(revealedIds);
   const nextRevealId = (state.revealOrderIds ?? revealOrderIds).find(
     (songId) => !revealedSet.has(songId),
@@ -3146,19 +3596,20 @@ function PlacementPredictionPanel({
   const revealComplete =
     Boolean(state.revealStartedAt) && revealedIds.length >= finalists.length;
   const showStatisticsButton =
+    hasLockedPrediction &&
     revealComplete &&
     !state.summaryViewedAt &&
     (state.revealMode !== "instant" || instantAnimationComplete);
   const summaryVisible = revealComplete && Boolean(state.summaryViewedAt);
   const predictedPlaceById = new Map(
-    predictedIds.map((songId, index) => [songId, index + 1]),
+    metricsPredictedIds.map((songId, index) => [songId, index + 1]),
   );
   const liveMetrics = placementMetrics(
-    predictedIds,
+    metricsPredictedIds,
     officialResults,
     revealedIds,
   );
-  const summary = finalPlacementSummary(predictedIds, officialResults);
+  const summary = finalPlacementSummary(metricsPredictedIds, officialResults);
 
   useEffect(() => {
     if (
@@ -3216,14 +3667,6 @@ function PlacementPredictionPanel({
   }
 
   function unlockPrediction() {
-    if (
-      !window.confirm(
-        "Unlock this prediction? This will hide any revealed official results and allow edits.",
-      )
-    ) {
-      return;
-    }
-
     void persist({
       ...state,
       lockedAt: undefined,
@@ -3237,11 +3680,6 @@ function PlacementPredictionPanel({
     });
   }
 
-  function viewOfficialResults() {
-    if (!hasOfficialResults) return;
-    setRevealModeOpen(true);
-  }
-
   function startReveal({
     mode,
     useResultsVideo,
@@ -3253,10 +3691,40 @@ function PlacementPredictionPanel({
     juryVideoSegment: NonNullable<PredictionState["juryVideoSegment"]>;
     autoAdvanceJury: boolean;
   }) {
+    if (
+      !state.lockedAt &&
+      localStorage.getItem("eurovision-ranker:skip-prediction-first-prompt") !==
+      "true"
+    ) {
+      setPendingRevealOptions({
+        mode,
+        useResultsVideo,
+        juryVideoSegment,
+        autoAdvanceJury,
+      });
+      setPredictionPromptOpen(true);
+      return;
+    }
+
+    commitReveal({ mode, useResultsVideo, juryVideoSegment, autoAdvanceJury });
+  }
+
+  function commitReveal({
+    mode,
+    useResultsVideo,
+    juryVideoSegment,
+    autoAdvanceJury,
+  }: {
+    mode: NonNullable<PredictionState["revealMode"]>;
+    useResultsVideo: boolean;
+    juryVideoSegment: NonNullable<PredictionState["juryVideoSegment"]>;
+    autoAdvanceJury: boolean;
+  }) {
+    localStorage.removeItem(revealSessionKey);
     const nextRevealOrder = state.revealOrderIds ?? revealOrderIds;
     void persist({
       ...state,
-      selectedSongIds: predictedIds,
+      selectedSongIds: state.lockedAt ? predictedIds : state.selectedSongIds,
       revealMode: mode,
       useResultsVideo,
       juryVideoSegment,
@@ -3273,9 +3741,12 @@ function PlacementPredictionPanel({
     });
     setRevealModeOpen(false);
     setResumePromptOpen(false);
+    setPredictionPromptOpen(false);
+    setPendingRevealOptions(null);
   }
 
   function resetRevealState() {
+    localStorage.removeItem(revealSessionKey);
     void persist({
       ...state,
       revealMode: undefined,
@@ -3288,11 +3759,8 @@ function PlacementPredictionPanel({
     });
     setRevealModeOpen(false);
     setResumePromptOpen(false);
+    setViewingFinalResults(false);
     setInstantAnimationComplete(false);
-  }
-
-  function changeRevealSettings() {
-    setRevealModeOpen(true);
   }
 
   function revealNextPlacement() {
@@ -3315,6 +3783,7 @@ function PlacementPredictionPanel({
 
   async function resetPrediction() {
     const nextState = emptyPredictionState(predictionKey);
+    localStorage.removeItem(revealSessionKey);
     setState(nextState);
     setRevealModeOpen(false);
     setResumePromptOpen(false);
@@ -3344,15 +3813,7 @@ function PlacementPredictionPanel({
   const resultsNightActive =
     state.revealStartedAt && state.revealMode === "eurovision-night";
   const resumeProgress = state.finalsRevealProgress;
-  const revealModeLabel =
-    state.revealMode === "eurovision-night"
-      ? "Eurovision Results Night"
-      : state.revealMode === "step"
-        ? "Step-by-Step Reveal"
-        : state.revealMode === "instant"
-          ? "Instant Results"
-          : "Not selected";
-
+  const showingSavedResumePrompt = Boolean(resumePromptOpen && resumeProgress);
   return (
     <section
       className={[
@@ -3365,20 +3826,25 @@ function PlacementPredictionPanel({
     >
       <div className="predictionHeader">
         <div>
-          <h2>Predict the Official Final Results</h2>
+          <h2>
+            {mode === "results"
+              ? "Grand Final Results"
+              : "Predict the Official Final Results"}
+          </h2>
           <p>
-            Arrange the finalists in the order you believe Eurovision will
-            finish.
+            {mode === "results"
+              ? "Choose how to reveal the official grand final standings."
+              : "Arrange the finalists in the order you believe Eurovision will finish."}
           </p>
         </div>
-        {state.lockedAt ? (
+        {state.lockedAt && mode === "predictions" ? (
           <div className="placementHeaderActions">
             <button
               className="secondaryButton"
               type="button"
               onClick={unlockPrediction}
             >
-              Unlock Prediction
+              <LockKeyholeOpen size={16} /> Change Predictions
             </button>
             <button
               className="secondaryButton"
@@ -3393,37 +3859,86 @@ function PlacementPredictionPanel({
 
       {dataError ? <div className="dataError">{dataError}</div> : null}
 
-      {state.lockedAt &&
+      {mode === "results" &&
         hasOfficialResults &&
-        !state.revealStartedAt &&
-        !(resumePromptOpen && resumeProgress) ? (
-        <div className="revealControlStrip">
-          <div>
-            <span>Reveal Mode</span>
-            <strong>{revealModeLabel}</strong>
-          </div>
-          <div>
+        (!state.revealStartedAt || showingSavedResumePrompt) ? (
+        <div className="revealSetupPanel">
+          <RevealModeFields
+            selectedMode={selectedRevealMode}
+            onSelectedModeChange={setSelectedRevealMode}
+            useResultsVideo={selectedUseResultsVideo}
+            onUseResultsVideoChange={setSelectedUseResultsVideo}
+            juryVideoSegment={selectedJuryVideoSegment}
+            onJuryVideoSegmentChange={setSelectedJuryVideoSegment}
+            autoAdvanceJury={selectedAutoAdvanceJury}
+            onAutoAdvanceJuryChange={setSelectedAutoAdvanceJury}
+            showGrandFinalOptions
+          />
+          <div className="predictionFooter">
             <button
-              className="secondaryButton"
+              className="primaryButton"
               type="button"
-              onClick={changeRevealSettings}
+              onClick={() =>
+                startReveal({
+                  mode: selectedRevealMode,
+                  useResultsVideo:
+                    selectedRevealMode === "eurovision-night" &&
+                    selectedUseResultsVideo,
+                  juryVideoSegment: selectedJuryVideoSegment,
+                  autoAdvanceJury:
+                    selectedRevealMode === "eurovision-night" &&
+                    selectedAutoAdvanceJury,
+                })
+              }
             >
-              {state.revealStartedAt ? "Change Reveal" : "Choose Reveal"}
+              View Results
             </button>
-            {state.revealStartedAt ? (
-              <button
-                className="secondaryButton"
-                type="button"
-                onClick={resetRevealState}
-              >
-                Restart Reveal
-              </button>
-            ) : null}
           </div>
         </div>
       ) : null}
 
-      {!state.revealStartedAt ? (
+      {mode === "results" && viewingFinalResults ? (
+        <div className="placementReveal">
+          <div className="resultsDetailActions">
+            <button
+              className="secondaryButton"
+              type="button"
+              onClick={resetRevealState}
+            >
+              Back to Results Setup
+            </button>
+          </div>
+          <div className="placementRevealHeader">
+            <div>
+              <h3>Official Results</h3>
+              <p>All placements revealed.</p>
+            </div>
+          </div>
+          {hasLockedPrediction ? (
+            <div className="placementStatsGrid">
+              <section>
+                <span>Exact Placements Predicted</span>
+                <strong>{summary.metrics.exact}</strong>
+              </section>
+              <section>
+                <span>Average Error</span>
+                <strong>{summary.metrics.averageError.toFixed(1)}</strong>
+              </section>
+              <section>
+                <span>Current Accuracy</span>
+                <strong>{summary.metrics.currentAccuracy}%</strong>
+              </section>
+            </div>
+          ) : null}
+          <PlacementScoreboard
+            songs={officialResults}
+            revealedIds={new Set(revealOrderIds)}
+            predictedPlaceById={predictedPlaceById}
+            revealOrderIds={revealOrderIds}
+            showPredictionComparison={hasLockedPrediction}
+          />
+        </div>
+      ) : mode === "predictions" ? (
         <>
           <div className="placementLiveSummary">
             <section>
@@ -3464,9 +3979,9 @@ function PlacementPredictionPanel({
                 <button
                   className="primaryButton"
                   type="button"
-                  onClick={viewOfficialResults}
+                  onClick={() => onOpenResults?.(stage.key)}
                 >
-                  Choose Reveal
+                  Go To Grand Final Results
                 </button>
               ) : (
                 <span className="predictionNote">
@@ -3486,80 +4001,64 @@ function PlacementPredictionPanel({
             )}
           </div>
         </>
-      ) : summaryVisible ? (
+      ) : showingSavedResumePrompt ? null : !state.revealStartedAt && mode === "results" ? null : summaryVisible ? (
         <div className="predictionSummary placementSummary">
-          <h3>Prediction Summary</h3>
-          <div className="placementStatsGrid">
-            <section>
-              <span>Winner Prediction Correct</span>
-              <strong>{summary.winnerCorrect ? "Yes" : "No"}</strong>
-            </section>
-            <section>
-              <span>Exact Placements Correct</span>
-              <strong>{summary.metrics.exact}</strong>
-            </section>
-            <section>
-              <span>Average Placement Error</span>
-              <strong>{summary.metrics.averageError.toFixed(1)}</strong>
-            </section>
-            <section>
-              <span>Current Accuracy</span>
-              <strong>{summary.metrics.currentAccuracy}%</strong>
-            </section>
+          <div className="resultsDetailActions">
+            <button
+              className="secondaryButton"
+              type="button"
+              onClick={resetRevealState}
+            >
+              Back to Results Setup
+            </button>
           </div>
-          <div className="placementSummaryGrid">
-            <PlacementDeltaCard
-              title="Largest Overestimate"
-              delta={summary.mostOverrated}
-            />
-            <PlacementDeltaCard
-              title="Largest Underestimate"
-              delta={summary.mostUnderrated}
-            />
-          </div>
+          {hasLockedPrediction ? (
+            <>
+              <h3>Prediction Summary</h3>
+              <div className="placementStatsGrid">
+                <section>
+                  <span>Winner Prediction Correct</span>
+                  <strong>{summary.winnerCorrect ? "Yes" : "No"}</strong>
+                </section>
+                <section>
+                  <span>Exact Placements Correct</span>
+                  <strong>{summary.metrics.exact}</strong>
+                </section>
+                <section>
+                  <span>Average Placement Error</span>
+                  <strong>{summary.metrics.averageError.toFixed(1)}</strong>
+                </section>
+                <section>
+                  <span>Current Accuracy</span>
+                  <strong>{summary.metrics.currentAccuracy}%</strong>
+                </section>
+              </div>
+              <div className="placementSummaryGrid">
+                <PlacementDeltaCard
+                  title="Largest Overestimate"
+                  delta={summary.mostOverrated}
+                />
+                <PlacementDeltaCard
+                  title="Largest Underestimate"
+                  delta={summary.mostUnderrated}
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <h3>Final Results</h3>
+              <PlacementScoreboard
+                songs={officialResults}
+                revealedIds={new Set(revealOrderIds)}
+                predictedPlaceById={predictedPlaceById}
+                revealOrderIds={revealOrderIds}
+                showPredictionComparison={false}
+              />
+            </>
+          )}
         </div>
       ) : state.revealMode === "eurovision-night" ? (
-        resumePromptOpen && resumeProgress ? (
-          <section className="resumeRevealPrompt">
-            <h3>Resume Final Reveal?</h3>
-            <p>
-              You have a saved Eurovision Results Night in progress.
-            </p>
-            <div>
-              <button
-                className="primaryButton"
-                type="button"
-                onClick={() => setResumePromptOpen(false)}
-              >
-                Resume
-              </button>
-              <button
-                className="primaryButton"
-                type="button"
-                onClick={() => {
-                  void persist({
-                    ...state,
-                    finalsRevealProgress: undefined,
-                    updatedAt: new Date().toISOString(),
-                  });
-                  setResumePromptOpen(false);
-                }}
-              >
-                Start Over
-              </button>
-              <button
-                className="primaryButton"
-                type="button"
-                onClick={() => {
-                  setResumePromptOpen(false);
-                  setRevealModeOpen(true);
-                }}
-              >
-                Change Reveal
-              </button>
-            </div>
-          </section>
-        ) : (
+        showingSavedResumePrompt ? null : (
           <EurovisionResultsNight
             key="results-night"
             songs={officialResults}
@@ -3576,19 +4075,34 @@ function PlacementPredictionPanel({
                 updatedAt: new Date().toISOString(),
               })
             }
-            onSaveExit={() => setResumePromptOpen(true)}
-            onShowSummary={() =>
+            onBackToSetup={resetRevealState}
+            onSaveExit={() => {
+              localStorage.setItem(revealSessionKey, "true");
+              setResumePromptOpen(true);
+            }}
+            showStatisticsAction={hasLockedPrediction}
+            onShowSummary={() => {
+              localStorage.removeItem(revealSessionKey);
               void persist({
                 ...state,
                 finalsRevealProgress: undefined,
                 summaryViewedAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString(),
-              })
-            }
+              });
+            }}
           />
         )
       ) : (
         <div className="placementReveal">
+          <div className="resultsDetailActions">
+            <button
+              className="secondaryButton"
+              type="button"
+              onClick={resetRevealState}
+            >
+              Back to Results Setup
+            </button>
+          </div>
           <div className="placementRevealHeader">
             <div>
               <h3>Official Results</h3>
@@ -3596,37 +4110,43 @@ function PlacementPredictionPanel({
                 Placements Revealed: {revealedIds.length} / {finalists.length}
               </p>
             </div>
-            <div>
-              <span>Average Prediction Error</span>
-              <strong>
-                {revealedIds.length
-                  ? liveMetrics.averageError.toFixed(1)
-                  : "Hidden"}
-              </strong>
-            </div>
+            {hasLockedPrediction ? (
+              <div>
+                <span>Average Prediction Error</span>
+                <strong>
+                  {revealedIds.length
+                    ? liveMetrics.averageError.toFixed(1)
+                    : "Hidden"}
+                </strong>
+              </div>
+            ) : null}
           </div>
 
           <div className="placementStatsGrid">
-            <section>
-              <span>Exact Placements Predicted</span>
-              <strong>{liveMetrics.exact}</strong>
-            </section>
-            <section>
-              <span>Average Error</span>
-              <strong>
-                {revealedIds.length
-                  ? liveMetrics.averageError.toFixed(1)
-                  : "Hidden"}
-              </strong>
-            </section>
-            <section>
-              <span>Current Accuracy</span>
-              <strong>
-                {revealedIds.length
-                  ? `${liveMetrics.currentAccuracy}%`
-                  : "Hidden"}
-              </strong>
-            </section>
+            {hasLockedPrediction ? (
+              <>
+                <section>
+                  <span>Exact Placements Predicted</span>
+                  <strong>{liveMetrics.exact}</strong>
+                </section>
+                <section>
+                  <span>Average Error</span>
+                  <strong>
+                    {revealedIds.length
+                      ? liveMetrics.averageError.toFixed(1)
+                      : "Hidden"}
+                  </strong>
+                </section>
+                <section>
+                  <span>Current Accuracy</span>
+                  <strong>
+                    {revealedIds.length
+                      ? `${liveMetrics.currentAccuracy}%`
+                      : "Hidden"}
+                  </strong>
+                </section>
+              </>
+            ) : null}
           </div>
 
           <PlacementScoreboard
@@ -3634,10 +4154,12 @@ function PlacementPredictionPanel({
             revealedIds={revealedSet}
             predictedPlaceById={predictedPlaceById}
             revealOrderIds={state.revealOrderIds ?? revealOrderIds}
+            showPredictionComparison={hasLockedPrediction}
           />
 
           <div className="predictionFooter">
-            {showStatisticsButton || state.revealMode === "step" ? (
+            {showStatisticsButton ||
+              (state.revealMode === "step" && !revealComplete) ? (
               <button
                 className="primaryButton"
                 type="button"
@@ -3664,6 +4186,154 @@ function PlacementPredictionPanel({
           initialJuryVideoSegment={state.juryVideoSegment ?? "twelve-point"}
           initialAutoAdvanceJury={state.autoAdvanceJury ?? false}
         />
+      ) : null}
+      {showingSavedResumePrompt ? (
+        <div
+          className="spoilerModal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="resume-final-reveal-title"
+        >
+          <div className="spoilerBackdrop" />
+          <section className="spoilerDialog">
+            <h2 id="resume-final-reveal-title">Resume Final Reveal?</h2>
+            <p>You have a saved Eurovision Results Night in progress.</p>
+            <div className="spoilerActions">
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={() => {
+                  resetRevealState();
+                  setResumePromptOpen(false);
+                }}
+              >
+                Start Over
+              </button>
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={() => {
+                  resetRevealState();
+                  setResumePromptOpen(false);
+                }}
+              >
+                Change Reveal Settings
+              </button>
+              <button
+                className="primaryButton"
+                type="button"
+                onClick={() => setResumePromptOpen(false)}
+              >
+                Resume
+              </button>
+            </div>
+          </section>
+        </div>
+      ) : null}
+      {predictionPromptOpen ? (
+        <div
+          className="spoilerModal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="prediction-first-title"
+        >
+          <div className="spoilerBackdrop" />
+          <section className="spoilerDialog">
+            <h2 id="prediction-first-title">Want to Make Predictions First?</h2>
+            <p>
+              If you make predictions before viewing results, the app can show
+              accuracy statistics after the reveal.
+            </p>
+            <label className="spoilerCheckbox">
+              <input
+                type="checkbox"
+                onChange={(event) => {
+                  if (event.target.checked) {
+                    localStorage.setItem(
+                      "eurovision-ranker:skip-prediction-first-prompt",
+                      "true",
+                    );
+                  } else {
+                    localStorage.removeItem(
+                      "eurovision-ranker:skip-prediction-first-prompt",
+                    );
+                  }
+                }}
+              />
+              Don't show this again
+            </label>
+            <div className="spoilerActions">
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={() => {
+                  setPredictionPromptOpen(false);
+                  setPendingRevealOptions(null);
+                  onOpenPredictions?.(stage.key);
+                }}
+              >
+                Take Me To Predictions
+              </button>
+              <button
+                className="primaryButton"
+                type="button"
+                onClick={() => {
+                  if (pendingRevealOptions) {
+                    commitReveal(pendingRevealOptions);
+                    return;
+                  }
+                  setPredictionPromptOpen(false);
+                  setViewingFinalResults(true);
+                }}
+              >
+                Continue To Results
+              </button>
+            </div>
+          </section>
+        </div>
+      ) : null}
+      {showFinalResultsWarning ? (
+        <div
+          className="spoilerModal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="final-results-warning-title"
+        >
+          <div className="spoilerBackdrop" />
+          <section className="spoilerDialog">
+            <h2 id="final-results-warning-title">Reveal all results?</h2>
+            <p>This will immediately reveal all results and placements.</p>
+            <div className="spoilerActions">
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={() => setShowFinalResultsWarning(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="primaryButton"
+                type="button"
+                onClick={() => {
+                  setShowFinalResultsWarning(false);
+                  if (
+                    !state.lockedAt &&
+                    localStorage.getItem(
+                      "eurovision-ranker:skip-prediction-first-prompt",
+                    ) !== "true"
+                  ) {
+                    setPendingRevealOptions(null);
+                    setPredictionPromptOpen(true);
+                    return;
+                  }
+                  setViewingFinalResults(true);
+                }}
+              >
+                Reveal Results
+              </button>
+            </div>
+          </section>
+        </div>
       ) : null}
     </section>
   );
@@ -3705,17 +4375,53 @@ function PlacementDeltaCard({
   );
 }
 
-export default function PredictionPanel({ year, songs }: PredictionPanelProps) {
+export default function PredictionPanel({
+  year,
+  songs,
+  mode = "predictions",
+  initialStageKey,
+  onOpenResults,
+  onOpenPredictions,
+}: PredictionPanelProps) {
   const stages = useMemo(() => predictionStagesForYear(Number(year)), [year]);
+  const resultsWarningKey = `eurovision-ranker:hide-results-warning:${year}`;
   const [activeStageKey, setActiveStageKey] = useState<ContestStageKey>(
-    stages[0]?.key ?? "semi-final-1",
+    initialStageKey ?? stages[0]?.key ?? "semi-final-1",
   );
+  const [resultsWarningOpen, setResultsWarningOpen] = useState(false);
+  const [dontShowResultsWarning, setDontShowResultsWarning] = useState(false);
   const activeStage =
     stages.find((stage) => stage.key === activeStageKey) ?? stages[0];
 
   useEffect(() => {
-    setActiveStageKey(stages[0]?.key ?? "semi-final-1");
-  }, [year, stages[0]?.key]);
+    setActiveStageKey(initialStageKey ?? stages[0]?.key ?? "semi-final-1");
+  }, [year, stages[0]?.key, initialStageKey]);
+
+  useEffect(() => {
+    if (
+      mode === "results" &&
+      localStorage.getItem(resultsWarningKey) !== "true"
+    ) {
+      setResultsWarningOpen(true);
+    } else {
+      setResultsWarningOpen(false);
+    }
+  }, [mode, resultsWarningKey]);
+
+  function closeResultsWarning() {
+    if (dontShowResultsWarning) {
+      localStorage.setItem(resultsWarningKey, "true");
+    }
+    setResultsWarningOpen(false);
+    setDontShowResultsWarning(false);
+  }
+
+  function stageTabLabel(stage: ContestStage) {
+    if (mode === "results" && stage.key === "grand-final") {
+      return "Grand Final Results";
+    }
+    return `${stage.label} ${mode === "results" ? "Results" : "Predictions"}`;
+  }
 
   if (!stages.length || !activeStage) {
     return (
@@ -3728,33 +4434,88 @@ export default function PredictionPanel({ year, songs }: PredictionPanelProps) {
 
   return (
     <div className="predictionsShell">
-      <nav className="stageTabs" aria-label={`${year} prediction stages`}>
-        {stages.map((stage) => (
-          <button
-            key={stage.key}
-            className={stage.key === activeStage.key ? "selected" : ""}
-            type="button"
-            onClick={() => setActiveStageKey(stage.key)}
-          >
-            {stage.label} Predictions
-          </button>
-        ))}
-      </nav>
-      {activeStage.key === "grand-final" ? (
-        <PlacementPredictionPanel
-          key={activeStage.key}
-          year={year}
-          stage={activeStage}
-          songs={songs}
-        />
-      ) : (
-        <PredictionStagePanel
-          key={activeStage.key}
-          year={year}
-          stage={activeStage}
-          songs={songs}
-        />
-      )}
+      <div className={resultsWarningOpen ? "stageContent blurred" : ""}>
+        <nav
+          className="stageTabs"
+          aria-label={`${year} ${mode === "results" ? "results" : "prediction"} stages`}
+        >
+          {stages.map((stage) => (
+            <button
+              key={stage.key}
+              className={stage.key === activeStage.key ? "selected" : ""}
+              type="button"
+              onClick={() => setActiveStageKey(stage.key)}
+            >
+              {stageTabLabel(stage)}
+            </button>
+          ))}
+        </nav>
+        {activeStage.key === "grand-final" ? (
+          <PlacementPredictionPanel
+            key={activeStage.key}
+            year={year}
+            stage={activeStage}
+            songs={songs}
+            mode={mode}
+            onOpenResults={onOpenResults}
+            onOpenPredictions={onOpenPredictions}
+          />
+        ) : (
+          <PredictionStagePanel
+            key={activeStage.key}
+            year={year}
+            stage={activeStage}
+            songs={songs}
+            mode={mode}
+            onOpenResults={onOpenResults}
+            onOpenPredictions={onOpenPredictions}
+          />
+        )}
+      </div>
+      {resultsWarningOpen ? (
+        <div
+          className="spoilerModal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="results-warning-title"
+        >
+          <div className="spoilerBackdrop" />
+          <section className="spoilerDialog">
+            <h2 id="results-warning-title">Results spoilers ahead</h2>
+            <p>Viewing results may reveal qualifiers and placements.</p>
+            <label className="spoilerCheckbox">
+              <input
+                type="checkbox"
+                checked={dontShowResultsWarning}
+                onChange={(event) =>
+                  setDontShowResultsWarning(event.target.checked)
+                }
+              />
+              Don't show this again
+            </label>
+            <div className="spoilerActions">
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={() => {
+                  setResultsWarningOpen(false);
+                  setDontShowResultsWarning(false);
+                  onOpenPredictions?.(activeStage.key);
+                }}
+              >
+                Take Me Back
+              </button>
+              <button
+                className="primaryButton"
+                type="button"
+                onClick={closeResultsWarning}
+              >
+                I Understand
+              </button>
+            </div>
+          </section>
+        </div>
+      ) : null}
     </div>
   );
 }

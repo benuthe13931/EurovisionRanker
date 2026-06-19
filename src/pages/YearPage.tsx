@@ -60,9 +60,11 @@ export default function YearPage() {
   const rankingKey = rankingKeyForStage(year, activeStage.key);
   const grandFinalWarningKey = grandFinalWarningKeyForYear(year);
   const [favorites, setFavorites] = useState<Set<string>>(() => new Set());
-  const [yearMode, setYearMode] = useState<"rankings" | "predictions">(
-    "rankings",
-  );
+  const [yearMode, setYearMode] = useState<
+    "rankings" | "predictions" | "results"
+  >("rankings");
+  const [resultsStageKey, setResultsStageKey] =
+    useState<ContestStageKey | undefined>();
   const [dataError, setDataError] = useState("");
   const [comparisonOpen, setComparisonOpen] = useState(false);
   const [resumePromptOpen, setResumePromptOpen] = useState(false);
@@ -349,13 +351,22 @@ export default function YearPage() {
               Rankings
             </button>
             {Number(year) >= 2004 ? (
-              <button
-                className={yearMode === "predictions" ? "selected" : ""}
-                type="button"
-                onClick={() => setYearMode("predictions")}
-              >
-                Predictions
-              </button>
+              <>
+                <button
+                  className={yearMode === "predictions" ? "selected" : ""}
+                  type="button"
+                  onClick={() => setYearMode("predictions")}
+                >
+                  Predictions
+                </button>
+                <button
+                  className={yearMode === "results" ? "selected" : ""}
+                  type="button"
+                  onClick={() => setYearMode("results")}
+                >
+                  Results
+                </button>
+              </>
             ) : null}
           </nav>
 
@@ -450,8 +461,27 @@ export default function YearPage() {
                 onToggleFavorite={toggleFavorite}
               />
             </>
+          ) : yearMode === "predictions" ? (
+            <PredictionPanel
+              year={year}
+              songs={currentYearData.songs}
+              mode="predictions"
+              onOpenResults={(stageKey) => {
+                setResultsStageKey(stageKey);
+                setYearMode("results");
+              }}
+            />
           ) : (
-            <PredictionPanel year={year} songs={currentYearData.songs} />
+            <PredictionPanel
+              year={year}
+              songs={currentYearData.songs}
+              mode="results"
+              initialStageKey={resultsStageKey}
+              onOpenPredictions={(stageKey) => {
+                setResultsStageKey(stageKey);
+                setYearMode("predictions");
+              }}
+            />
           )}
         </div>
       </section>
