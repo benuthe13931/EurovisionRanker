@@ -1,0 +1,120 @@
+{
+  "year": 1964,
+  "hostCity": "Copenhagen",
+  "country": "Denmark",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Austria",
+      "artist": "Udo Jürgens",
+      "title": "Warum nur, warum?",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Belgium",
+      "artist": "Robert Cogoi",
+      "title": "Près de ma rivière",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Denmark",
+      "artist": "Bjørn Tidmand",
+      "title": "Sangen om dig",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Lasse Mårtenson",
+      "title": "Laiskotellen",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Rachel",
+      "title": "Le chant de Mallory",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Nora Nova",
+      "title": "Man gewöhnt sich so schnell an das Schöne",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Gigliola Cinquetti",
+      "title": "Non ho l'età",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Hugues Aufray",
+      "title": "Dès que le printemps revient",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Romuald",
+      "title": "Où sont-elles passées?",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Anneke Grönloh",
+      "title": "Jij bent mijn leven",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Arne Bendiksen",
+      "title": "Spiral",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "António Calvário",
+      "title": "Oração",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Los TNT",
+      "title": "Caracola",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Anita Traversi",
+      "title": "I miei pensieri",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Matt Monro",
+      "title": "I Love the Little Things",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Yugoslavia",
+      "artist": "Sabahudin Kurt",
+      "title": "Život je sklopio krug",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
