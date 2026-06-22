@@ -1,0 +1,134 @@
+{
+  "year": 1965,
+  "hostCity": "Naples",
+  "country": "Italy",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Austria",
+      "artist": "Udo Jürgens",
+      "title": "Sag ihr, ich lass sie grüßen",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Belgium",
+      "artist": "Lize Marke",
+      "title": "Als het weer lente is",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Denmark",
+      "artist": "Birgit Brüel",
+      "title": "For din skyld",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Viktor Klimenko",
+      "title": "Aurinko laskee länteen",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Guy Mardel",
+      "title": "N'avoue jamais",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Ulla Wiesner",
+      "title": "Paradies, wo bist du?",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "Butch Moore",
+      "title": "Walking the Streets in the Rain",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Bobby Solo",
+      "title": "Se piangi, se ridi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "France Gall",
+      "title": "Poupée de cire, poupée de son",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Marjorie Noël",
+      "title": "Va dire à l'amour",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Conny Vandenbos",
+      "title": "'t Is genoeg",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Kirsti Sparboe",
+      "title": "Karusell",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "Simone de Oliveira",
+      "title": "Sol de inverno",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Conchita Bautista",
+      "title": "Qué bueno, qué bueno",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "Ingvar Wixell",
+      "title": "Absent Friend",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Yovanna",
+      "title": "Non, à jamais sans toi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Kathy Kirby",
+      "title": "I Belong",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Yugoslavia",
+      "artist": "Vice Vukov",
+      "title": "Čežnja",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
