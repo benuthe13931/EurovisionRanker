@@ -1,0 +1,120 @@
+{
+  "year": 1963,
+  "hostCity": "London",
+  "country": "United Kingdom",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Austria",
+      "artist": "Carmela Corren",
+      "title": "Vielleicht geschieht ein Wunder",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Belgium",
+      "artist": "Jacques Raymond",
+      "title": "Waarom?",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Denmark",
+      "artist": "Grethe and Jørgen Ingmann",
+      "title": "Dansevise",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Laila Halme",
+      "title": "Muistojeni laulu",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Alain Barrière",
+      "title": "Elle était si jolie",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Heidi Brühl",
+      "title": "Marcel",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Emilio Pericoli",
+      "title": "Uno per tutte",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Nana Mouskouri",
+      "title": "À force de prier",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Françoise Hardy",
+      "title": "L'amour s'en va",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Annie Palmen",
+      "title": "Een speeldoos",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Anita Thallaug",
+      "title": "Solhverv",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "José Guardiola",
+      "title": "Algo prodigioso",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "Monica Zetterlund",
+      "title": "En gång i Stockholm",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Esther Ofarim",
+      "title": "T'en va pas",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Ronnie Carroll",
+      "title": "Say Wonderful Things",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Yugoslavia",
+      "artist": "Vice Vukov",
+      "title": "Brodovi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
