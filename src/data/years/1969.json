@@ -1,0 +1,120 @@
+{
+  "year": 1969,
+  "hostCity": "Madrid",
+  "country": "Spain",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Belgium",
+      "artist": "Louis Neefs",
+      "title": "Jennifer Jennings",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Jarkko & Laura",
+      "title": "Kuin silloin ennen",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Frida Boccara",
+      "title": "Un jour, un enfant",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Siw Malmkvist",
+      "title": "Primaballerina",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "Muriel Day & The Lindsays",
+      "title": "The Wages of Love",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Iva Zanicchi",
+      "title": "Due grosse lacrime bianche",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Romuald",
+      "title": "Cathérine",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Jean-Jacques",
+      "title": "Maman, maman",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Lenny Kuhr",
+      "title": "De troubadour",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Kirsti Sparboe",
+      "title": "Oj, oj, oj, så glad jeg skal bli",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "Simone de Oliveira",
+      "title": "Desfolhada portuguesa",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Salomé",
+      "title": "Vivo cantando",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "Tommy Körberg",
+      "title": "Judy, min vän",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Paola del Medico",
+      "title": "Bonjour, Bonjour",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Lulu",
+      "title": "Boom Bang-a-Bang",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Yugoslavia",
+      "artist": "Ivan & 4M",
+      "title": "Pozdrav svijetu",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
