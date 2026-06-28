@@ -4857,6 +4857,10 @@ a {
     gap: 8px;
     padding-right: 10px;
   }
+
+  .snapshotMenuPopover {
+    z-index: 900;
+  }
 }
 
 /* =========================================================
