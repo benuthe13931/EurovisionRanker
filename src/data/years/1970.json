@@ -1,0 +1,92 @@
+{
+  "year": 1970,
+  "hostCity": "Amsterdam",
+  "country": "Netherlands",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Belgium",
+      "artist": "Jean Vallée",
+      "title": "Viens l'oublier",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Guy Bonnet",
+      "title": "Marie-Blanche",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Katja Ebstein",
+      "title": "Wunder gibt es immer wieder",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "Dana",
+      "title": "All Kinds of Everything",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Gianni Morandi",
+      "title": "Occhi di ragazza",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "David Alexandre Winter",
+      "title": "Je suis tombé du ciel",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Dominique Dussault",
+      "title": "Marlène",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Patricia & Hearts of Soul",
+      "title": "Waterman",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Julio Iglesias",
+      "title": "Gwendolyne",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Henri Dès",
+      "title": "Retour",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Mary Hopkin",
+      "title": "Knock, Knock Who's There?",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Yugoslavia",
+      "artist": "Eva Sršen",
+      "title": "Pridi, dala ti bom cvet",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
