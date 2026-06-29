@@ -1,0 +1,134 @@
+{
+  "year": 1971,
+  "hostCity": "Dublin",
+  "country": "Ireland",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Austria",
+      "artist": "Marianne Mendt",
+      "title": "Musik",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Belgium",
+      "artist": "Jacques Raymond & Lily Castel",
+      "title": "Goeiemorgen, morgen",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Markku Aro & Koivisto Sisters",
+      "title": "Tie uuteen päivään",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Serge Lama",
+      "title": "Un jardin sur la terre",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Katja Ebstein",
+      "title": "Diese Welt",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "Angela Farrell",
+      "title": "One Day Love",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Massimo Ranieri",
+      "title": "L'amore è un attimo",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Monique Melsen",
+      "title": "Pomme, pomme, pomme",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Malta",
+      "artist": "Joe Grech",
+      "title": "Marija l-Maltija",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Séverine",
+      "title": "Un banc, un arbre, une rue",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Saskia & Serge",
+      "title": "Tijd",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Hanne Krogh",
+      "title": "Lykken er...",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "Tonicha",
+      "title": "Menina do alto da serra",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Karina",
+      "title": "En un mundo nuevo",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "Family Four",
+      "title": "Vita vidder",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Peter, Sue & Marc",
+      "title": "Les illusions de nos vingt ans",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Clodagh Rodgers",
+      "title": "Jack in the Box",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Yugoslavia",
+      "artist": "Biserka, Braco & Vlatko",
+      "title": "Tvoj dječak je tužan",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
