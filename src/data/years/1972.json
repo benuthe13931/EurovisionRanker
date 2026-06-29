@@ -1,0 +1,134 @@
+{
+  "year": 1972,
+  "hostCity": "Edinburgh",
+  "country": "United Kingdom",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Austria",
+      "artist": "Milestones",
+      "title": "Falter im Wind",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Belgium",
+      "artist": "Serge & Christine Ghisoland",
+      "title": "À la folie ou pas du tout",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Päivi Paunu & Kim Floor",
+      "title": "Muistathan",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Betty Mars",
+      "title": "Comé-comédie",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Mary Roos",
+      "title": "Nur die Liebe lässt uns leben",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "Sandie Jones",
+      "title": "Ceol an Ghrá",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Nicola Di Bari",
+      "title": "I giorni dell'arcobaleno",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Vicky Leandros",
+      "title": "Après toi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Malta",
+      "artist": "Helen & Joseph",
+      "title": "L-imħabba",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Peter McLane & Anne-Marie Godart",
+      "title": "Comme on s'aime",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Sandra & Andres",
+      "title": "Als het om de liefde gaat",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Grethe Kausland & Benny Borg",
+      "title": "Småting",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "Carlos Mendes",
+      "title": "A festa da vida",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Jaime Morey",
+      "title": "Amanece",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "Family Four",
+      "title": "Härliga sommardag",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Véronique Müller",
+      "title": "C'est la chanson de mon amour",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "The New Seekers",
+      "title": "Beg, Steal or Borrow",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Yugoslavia",
+      "artist": "Tereza Kesovija",
+      "title": "Muzika i ti",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
