@@ -1,0 +1,141 @@
+{
+  "year": 1975,
+  "hostCity": "Stockholm",
+  "country": "Sweden",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Belgium",
+      "artist": "Ann Christy",
+      "title": "Gelukkig zijn",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Pihasoittajat",
+      "title": "Old Man Fiddle",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Nicole Rieu",
+      "title": "Et bonjour à toi l'artiste",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Joy Fleming",
+      "title": "Ein Lied kann eine Brücke sein",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "The Swarbriggs",
+      "title": "That's What Friends Are For",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Israel",
+      "artist": "Shlomo Artzi",
+      "title": "At Va'Ani",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Wess & Dori Ghezzi",
+      "title": "Era",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Géraldine",
+      "title": "Toi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Malta",
+      "artist": "Renato",
+      "title": "Singing This Song",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Michèle Torr",
+      "title": "Une chanson c'est une lettre",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Teach-In",
+      "title": "Ding-A-Dong",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Ellen Nikolaysen",
+      "title": "Touch My Life (With Summer)",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "Duarte Mendes",
+      "title": "Madrugada",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Sergio y Estíbaliz",
+      "title": "Tú volverás",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "Lasse Berghagen",
+      "title": "Jennie, Jennie",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Simone Drexel",
+      "title": "Mikado",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Turkey",
+      "artist": "Semiha Yankı",
+      "title": "Seninle Bir Dakika",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "The Shadows",
+      "title": "Let Me Be the One",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Yugoslavia",
+      "artist": "Pepel in Kri",
+      "title": "Dan ljubezni",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
