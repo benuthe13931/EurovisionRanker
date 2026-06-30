@@ -1,0 +1,127 @@
+{
+  "year": 1974,
+  "hostCity": "Luxembourg City",
+  "country": "Luxembourg",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Belgium",
+      "artist": "Jacques Hustin",
+      "title": "Fleur de liberté",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Carita",
+      "title": "Älä mene pois",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Cindy & Bert",
+      "title": "Die Sommermelodie",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Greece",
+      "artist": "Marinella",
+      "title": "Krasi, thalassa ke t' agori mou",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "Tina",
+      "title": "Cross Your Heart",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Israel",
+      "artist": "Poogy (Kaveret)",
+      "title": "Natati La Khayay",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Gigliola Cinquetti",
+      "title": "Sì",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Ireen Sheer",
+      "title": "Bye Bye, I Love You",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Romuald",
+      "title": "Celui qui reste et celui qui s'en va",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Mouth & MacNeal",
+      "title": "I See a Star",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Anne-Karine Strøm & Bendik Singers",
+      "title": "The First Day of Love",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "Paulo de Carvalho",
+      "title": "E depois do adeus",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Peret",
+      "title": "Canta y sé feliz",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "ABBA",
+      "title": "Waterloo",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Piera Martell",
+      "title": "Mein Ruf nach dir",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Olivia Newton-John",
+      "title": "Long Live Love",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Yugoslavia",
+      "artist": "Korni Grupa",
+      "title": "Generacija '42'",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
