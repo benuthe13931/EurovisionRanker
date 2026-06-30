@@ -1,0 +1,127 @@
+{
+  "year": 1973,
+  "hostCity": "Luxembourg City",
+  "country": "Luxembourg",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Belgium",
+      "artist": "Nicole & Hugo",
+      "title": "Baby, Baby",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Marion Rung",
+      "title": "Tom Tom Tom",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Martine Clémenceau",
+      "title": "Sans toi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Gitte",
+      "title": "Junger Tag",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "Maxi",
+      "title": "Do I Dream?",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Israel",
+      "artist": "Ilanit",
+      "title": "Ey Sham",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Massimo Ranieri",
+      "title": "Chi sarà con te",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Anne-Marie David",
+      "title": "Tu te reconnaîtras",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Marie",
+      "title": "Un train qui part",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Ben Cramer",
+      "title": "De oude muzikant",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Bendik Singers",
+      "title": "It's Just a Game",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "Fernando Tordo",
+      "title": "Tourada",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Mocedades",
+      "title": "Eres tú",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "The Nova",
+      "title": "You're Summer",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Patrick Juvet",
+      "title": "Je vais me marier, Marie",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Cliff Richard",
+      "title": "Power to All Our Friends",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Yugoslavia",
+      "artist": "Zdravko Čolić",
+      "title": "Gori vatra",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
