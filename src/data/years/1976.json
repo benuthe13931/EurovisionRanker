@@ -1,0 +1,134 @@
+{
+  "year": 1976,
+  "hostCity": "Hague",
+  "country": "Netherlands",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Austria",
+      "artist": "Waterloo & Robinson",
+      "title": "My Little World",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Belgium",
+      "artist": "Pierre Rapsat",
+      "title": "Judy et Cie",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Fredi and The Friends",
+      "title": "Pump-Pump",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Catherine Ferry",
+      "title": "Un, deux, trois",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Les Humphries Singers",
+      "title": "Sing Sang Song",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Greece",
+      "artist": "Mariza Koch",
+      "title": "Panaghia mou, Panaghia mou",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "Red Hurley",
+      "title": "When",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Israel",
+      "artist": "Chocolate, Menta, Mastik",
+      "title": "Emor Shalom",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Romina Power & Al Bano",
+      "title": "We'll Live It All Again (Lo rivivrei)",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Jürgen Marcus",
+      "title": "Chansons pour ceux qui s'aiment",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Mary Christy",
+      "title": "Toi, la musique et moi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Sandra Reemer",
+      "title": "The Party's Over Now",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Anne-Karine Strøm",
+      "title": "Mata Hari",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "Carlos do Carmo",
+      "title": "Uma flor de verde pinho",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Braulio",
+      "title": "Sobran las palabras",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Peter, Sue & Marc",
+      "title": "Djambo, Djambo",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Brotherhood of Man",
+      "title": "Save Your Kisses for Me",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Yugoslavia",
+      "artist": "Ambasadori",
+      "title": "Ne mogu skriti svoju bol",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
