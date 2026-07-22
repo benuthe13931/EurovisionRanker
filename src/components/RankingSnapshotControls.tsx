@@ -286,7 +286,7 @@ export default function RankingSnapshotControls({
 
   return (
     <>
-      <span className="snapshotMenu">
+      <span className={`snapshotMenu${snapshotMenuOpen ? " open" : ""}`}>
         <button
           className="secondaryButton snapshotMenuButton"
           type="button"

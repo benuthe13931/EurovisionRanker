@@ -1525,6 +1525,10 @@ a {
   display: inline-flex;
 }
 
+.snapshotMenu.open {
+  z-index: 10020;
+}
+
 .snapshotMenuPopover {
   position: absolute;
   top: calc(100% + 8px);
@@ -4709,12 +4713,18 @@ a {
   }
 
   .toolbarActions {
+    position: relative;
     display: flex;
     flex-wrap: nowrap;
     justify-content: flex-start;
     overflow-x: auto;
     width: 100%;
     padding-bottom: 2px;
+  }
+
+  .toolbarActions:has(.snapshotMenu.open) {
+    z-index: 10020;
+    overflow: visible;
   }
 
   .toolbarActions>button,
