@@ -3850,7 +3850,9 @@ function PlacementPredictionPanel({
   }
 
   const resultsNightActive =
-    state.revealStartedAt && state.revealMode === "eurovision-night";
+    state.revealStartedAt &&
+    state.revealMode === "eurovision-night" &&
+    !summaryVisible;
   const resumeProgress = state.finalsRevealProgress;
   const showingSavedResumePrompt = Boolean(resumePromptOpen && resumeProgress);
   return (
@@ -4042,15 +4044,6 @@ function PlacementPredictionPanel({
         </>
       ) : showingSavedResumePrompt ? null : !state.revealStartedAt && mode === "results" ? null : summaryVisible ? (
         <div className="predictionSummary placementSummary">
-          <div className="resultsDetailActions">
-            <button
-              className="secondaryButton"
-              type="button"
-              onClick={resetRevealState}
-            >
-              Back to Results Setup
-            </button>
-          </div>
           {hasLockedPrediction ? (
             <>
               <h3>Prediction Summary</h3>

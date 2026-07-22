@@ -69,10 +69,10 @@
     align-items: center;
     justify-items: end;
     min-width: 3ch;
-    min-height: 1.1em;
+    height: 1em;
     color: #fff;
     font-size: 1.18rem;
-    line-height: 1.05;
+    line-height: 1;
     font-variant-numeric: tabular-nums;
     transform-origin: center;
     overflow: hidden;
@@ -90,6 +90,8 @@
 
 .scoreRoller span {
     display: block;
+    height: 1em;
+    line-height: 1;
     text-align: right;
 }
 
@@ -357,8 +359,8 @@
         align-items: stretch;
         height: 100%;
         max-height: none;
-        gap: 6px 10px;
-        padding: 6px;
+        gap: 4px 5px;
+        padding: 0;
         min-height: 0;
         overflow: visible;
     }
@@ -696,20 +698,9 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: clip;
-        line-height: 1.05;
+        line-height: 1;
         display: block;
-        font-size: clamp(0.42rem, 1.42svh, 0.52rem);
-    }
-
-    .nightCountry small {
-        display: block;
-        min-width: 0;
-        overflow: hidden;
-        color: rgba(247, 242, 255, 0.48);
-        font-size: clamp(0.34rem, 1.05svh, 0.42rem);
-        line-height: 1.1;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        font-size: clamp(0.46rem, 1.55svh, 0.56rem);
     }
 
     .nightScoreWrap {
