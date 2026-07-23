@@ -1,0 +1,148 @@
+{
+  "year": 1978,
+  "hostCity": "Paris",
+  "country": "France",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Austria",
+      "artist": "Springtime",
+      "title": "Mrs. Caroline Robinson",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Belgium",
+      "artist": "Jean Vallée",
+      "title": "L'amour ça fait chanter la vie",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Denmark",
+      "artist": "Mabel",
+      "title": "Boom Boom",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Seija Simola",
+      "title": "Anna rakkaudelle tilaisuus",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Joël Prévost",
+      "title": "Il y aura toujours des violons",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Ireen Sheer",
+      "title": "Feuer",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Greece",
+      "artist": "Tania Tsanaklidou",
+      "title": "Charlie Chaplin",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "Colm T. Wilkinson",
+      "title": "Born to Sing",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Israel",
+      "artist": "Izhar Cohen and the Alphabeta",
+      "title": "A-Ba-Ni-Bi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Ricchi e Poveri",
+      "title": "Questo amore",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Baccara",
+      "title": "Parlez-vous français?",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Caline and Olivier Toussaint",
+      "title": "Les jardins de Monaco",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Harmony",
+      "title": "'t Is OK",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Jahn Teigen",
+      "title": "Mil etter mil",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "Gemini",
+      "title": "Dai-li-dou",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "José Vélez",
+      "title": "Bailemos un vals",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "Björn Skifs",
+      "title": "Det blir alltid värre framåt natten",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Carole Vinci",
+      "title": "Vivre",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Türkiye",
+      "artist": "Nilüfer and Nazar",
+      "title": "Sevinçe",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Co-Co",
+      "title": "The Bad Old Days",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
