@@ -1,0 +1,141 @@
+{
+  "year": 1979,
+  "hostCity": "Jerusalem",
+  "country": "Israel",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Austria",
+      "artist": "Christina Simon",
+      "title": "Heute in Jerusalem",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Belgium",
+      "artist": "Micha Marah",
+      "title": "Hey Nana",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Denmark",
+      "artist": "Tommy Seebach",
+      "title": "Disco Tango",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Katri Helena",
+      "title": "Katso sineen taivaan",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Anne-Marie David",
+      "title": "Je suis l'enfant-soleil",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Dschinghis Khan",
+      "title": "Dschinghis Khan",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Greece",
+      "artist": "Elpida",
+      "title": "Socrates",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "Cathal Dunne",
+      "title": "Happy Man",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Israel",
+      "artist": "Milk and Honey",
+      "title": "Hallelujah",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Matia Bazar",
+      "title": "Raggio di luna",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Jeane Manson",
+      "title": "J'ai déjà vu ça dans tes yeux",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Laurent Vaguener",
+      "title": "Notre vie, c'est la musique",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Xandra",
+      "title": "Colorado",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Anita Skorgan",
+      "title": "Oliver",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "Manuela Bravo",
+      "title": "Sobe, sobe, balão sobe",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Betty Missiego",
+      "title": "Su canción",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "Ted Gärdestad",
+      "title": "Satellit",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Peter, Sue & Marc and Pfuri, Gorps & Kniri",
+      "title": "Trödler und Co.",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Black Lace",
+      "title": "Mary Ann",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
