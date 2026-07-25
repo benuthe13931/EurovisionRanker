@@ -1,0 +1,418 @@
+{
+  "year": 2019,
+  "hostCity": "Tel Aviv",
+  "country": "Israel",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Albania",
+      "artist": "Jonida Maliqi",
+      "title": "Ktheju tokës",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Armenia",
+      "artist": "Srbuk",
+      "title": "Walking Out",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Australia",
+      "artist": "Kate Miller-Heidke",
+      "title": "Zero Gravity",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Austria",
+      "artist": "PÆNDA",
+      "title": "Limits",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Azerbaijan",
+      "artist": "Chingiz",
+      "title": "Truth",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Belarus",
+      "artist": "ZENA",
+      "title": "Like It",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Belgium",
+      "artist": "Eliot",
+      "title": "Wake Up",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Croatia",
+      "artist": "Roko",
+      "title": "The Dream",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Cyprus",
+      "artist": "Tamta",
+      "title": "Replay",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Czechia",
+      "artist": "Lake Malawi",
+      "title": "Friend of a Friend",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Denmark",
+      "artist": "Leonora",
+      "title": "Love Is Forever",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Estonia",
+      "artist": "Victor Crone",
+      "title": "Storm",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Darude feat. Sebastian Rejman",
+      "title": "Look Away",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "France",
+      "artist": "Bilal Hassani",
+      "title": "Roi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 0,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Georgia",
+      "artist": "Oto Nemsadze",
+      "title": "Keep on Going",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "S!sters",
+      "title": "Sister",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 0,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Greece",
+      "artist": "Katerine Duska",
+      "title": "Better Love",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Hungary",
+      "artist": "Joci Pápai",
+      "title": "Az én apám",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Iceland",
+      "artist": "Hatari",
+      "title": "Hatrið mun sigra",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "Sarah McTernan",
+      "title": "22",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Israel",
+      "artist": "Kobi Marimi",
+      "title": "Home",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 0,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Mahmood",
+      "title": "Soldi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 0,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Latvia",
+      "artist": "Carousel",
+      "title": "That Night",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Lithuania",
+      "artist": "Jurij Veklenko",
+      "title": "Run With the Lions",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Malta",
+      "artist": "Michela",
+      "title": "Chameleon",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Moldova",
+      "artist": "Anna Odobescu",
+      "title": "Stay",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Montenegro",
+      "artist": "D mol",
+      "title": "Heaven",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Duncan Laurence",
+      "title": "Arcade",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "North Macedonia",
+      "artist": "Tamara Todevska",
+      "title": "Proud",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "KEiiNO",
+      "title": "Spirit in the Sky",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Poland",
+      "artist": "Tulia",
+      "title": "Fire of Love (Pali się)",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "Conan Osíris",
+      "title": "Telemóveis",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Romania",
+      "artist": "Ester Peony",
+      "title": "On a Sunday",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Russia",
+      "artist": "Sergey Lazarev",
+      "title": "Scream",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "San Marino",
+      "artist": "Serhat",
+      "title": "Say Na Na Na",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Serbia",
+      "artist": "Nevena Božović",
+      "title": "Kruna",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Slovenia",
+      "artist": "Zala Kralj & Gašper Šantl",
+      "title": "Sebi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 1,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Miki",
+      "title": "La Venda",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 0,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "John Lundvik",
+      "title": "Too Late for Love",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Luca Hänni",
+      "title": "She Got Me",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 2,
+      "qualifiedForFinal": true,
+      "qualifiedAnnouncedPosition": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Michael Rice",
+      "title": "Bigger Than Us",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0,
+      "semiFinal": 0,
+      "qualifiedForFinal": "auto",
+      "qualifiedAnnouncedPosition": 0
+    }
+  ]
+}
