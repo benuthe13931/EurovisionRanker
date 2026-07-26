@@ -1,0 +1,141 @@
+{
+  "year": 1980,
+  "hostCity": "The Hague",
+  "country": "Netherlands",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Austria",
+      "artist": "Blue Danube",
+      "title": "Du Bist Musik",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Belgium",
+      "artist": "Telex",
+      "title": "Euro-vision",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Denmark",
+      "artist": "Bamses Venner",
+      "title": "Tænker Altid På Dig",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Vesa-Matti Loiri",
+      "title": "Huilumies",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Profil",
+      "title": "Hé, Hé M'sieurs Dames",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Katja Ebstein",
+      "title": "Theater",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Greece",
+      "artist": "Anna Vishy and the Epikouri",
+      "title": "Autostop",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "Johnny Logan",
+      "title": "What's Another Year",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Alan Sorrenti",
+      "title": "Non So Che Darei",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Sophie and Magaly",
+      "title": "Papa Pingouin",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Monaco",
+      "artist": "Samira Bensaïd",
+      "title": "Bitakat Hob",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Maggie MacNeal",
+      "title": "Amsterdam",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Sverre Kjelsberg and Mattis Hætta",
+      "title": "Sámiid Ædnan",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "José Cid",
+      "title": "Um Grande, Grande Amor",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Trigo Limpio",
+      "title": "Qué Date Esta Noche",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "Tomas Ledin",
+      "title": "Just Nu!",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Paola",
+      "title": "Cinéma",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Turkey",
+      "artist": "Ajda Pekkan",
+      "title": "Petr'oil",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Prima Donna",
+      "title": "Love Enough for Two",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
