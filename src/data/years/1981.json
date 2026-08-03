@@ -1,0 +1,148 @@
+{
+  "year": 1981,
+  "hostCity": "Dublin",
+  "country": "Ireland",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Austria",
+      "artist": "Marty Brem",
+      "title": "Wenn Du Da Bist",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Belgium",
+      "artist": "Emly Starr",
+      "title": "Samson",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Cyprus",
+      "artist": "Island",
+      "title": "Monika",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Denmark",
+      "artist": "Debbie Cameron & Tommy Seebach",
+      "title": "Krøller Eller Ej",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Riki Sorsa",
+      "title": "Reggae O.K.",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Jean Gabilou",
+      "title": "Humanahum",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Lena Valaitis",
+      "title": "Johnny Blue",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Greece",
+      "artist": "Yiannis Dimitras",
+      "title": "Feggari Kalokerino",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "Sheeba",
+      "title": "Horoscopes",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Israel",
+      "artist": "Hakol Over Habibi",
+      "title": "Halayla",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Jean-Claude Pascal",
+      "title": "C'est Peut-être Pas L'Amérique",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Linda Williams",
+      "title": "Het Is Een Wonder",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Finn Kalvik",
+      "title": "Aldri I Livet",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "Carlos Paião",
+      "title": "Play-back",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Bacchelli",
+      "title": "Y Solo Tú",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "Björn Skifs",
+      "title": "Fångad I En Dröm",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Peter, Sue & Marc",
+      "title": "Io Senza Te",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Turkey",
+      "artist": "Modern Folk Trio & Ayşegül Aldinç",
+      "title": "Dönme Dolap",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Bucks Fizz",
+      "title": "Making Your Mind Up",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Yugoslavia",
+      "artist": "Seid Memić Vajta",
+      "title": "Lejla",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+} 
