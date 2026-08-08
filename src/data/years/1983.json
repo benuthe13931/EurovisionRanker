@@ -1,0 +1,148 @@
+{
+  "year": 1983,
+  "hostCity": "Munich",
+  "country": "Germany",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Austria",
+      "artist": "Westend",
+      "title": "Hurricane",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Belgium",
+      "artist": "Pas de Deux",
+      "title": "Rendez-vous",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Cyprus",
+      "artist": "Stavros and Constantina",
+      "title": "I Agapi Akoma Zi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Denmark",
+      "artist": "Gry Johansen",
+      "title": "Kloden Drejer",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Ami Aspelund",
+      "title": "Fantasiaa",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Guy Bonnet",
+      "title": "Vivre",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Hoffmann und Hoffmann",
+      "title": "Rücksicht",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Greece",
+      "artist": "Christie Stassinopoulou",
+      "title": "Mou Les",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Israel",
+      "artist": "Ofra Haza",
+      "title": "Hi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Riccardo Fogli",
+      "title": "Per Lucia",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Corinne Hermès",
+      "title": "Si La Vie Est Cadeau",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Bernadette",
+      "title": "Sing Me A Song",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Jahn Teigen",
+      "title": "Do Re Mi",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "Armando Gama",
+      "title": "Esta Balada Que Te Dou",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Remedios Amaya",
+      "title": "¿Quién Maneja Mi Barca?",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "Carola Häggkvist",
+      "title": "Främling",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Mariella Farré",
+      "title": "Io Così Non Ci Sto",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Turkey",
+      "artist": "Çetin Alp and the Short Wave",
+      "title": "Opera",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Sweet Dreams",
+      "title": "I'm Never Giving Up",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Danijel",
+      "artist": "Dzuli",
+      "title": "Tænker Altid På Dig",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
