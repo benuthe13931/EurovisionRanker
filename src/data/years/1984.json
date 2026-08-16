@@ -1,0 +1,141 @@
+{
+  "year": 1984,
+  "hostCity": "Luxembourg City",
+  "country": "Luxembourg",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Austria",
+      "artist": "Anita",
+      "title": "Einfach Weg",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Belgium",
+      "artist": "Jacques Zegers",
+      "title": "Avanti La Vie",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Cyprus",
+      "artist": "Andy Paul",
+      "title": "Anna Mari-elena",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Denmark",
+      "artist": "Hot Eyes",
+      "title": "Det' Lige Det",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Finland",
+      "artist": "Kirka",
+      "title": "Hengaillaan",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "France",
+      "artist": "Annick Thoumazeau",
+      "title": "Autant D'amoureux Que D'étoiles",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Germany",
+      "artist": "Mary Roos",
+      "title": "Aufrecht Geh'n",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Ireland",
+      "artist": "Linda Martin",
+      "title": "Terminal '3'",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Italy",
+      "artist": "Alice and Battiato",
+      "title": "I Treni Di Tozeur",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Luxembourg",
+      "artist": "Sophie Carle",
+      "title": "100% D'amour",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Netherlands",
+      "artist": "Maribelle",
+      "title": "Ik Hou Van Jou",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Norway",
+      "artist": "Dollie de Luxe",
+      "title": "Lenge Leve Livet",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Portugal",
+      "artist": "Maria Guinot",
+      "title": "Silêncio E Tanta Gente",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Spain",
+      "artist": "Bravo",
+      "title": "Lady, Lady",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Sweden",
+      "artist": "Herrey's",
+      "title": "Diggi-loo Diggy-ley",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Switzerland",
+      "artist": "Rainy Day",
+      "title": "Welche Farbe Hat Der Sonnenschein",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Turkey",
+      "artist": "Beş Yıl Önce, On Yıl Sonra",
+      "title": "Halay",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "United Kingdom",
+      "artist": "Belle and the Devotions",
+      "title": "Love Games",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Yugoslavia",
+      "artist": "Vlado and Isolda",
+      "title": "Ciao Amore",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
