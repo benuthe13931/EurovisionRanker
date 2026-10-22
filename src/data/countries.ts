@@ -90,7 +90,7 @@ export const countryConfigs = [
     ],
   },
   { country: "Norway", countryCode: "NO", slug: "norway" },
-  { country: "Phillipines", countryCode: "PH", slug: "phillipines" },
+  { country: "Philippines", countryCode: "PH", slug: "philippines" },
   { country: "Poland", countryCode: "PL", slug: "poland" },
   { country: "Portugal", countryCode: "PT", slug: "portugal" },
   { 
