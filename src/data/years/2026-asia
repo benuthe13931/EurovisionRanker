@@ -1,0 +1,85 @@
+{
+  "year": 2026,
+  "hostCity": "Bangkok",
+  "country": "Thailand",
+  "backgroundImage": "/assets/backgrounds/hero-bg.webp",
+  "songs": [
+    {
+      "country": "Bangladesh",
+      "artist": "Beatmosphere",
+      "title": "Tumi Ele",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Bhutan",
+      "artist": "Nyendra",
+      "title": "Lhayi semo",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Cambodia",
+      "artist": "Monetrey",
+      "title": "I Let You Go",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Laos",
+      "artist": "Thinla",
+      "title": "Bae",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Malaysia",
+      "artist": "Aina Abdul",
+      "title": "Bluest Sky",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Mongolia",
+      "artist": "Beck",
+      "title": "Chamguigeer (Without You)",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Nepal",
+      "artist": "Pratik Himal Rai",
+      "title": "Ananta maya",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Phillipines",
+      "artist": "Carmelle",
+      "title": "Sobra-Sobra",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Republic of Korea",
+      "artist": "Junhee",
+      "title": "Deep Dive",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Thailand",
+      "artist": "Mang and Daou",
+      "title": "Aroma",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    },
+    {
+      "country": "Vietnam",
+      "artist": "Tóc Tiên",
+      "title": "Em Tiên",
+      "previewVideoUrl": "",
+      "compareStartSeconds": 0
+    }
+  ]
+}
