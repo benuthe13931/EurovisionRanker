@@ -82,7 +82,7 @@ export default function SongRow({
           {metaMode === "year" && song.year ? (
             <>
               <span>/</span>
-              {song.year}
+              {song.contestLabel ?? song.year}
             </>
           ) : null}
           {metaMode !== "year" ? (
@@ -94,7 +94,7 @@ export default function SongRow({
           {metaMode === "countryYear" && song.year ? (
             <>
               <span>/</span>
-              {song.year}
+              {song.contestLabel ?? song.year}
             </>
           ) : null}
         </p>

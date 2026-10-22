@@ -6,8 +6,10 @@ const modules = import.meta.glob("./results/*-results.json", {
 });
 
 export const resultsByYear = new Map(
-  Object.values(modules)
-    .map((resultData) => resultData as YearResultData)
-    .filter((resultData) => resultData.year > 0)
-    .map((resultData) => [String(resultData.year), resultData]),
+  Object.entries(modules)
+    .map(([path, resultData]) => [
+      path.replace("./results/", "").replace(/-results\.json$/, ""),
+      resultData as YearResultData,
+    ] as const)
+    .filter(([, resultData]) => resultData.year > 0),
 );

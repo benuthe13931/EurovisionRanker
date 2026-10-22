@@ -1,9 +1,10 @@
 import { type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { allSongsBackground, countries } from "../data/years";
+import { useContestData } from "../components/ContestRegionProvider";
 
 export default function CountriesPage() {
+  const { allSongsBackground, countries } = useContestData();
   return (
     <main
       className="pageShell"

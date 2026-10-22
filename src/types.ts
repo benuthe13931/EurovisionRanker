@@ -19,6 +19,8 @@ export type Song = {
   flagImageUrl?: string;
   imageUrl: string;
   year?: number;
+  contestId?: string;
+  contestLabel?: string;
   semiFinal?: "single" | 1 | 2;
   qualifiedForFinal?: boolean | "auto";
   qualifiedAnnouncedPosition?: number;
@@ -83,6 +85,9 @@ export type YearResultData = {
 };
 
 export type YearData = {
+  id: string;
+  label: string;
+  format?: "final-only" | "single-semi" | "two-semis";
   year: number;
   hostCity: string;
   country: string;
@@ -90,7 +95,7 @@ export type YearData = {
   songs: Song[];
 };
 
-export type YearDataInput = Omit<YearData, "songs"> & {
+export type YearDataInput = Omit<YearData, "songs" | "id" | "label"> & {
   songs: YearSongInput[];
 };
 
@@ -137,7 +142,7 @@ export type ResultDelegation = {
 };
 
 export type GlobalInsertedYear = {
-  year: number;
+  year: number | string;
   insertedAt: string;
   updatedAt?: string;
 };
@@ -150,6 +155,7 @@ export type GlobalManualAdjustment = {
 };
 
 export type GlobalRankingState = {
+  regionalRankings?: { asia?: GlobalRankingState };
   globalOrder: string[];
   insertedYears: GlobalInsertedYear[];
   totalSongCount: number;

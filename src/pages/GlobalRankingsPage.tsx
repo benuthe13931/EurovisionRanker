@@ -1,3 +1,5 @@
+import { loadRegionalGlobalRanking, saveRegionalGlobalRanking, clearRegionalGlobalRanking } from "../utils/regionalGlobalRanking";
+import { songsByYear } from "../data/years";
 import {
   AlertTriangle,
   Check,
@@ -26,7 +28,7 @@ import {
 } from "../components/ComparisonOverlay";
 import RankingList from "../components/RankingList";
 import RankingSnapshotControls from "../components/RankingSnapshotControls";
-import { allSongs, allSongsBackground, songsByYear, years } from "../data/years";
+import { useContestData, useContestRegion } from "../components/ContestRegionProvider";
 import type { GlobalRankingState, Song, YearData } from "../types";
 import {
   chooseInsertionWinner,
@@ -35,18 +37,15 @@ import {
 } from "../utils/pairing";
 import { rankingKeyForStage } from "../utils/contestStages";
 import {
-  clearGlobalRanking,
   clearComparison,
   createRankingSnapshot,
   loadFavorites,
   loadComparison,
-  loadGlobalRanking,
   loadRanking,
   rankingContextFromKey,
   saveComparison,
   saveComparisonStatus,
   saveFavorites,
-  saveGlobalRanking,
 } from "../utils/storage";
 
 type YearSource = {
@@ -112,8 +111,9 @@ function normalizeGlobalRanking(
   return {
     globalOrder,
     insertedYears: (state.insertedYears ?? [])
-      .filter((entry) => songsByYear.has(String(entry.year)))
-      .sort((a, b) => b.year - a.year),
+      .filter((entry) => songsByYear.get(String(entry.year))?.songs.some((song) => validIds.has(song.id)))
+      .map((entry) => ({ ...entry, year: String(entry.year) }))
+      .sort((a, b) => parseInt(String(b.year)) - parseInt(String(a.year))),
     totalSongCount: globalOrder.length,
     manualAdjustments: state.manualAdjustments ?? [],
     updatedAt: state.updatedAt ?? now,
@@ -122,7 +122,7 @@ function normalizeGlobalRanking(
 
 function upsertInsertedYear(
   insertedYears: GlobalRankingState["insertedYears"],
-  year: number,
+  year: string,
 ) {
   const now = new Date().toISOString();
   const existing = insertedYears.find((entry) => entry.year === year);
@@ -133,7 +133,7 @@ function upsertInsertedYear(
     );
   }
 
-  return [...insertedYears, { year, insertedAt: now }].sort((a, b) => b.year - a.year);
+  return [...insertedYears, { year, insertedAt: now }].sort((a, b) => parseInt(String(b.year)) - parseInt(String(a.year)));
 }
 
 function yearIds(year: YearData) {
@@ -171,6 +171,8 @@ function Modal({
 }
 
 export default function GlobalRankingsPage() {
+  const { allSongs, allSongsBackground, years } = useContestData();
+  const region = useContestRegion();
   const allSongIds = useMemo(() => new Set(allSongs.map((song) => song.id)), []);
   const songById = useMemo(() => new Map(allSongs.map((song) => [song.id, song])), []);
   const [globalRanking, setGlobalRanking] = useState<GlobalRankingState>(() => emptyGlobalRanking());
@@ -180,7 +182,7 @@ export default function GlobalRankingsPage() {
   const [insertPickerOpen, setInsertPickerOpen] = useState(false);
   const [comparisonRun, setComparisonRun] = useState<ComparisonRun | null>(null);
   const [comparisonSidebarOpen, setComparisonSidebarOpen] = useState(false);
-  const [inProgressYears, setInProgressYears] = useState<Set<number>>(() => new Set());
+  const [inProgressYears, setInProgressYears] = useState<Set<string>>(() => new Set());
   const [resetStep, setResetStep] = useState<0 | 1 | 2>(0);
   const [resetText, setResetText] = useState("");
   const [dataError, setDataError] = useState("");
@@ -190,7 +192,7 @@ export default function GlobalRankingsPage() {
     [globalRanking.globalOrder, songById],
   );
   const insertedYearSet = useMemo(
-    () => new Set(globalRanking.insertedYears.map((entry) => entry.year)),
+    () => new Set(globalRanking.insertedYears.map((entry) => String(entry.year))),
     [globalRanking.insertedYears],
   );
   const hasGlobalRankings = globalRanking.globalOrder.length > 0;
@@ -201,7 +203,7 @@ export default function GlobalRankingsPage() {
     async function loadState() {
       try {
         const [savedGlobalRanking, savedFavorites] = await Promise.all([
-          loadGlobalRanking(),
+          loadRegionalGlobalRanking(region),
           loadFavorites(),
         ]);
         if (!active) return;
@@ -225,13 +227,13 @@ export default function GlobalRankingsPage() {
     async function loadInProgress() {
       const entries = await Promise.all(
         years.map(async (year) => {
-          const saved = await loadComparison(`global:${year.year}:comparison`);
-          return saved && !comparisonIsComplete(saved) ? year.year : null;
+          const saved = await loadComparison(`global:${year.id}:comparison`);
+          return saved && !comparisonIsComplete(saved) ? year.id : null;
         }),
       );
       if (active) {
         setInProgressYears(
-          new Set(entries.filter((year): year is number => year !== null)),
+          new Set(entries.filter((year): year is string => year !== null)),
         );
       }
     }
@@ -268,7 +270,7 @@ export default function GlobalRankingsPage() {
   });
 
   async function getYearSource(year: YearData): Promise<YearSource> {
-    const ranking = await loadRanking(rankingKeyForStage(String(year.year), "overall"));
+    const ranking = await loadRanking(rankingKeyForStage(String(year.id), "overall"));
     const songs = orderSongs(year.songs, ranking?.songIds);
     const ids = songs.map((song) => song.id);
     const defaultIds = year.songs.map((song) => song.id);
@@ -282,7 +284,7 @@ export default function GlobalRankingsPage() {
   async function persist(next: GlobalRankingState) {
     const normalized = normalizeGlobalRanking(next, allSongIds);
     setGlobalRanking(normalized);
-    await saveGlobalRanking(normalized);
+    await saveRegionalGlobalRanking(normalized, region);
     setDataError("");
   }
 
@@ -297,7 +299,7 @@ export default function GlobalRankingsPage() {
     setFlow({
       type: "insert-confirm",
       year,
-      rerank: insertedYearSet.has(year.year),
+      rerank: insertedYearSet.has(year.id),
     });
   }
 
@@ -325,7 +327,7 @@ export default function GlobalRankingsPage() {
       await persist({
         ...emptyGlobalRanking(),
         globalOrder: source.ids,
-        insertedYears: upsertInsertedYear([], year.year),
+        insertedYears: upsertInsertedYear([], year.id),
       });
       setFlow(null);
       setView("rankings");
@@ -342,7 +344,7 @@ export default function GlobalRankingsPage() {
       await persist({
         ...globalRanking,
         globalOrder: [...baseline, ...source.ids],
-        insertedYears: upsertInsertedYear(globalRanking.insertedYears, year.year),
+        insertedYears: upsertInsertedYear(globalRanking.insertedYears, year.id),
       });
       setFlow(null);
       setView("rankings");
@@ -361,7 +363,7 @@ export default function GlobalRankingsPage() {
         return;
       }
 
-      const key = `global:${year.year}:comparison`;
+      const key = `global:${year.id}:comparison`;
       const saved = await loadComparison(key);
       const state =
         saved && !comparisonIsComplete(saved)
@@ -385,7 +387,7 @@ export default function GlobalRankingsPage() {
     const nextRun = {
       ...comparisonRun,
       state: createInsertionComparisonState(
-        `global:${comparisonRun.year.year}:comparison`,
+        `global:${comparisonRun.year.id}:comparison`,
         comparisonRun.baselineIds,
         comparisonRun.pendingIds,
       ),
@@ -398,7 +400,7 @@ export default function GlobalRankingsPage() {
     if (!comparisonRun) return;
     void saveComparison(comparisonRun.state);
     setInProgressYears((current) =>
-      new Set(current).add(comparisonRun.year.year),
+      new Set(current).add(comparisonRun.year.id),
     );
     setComparisonRun(null);
   }
@@ -413,7 +415,7 @@ export default function GlobalRankingsPage() {
       const nextGlobalRanking = {
         ...globalRanking,
         globalOrder: nextState.sortedIds,
-        insertedYears: upsertInsertedYear(globalRanking.insertedYears, comparisonRun.year.year),
+        insertedYears: upsertInsertedYear(globalRanking.insertedYears, comparisonRun.year.id),
       };
       await persist(nextGlobalRanking);
       const completedAt = new Date();
@@ -422,22 +424,22 @@ export default function GlobalRankingsPage() {
         timeStyle: "short",
       }).format(completedAt);
       await saveComparisonStatus({
-        key: "global",
-        ...rankingContextFromKey("global"),
+        key: region === "asia" ? "global:asia" : "global",
+        ...rankingContextFromKey(region === "asia" ? "global:asia" : "global"),
         completedAt: completedAt.toISOString(),
         completedComparisons: nextState.completed,
         songCount: nextState.sortedIds.length,
         algorithmType: "global-binary-insertion",
         algorithmVersion: "1",
       });
-      await createRankingSnapshot("global", nextState.sortedIds, {
+      await createRankingSnapshot(region === "asia" ? "global:asia" : "global", nextState.sortedIds, {
         name: `Comparison Rankings - ${completedAtText}`,
         notes: `This snapshot was automatically created from the Head-to-Head Ranking results on ${completedAtText}.`,
       });
       await clearComparison(nextState.key);
       setInProgressYears((current) => {
         const next = new Set(current);
-        next.delete(comparisonRun.year.year);
+        next.delete(comparisonRun.year.id);
         return next;
       });
       setComparisonRun(null);
@@ -448,10 +450,10 @@ export default function GlobalRankingsPage() {
   async function resumeComparison(year: YearData) {
     try {
       const source = await getYearSource(year);
-      const baseline = insertedYearSet.has(year.year)
+      const baseline = insertedYearSet.has(year.id)
         ? removeYearIds(globalRanking.globalOrder, year)
         : globalRanking.globalOrder;
-      const saved = await loadComparison(`global:${year.year}:comparison`);
+      const saved = await loadComparison(`global:${year.id}:comparison`);
       if (!saved || comparisonIsComplete(saved)) return;
       setComparisonRun({
         year,
@@ -468,16 +470,16 @@ export default function GlobalRankingsPage() {
   async function discardComparison(year: YearData) {
     if (
       !window.confirm(
-        `Discard the saved Global Rankings comparison session for ${year.year}?`,
+        `Discard the saved Global Rankings comparison session for ${year.label}?`,
       )
     ) {
       return;
     }
     try {
-      await clearComparison(`global:${year.year}:comparison`);
+      await clearComparison(`global:${year.id}:comparison`);
       setInProgressYears((current) => {
         const next = new Set(current);
-        next.delete(year.year);
+        next.delete(year.id);
         return next;
       });
     } catch (error) {
@@ -557,7 +559,7 @@ export default function GlobalRankingsPage() {
 
   async function resetGlobalRankings() {
     try {
-      await clearGlobalRanking();
+      await clearRegionalGlobalRanking(region);
       setGlobalRanking(emptyGlobalRanking());
       setResetStep(0);
       setResetText("");
@@ -574,10 +576,10 @@ export default function GlobalRankingsPage() {
   const comparisonPreviewSongs = comparisonRun
     ? comparisonRun.state.sortedIds.flatMap((id) => (songById.has(id) ? [songById.get(id)!] : []))
     : [];
-  const insertedYears = years.filter((year) => insertedYearSet.has(year.year));
-  const notInsertedYears = years.filter((year) => !insertedYearSet.has(year.year));
+  const insertedYears = years.filter((year) => insertedYearSet.has(year.id));
+  const notInsertedYears = years.filter((year) => !insertedYearSet.has(year.id));
   const inProgressYearList = years.filter((year) =>
-    inProgressYears.has(year.year),
+    inProgressYears.has(year.id),
   );
 
   return (
@@ -590,7 +592,7 @@ export default function GlobalRankingsPage() {
           <Link className="backButton" to="/">
             <ArrowLeft size={16} /> Back
           </Link>
-          <h1>Global Rankings</h1>
+          <h1>{region === "asia" ? "Asia" : "Europe"} Global Rankings</h1>
           <p>
             Build your overall Eurovision ranking across loaded contest years.
           </p>
@@ -640,10 +642,10 @@ export default function GlobalRankingsPage() {
             </button>
             {view === "rankings" && hasGlobalRankings ? (
               <RankingSnapshotControls
-                rankingKey="global"
+                rankingKey={region === "asia" ? "global:asia" : "global"}
                 songs={currentSongs}
                 sourceSongs={allSongs}
-                title="Global Rankings"
+                title={`${region === "asia" ? "Asia" : "Europe"} Global Rankings`}
                 favorites={favorites}
                 metaMode="countryYear"
                 onToggleFavorite={(songId) => void toggleFavorite(songId)}
@@ -689,9 +691,9 @@ export default function GlobalRankingsPage() {
                 <h2>Years In Progress</h2>
                 <div className="globalYearGrid">
                   {inProgressYearList.map((year) => (
-                    <div className="globalYearButton inProgress" key={year.year}>
+                    <div className="globalYearButton inProgress" key={year.id}>
                       <ListOrdered size={16} />
-                      <span>{year.year}</span>
+                      <span>{year.label}</span>
                       <small>Comparison saved</small>
                       <div className="globalYearActions">
                         <button
@@ -722,11 +724,11 @@ export default function GlobalRankingsPage() {
                     <button
                       className="globalYearButton inserted"
                       type="button"
-                      key={year.year}
+                      key={year.id}
                       onClick={() => beginYearFlow(year)}
                     >
                       <Check size={16} />
-                      <span>{year.year}</span>
+                      <span>{year.label}</span>
                       <small>Re-rank Existing Year</small>
                     </button>
                   ))}
@@ -741,11 +743,11 @@ export default function GlobalRankingsPage() {
                   <button
                     className="globalYearButton"
                     type="button"
-                    key={year.year}
+                    key={year.id}
                     onClick={() => beginYearFlow(year)}
                   >
                     <Plus size={16} />
-                    <span>{year.year}</span>
+                    <span>{year.label}</span>
                     <small>{hasGlobalRankings ? "Add Year" : "Initialize"}</small>
                   </button>
                 ))}
@@ -779,11 +781,11 @@ export default function GlobalRankingsPage() {
                   <button
                     className="globalYearButton"
                     type="button"
-                    key={year.year}
+                    key={year.id}
                     onClick={() => beginYearFlow(year)}
                   >
                     <Plus size={16} />
-                    <span>{year.year}</span>
+                    <span>{year.label}</span>
                     <small>Add Year</small>
                   </button>
                 ))}
@@ -797,7 +799,7 @@ export default function GlobalRankingsPage() {
 
       {flow?.type === "initialize" ? (
         <Modal
-          title={`Initialize with ${flow.year.year}?`}
+          title={`Initialize with ${flow.year.label}?`}
           actions={
             <>
               <button className="secondaryButton" type="button" onClick={() => setFlow(null)}>
@@ -815,14 +817,14 @@ export default function GlobalRankingsPage() {
         >
           <p>
             The selected year becomes your initial Global Ranking dataset. No comparisons are
-            required; the current {flow.year.year} Overall order will be copied.
+            required; the current {flow.year.label} Overall order will be copied.
           </p>
         </Modal>
       ) : null}
 
       {flow?.type === "insert-confirm" ? (
         <Modal
-          title={flow.rerank ? `Re-rank ${flow.year.year}?` : `Insert ${flow.year.year}?`}
+          title={flow.rerank ? `Re-rank ${flow.year.label}?` : `Insert ${flow.year.label}?`}
           actions={
             <>
               <button className="secondaryButton" type="button" onClick={() => setFlow(null)}>
@@ -837,7 +839,7 @@ export default function GlobalRankingsPage() {
                   Tell Me What's Changed
                 </button>
               ) : null}
-              <Link className="secondaryButton" to={`/year/${flow.year.year}`}>
+              <Link className="secondaryButton" to={`/year/${flow.year.id}`}>
                 Take Me to My Year's Rankings
               </Link>
               <button
@@ -852,13 +854,13 @@ export default function GlobalRankingsPage() {
         >
           {flow.rerank ? (
             <p>
-              The insertion process uses the current ordering from the {flow.year.year} rankings
-              page. If you manually adjusted {flow.year.year} songs here but did not update that
+              The insertion process uses the current ordering from the {flow.year.label} rankings
+              page. If you manually adjusted {flow.year.label} songs here but did not update that
               year's Overall ranking, results may differ from expectations.
             </p>
           ) : (
             <p>
-              For best results, ensure your {flow.year.year} rankings are finalized in the Overall
+              For best results, ensure your {flow.year.label} rankings are finalized in the Overall
               tab before continuing.
             </p>
           )}
@@ -867,7 +869,7 @@ export default function GlobalRankingsPage() {
 
       {flow?.type === "default-warning" ? (
         <Modal
-          title={`${flow.year.year} may need review`}
+          title={`${flow.year.label} may need review`}
           actions={
             <>
               <button className="secondaryButton" type="button" onClick={() => setFlow(null)}>
@@ -888,12 +890,12 @@ export default function GlobalRankingsPage() {
           }
         >
           <p>
-            It looks like you may not have ranked {flow.year.year} yet. Global Rankings will use the
-            current {flow.year.year} Overall order as its{" "}
+            It looks like you may not have ranked {flow.year.label} yet. Global Rankings will use the
+            current {flow.year.label} Overall order as its{" "}
             {hasGlobalRankings ? "insertion" : "starting"} source.
           </p>
           <p>
-            For best results, complete or review your {flow.year.year} Overall ranking before
+            For best results, complete or review your {flow.year.label} Overall ranking before
             inserting this year into Global Rankings. Otherwise, your Global Ranking results may not
             be accurate.
           </p>
@@ -902,7 +904,7 @@ export default function GlobalRankingsPage() {
 
       {flow?.type === "method" ? (
         <Modal
-          title={`How would you like to insert ${flow.year.year}?`}
+          title={`How would you like to insert ${flow.year.label}?`}
           actions={
             <>
               <button className="secondaryButton" type="button" onClick={() => setFlow(null)}>
@@ -934,7 +936,7 @@ export default function GlobalRankingsPage() {
 
       {flow?.type === "changed" ? (
         <Modal
-          title={`${flow.year.year} ordering differences`}
+          title={`${flow.year.label} ordering differences`}
           actions={
             <>
               <button
@@ -958,7 +960,7 @@ export default function GlobalRankingsPage() {
             <>
               <p>
                 These songs have a different relative order in Global Rankings than in the
-                {flow.year.year} Overall ranking. Showing the first 20 contradictions.
+                {flow.year.label} Overall ranking. Showing the first 20 contradictions.
               </p>
               <ol className="globalChangeList">
                 {flow.changes.slice(0, 20).map((change) => (
@@ -978,7 +980,7 @@ export default function GlobalRankingsPage() {
 
       {resetStep === 1 ? (
         <Modal
-          title="Reset all Global Rankings?"
+          title={`Reset all ${region === "asia" ? "Asia" : "Europe"} Global Rankings?`}
           actions={
             <>
               <button className="secondaryButton" type="button" onClick={() => setResetStep(0)}>
@@ -991,7 +993,7 @@ export default function GlobalRankingsPage() {
           }
         >
           <p>
-            This will permanently delete ALL Global Rankings. This action cannot be undone. All
+            This will permanently delete all Global Rankings for {region === "asia" ? "Asia" : "Europe"}. This action cannot be undone. All
             inserted years, comparisons, and rankings will be lost.
           </p>
           <p>We recommend re-ranking an individual year instead.</p>
@@ -1018,7 +1020,7 @@ export default function GlobalRankingsPage() {
           }
         >
           <label className="globalConfirmInput">
-            Type CONFIRM to permanently delete all Global Rankings.
+            Type CONFIRM to permanently delete all Global Rankings for {region === "asia" ? "Asia" : "Europe"}.
             <input value={resetText} onChange={(event) => setResetText(event.target.value)} />
           </label>
         </Modal>
@@ -1030,7 +1032,7 @@ export default function GlobalRankingsPage() {
           <div className="comparisonLayer">
             <header className="overlayHeader">
               <div className="overlayTitle">
-                <h1>Insert {comparisonRun.year.year}</h1>
+                <h1>Insert {comparisonRun.year.label}</h1>
                 <p className="desktopOnly">Use arrow keys or choose a song. Results save into Global Rankings.</p>
               </div>
               <div className="overlayProgress" aria-label="Comparison progress">
@@ -1113,7 +1115,7 @@ export default function GlobalRankingsPage() {
                 ) : (
                   <section className="comparisonComplete">
                     <h2>Comparison insertion complete</h2>
-                    <p>Global Rankings have been updated with {comparisonRun.year.year}.</p>
+                    <p>Global Rankings have been updated with {comparisonRun.year.label}.</p>
                   </section>
                 )}
               </div>

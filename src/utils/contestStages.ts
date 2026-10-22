@@ -1,4 +1,4 @@
-import type { Song } from "../types";
+import type { Song, YearData } from "../types";
 
 export type ContestStageKey =
   | "overall"
@@ -20,10 +20,10 @@ export function grandFinalWarningKeyForYear(year: string) {
   return `${GRAND_FINAL_WARNING_KEY}:${year}`;
 }
 
-export function getContestStages(year: number): ContestStage[] {
-  if (year <= 2003) return [{ key: "overall", label: "Overall" }];
+export function getContestStages(year: number, format?: YearData["format"]): ContestStage[] {
+  if (format === "final-only" || (!format && year <= 2003)) return [{ key: "overall", label: "Overall" }];
 
-  if (year <= 2007) {
+  if (format === "single-semi" || (!format && year <= 2007)) {
     return [
       { key: "overall", label: "Overall" },
       { key: "semi-final", label: "Semi-Final" },
@@ -47,11 +47,11 @@ export function predictionKeyForStage(year: string, stageKey: ContestStageKey) {
   return `year:${year}:prediction:${stageKey}`;
 }
 
-export function predictionStagesForYear(year: number): ContestStage[] {
-  if (year <= 2003) return [{ key: "grand-final", label: "Final Placings" }];
+export function predictionStagesForYear(year: number, format?: YearData["format"]): ContestStage[] {
+  if (getContestStages(year, format).length === 1) return [{ key: "grand-final", label: "Final Placings" }];
 
   return [
-    ...getContestStages(year).filter((stage) =>
+    ...getContestStages(year, format).filter((stage) =>
       stage.key.includes("semi-final"),
     ),
     { key: "grand-final", label: "Grand Final Placements" },

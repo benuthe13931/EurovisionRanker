@@ -121,10 +121,10 @@ export function rankingContextFromKey(key: string): {
     return {
       scopeType: "country",
       scopeId: parts[1] ?? key,
-      rankingMode: null,
+      rankingMode: parts.slice(2).join(":") || null,
     };
   }
-  return { scopeType: "global", scopeId: "global", rankingMode: null };
+  return { scopeType: "global", scopeId: "global", rankingMode: parts.slice(1).join(":") || null };
 }
 
 async function rpc<T>(name: string, args: Record<string, unknown>) {

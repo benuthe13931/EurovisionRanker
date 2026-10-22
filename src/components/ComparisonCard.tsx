@@ -39,7 +39,7 @@ export default function ComparisonCard({ song, onChoose }: ComparisonCardProps) 
       <div className="comparisonBody">
         <p className="countryLine">
           <strong>{song.countryCode}</strong> {song.country}
-          {song.year ? ` · ${song.year}` : ""}
+          {song.year ? ` · ${song.contestLabel ?? song.year}` : ""}
         </p>
         <h2>{song.title}</h2>
         <p>{song.artist}</p>

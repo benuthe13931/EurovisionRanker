@@ -1,4 +1,4 @@
-import { allSongs, countries, years } from "../data/years";
+import { countries, years, dataByRegion, type ContestRegion } from "../data/years";
 import type { Song } from "../types";
 import { resolvePreviewMedia } from "./mediaPreview";
 
@@ -23,6 +23,7 @@ export type AnswerFormat =
 export type QuizLength = 10 | 20 | "all";
 
 export type QuizSettings = {
+  region?: ContestRegion;
   scope: QuizScope;
   answerFormat: AnswerFormat;
   year: string;
@@ -79,9 +80,10 @@ export type MissedQuestion = {
 };
 
 export const defaultQuizSettings: QuizSettings = {
+  region: "europe",
   scope: "year",
   answerFormat: "mc-mixed",
-  year: String(years[0]?.year ?? ""),
+  year: dataByRegion.europe.years[0]?.id ?? "",
   countrySlug: countries[0]?.slug ?? "",
   length: "all",
 };
@@ -128,8 +130,8 @@ export function answerFormatLabel(format: AnswerFormat) {
 
 export function scopeDetail(settings: QuizSettings) {
   if (settings.scope === "year") {
-    const year = years.find((item) => String(item.year) === settings.year);
-    return year ? `${year.year} / ${year.hostCity}` : "Choose a year";
+    const year = years.find((item) => item.id === settings.year);
+    return year ? `${year.label} / ${year.hostCity}` : "Choose a year";
   }
 
   if (settings.scope === "country") {
@@ -160,11 +162,9 @@ function shuffle<T>(items: T[]) {
 }
 
 export function sourceSongsForSettings(settings: QuizSettings) {
+  const { allSongs, countries, years } = dataByRegion[settings.region ?? "europe"];
   if (settings.scope === "year") {
-    return years.find((year) => String(year.year) === settings.year)?.songs.map((song) => ({
-      ...song,
-      year: Number(settings.year),
-    })) ?? [];
+    return years.find((year) => year.id === settings.year)?.songs ?? [];
   }
 
   if (settings.scope === "country") {

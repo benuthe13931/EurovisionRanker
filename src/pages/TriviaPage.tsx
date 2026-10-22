@@ -1,3 +1,5 @@
+import { regionalTriviaStorage } from "../utils/regionalTriviaStorage";
+import { useContestRegion, useContestData } from "../components/ContestRegionProvider";
 import { type CSSProperties, useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -7,13 +9,7 @@ import TriviaResults from "../components/trivia/TriviaResults";
 import TriviaSetupPanel from "../components/trivia/TriviaSetupPanel";
 import { allSongsBackground } from "../data/years";
 import {
-  clearTriviaSession,
-  getTriviaSessionMetadata,
   loadActiveProfile,
-  loadLocalTriviaSession,
-  loadRemoteTriviaSession,
-  saveLocalTriviaSession,
-  saveRemoteTriviaSession,
 } from "../utils/storage";
 import {
   buildQuizDeck,
@@ -176,7 +172,10 @@ function compareSavedAt(localSavedAt?: string | null, cloudSavedAt?: string | nu
 }
 
 export default function TriviaPage() {
-  const [settings, setSettings] = useState<QuizSettings>(defaultQuizSettings);
+  const region = useContestRegion();
+  const { clearTriviaSession, getTriviaSessionMetadata, loadLocalTriviaSession, loadRemoteTriviaSession, saveLocalTriviaSession, saveRemoteTriviaSession } = regionalTriviaStorage(region);
+  const { years, countries } = useContestData();
+  const [settings, setSettings] = useState<QuizSettings>(() => ({ ...defaultQuizSettings, region, year: years[0]?.id ?? "", countrySlug: countries[0]?.slug ?? "" }));
   const [mode, setMode] = useState<TriviaMode>("setup");
   const [deck, setDeck] = useState<TriviaQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);

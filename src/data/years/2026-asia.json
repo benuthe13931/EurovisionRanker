@@ -1,5 +1,6 @@
 {
   "year": 2026,
+  "format": "final-only",
   "hostCity": "Bangkok",
   "country": "Thailand",
   "backgroundImage": "/assets/backgrounds/hero-bg.webp",

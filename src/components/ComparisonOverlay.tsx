@@ -102,7 +102,7 @@ export function ComparisonOverlayChoiceCard({
         <div>
           <h2>{song.title}</h2>
           <p>{song.artist}</p>
-          <span>{metaMode === "year" && song.year ? song.year : song.country}</span>
+          <span>{metaMode === "year" && song.year ? (song.contestLabel ?? song.year) : song.country}</span>
         </div>
         <div className="compareIconRow" onClick={(event) => event.stopPropagation()}>
           <AudioButton songId={song.id} url={song.previewVideoUrl ?? ""} mode="inline" />

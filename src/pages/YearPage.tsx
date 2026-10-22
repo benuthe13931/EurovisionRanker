@@ -50,7 +50,7 @@ export default function YearPage() {
   const { year = "" } = useParams();
   const yearData = songsByYear.get(year);
   const stages = useMemo(
-    () => getContestStages(Number(yearData?.year ?? year)),
+    () => getContestStages(Number(yearData?.year ?? year), yearData?.format),
     [year, yearData],
   );
   const [activeStageKey, setActiveStageKey] =
@@ -331,7 +331,7 @@ export default function YearPage() {
             >
               <ArrowLeft size={16} /> Back
             </Link>
-            <h1>Eurovision Song Contest {currentYearData.year}</h1>
+            <h1>Eurovision Song Contest {currentYearData.label}</h1>
             <p>
               Rank songs from {currentYearData.hostCity},{" "}
               {currentYearData.country}. Drag rows into your order, preview
@@ -341,7 +341,7 @@ export default function YearPage() {
 
           <nav
             className="yearModeTabs"
-            aria-label={`${currentYearData.year} sections`}
+            aria-label={`${currentYearData.label} sections`}
           >
             <button
               className={yearMode === "rankings" ? "selected" : ""}
@@ -350,7 +350,7 @@ export default function YearPage() {
             >
               Rankings
             </button>
-            {Number(year) >= 2004 ? (
+            {currentYearData.year >= 2004 ? (
               <>
                 <button
                   className={yearMode === "predictions" ? "selected" : ""}
@@ -374,7 +374,7 @@ export default function YearPage() {
             <>
               <nav
                 className="stageTabs"
-                aria-label={`${currentYearData.year} ranking stages`}
+                aria-label={`${currentYearData.label} ranking stages`}
               >
                 {stages.map((stage) => (
                   <button
@@ -433,7 +433,7 @@ export default function YearPage() {
                     rankingKey={rankingKey}
                     songs={songs}
                     sourceSongs={stageSourceSongs}
-                    title={`Eurovision ${currentYearData.year} - ${activeStage.label}`}
+                    title={`Eurovision ${currentYearData.label} - ${activeStage.label}`}
                     exportSectionOptions={stages.map((stage) => ({
                       id: stage.key,
                       label: stage.label,

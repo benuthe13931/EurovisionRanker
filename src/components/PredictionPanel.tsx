@@ -1,3 +1,4 @@
+import { songsByYear } from "../data/years";
 import {
   closestCenter,
   DndContext,
@@ -3484,7 +3485,9 @@ function PlacementPredictionPanel({
   const revealSessionKey = savedRevealSessionKey(predictionKey);
   const finalists = useMemo(
     () =>
-      Number(year) <= 2003 ? songs : songsForContestStage(songs, "grand-final"),
+      songsByYear.get(year)?.format === "final-only" || Number(year) <= 2003
+        ? songs
+        : songsForContestStage(songs, "grand-final"),
     [songs, year],
   );
   const resultData = resultsByYear.get(year);
@@ -4415,7 +4418,7 @@ export default function PredictionPanel({
   onOpenResults,
   onOpenPredictions,
 }: PredictionPanelProps) {
-  const stages = useMemo(() => predictionStagesForYear(Number(year)), [year]);
+  const stages = useMemo(() => predictionStagesForYear(songsByYear.get(year)?.year ?? Number(year), songsByYear.get(year)?.format), [year]);
   const resultsWarningKey = `eurovision-ranker:hide-results-warning:${year}`;
   const [activeStageKey, setActiveStageKey] = useState<ContestStageKey>(
     initialStageKey ?? stages[0]?.key ?? "semi-final-1",

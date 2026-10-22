@@ -8,7 +8,7 @@ import {
 } from "react";
 import ComparisonOverlay from "../components/ComparisonOverlay";
 import RankingList from "../components/RankingList";
-import { allSongs, allSongsBackground } from "../data/years";
+import { useContestData, useContestRegion } from "../components/ContestRegionProvider";
 import type { Song } from "../types";
 import {
   clearRanking,
@@ -35,7 +35,9 @@ function orderSongs(songs: Song[], savedIds?: string[]) {
 export default function AllSongsPage({
   favoritesOnly = false,
 }: AllSongsPageProps) {
-  const rankingKey = favoritesOnly ? "favorites" : "all";
+  const { allSongs, allSongsBackground } = useContestData();
+  const region = useContestRegion();
+  const rankingKey = `${favoritesOnly ? "favorites" : "all"}${region === "asia" ? ":asia" : ""}`;
   const [favorites, setFavorites] = useState<Set<string>>(() => new Set());
   const sourceSongs = useMemo(
     () =>
@@ -155,7 +157,7 @@ export default function AllSongsPage({
           <p>
             {favoritesOnly
               ? "Your favorited entries in one compact ranking list."
-              : "Every song from every JSON year file appears here automatically."}
+              : "Every song from the selected contest series appears here automatically."}
           </p>
         </div>
 

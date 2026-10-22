@@ -1,5 +1,5 @@
 import { Cloud, Gamepad2, Play, Trash2 } from "lucide-react";
-import { countries, years } from "../../data/years";
+import { dataByRegion } from "../../data/years";
 import {
   defaultFormatForScope,
   eligibleSongsForSettings,
@@ -45,6 +45,7 @@ export default function TriviaSetupPanel({
   onResume,
   onStart,
 }: TriviaSetupPanelProps) {
+  const { countries, years } = dataByRegion[settings.region ?? "europe"];
   const eligibleCount = eligibleSongsForSettings(settings).length;
   const unavailableCount = unavailablePreviewCount(settings);
   const questionCount = settings.length === "all" ? eligibleCount : Math.min(settings.length, eligibleCount);
@@ -133,8 +134,8 @@ export default function TriviaSetupPanel({
             value={settings.year}
             onChange={(year) => onChange({ ...settings, year })}
             options={years.map((year) => ({
-              value: String(year.year),
-              label: String(year.year),
+              value: year.id,
+              label: year.label,
               meta: `${year.hostCity}, ${year.country}`,
             }))}
           />
@@ -156,7 +157,7 @@ export default function TriviaSetupPanel({
         {settings.scope === "expert" ? (
           <div className="datasetSummary">
             <strong>All eligible songs</strong>
-            <span>{eligibleCount} playable questions from the full dataset.</span>
+            <span>{eligibleCount} playable questions from the selected contest series.</span>
           </div>
         ) : null}
         <p className="setupHint">

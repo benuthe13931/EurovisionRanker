@@ -19,7 +19,7 @@ const scopes: { value: QuizScope; label: string; description: string }[] = [
   {
     value: "expert",
     label: "Expert",
-    description: "Use the full dataset with multi-part answers.",
+    description: "Use all songs in the selected contest series with multi-part answers.",
   },
 ];
 

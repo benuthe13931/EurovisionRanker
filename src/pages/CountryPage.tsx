@@ -10,7 +10,7 @@ import { Link, useParams } from "react-router-dom";
 import ComparisonOverlay from "../components/ComparisonOverlay";
 import RankingList from "../components/RankingList";
 import RankingSnapshotControls from "../components/RankingSnapshotControls";
-import { countriesBySlug } from "../data/years";
+import { useContestData, useContestRegion } from "../components/ContestRegionProvider";
 import type { Song } from "../types";
 import {
   clearComparison,
@@ -35,9 +35,11 @@ function orderSongs(songs: Song[], savedIds?: string[]) {
 }
 
 export default function CountryPage() {
+  const { countriesBySlug } = useContestData();
+  const region = useContestRegion();
   const { countrySlug = "" } = useParams();
   const countryData = countriesBySlug.get(countrySlug);
-  const rankingKey = `country:${countrySlug}`;
+  const rankingKey = `country:${countrySlug}${region === "asia" ? ":asia" : ""}`;
   const [favorites, setFavorites] = useState<Set<string>>(() => new Set());
   const [dataError, setDataError] = useState("");
   const [comparisonOpen, setComparisonOpen] = useState(false);

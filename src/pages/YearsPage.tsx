@@ -1,9 +1,10 @@
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { years } from "../data/years";
+import { useContestData } from "../components/ContestRegionProvider";
 
 export default function YearsPage() {
+  const { years } = useContestData();
   return (
     <main
       className="pageShell"
@@ -20,11 +21,11 @@ export default function YearsPage() {
 
         <div className="yearGrid">
           {years.map((year) => (
-            <Link className="yearCard" to={`/year/${year.year}`} key={year.year}>
+            <Link className="yearCard" to={`/year/${year.id}`} key={year.id}>
               <span>
                 {year.hostCity}, {year.country}
               </span>
-              <h2>{year.year}</h2>
+              <h2>{year.label}</h2>
               <p>{year.songs.length} songs to rank</p>
             </Link>
           ))}

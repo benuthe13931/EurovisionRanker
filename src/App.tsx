@@ -1,3 +1,4 @@
+import ContestRegionProvider from "./components/ContestRegionProvider";
 import { useEffect } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { AudioProvider } from "./components/AudioProvider";
@@ -26,6 +27,7 @@ export default function App() {
     <AudioProvider>
       <NavBar />
       <ScrollToTop />
+      <ContestRegionProvider>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/years" element={<YearsPage />} />
@@ -39,6 +41,7 @@ export default function App() {
         <Route path="/trivia" element={<TriviaPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      </ContestRegionProvider>
     </AudioProvider>
   );
 }

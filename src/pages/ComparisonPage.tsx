@@ -3,7 +3,7 @@ import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ComparisonCard from "../components/ComparisonCard";
 import FlagEmoji from "../components/FlagEmoji";
-import { allSongs, allSongsBackground, songsByYear } from "../data/years";
+import { useContestData, useContestRegion } from "../components/ContestRegionProvider";
 import type { ComparisonState } from "../types";
 import {
   chooseInsertionWinner,
@@ -24,11 +24,13 @@ type ComparisonPageProps = {
 };
 
 export default function ComparisonPage({ allSongsMode = false }: ComparisonPageProps) {
+  const { allSongs, allSongsBackground, songsByYear } = useContestData();
+  const region = useContestRegion();
   const { year = "" } = useParams();
   const navigate = useNavigate();
   const yearData = allSongsMode ? null : songsByYear.get(year);
   const songs = allSongsMode ? allSongs : yearData?.songs ?? [];
-  const rankingKey = allSongsMode ? "all" : `year:${year}`;
+  const rankingKey = allSongsMode ? (region === "asia" ? "all:asia" : "all") : `year:${year}`;
   const comparisonKey = `${rankingKey}:comparison`;
   const backgroundImage = allSongsMode ? allSongsBackground : yearData?.backgroundImage;
   const [state, setState] = useState<ComparisonState>(() =>
@@ -111,7 +113,7 @@ export default function ComparisonPage({ allSongsMode = false }: ComparisonPageP
           <button className="backButton" type="button" onClick={() => navigate(-1)}>
             <ArrowLeft size={16} /> Back
           </button>
-          <h1>{allSongsMode ? "All Songs Comparison" : `Eurovision ${year} Comparison`}</h1>
+          <h1>{allSongsMode ? "All Songs Comparison" : `Eurovision ${yearData?.label ?? year} Comparison`}</h1>
           <p>
             Choose the entry you prefer. Each song is inserted into your current ranking with a
             deterministic binary search.

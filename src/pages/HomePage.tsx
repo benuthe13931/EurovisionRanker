@@ -1,8 +1,9 @@
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import { allSongs, countries, years } from "../data/years";
+import { useContestData } from "../components/ContestRegionProvider";
 
 export default function HomePage() {
+  const { allSongs, countries, years } = useContestData();
   return (
     <main
       className="pageShell"
