@@ -1,9 +1,8 @@
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import { useContestData } from "../components/ContestRegionProvider";
+import { dataByRegion, years } from "../data/years";
 
 export default function HomePage() {
-  const { allSongs, countries, years } = useContestData();
   return (
     <main
       className="pageShell"
@@ -18,29 +17,26 @@ export default function HomePage() {
           </p>
         </div>
 
-        <Link className="featurePanel yearPanel" to="/years">
-          <span>{years.length} contests</span>
-          <h2>Years</h2>
-          <p>Rank songs from a specific contest year.</p>
-        </Link>
-
-        <Link className="featurePanel allSongsPanel" to="/global-rankings">
-          <span>{allSongs.length} songs</span>
-          <h2>Global Rankings</h2>
-          <p>Insert selected years into one persistent cross-year leaderboard.</p>
-        </Link>
-
-        <Link className="featurePanel countryPanel" to="/countries">
-          <span>{countries.length} countries</span>
-          <h2>Country Rankings</h2>
-          <p>Build a separate leaderboard for each country across all loaded years.</p>
-        </Link>
-
-        <Link className="featurePanel triviaPanel" to="/trivia">
-          <span>Audio Quiz</span>
-          <h2>Trivia</h2>
-          <p>Test song, country, and year recognition from the preview clips.</p>
-        </Link>
+        {(["europe", "asia"] as const).map((region) => {
+          const { years, allSongs, countries } = dataByRegion[region];
+          return <section className="yearsSection" key={region}>
+            <h2>{region === "europe" ? "Europe" : "Asia"}</h2>
+            <div className="homeGrid">
+              <Link className="featurePanel yearPanel" to={`/years#years-${region}`}>
+                <span>{years.length} contests</span><h3>Years</h3><p>Rank songs from a specific contest year.</p>
+              </Link>
+              <Link className="featurePanel allSongsPanel" to={`/global-rankings?region=${region}`}>
+                <span>{allSongs.length} songs</span><h3>Global Rankings</h3><p>Build a leaderboard across this series.</p>
+              </Link>
+              <Link className="featurePanel countryPanel" to={`/countries#countries-${region}`}>
+                <span>{countries.length} countries</span><h3>Country Rankings</h3><p>Rank a country's entries across the years.</p>
+              </Link>
+              <Link className="featurePanel triviaPanel" to={`/trivia?region=${region}`}>
+                <span>Audio Quiz</span><h3>Trivia</h3><p>Test your knowledge of this series.</p>
+              </Link>
+            </div>
+          </section>;
+        })}
       </section>
     </main>
   );

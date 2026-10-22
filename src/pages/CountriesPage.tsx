@@ -1,10 +1,9 @@
 import { type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { useContestData } from "../components/ContestRegionProvider";
+import { dataByRegion, allSongsBackground } from "../data/years";
 
 export default function CountriesPage() {
-  const { allSongsBackground, countries } = useContestData();
   return (
     <main
       className="pageShell"
@@ -19,9 +18,12 @@ export default function CountriesPage() {
           <p>Rank every entry from a country across all loaded contest years.</p>
         </div>
 
+        {(["europe", "asia"] as const).map((region) => (
+        <section className="yearsSection" key={region} aria-labelledby={`countries-${region}`}>
+        <h2 id={`countries-${region}`}>{region === "europe" ? "Europe" : "Asia"}</h2>
         <div className="yearGrid">
-          {countries.map((country) => (
-            <Link className="yearCard countryCard" to={`/country/${country.slug}`} key={country.slug}>
+          {dataByRegion[region].countries.map((country) => (
+            <Link className="yearCard countryCard" to={`/country/${country.slug}?region=${region}`} key={country.slug}>
               <span className="countryCardFlag">
                 <img
                   src={country.flagImageUrl ?? country.flagEmoji}
@@ -36,6 +38,8 @@ export default function CountriesPage() {
             </Link>
           ))}
         </div>
+        </section>
+        ))}
       </section>
     </main>
   );

@@ -1,3 +1,4 @@
+import RegionSections from "./components/RegionSections";
 import ContestRegionProvider from "./components/ContestRegionProvider";
 import { useEffect } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
@@ -13,11 +14,13 @@ import YearPage from "./pages/YearPage";
 import YearsPage from "./pages/YearsPage";
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-  }, [pathname]);
+    const section = hash ? document.getElementById(hash.slice(1)) : null;
+    if (section) section.scrollIntoView({ behavior: "auto", block: "start" });
+    else window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname, hash]);
 
   return null;
 }
@@ -25,9 +28,9 @@ function ScrollToTop() {
 export default function App() {
   return (
     <AudioProvider>
+      <ContestRegionProvider>
       <NavBar />
       <ScrollToTop />
-      <ContestRegionProvider>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/years" element={<YearsPage />} />
@@ -35,10 +38,10 @@ export default function App() {
         <Route path="/countries" element={<CountriesPage />} />
         <Route path="/country/:countrySlug" element={<CountryPage />} />
         <Route path="/global" element={<Navigate to="/global-rankings" replace />} />
-        <Route path="/global-rankings" element={<GlobalRankingsPage />} />
+        <Route path="/global-rankings" element={<RegionSections title="Global Rankings"><GlobalRankingsPage /></RegionSections>} />
         <Route path="/all-songs" element={<Navigate to="/global-rankings" replace />} />
-        <Route path="/favorites" element={<AllSongsPage favoritesOnly />} />
-        <Route path="/trivia" element={<TriviaPage />} />
+        <Route path="/favorites" element={<RegionSections title="Favorites"><AllSongsPage favoritesOnly /></RegionSections>} />
+        <Route path="/trivia" element={<RegionSections title="Trivia"><TriviaPage /></RegionSections>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       </ContestRegionProvider>

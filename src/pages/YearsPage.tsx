@@ -1,10 +1,9 @@
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { useContestData } from "../components/ContestRegionProvider";
+import { dataByRegion, years } from "../data/years";
 
 export default function YearsPage() {
-  const { years } = useContestData();
   return (
     <main
       className="pageShell"
@@ -19,17 +18,22 @@ export default function YearsPage() {
           <p>Choose a contest year and build your ranking for that edition.</p>
         </div>
 
-        <div className="yearGrid">
-          {years.map((year) => (
-            <Link className="yearCard" to={`/year/${year.id}`} key={year.id}>
-              <span>
-                {year.hostCity}, {year.country}
-              </span>
-              <h2>{year.label}</h2>
-              <p>{year.songs.length} songs to rank</p>
-            </Link>
-          ))}
-        </div>
+        {(["europe", "asia"] as const).map((region) => (
+          <section className="yearsSection" key={region} aria-labelledby={`years-${region}`}>
+            <h2 id={`years-${region}`}>{region === "europe" ? "Europe" : "Asia"}</h2>
+            <div className="yearGrid">
+              {dataByRegion[region].years.map((year) => (
+                <Link className="yearCard" to={`/year/${year.id}`} key={year.id}>
+                  <span>
+                    {year.hostCity}, {year.country}
+                  </span>
+                  <h3>{year.label}</h3>
+                  <p>{year.songs.length} songs to rank</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        ))}
       </section>
     </main>
   );

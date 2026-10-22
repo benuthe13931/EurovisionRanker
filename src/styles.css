@@ -2006,7 +2006,8 @@ a {
 }
 
 .homeGrid>.pageHeader,
-.homeGrid>.yearGrid {
+.homeGrid>.yearGrid,
+.homeGrid>.yearsSection {
   grid-column: 1 / -1;
 }
 
@@ -2045,7 +2046,8 @@ a {
 }
 
 .featurePanel h2,
-.yearCard h2 {
+.yearCard h2,
+.yearCard h3 {
   margin: 10px 0 6px;
   font-size: 1.8rem;
 }
@@ -4792,7 +4794,8 @@ a {
     padding: 14px;
   }
 
-  .yearCard h2 {
+  .yearCard h2,
+.yearCard h3 {
     font-size: 1.25rem;
   }
 
@@ -5250,6 +5253,7 @@ a {
   border-radius: 6px;
 }
 
-.contestRegionTabs { display: flex; justify-content: center; gap: 8px; padding: 12px 16px; background: #121428; }
-.contestRegionTabs button { padding: 8px 24px; border-radius: 999px; border: 1px solid #646580; background: transparent; color: #fff; cursor: pointer; font: inherit; }
-.contestRegionTabs button.selected { background: #6154cf; border-color: #a99fff; }
+.regionBackLink { max-width: 1180px; margin: 16px auto 0; padding: 0 20px; }
+.yearsSection { min-width: 0; scroll-margin-top: 85px; }
+.yearsSection > h2 { margin: 0 0 16px; }
+.featurePanel h3 { margin: 10px 0 6px; font-size: 1.8rem; }
