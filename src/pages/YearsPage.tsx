@@ -27,7 +27,7 @@ export default function YearsPage() {
                   <span>
                     {year.hostCity}, {year.country}
                   </span>
-                  <h3>{year.label}</h3>
+                  <h3>{year.year}</h3>
                   <p>{year.songs.length} songs to rank</p>
                 </Link>
               ))}
